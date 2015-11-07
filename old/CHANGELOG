@@ -1,0 +1,71 @@
+TODO
+----
+2014.03.10 MPI parallization (1 process per variable) 
+2014.03.10 add chunking functionality with fixed chunk size
+           per output group specified in namelist
+2014.11.01 change reading method of input files
+           from file name guessing to file lists 
+2014.11.01 add support for more projects  
+2011.04.05 add check whether table file exists (PRIO.3)
+2011.03.28 ICE: add downwelling shortwave radiation (PRIO.3)
+2011.01.24 add compound-examples to namelists (PRIO.3)
+
+CHANGE-LOG
+----------
+2014.11.01 apply changes from Alf G. to make code more portable 
+2012.07.16 fix pco2 units (factor 10^6 ? to large )
+2012.08.09 fix npp 
+2012.03.30 fixed unit error of evs 
+2012.03.27 fixed wrong scaling of annual output
+2012.02.03 add ocean biogeochemical output:
+           - add 2d variables to sources/namelist
+           - add 3d variables to sources/namelist
+           - add switch to control output to sources/wrapper
+2012.02.03 add annual averaging of monthly data:
+           - update source code
+           - update namelists
+           - update wrapper scripts
+2012.01.23 turned off rotation of sea ice velocities
+2011.10.15 add option to add dummy day for micom2cmor
+2011.03.24 prepare quick-start guide (PRIO.3)
+2011.04.01 CAM: add processing of fixed variables to jobb script (PRIO.2)
+2011.01.24 CAM: add global mean chemical tracer variables to cam2cmor (PRIO.3)
+2011.05.20 CAM: change rlus to FLDS+FLNS
+2011.03.23 OCN: prepare job script (PRIO.2)
+2011.03.24 OCN: add switches for 2d and 3d data (PRIO.2)
+2011.05.07 OCN: add barotropic stream function
+2011.02.25 OCN: computation of rhopoto (use sig0 from eosfun.F) (PRIO.2)
+2011.02.25 OCN: add operators glbave (PRIO.2)
+2011.04.29 OCN: add compound variables, e.g. wfo (PRIO.2)
+2011.02.25 OCN: ocean 3d data (e.g. wmo) on half levels (PRIO.2)
+2011.02.25 OCN: zonally integrated data (PRIO.2)
+2011.04.16 ICE-OCN: add CAM start year to exp-namelists
+2011.04.20 OCN: add isopycnic layer values to comment
+2011.01.24 CAM: add tslsi (sea surface temperature where land or sea-ice) (PRIO.3)
+2011.02.25 OCN: section transports (PRIO.2)
+2011.02.25 OCN: vector data (PRIO.2)
+2011.04.01 OCN: change file naming (exception for isopycnic data)
+2011.01.24 ICE: add ice transport through Fram Strait (PRIO.3)
+2011.03.28 ICE: fix coordinates of transport variables (PRIO.1) 
+2011.03.25 CAM: optimize vertical interpolation (CANCLED)
+2011.03.23 LND: prepare job script (PRIO.1)
+2011.03.23 ICE: prepare job script (PRIO.1)
+2011.04.01 ATM: prepare job script for single variable processing (PRIO.2)
+2011.03.23 ATM: prepare job script (PRIO.1)
+2011.03.25 CAM: check values of radiation variables (PRIO.2)
+2011.03.24 ATM: at switches for 2d and 3d data (PRIO.1)
+2011.02.28 SKIPPED OCN: add calving (ficeberg=rfi) 
+2011.03.21 CAM: update correction for DMCSO (DMSCO = (46/32) * DMSCO)
+2011.02.22 CAM: correction of aerosol loadings
+2011.03.03 CAM: functionality to write 1st layer of 3d field
+2011.02.20 remove ifld/ofld destinction from clm2cmor and cice2cmor
+2011.02.20 shift reference year + 1 in sea ice output 
+2011.02.16 recompute time stamp in micom data 
+2011.02.06 fix time bounds problem in micom2cmor
+2011.02.02 check cell lattices for micom and cice
+2011.01.24 CAM: deal with case when first time slice is missing
+2011.01.24 CLM: deal with case when first time slice is missing
+2011.01.24 split 3-hourly instantaneous vs averaged data
+2010.09.01 add variable PS to 6h data 
+2010.08.31 add compound variables (ivnm set to "compound") 
+2010.08.31 prepare complete set of test input data 

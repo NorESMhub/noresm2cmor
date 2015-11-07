@@ -1,0 +1,63 @@
+# Targets 
+TARGET=noresm2cmor
+
+# Objects
+OBJ=m_namelists.o m_utilities.o m_modelsatm.o m_modelsice.o m_modelslnd.o m_modelsocn.o noresm2cmor.o
+
+# Paths 
+SRCDIR=../source
+BINDIR=../run
+
+# Fortran compiler
+FC=gfortran 
+
+# Linker
+LD=$(FC)
+
+# Libraries
+CMOR=/diverse/software/cmor-2.7.1
+UUID=/diverse/software/uuid-1.5.1
+NETCDF=/diverse/software/old_software/netcdf.gnu-4.2.1.1
+
+# Directory list to search for library files
+LIBS=-L$(CMOR)/lib -Wl,-rpath=$(CMOR)/lib -L$(UUID)/lib -Wl,-rpath=$(UUID)/lib -lcmor -lnetcdff -lnetcdf -lhdf5 -lhdf5_hl -luuid -l:libudunits2.so.0 -l:libexpat.so.1
+
+# Compiler flags
+#FFLAGS=-g -fbounds-check -fdefault-real-8 -I$(CMOR)/include -I$(NETCDF)/include
+FFLAGS=-O3 -fdefault-real-8 -I$(CMOR)/include -I$(NETCDF)/include
+
+# Linker flags
+#LDFLAGS=$(LIBS) -g -fbounds-check
+LDFLAGS=$(LIBS) 
+
+.PHONY: all clean
+
+all: $(TARGET)
+
+clean:
+	rm -f *.o *.f *.h *.inc *.mod *2cmor* 
+
+$(TARGET): $(OBJ) 
+	$(LD) -o $(TARGET) $(OBJ) $(LDFLAGS)
+	cp -f $(TARGET) $(BINDIR)
+
+noresm2cmor.o: $(SRCDIR)/noresm2cmor.F
+	$(FC) $(FFLAGS) -c $(SRCDIR)/noresm2cmor.F
+
+m_modelsatm.o: $(SRCDIR)/m_modelsatm.F
+	$(FC) $(FFLAGS) -c $(SRCDIR)/m_modelsatm.F
+
+m_modelsice.o: $(SRCDIR)/m_modelsice.F
+	$(FC) $(FFLAGS) -c $(SRCDIR)/m_modelsice.F
+
+m_modelslnd.o: $(SRCDIR)/m_modelslnd.F
+	$(FC) $(FFLAGS) -c $(SRCDIR)/m_modelslnd.F
+
+m_modelsocn.o: $(SRCDIR)/m_modelsocn.F
+	$(FC) $(FFLAGS) -c $(SRCDIR)/m_modelsocn.F
+
+m_namelists.o: $(SRCDIR)/m_namelists.F
+	$(FC) $(FFLAGS) -c $(SRCDIR)/m_namelists.F
+
+m_utilities.o: $(SRCDIR)/m_utilities.F
+	$(FC) $(FFLAGS) -c $(SRCDIR)/m_utilities.F

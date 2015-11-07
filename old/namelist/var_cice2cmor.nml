@@ -1,0 +1,64 @@
+! t* - path to table file (guessed if omitted) 
+! p* - alternative path to data file (path created if omitted)
+! v* - list of varibles: <cam name>,<cmor name>,<special operation>
+ 
+&table_fx
+ tfx           = '../../table/CMIP5_fx', 
+/
+
+&table_omon
+ tomon        = '../../table/CMIP5_Omon',
+ vomon        =
+!!               'fresh_ai      ','fsitherm  ','cmFW day-1 -> kg m-2 s-1',
+!!               'fsalt_ai      ','sfdsi     ','kg m-2 day-1 -> kg m-2 s-1',
+!                'fhocn_ai      ','hfsithermds','         ',
+/
+
+&table_oimon
+ toimon        = '../../table/CMIP5_OImon', 
+ voimon        = 
+!!               'transix       ','transix   ','          ',
+!!               'transiy       ','transiy   ','          ',
+!!               'transix       ','transifs  ','          ',
+!!               'qi            ','hcice     ','Xcellarea-1;J m-2;zero2missing',
+!!               'aice          ','sic       ','          ',
+!!               'hi            ','sit       ','          ',
+!!               'hi*917+hs*330 ','sim       ','kg m-2    ',
+!!               'evap_ai       ','evap      ','cmFW day-1 -> kg m-2 s-1;flipsign;positiveup',
+!!               'hs            ','snd       ','          ',
+!!               'fs            ','snc       ','          ',
+!                'albice        ','ialb      ','zero2missing'
+!!               'Tsfc          ','tsice     ','tsicecomment',
+!!               'rain_ai       ','pr        ','cmFW day-1 -> kg m-2 s-1',
+!!               'snow_ai       ','prsn      ','cmFW day-1 -> kg m-2 s-1',
+!!               'iage          ','ageice    ','          ',
+!!               'frazil        ','grFrazil  ','cmICE day-1 -> kg m-2 s-1',
+!!               'congel        ','grCongel  ','cmICE day-1 -> kg m-2 s-1',
+!!               'snoice        ','snoToIce  ','cmICE day-1 -> kg m-2 s-1',
+!!               'melts         ','snomelt   ','cmSNOW day-1 -> kg m-2 s-1',
+!!               'meltt         ','tmelt     ','cmICE day-1 -> kg m-2 s-1',
+!!               'meltb         ','bmelt     ','cmICE day-1 -> kg m-2 s-1',
+!!               'fswdn_ai      ','rsdssi    ','positivedo',  
+!!               'fswup_ai      ','rsussi    ','positiveup;flipsign',  
+!!               'flwdn_ai      ','rldssi    ','positivedo',
+!!               'flwup_ai      ','rlussi    ','positiveup;flipsign',
+!!               'fsens_ai      ','hfssi     ','positiveup;flipsign',
+!!               'flat_ai       ','hflssi    ','positiveup;flipsign',
+!!               'strairx       ','strairx   ','zero2missing;positivedo;Xaiu-1',
+!!               'strairy       ','strairy   ','zero2missing;positivedo;Xaiu-1',
+!!               'strocnx       ','strocnx   ','zero2missing',
+!!               'strocny       ','strocny   ','zero2missing',
+!!               'strength      ','streng    ','zero2missing;tavecomment',
+!!               'divu          ','divice    ','zero2missing;tavecomment'
+/
+
+&table_day
+ tday          = '../../table/CMIP5_day', 
+ vday          = 
+!!               'aice_d        ','sic       ','          ',
+!!               'hi_d          ','sit       ','          ',
+!!               'fs_d          ','snc       ','          ',
+!!               'uvel_d        ','usi       ','zero2missing',
+!!               'vvel_d        ','vsi       ','zero2missing',
+/
+ 

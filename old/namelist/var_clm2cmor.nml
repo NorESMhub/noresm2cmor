@@ -1,0 +1,80 @@
+! t* - path to table file (guessed if omitted) 
+! p* - alternative path to data file (path created if omitted)
+! v* - list of varibles: <cam name>,<cmor name>,<special operation>
+ 
+&table_fx
+ tfx           = '../../table/CMIP5_fx', 
+/
+
+&table_lmon
+ tlmon         = '../../table/CMIP5_Lmon', 
+ vlmon         = 
+!!               'SOILWATER_10CM','mrsos     ','          ',
+!!               'SOILLIQ+SOILICE','mrso     ','vertsum;miss2zero;limitmoist',
+!!               'SOILICE       ','mrfso     ','vertsum;miss2zero;limitmoist',
+!!               'QOVER         ','mrros     ','          ',
+!!               'QRUNOFF+QSNWCPICE','mrro   ','          '
+!!               'QINTR         ','prveg     ','          ',
+!!               'QVEGE         ','evspsblveg','positiveup',
+!!               'QVEGT         ','tran      ','positiveup',
+!!               'QSOIL         ','evspsblsoi','positiveup',
+!!               'SOILLIQ+SOILICE','mrlsl    ','missingval',
+!!               'TSOI          ','tsl       ','missingval',
+!!               'ANN_FAREA_BURNED','burntArea','percent  ',
+!!               'TOTVEGC       ','cVeg      ','kg m-2    ',
+!!               'TOTLITC       ','cLitter   ','kg m-2    ',
+!!               'TLAI          ','lai       ','fraction  ',
+!!               'SOILC         ','cSoil     ','kg m-2    ',
+!!               'GPP           ','gpp       ','kg m-2 s-1;positivedo',
+!!               'AR            ','ra        ','kg m-2 s-1;positiveup',
+!!               'NPP           ','npp       ','kg m-2 s-1;positivedo',
+!!               'HR            ','rh        ','kg m-2 s-1;positiveup',
+!!               'COL_FIRE_CLOSS','fFire     ','kg m-2 s-1;positiveup',
+!                'WOOD_HARVESTC ','fHarvest  ','kg m-2 s-1;positiveup',
+!                'DWT_CLOSS     ','fLuc      ','kg m-2 s-1;positiveup',
+!!               'NBP           ','nbp       ','kg m-2 s-1;positivedo',
+!!               'LITFALL       ','fVegLitter ','kg m-2 s-1',
+!!               'LITR1C_TO_SOIL1C+LITR2C_TO_SOIL2C+LITR3C_TO_SOIL3C','fLitterSoil ','kg m-2 s-1',
+!!               'LEAFC         ','cLeaf     ','kg m-2    ',
+!!               'LIVESTEMC+DEADSTEMC','cWood','kg m-2    ',
+!!               'LIVECROOTC+DEADCROOTC','cRoot','kg m-2  ',
+!!               'CWDC          ','cCwd      ','kg m-2    ',
+!!               'SOIL1C        ','cSoilFast ','kg m-2    ',
+!!               'SOIL2C        ','cSoilMedium','kg m-2   ',
+!!               'SOIL3C        ','cSoilSlow ','kg m-2    ',
+!!               'MR            ','rGrowth   ','kg m-2 s-1;positiveup',
+!!               'GR            ','rMaint    ','kg m-2 s-1;positiveup',
+!!               'LEAFC_ALLOC   ','nppLeaf   ','kg m-2 s-1;positivedo',
+!!               'WOODC_ALLOC   ','nppWood   ','kg m-2 s-1;positivedo',
+!!               'FROOTC_ALLOC  ','nppRoot   ','kg m-2 s-1;positivedo',
+!!               'NEP           ','nep       ','kg m-2 s-1;positivedo',
+/
+
+&table_limon
+ tlimon        = '../../table/CMIP5_LImon', 
+ vlimon        = 
+!!               'FSNO          ','snc       ','percent   ',
+!!               'SNOWICE+SNOWLIQ','snw      ','          ',
+!!               'SNOWDP        ','snd       ','          ',
+!!               'SNOWLIQ       ','lwsnl     ','          ',
+!!               'SNOBCMCL      ','sootsn    ','          ',
+/
+
+&table_day
+ tday          = '../../table/CMIP5_day', 
+ vday          = 
+!!               'SOILWATER_10CM','mrsos     ','          ',
+!!               'QRUNOFF       ','mrro      ','          ',
+/
+
+&table_3hr
+ t3hr          = '../../table/CMIP5_3hr', 
+ v3hr          = 
+!!               'QRUNOFF+QSNWCPICE','mrro   ','          '
+/
+
+&table_3hri
+ t3hri         = '../../table/CMIP5_3hr', 
+ v3hri         = 
+!!               'SOILWATER_10CM','mrsos     ','          '
+/

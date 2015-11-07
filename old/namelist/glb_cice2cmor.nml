@@ -1,0 +1,18 @@
+&global
+ ibasedir      = '/norstore/project/norclim/noresm/outputsample_devel_nobackup/raw',
+ obasedir      = '/norstore/project/norclim/noresm/outputsample_devel_nobackup', 
+ gridtable     = '../../table/CMIP5_grids'
+ secindexfile  = '../../data/secindex.dat'
+ tagmon        = 'h',
+ tagday        = 'h1',
+ year1         = 0, 
+ yearn         = 0,
+ month1        = 1, 
+ monthn        = 12,
+ createsubdirs = .true., 
+ verbose       = .false.,
+ do_fx         = .false.,
+ do_omon       = .false.,
+ do_oimon      = .false.,
+ do_day        = .false.,
+/

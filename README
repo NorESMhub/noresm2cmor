@@ -1,0 +1,121 @@
+NORESM2CMOR
+-----------
+
+1. How does it work? 
+
+noresm2cmor is a command line tool for post-processing NorESM output using 
+the Climate Model Output Rewriter (cmor) libraries. 
+
+Path and experiment information are set in a namelist file which the tool
+reads during execution. For each experiment, it is recommended to create 
+a new namelist file and place it in the folder noresm2cmor/namelist. 
+
+2. Installation
+ 
+Download and unpack:
+  cd ~
+  wget http://ns2345k.norstore.no/cmor/noresm2cmor_v20151109.tbz
+  tar xvf noresm2cmor_v20151109.tbz
+
+Build (modify Makefile before building): 
+  cd  noresm2cmor/build
+  make Makefile
+
+Install sample output on local scratch (modify scratch path if neccessary):
+  cd /scratch/$USER
+  wget http://noresg.norstore.no/thredds/fileServer/esg_dataroot/ns2345k/outputsample.tar
+  tar xf outputsample.tar
+
+3. Testing 
+
+cd ~/noresm2cmor/run 
+../
+
+NOTE: Before running the simple test-script, change ibasedir and obasedir in 
+      all namelist files in ~/noresm2cmor/run_simple/test_simple
+ 
+Advanced testing using wrapper scripts: 
+  cd ~/noresm2cmor/run_wrapper
+  ./test_wrapper.sh 
+
+NOTE: Before running, change IBASEDIR and OBASEDIR in test_wrapper.sh
+
+3. Processing a new experiment 
+
+Processing a new experiment involves following steps: 1) creation of an
+experiment namelist that contains necessary meta-information like experiment id,
+parent experiment id, transient forcings, branch time and reference year. 2)
+modification of some variable-namelists in case other than the default CMIP5
+variables are to be written. 3) creation of a run script that processes the data
+of the particular experiment. 
+
+3.1. Experiment namelist 
+
+Each experiment needs its own experiment namelist in the "noresm2cmor/namelist"
+folder. 
+
+The file name of the namelist must be "exp_.nml" (e.g. "exp_control.nml"). Valid
+CMIP5 experiment names (long and short versions) are listed at the beginning of
+each CMIP5 table, e.g. in "noresm2cmor/table/CMIP5_aero". 
+
+Only a few of the namelist fields need to be customized. Therefore, the easiest
+way is to copy a namelist from an existing experiment and then modify it. The
+namelist fields that need to be customized will are discussed here: 
+
+The namelist field "experiment_id" must be set to either the long or the short
+version of the CMIP5 experiment name (e.g. " experiment_id = 'piControl', "). 
+
+The namelist field "parent_experiment_id" must be set to the CMIP5 experiment
+name of the parent experiment exists then 'N/A' must be assigned. 
+
+The namelist field "parent_experiment_rip" should be set to 'r1i1p1' if a parent
+experiment exists and to 'N/A' if no parent experiment exists. 
+
+The namelist field "forcings" consists of a comma seperated list of all
+transient forcings (e.g. " forcings='GHG, SA, Oz, Sl, BC, OC', "). The forcing
+acronyms are found at
+http://cmip-pcmdi.llnl.gov/cmip5/docs/cmip5_data_reference_syntax.pdf (appendix
+1.2).  
+
+The namelist field "branch_time" should be identical to the time value in the
+atmospheric restart file that is used to initialize the experiment (e.g. "
+branch_time=255135, " is used when branching from year 700 of a spinup/control
+experiment). Use ncdump to obtain the time value of the restart file, e.g.
+"ncdump -v time NAER1850CNOC_f19_g16_05.cam2.r.0700-01-01-00000.nc". The value
+for branch_time must be set to 0 in case "parent_experiment=N/A". 
+
+The namelist field "expstartyear" must be set to the reference year used in the
+atmospheric output of the current experiment (e.g. " expstartyear=700, "). Use
+ncdump to obtain the reference date, e.g. "ncdump -h
+NRCP45AERCN_f19_g16_01.cam2.h0.2006-01.nc | grep time:units". 
+
+3.2. Adding new variables 
+
+For each model compont exists one namelist in the namelist folder that specifies
+the variables to be processed, namely: var_cam2cmor.nml, var_cice2cmor.nml,
+var_clm2cmor.nml and var_micom2cmor.nml. 
+
+Each variable namelist is devided into several sections which correspond to the
+data collections defined in the tables in "noresm2cmor/table". The tables define
+all possible/valid variables that can be delivered to the project. 
+
+Each variable that should be processed is presented by one line in the variable
+namelist. The first argument specifies the variable name as written in the model
+output (alternatively, a linear combination of several variables can be
+specified). The second argument specifies the variable name as declared in the
+corresponding table. The third argument specifies special actions that should be
+applied before writing the data. Further information on the syntax etc is found
+in the namelists.   
+
+3.3 Run script 
+
+An example for a run script is stored in "noresm2cmor/run_wrapper/test_wrapper.sh". 
+
+The run script calls the wrappers for the corresponding model components. The
+syntax of the wrapper call is:  
+"cam2cmor.sh <noresm case name> <cmip5 exp. id> <first year> <last year>
+<output group> <output variable> <in dir> <out dir> "
+If all years are to be processed then one can optionally set <first year> and
+<last year> to 0 and 9999, respectively. If all variables are to be processed
+then both <output group> and <output variable> should be set to "All". 
+  
