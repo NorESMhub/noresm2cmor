@@ -1,7 +1,0 @@
-CHANGE-LOG
-----------
-2015.11.06 path to namelist is read is no longer hard-coded, but now read 
-           from command line 
-2015.11.06 first CMIP6 prototype of noresm2cmor; CMIP5 version continues to 
-           lives in folder old 
-
