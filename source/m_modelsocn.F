@@ -88,7 +88,7 @@ c --- Read grid information from input files
 c
 c --- Process table fx 
       WRITE(*,*) 'Process table fx'
-      fnm=TRIM(ocngridfile)
+      fnm=TRIM(griddata)//TRIM(ocngridfile)
       table=tfx 
       DO n=1,nfx 
         IF(.NOT.dfx) EXIT
@@ -102,7 +102,7 @@ c --- - Map namelist variables
         vcomment=' ' 
 c
 c --- - Check if vertical coordinate required        
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
 c
 c --- - Check if input variable is present 
         IF (.NOT.var_in_file(fnm,ivnm)) CYCLE 
@@ -142,7 +142,7 @@ c --- - Map namelist variables
         vcomment=' ' 
 c
 c --- - Check if vertical coordinate required        
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
 c 
 c --- - Choose history file 
         IF (INDEX(special,'mon2yr').GT.0) THEN
@@ -231,7 +231,7 @@ c --- - Map namelist variables
         vcomment=' ' 
 c
 c --- - Check if vertical coordinate required        
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
 c 
 c --- - Choose history file 
         IF (INDEX(special,'mon2yr').GT.0) THEN
@@ -320,7 +320,7 @@ c --- - Map namelist variables
         vcomment=' ' 
 c
 c --- - Check if vertical coordinate required        
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
 c
 c --- - Check if we should skip variable 
         WRITE(*,*) TRIM(ovnm),TRIM(zcoord),do_3d,do_xd
@@ -418,7 +418,7 @@ c --- - Map namelist variables
         vcomment=' ' 
 c
 c --- - Check if vertical coordinate required        
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
 c
 c --- - Check if we should skip variable 
         WRITE(*,*) TRIM(ovnm),TRIM(zcoord),do_3d,do_xd
@@ -512,7 +512,7 @@ c --- - Map namelist variables
         vcomment=' '
 c
 c --- - Check if vertical coordinate required        
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
 c 
 c --- - Choose history file 
         itag=tagoday
@@ -905,7 +905,7 @@ c --- - Compute fixed cell volume of interpolated grid
 c 
 c --- - Compute basin index
         CASE ('basin')
-          OPEN(10,FILE=ocnmertfile)
+          OPEN(10,FILE=TRIM(griddata)//TRIM(ocnmertfile))
           READ(10,'(2i6)') i,j
           IF (i.NE.idm.OR.j.NE.jdm)
      .      STOP 'mertraocean: incorrect indexes in mertraoceans.dat!'
@@ -1161,7 +1161,8 @@ c
       FORALL (k=1:kdm+1) kvechalf(k)=k-1 
 c
 c --- Open grid file 
-      status=nf90_open(ocngridfile,nf90_nowrite,ncid) 
+      status=nf90_open(TRIM(griddata)//TRIM(ocngridfile),nf90_nowrite,
+     .  ncid) 
       CALL handle_ncerror(status)
 c
 c --- Read grid cell mask, area and bathymetry
@@ -1279,7 +1280,8 @@ c --- Close grid file
       CALL handle_ncerror(status)
 c
 c --- Read initial layer profile from inicon.nc
-      status=nf90_open(ocninitfile,nf90_nowrite,ncid) 
+      status=nf90_open(TRIM(griddata)//TRIM(ocninitfile),nf90_nowrite,
+     .  ncid) 
       CALL handle_ncerror(status)
 c
       status=nf90_inq_varid(ncid,'dz',rhid)
@@ -1434,12 +1436,13 @@ c --- Load CMOR table
      .  (lsumz.OR.INDEX(special,'glbave').GT.0
      .  .OR.INDEX(special,'2zos').GT.0 
      .  .OR.INDEX(special,'level1').GT.0)) THEN
-        table_id=cmor_load_table(TRIM(table)//TRIM(rhotablesuff))
+        table_id=cmor_load_table(TRIM(tabledir)//TRIM(table)//
+     .    TRIM(rhotablesuff))
       ELSE 
-        table_id=cmor_load_table(TRIM(table))
+        table_id=cmor_load_table(TRIM(tabledir)//TRIM(table))
       ENDIF
       IF (error_flag.NE.0) STOP 'Problem with loading CMOR table'
-      table_id_grid=cmor_load_table(TRIM(gridtable))
+      table_id_grid=cmor_load_table(TRIM(tabledir)//TRIM(tgrids))
       IF (error_flag.NE.0) STOP 'Problem with loading grid table'
 c
 c --- Activate CMOR table
@@ -1471,14 +1474,14 @@ c --- Define horizontal axes
       IF (error_flag.NE.0) STOP 'Problem with activating grid table'
 c
       iaxid=cmor_axis(
-     .  table           = TRIM(gridtable),
+     .  table           = TRIM(tabledir)//TRIM(tgrids),
      .  table_entry     = 'i_index',
      .  units           = '1',
      .  length          = idm,
      .  coord_vals      = xvec)
 c
       jaxid=cmor_axis(
-     .  table           = TRIM(gridtable),
+     .  table           = TRIM(tabledir)//TRIM(tgrids),
      .  table_entry     = 'j_index',
      .  units           = '1',
      .  length          = jdm, 
@@ -1516,7 +1519,7 @@ c --- Define vertical axis
      .  (lsumz.OR.INDEX(special,'glbave').GT.0
      .  .OR.INDEX(special,'2zos').GT.0.)) THEN 
         kaxid=cmor_axis(
-     .    table           = TRIM(gridtable),
+     .    table           = TRIM(tabledir)//TRIM(tgrids),
      .    table_entry     = 'olev',
      .    units           = '1',
      .    length          = kdm, 
@@ -1671,7 +1674,7 @@ c
       CALL handle_ncerror(status)
 c
 c --- Inquire time dimension of output variable 
-      CALL get_timecoord(table,ovnm,tcoord)
+      CALL get_timecoord(TRIM(tabledir)//TRIM(table),ovnm,tcoord)
 c
 c --- Call CMOR setup 
       IF (verbose) THEN
@@ -1702,12 +1705,13 @@ c --- Load CMOR table
      .  (lsumz.OR.INDEX(special,'glbave').GT.0
      .  .OR.INDEX(special,'2zos').GT.0 
      .  .OR.INDEX(special,'level1').GT.0)) THEN
-        table_id=cmor_load_table(TRIM(table)//TRIM(rhotablesuff))
+        table_id=cmor_load_table(TRIM(tabledir)//TRIM(table)//
+     .    TRIM(rhotablesuff))
       ELSE
-        table_id=cmor_load_table(TRIM(table))
+        table_id=cmor_load_table(TRIM(tabledir)//TRIM(table))
       ENDIF
       IF (error_flag.NE.0) STOP 'Problem with loading CMOR table'
-      table_id_grid=cmor_load_table(TRIM(gridtable))
+      table_id_grid=cmor_load_table(TRIM(tabledir)//TRIM(tgrids))
       IF (error_flag.NE.0) STOP 'Problem with loading grid table'
 c
 c --- Activate CMOR table
@@ -1752,13 +1756,13 @@ c --- Define horizontal axes
 c
       IF (vtype(1:3).NE.'mer'.AND.vtype(1:3).NE.'sec') THEN
         iaxid=cmor_axis(
-     .    table           = TRIM(gridtable),
+     .    table           = TRIM(tabledir)//TRIM(tgrids), ! COMMENT: shouldn't it be table_grid_id? 
      .    table_entry     = 'i_index',
      .    units           = '1',
      .    length          = idm,
      .    coord_vals      = xvec)
         jaxid=cmor_axis(
-     .    table           = TRIM(gridtable),
+     .    table           = TRIM(tabledir)//TRIM(tgrids),
      .    table_entry     = 'j_index',
      .    units           = '1',
      .    length          = jdm,

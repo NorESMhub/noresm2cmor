@@ -59,7 +59,7 @@ c --- -----------------------------------------------------------------
 c
       IMPLICIT NONE
 c
-      LOGICAL :: badrec,last
+      LOGICAL :: badrec,last,skipini
       INTEGER :: m,n,nrec
 c
 c --- Print start information
@@ -97,7 +97,7 @@ c --- - Map namelist variables
 c 
 c --- - Check if 2d and/or 3d fields are to be written 
         WRITE(*,*) TRIM(ivnm),TRIM(ovnm)
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
         IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
      .    zcoord(2:5).EQ.'levh') THEN
           IF (.NOT.do_3d) CYCLE
@@ -107,7 +107,7 @@ c --- - Check if 2d and/or 3d fields are to be written
 c
 c --- - Check if input variable is present        
         WRITE(*,*) TRIM(ivnm),TRIM(ovnm),TRIM(atmgridfile)
-        IF (LEN_TRIM(pfx).eq.0) fnm=TRIM(atmgridfile)
+        IF (LEN_TRIM(pfx).eq.0) fnm=TRIM(griddata)//TRIM(atmgridfile)
 cdiag   write(*,*) 'DEBUG: ',trim(fnm),year,month
         IF (.NOT.var_in_file(fnm,ivnm)) CYCLE 
 c
@@ -148,7 +148,7 @@ c --- - Map namelist variables
         vcomment=' '
 c 
 c --- - Check if 2d and/or 3d fields are to be written 
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
         IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
      .    zcoord(2:5).EQ.'levh') THEN
           IF (.NOT.do_3d) CYCLE
@@ -250,7 +250,7 @@ c --- - Map namelist variables
         vcomment=' '
 c 
 c --- - Check if 2d and/or 3d fields are to be written 
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
         WRITE(*,*) TRIM(ovnm),TRIM(zcoord),do_3d
         IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
      .    zcoord(2:5).EQ.'levh') THEN
@@ -350,7 +350,7 @@ c --- - Map namelist variables
         vcomment=' '
 c 
 c --- - Check if 2d and/or 3d fields are to be written 
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
         IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
      .    zcoord(2:5).EQ.'levh') THEN
           IF (.NOT.do_3d) CYCLE
@@ -374,6 +374,7 @@ c --- - Prepare output file
         CALL special_pre
 c
 c --- - Loop over files
+        skipini=.false.
         m=0
         DO
           m=m+1 
@@ -386,7 +387,12 @@ c --- --- Read variable into buffer (average if necessary)
           IF (LEN_TRIM(pday).eq.0) CALL scan_files 
           IF (rec.EQ.0) EXIT
 cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
-          tbnds(:,1)=tbnd
+          IF (tbnd(1).EQ.tbnd(2)) THEN 
+            IF(verbose) WRITE(*,*) 'Skip initialisation record'
+            skipini=.true.
+            CYCLE 
+          ENDIF 
+          tbnds(:,1)=tbnd 
           tval=0.5*(tbnds(1,1)+tbnds(2,1))
 c
 c --- --- Read data 
@@ -404,7 +410,8 @@ c --- --- Write time slice to output file
           CALL write_tslice
 c
 c --- --- Close output file if max rec has been reached 
-          IF (MOD(m,rday).EQ.0) CALL close_ofile 
+          IF (skipini.AND.MOD(m-1,rday).EQ.0.OR..NOT.skipini.AND.
+     .       MOD(m,rday).EQ.0) CALL close_ofile 
 c
 c --- - End loop over files and records
         ENDDO
@@ -431,7 +438,7 @@ c --- - Map namelist variables
         vcomment=' '
 c 
 c --- - Check if 2d and/or 3d fields are to be written 
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
         IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
      .    zcoord(2:5).EQ.'levh') THEN
           IF (.NOT.do_3d) CYCLE
@@ -505,7 +512,7 @@ c --- - Map namelist variables
         vcomment=' '
 c 
 c --- - Check if 2d and/or 3d fields are to be written 
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
         IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
      .    zcoord(2:5).EQ.'levh') THEN
           IF (.NOT.do_3d) CYCLE
@@ -587,7 +594,7 @@ c --- - Map namelist variables
         vcomment=' '
 c 
 c --- - Check if 2d and/or 3d fields are to be written 
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
         IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
      .    zcoord(2:5).EQ.'levh') THEN
           IF (.NOT.do_3d) CYCLE
@@ -659,7 +666,7 @@ c --- - Map namelist variables
         vcomment=' '
 c 
 c --- - Check if 2d and/or 3d fields are to be written 
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
         IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
      .    zcoord(2:5).EQ.'levh') THEN
           IF (.NOT.do_3d) CYCLE
@@ -1055,12 +1062,12 @@ c
       CHARACTER(LEN=200) :: c200
       LOGICAL :: fexists
 c
-      INQUIRE(FILE=TRIM(table),EXIST=fexists) 
+      INQUIRE(FILE=TRIM(tabledir)//TRIM(table),EXIST=fexists) 
       IF (.NOT.fexists) THEN
         WRITE(*,*) 'Table ',TRIM(table), ' does not exist' 
       ENDIF  
       pdm=0
-      OPEN(10,FILE=TRIM(table),STATUS='OLD')
+      OPEN(10,FILE=TRIM(tabledir)//TRIM(table),STATUS='OLD')
       DO
         READ(10,'(a200)') c200
         IF (INDEX(c200,'axis_entry: plev').LE.0) CYCLE
@@ -1166,7 +1173,7 @@ c --- Call CMOR setup
       IF (error_flag.NE.0) STOP 'Problem setting up CMOR'
 c
 c --- Load CMOR table 
-      table_id=cmor_load_table(TRIM(table))
+      table_id=cmor_load_table(TRIM(tabledir)//TRIM(table))
       IF (error_flag.NE.0) STOP 'Problem with loading CMOR table'
 c
 c --- Activate CMOR table
@@ -1298,9 +1305,9 @@ c
       CALL handle_ncerror(status)
 c
 c --- Inquire time and vertical dimension of output variable 
-      CALL get_timecoord(table,ovnm,tcoord)
+      CALL get_timecoord(TRIM(tabledir)//TRIM(table),ovnm,tcoord)
       IF (LEN_TRIM(tcoord).EQ.0) tcoord='time'
-      CALL get_vertcoord(table,ovnm,zcoord)
+      CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
       IF (zcoord(2:4).EQ.'lev'.OR.INDEX(special,'calcload').GT.0) THEN 
         IF (.NOT.ALLOCATED(ps)) THEN 
           ALLOCATE(ps(idm,jdm),STAT=status)
@@ -1351,7 +1358,7 @@ c --- Call CMOR setup
       IF (error_flag.NE.0) STOP 'Problem setting up CMOR'
 c
 c --- Load CMOR table 
-      table_id=cmor_load_table(TRIM(table))
+      table_id=cmor_load_table(TRIM(tabledir)//TRIM(table))
       IF (error_flag.NE.0) STOP 'Problem with loading CMOR table'
 c
 c --- Activate CMOR table

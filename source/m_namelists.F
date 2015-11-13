@@ -6,109 +6,118 @@ c --- Namelist limits
       INTEGER, PARAMETER :: rowmax=100,colmax=3,lenmax=80 
       INTEGER, PARAMETER :: slenmax=500,smax=10  
 c
-c --- Global namelist
-      CHARACTER(LEN=slenmax), SAVE :: ibasedir,obasedir,itag,gridtable,
-     .  secindexfile,ocngridfile,ocninitfile,ocnmertfile,rhotablesuff,
-     .  atmgridfile,namelistfile 
+c --- System namelist
+      CHARACTER(LEN=slenmax), SAVE :: ibasedir,obasedir,tabledir,
+     .  griddata
+      LOGICAL, SAVE :: createsubdirs,verbose
+      NAMELIST /system/
+     .  ibasedir, 
+     .  obasedir, 
+     .  tabledir,
+     .  griddata,
+     .  createsubdirs,
+     .  verbose
+c
+c --- Model namelist 
+      CHARACTER(LEN=slenmax), SAVE :: 
+     .  model_id,institute_id 
+      CHARACTER(LEN=slenmax), DIMENSION(smax), SAVE :: 
+     .  institution,source,references,contact
+      CHARACTER(LEN=(slenmax+1)*smax), SAVE :: 
+     .  institution1,source1,references1,contact1
       CHARACTER(LEN=slenmax), SAVE :: tagoyr,tagoyrbgc,tagomon,
      .  tagomonbgc,tagoday,tagodaybgc,tagimon,tagiday,tagamon,tagaday,
      .  taga6hr,taga3hr,taga3hri,taglmon,taglday,tagl3hr,tagl3hri
-      INTEGER,                SAVE :: year1,yearn,month1,monthn,year1out
-      LOGICAL,                SAVE :: createsubdirs,verbose,
-     .  do_fx,do_oyr,do_oyrbgc,do_amon,do_omon,do_omonbgc,do_oimon,
-     .  do_lmon,do_limon,do_aero,do_day,do_6hrlev,do_6hrplev,do_3hr,
-     .  do_3hri,do_2d,do_3d,do_xd,do_bgc,dry_run,plevdummy,readdummy,
-     .  add_fill_day
-      NAMELIST /global/ 
-     .  ibasedir, 
-     .  obasedir, 
+      CHARACTER(LEN=slenmax), SAVE :: 
+     .  secindexfile,ocngridfile,ocninitfile,ocnmertfile,rhotablesuff,
+     .  atmgridfile
+      LOGICAL, SAVE :: linebreaks
+      NAMELIST /model/
+     .  model_id,
+     .  source,              
+     .  institution,
+     .  institute_id, 
+     .  references,
+     .  contact,
+     .  tagoyr,
+     .  tagoyrbgc,
+     .  tagomon,
+     .  tagomonbgc,
+     .  tagoday,
+     .  tagodaybgc,
+     .  tagimon,
+     .  tagiday,
+     .  tagamon,
+     .  tagaday,
+     .  taga6hr,
+     .  taga3hr,
+     .  taga3hri,
+     .  taglmon,
+     .  taglday,
+     .  tagl3hr,
+     .  tagl3hri,
+     .  rhotablesuff, ! hidden
      .  secindexfile,
      .  atmgridfile,
      .  ocngridfile,
      .  ocninitfile,
      .  ocnmertfile,
-     .  gridtable,
-     .  rhotablesuff,
-     .  tagoyr, 
-     .  tagoyrbgc, 
-     .  tagomon, 
-     .  tagomonbgc, 
-     .  tagoday, 
-     .  tagodaybgc, 
-     .  tagimon, 
-     .  tagiday, 
-     .  tagamon, 
-     .  tagaday, 
-     .  taga6hr, 
-     .  taga3hr, 
-     .  taga3hri, 
-     .  taglmon, 
-     .  taglday, 
-     .  tagl3hr, 
-     .  tagl3hri, 
-     .  year1, 
-     .  year1out,
-     .  month1, 
-     .  yearn,
-     .  monthn,
-     .  createsubdirs,
-     .  verbose,
-     .  do_fx,
-     .  do_amon,
-     .  do_oyr,
-     .  do_oyrbgc,
-     .  do_omon,
-     .  do_omonbgc,
-     .  do_oimon,
-     .  do_lmon,
-     .  do_limon,
-     .  do_aero,
-     .  do_day,
-     .  do_6hrlev,
-     .  do_6hrplev, 
-     .  do_3hr,
-     .  do_3hri,
-     .  do_omon,
-     .  do_oimon,
-     .  do_2d,
-     .  do_3d, 
-     .  do_xd, 
-     .  do_bgc, 
-     .  dry_run,
-     .  plevdummy,
-     .  readdummy,
-     .  add_fill_day
+     .  linebreaks  ! hidden
 c
 c --- Experiment namelist
       CHARACTER(LEN=slenmax), SAVE :: 
-     .  casename,experiment_id,parent_experiment_id,model_id,
-     .  institute_id,parent_experiment_rip 
+     .  casename,experiment_id,parent_experiment_id,
+     .  parent_experiment_rip 
       CHARACTER(LEN=slenmax), DIMENSION(smax), SAVE :: 
-     .  institution,source,history,comment,references,forcing,contact
+     .  history,comment,forcing
       CHARACTER(LEN=(slenmax+1)*smax), SAVE :: 
-     .  institution1,source1,history1,comment1,references1,forcing1,
-     .  contact1
-      INTEGER, SAVE :: realization,exprefyear 
+     .  history1,comment1,forcing1
+      INTEGER, SAVE :: realization,exprefyear,year1,yearn,month1,monthn
       REAL(KIND=8), SAVE :: branch_time
-      LOGICAL, SAVE :: linebreaks 
+      LOGICAL, SAVE :: dry_run,plevdummy,readdummy,add_fill_day,
+     .  do_fx,do_oyr,do_oyrbgc,do_amon,do_omon,do_omonbgc,do_oimon,
+     .  do_lmon,do_limon,do_aero,do_day,do_6hrlev,do_6hrplev,do_3hr,
+     .  do_3hri,do_2d,do_3d,do_xd,do_bgc
       NAMELIST /experiment/ 
      .  casename, 
      .  experiment_id,    
-     .  institute_id, 
-     .  institution,
-     .  source,              
-     .  contact,
      .  history,
      .  comment,
-     .  references,
-     .  model_id,
      .  forcing,
      .  realization,
      .  branch_time,
      .  exprefyear,
      .  parent_experiment_id,
      .  parent_experiment_rip,
-     .  linebreaks 
+     .  year1, 
+     .  month1, 
+     .  yearn,
+     .  monthn,
+     .  do_fx, ! hidden
+     .  do_amon, ! hidden
+     .  do_oyr, ! hidden
+     .  do_oyrbgc, ! hidden
+     .  do_omon, ! hidden
+     .  do_omonbgc, ! hidden
+     .  do_oimon, ! hidden
+     .  do_lmon, ! hidden
+     .  do_limon, ! hidden
+     .  do_aero, ! hidden
+     .  do_day, ! hidden
+     .  do_6hrlev, ! hidden
+     .  do_6hrplev, ! hidden
+     .  do_3hr, ! hidden
+     .  do_3hri, ! hidden
+     .  do_omon, ! hidden
+     .  do_oimon, ! hidden
+     .  do_2d, ! hidden
+     .  do_3d, ! hidden
+     .  do_xd, ! hidden
+     .  do_bgc, ! hidden
+     .  dry_run, ! hidden
+     .  plevdummy, ! hidden
+     .  readdummy, ! hidden
+     .  add_fill_day ! hidden
 c 
 c --- Tables 
       LOGICAL, SAVE :: 
@@ -122,13 +131,14 @@ c --- Tables
      .  plmon,plimon,poyr,poyrbgc,pomonbgc
       CHARACTER(len=slenmax), SAVE ::
      .  tfx,tamon,tomon,toimon,taero,tday,t6hrlev,t6hrplev,t3hr,t3hri,
-     .  tlmon,tlimon,toyr,toyrbgc,tomonbgc
+     .  tlmon,tlimon,toyr,toyrbgc,tomonbgc,tgrids
       INTEGER, SAVE :: 
      .  nfx,namon,nomon,noimon,naero,nday,n6hrlev,n6hrplev,n3hr,n3hri,
      .  nlmon,nlimon,noyr,noyrbgc,nomonbgc
       INTEGER, SAVE :: 
      .  rfx,ramon,romon,roimon,raero,rday,r6hrlev,r6hrplev,r3hr,r3hri,
      .  rlmon,rlimon,royr,royrbgc,romonbgc
+      NAMELIST /table_grids/   tgrids
       NAMELIST /table_fx/      dfx,pfx,tfx,vfx
       NAMELIST /table_amon/    damon,pamon,tamon,ramon,vamon
       NAMELIST /table_aero/    daero,paero,taero,raero,vaero
@@ -147,11 +157,11 @@ c --- Tables
       NAMELIST /table_3hr/     d3hr,p3hr,t3hr,r3hr,v3hr
       NAMELIST /table_3hri/    d3hri,p3hri,t3hri,r3hri,v3hri
 c
-c --- Misc
+c --- Misc 
       INTEGER :: istatus
-c
-c --- Input file name 
-      CHARACTER(LEN=slenmax) :: fnm
+      CHARACTER(LEN=slenmax), SAVE :: fnm,itag,nmlfp ! input file name and tag 
+      CHARACTER(LEN=slenmax), SAVE :: nmlfpsys,nmlfpmod,nmlfpexp, 
+     .  nmlfpvar  ! namelist file paths 
 c
 c --- Time related variables 
       LOGICAL, SAVE :: linstant
@@ -177,33 +187,33 @@ c
 c
 c --- Initialise namelist variables
       ibasedir      = ' '
-      tagoyr         = ' '
-      tagoyrbgc      = ' '
-      tagomon        = ' '
-      tagomonbgc     = ' '
-      tagoday        = ' ' 
-      tagodaybgc     = ' ' 
-      tagimon        = ' '
-      tagiday        = ' ' 
-      tagamon        = ' '
-      tagaday        = ' ' 
-      taga6hr        = ' ' 
-      taga3hr        = ' ' 
-      taga3hri       = ' ' 
-      taglmon        = ' '
-      taglday        = ' ' 
-      tagl3hr        = ' ' 
-      tagl3hri       = ' ' 
-      obasedir      = ' ' 
+      obasedir      = ' '
+      tabledir      = ' '
+      griddata      = ' '
+      tagoyr        = ' '
+      tagoyrbgc     = ' '
+      tagomon       = ' '
+      tagomonbgc    = ' '
+      tagoday       = ' ' 
+      tagodaybgc    = ' ' 
+      tagimon       = ' '
+      tagiday       = ' ' 
+      tagamon       = ' '
+      tagaday       = ' ' 
+      taga6hr       = ' ' 
+      taga3hr       = ' ' 
+      taga3hri      = ' ' 
+      taglmon       = ' '
+      taglday       = ' ' 
+      tagl3hr       = ' ' 
+      tagl3hri      = ' ' 
       atmgridfile   = ' '
       ocngridfile   = ' '
       ocninitfile   = ' '
       ocnmertfile   = ' '
-      secindexfile  = '../data/secindex.dat'
-      gridtable     = '../table/CMIP5_grids'
+      secindexfile  = ' '
       rhotablesuff  = 'OnRho'
       year1         = 0 
-      year1out      = 0 
       month1        = 1
       yearn         = 0
       monthn        = 12
@@ -312,6 +322,7 @@ c
       r3hr          = 1000000
       r3hri         = 1000000
 c
+      tgrids        = 'CMIP5_grids'
       tfx           = 'CMIP5_fx'
       toyr          = 'CMIP5_Oyr'
       toyrbgc       = 'CMIP5_Oyr'
@@ -329,27 +340,86 @@ c
       t3hri         = 'CMIP5_3hr' 
 c
 c --- Read namelists 
-      IF (iargc().NE.1) THEN 
-        WRITE(*,*) 'Usage: noresm2cmor <path to namelist file>'        
-        STOP 
-      ELSE  
-        namelistfile=' ' 
-        CALL getarg(1,namelistfile)
+      IF (iargc().NE.1.AND.iargc().NE.4) THEN 
+        WRITE(*,*) 'Usage: noresm2cmor <path to master namelist file>'  
+        WRITE(*,*) '       or                                       '  
+        WRITE(*,*) '       noresm2cmor <system nml-file> <model nml'//
+     .    '-file> <exp nml-file> <variable nml-file>'  
+        STOP  
+      ELSEIF (iargc().EQ.1) THEN
+        nmlfp=' ' 
+        CALL getarg(1,nmlfp)
+        INQUIRE(FILE=TRIM(nmlfp),EXIST=fexist)
+        IF (.NOT.fexist) THEN
+          WRITE(*,*) 'cannot find namelist file'//TRIM(nmlfp) 
+          STOP
+        ENDIF
+        nmlfpsys=nmlfp
+        nmlfpmod=nmlfp
+        nmlfpexp=nmlfp
+        nmlfpvar=nmlfp
+      ELSEIF (iargc().EQ.4) THEN
+        nmlfpsys=' ' 
+        CALL getarg(1,nmlfpsys)
+        INQUIRE(FILE=TRIM(nmlfpsys),EXIST=fexist)
+        IF (.NOT.fexist) THEN
+          WRITE(*,*) 'cannot find namelist file'//TRIM(nmlfpsys) 
+          STOP
+        ENDIF
+        nmlfpmod=' ' 
+        CALL getarg(1,nmlfpmod)
+        INQUIRE(FILE=TRIM(nmlfpmod),EXIST=fexist)
+        IF (.NOT.fexist) THEN
+          WRITE(*,*) 'cannot find namelist file'//TRIM(nmlfpmod) 
+          STOP
+        ENDIF
+        nmlfpexp=' ' 
+        CALL getarg(1,nmlfpexp)
+        INQUIRE(FILE=TRIM(nmlfpexp),EXIST=fexist)
+        IF (.NOT.fexist) THEN
+          WRITE(*,*) 'cannot find namelist file'//TRIM(nmlfpexp) 
+          STOP
+        ENDIF
+        nmlfpvar=' ' 
+        CALL getarg(1,nmlfpvar)
+        INQUIRE(FILE=TRIM(nmlfpvar),EXIST=fexist)
+        IF (.NOT.fexist) THEN
+          WRITE(*,*) 'cannot find namelist file'//TRIM(nmlfpvar) 
+          STOP
+        ENDIF
       ENDIF
-      INQUIRE(FILE=TRIM(namelistfile),EXIST=fexist)
-      IF (.NOT.fexist) THEN
-        WRITE(*,*) 'cannot find namelist file'//TRIM(namelistfile) 
+c
+      OPEN(10,FILE=TRIM(nmlfpsys),STATUS='old',ACTION='read',RECL=200)
+      READ(10,nml=system,IOSTAT=istatus)
+      CLOSE(10)
+      IF (istatus.NE.0) THEN 
+        WRITE(*,*) 'Problem reading namelist system in file '//
+     .    TRIM(nmlfpsys)
         STOP
-      ENDIF
+      ENDIF  
+      griddata=TRIM(griddata)//'/' 
+      tabledir=TRIM(tabledir)//'/' 
 c
-      OPEN(10,FILE=TRIM(namelistfile),STATUS='old',ACTION='read',
-     .  RECL=200)
-      READ(10,nml=global)
-      REWIND(10)
-      READ(10,nml=experiment)
-      REWIND(10)
+      OPEN(10,FILE=TRIM(nmlfpmod),STATUS='old',ACTION='read',RECL=200)
+      READ(10,nml=model,IOSTAT=istatus)
+      CLOSE(10)
+      IF (istatus.NE.0) THEN 
+        WRITE(*,*) 'Problem reading namelist model in file '//
+     .    TRIM(nmlfpmod)
+        STOP
+      ENDIF  
 c
-      READ(10,nml=table_fx)
+      OPEN(10,FILE=TRIM(nmlfpexp),STATUS='old',ACTION='read',RECL=200)
+      READ(10,nml=experiment,IOSTAT=istatus)
+      CLOSE(10)
+      IF (istatus.NE.0) THEN 
+        WRITE(*,*) 'Problem reading namelist experiment in file '//
+     .    TRIM(nmlfpexp)
+        STOP
+      ENDIF  
+c
+      OPEN(10,FILE=TRIM(nmlfpvar),STATUS='old',ACTION='read',RECL=200)
+      READ(10,nml=table_fx,IOSTAT=istatus)
       REWIND(10)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table FX not in namelist file. Skipping table...'
@@ -483,14 +553,20 @@ c
       INTEGER :: n
 c 
       WRITE(*,*) 
-      WRITE(*,*) 'Global namelist:'
+      WRITE(*,*) 'System namelist:'
       WRITE(*,*) ' input directory  = ',trim(ibasedir)
       WRITE(*,*) ' output directory = ',trim(obasedir)
-      WRITE(*,*) ' atmos grid file  = ',trim(atmgridfile)
-      WRITE(*,*) ' ocean grid file  = ',trim(ocngridfile)
-      WRITE(*,*) ' ocean ini file   = ',trim(ocninitfile)
-      WRITE(*,*) ' grid table file  = ',trim(gridtable)
-      WRITE(*,*) ' rho table suffix = ',trim(rhotablesuff)
+      WRITE(*,*) ' table directory  = ',trim(tabledir)
+      WRITE(*,*) ' grid data dir.   = ',trim(griddata)
+      WRITE(*,*) ' create sub-dirs  = ',createsubdirs
+      WRITE(*,*) ' verbose          = ',verbose
+      WRITE(*,*) 
+      WRITE(*,*) 'Model namelist:' 
+      WRITE(*,*) ' institution      = ',trim(institution1)
+      WRITE(*,*) ' model id         = ',trim(model_id)
+      WRITE(*,*) ' source           = ',trim(source1)
+      WRITE(*,*) ' references       = ',trim(references1)
+      WRITE(*,*) ' contact          = ',trim(contact1)
       WRITE(*,*) ' tag annual ocn   = ',trim(tagoyr)
       WRITE(*,*) ' tag annual bgc   = ',trim(tagoyrbgc)
       WRITE(*,*) ' tag monthly ocn  = ',trim(tagomon)
@@ -508,24 +584,32 @@ c
       WRITE(*,*) ' tag daily lnd    = ',trim(taglday)
       WRITE(*,*) ' tag 3hourly lnd  = ',trim(tagl3hr) 
       WRITE(*,*) ' tag 3hourly insl = ',trim(tagl3hri) 
-      WRITE(*,*) ' start year       = ',year1 
-      WRITE(*,*) ' end year         = ',yearn 
-      WRITE(*,*) ' add dummy day    = ',add_fill_day
+      WRITE(*,*) ' atmos grid file  = ',trim(atmgridfile)
+      WRITE(*,*) ' ocean grid file  = ',trim(ocngridfile)
+      WRITE(*,*) ' ocean ini file   = ',trim(ocninitfile)
+      WRITE(*,*) ' ocean sec file   = ',trim(secindexfile)
+      WRITE(*,*) ' ocean moc file   = ',trim(ocnmertfile)
+      WRITE(*,*) ' allow line break = ',linebreaks 
 c
       WRITE(*,*) 
       WRITE(*,*) 'Experiment namelist:'
       WRITE(*,*) ' case name        = ',trim(casename) 
       WRITE(*,*) ' experiment id    = ',trim(experiment_id)
-      WRITE(*,*) ' institution      = ',trim(institution1)
-      WRITE(*,*) ' source           = ',trim(source1)
       WRITE(*,*) ' contact          = ',trim(contact1)
       WRITE(*,*) ' history          = ',trim(history1)
       WRITE(*,*) ' comment          = ',trim(comment1)
-      WRITE(*,*) ' references       = ',trim(references1)
-      WRITE(*,*) ' model id         = ',trim(model_id)
       WRITE(*,*) ' forcing          = ',trim(forcing1)
       WRITE(*,*) ' realization      =',realization
-      WRITE(*,*) ' allow line break =',linebreaks 
+      WRITE(*,*) ' start year       = ',year1 
+      WRITE(*,*) ' end year         = ',yearn 
+      WRITE(*,*) ' start month      = ',month1 
+      WRITE(*,*) ' end month        = ',monthn 
+      WRITE(*,*) ' add dummy day    = ',add_fill_day
+      WRITE(*,*) ' dry run          = ',dry_run
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table grids:'
+      WRITE(*,*) ' grid table file  = ',trim(tgrids)
 c
       WRITE(*,*) 
       WRITE(*,*) 'Table fx:'

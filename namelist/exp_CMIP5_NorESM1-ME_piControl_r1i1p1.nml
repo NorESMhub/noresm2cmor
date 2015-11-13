@@ -1,0 +1,17 @@
+&experiment
+ casename      = 'N1850RMAERCNOC_f19_g16_02',
+ experiment_id = 'piControl',
+ parent_experiment_id  = 'N/A',
+ parent_experiment_rip = 'N/A',
+ history       = ' ',
+ comment       = ' ',
+ forcing       = 'GHG, SA, Oz, Sl, Vl, BC, OC',
+ realization   = 1,
+ branch_time   = 0.,
+ year1         = 1,
+ yearn         = 1,
+ month1        = 1,
+ monthn        = 12,
+ exprefyear    = 1
+/
+

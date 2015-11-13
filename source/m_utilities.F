@@ -443,7 +443,7 @@ c
      .    mbnd,year,month)
       ENDIF
       IF(LEN_TRIM(fnm).eq.0) THEN 
-        WRITE(*,*) 'WARNING: no file found for ' 
+        IF (.FALSE.) WRITE(*,*) 'WARNING: no file found for ' 
      .//'case dir|tag|year1|month1|yearn|monthn: ',
      .  TRIM(ibasedir)//'/'//TRIM(casename),'|',TRIM(itag),'|',year1,'|'
      .  ,month1,'|',yearn,'|',monthn     
@@ -478,7 +478,8 @@ c --- create file list if it does not exist already
       if (.not.lexist) then 
 cdiag   write(*,*) 'get_file_info: create new file list '
 cdiag.    //trim(listpath)
-        call system('find '//trim(idir)//' -wholename "*/hist/*.nc"'
+        call system('find '//trim(idir)//'/'//trim(cnam)//
+     .    ' -path "*/hist/*" -name "*.nc"'
      .    //' | sort > '//trim(listpath))
       else 
         continue  
@@ -491,7 +492,7 @@ c --- check whether to start file list read from beginning or to resume
       if (y1old.ne.y1.or.y2old.ne.y2.or.m1old.ne.m1
      .     .or.m2old.ne.m2.or.index(fpreold,trim(fpre))
      .     .le.0.or.tbndold(2).le.-999998..or.lreset) then
-cdiag   write(*,*) 'reset nskip and irecold'
+        IF (.false.) write(*,*) 'reset nskip and irecold'
         nskip=0
         irecold=0      ! CORRECT?
       endif
@@ -532,6 +533,7 @@ c --- - pick out files that match fpre
           cycle
         endif
 c --- - read time information from files 
+cdiag   IF (verbose) WRITE(*,*) 'Scanning file ',TRIM(fnam)
         call handle_ncerror(nf90_open(trim(fnam),nf90_nowrite,ncid))
 c
         call handle_ncerror(nf90_inquire(ncid,

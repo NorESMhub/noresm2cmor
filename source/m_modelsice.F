@@ -82,8 +82,8 @@ c --- Read grid information from input files
 c 
 c --- Read Fram Strait grid information from secindex.dat
       WRITE(*,*) 'Read Fram Strait grid information from secindex.dat' 
-      CALL read_secindex(secindexfile,lsecindex,seclen,iind,jind,iflg,
-     .  jflg)
+      CALL read_secindex(TRIM(griddata)//TRIM(secindexfile),lsecindex,
+     .  seclen,iind,jind,iflg,jflg)
 c
 c
 c --- Process table fx 
@@ -102,7 +102,7 @@ c --- - Map namelist variables
         vcomment=' ' 
 c
 c --- - Check if vertical coordinate required        
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
 c
 c --- - Check if input variable is present 
         IF (LEN_TRIM(pfx).eq.0) CYCLE
@@ -149,7 +149,7 @@ c --- - Do not process ocean current fields uvel,vvel
         IF(TRIM(ivnm).EQ.'uvel'.OR.TRIM(ivnm).EQ.'vvel') EXIT
 c
 c --- - Check if vertical coordinate required        
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
 c 
 c --- - Choose history file 
         SELECT CASE (TRIM(special))
@@ -239,7 +239,7 @@ c --- - Map namelist variables
         vcomment=' '
 c
 c --- - Check if vertical coordinate required        
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
 c 
 c --- - Choose history file 
         SELECT CASE (TRIM(special))
@@ -329,7 +329,7 @@ c --- - Map namelist variables
         vcomment=' '
 c
 c --- - Check if vertical coordinate required        
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
 c
 c --- - Choose history file 
         itag=tagiday
@@ -811,9 +811,9 @@ c --- Call CMOR setup
       IF (error_flag.NE.0) STOP 'Problem setting up CMOR'
 c
 c --- Load CMOR table 
-      table_id=cmor_load_table(TRIM(table))
+      table_id=cmor_load_table(TRIM(tabledir)//TRIM(table))
       IF (error_flag.NE.0) STOP 'Problem with loading CMOR table'
-      table_id_grid=cmor_load_table(TRIM(gridtable))
+      table_id_grid=cmor_load_table(TRIM(tabledir)//TRIM(tgrids))
       IF (error_flag.NE.0) STOP 'Problem with loading grid table'
 c
 c --- Activate CMOR table
@@ -844,14 +844,14 @@ c --- Define horizontal axes
       IF (error_flag.NE.0) STOP 'Problem with activating grid table'
 c
       iaxid=cmor_axis(
-     .  table           = TRIM(gridtable),
+     .  table           = TRIM(tabledir)//TRIM(tgrids),
      .  table_entry     = 'i_index',
      .  units           = '1',
      .  length          = idm,
      .  coord_vals      = xvec)
 c
       jaxid=cmor_axis(
-     .  table           = TRIM(gridtable),
+     .  table           = TRIM(tabledir)//TRIM(tgrids),
      .  table_entry     = 'j_index',
      .  units           = '1',
      .  length          = jdm, 
@@ -972,7 +972,7 @@ c
       CALL handle_ncerror(status)
 c
 c --- Inquire time dimension of output variable 
-      CALL get_timecoord(table,ovnm,tcoord)
+      CALL get_timecoord(TRIM(tabledir)//TRIM(table),ovnm,tcoord)
 c
 c --- Call CMOR setup 
       IF (verbose) THEN
@@ -999,9 +999,9 @@ c --- Call CMOR setup
       IF (error_flag.NE.0) STOP 'Problem setting up CMOR'
 c
 c --- Load CMOR table 
-      table_id=cmor_load_table(TRIM(table))
+      table_id=cmor_load_table(TRIM(tabledir)//TRIM(table))
       IF (error_flag.NE.0) STOP 'Problem with loading CMOR table'
-      table_id_grid=cmor_load_table(TRIM(gridtable))
+      table_id_grid=cmor_load_table(TRIM(tabledir)//TRIM(tgrids))
       IF (error_flag.NE.0) STOP 'Problem with loading grid table'
 c
 c --- Activate CMOR table
@@ -1045,13 +1045,13 @@ c --- Define horizontal axes
 c
       IF (TRIM(ovnm).NE.'transifs') THEN
         iaxid=cmor_axis(
-     .    table           = TRIM(gridtable),
+     .    table           = TRIM(tabledir)//TRIM(tgrids),
      .    table_entry     = 'i_index',
      .    units           = '1',
      .    length          = idm,
      .    coord_vals      = xvec)
         jaxid=cmor_axis(
-     .    table           = TRIM(gridtable),
+     .    table           = TRIM(tabledir)//TRIM(tgrids),
      .    table_entry     = 'j_index',
      .    units           = '1',
      .    length          = jdm,

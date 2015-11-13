@@ -77,7 +77,7 @@ c --- - Map namelist variables
         vpositive=' ' 
 c
 c --- - Skip variable?
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
         IF (TRIM(zcoord).EQ.'sdepth') THEN 
           IF (.NOT.do_3d) CYCLE 
         ELSE 
@@ -123,7 +123,7 @@ c --- - Map namelist variables
         vpositive=' ' 
 c
 c --- - Skip variable?
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
         IF (TRIM(zcoord).EQ.'sdepth') THEN 
           IF (.NOT.do_3d) CYCLE 
         ELSE 
@@ -211,7 +211,7 @@ c --- - Map namelist variables
         vpositive=' '
 c
 c --- - Skip variable?
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
         IF (TRIM(zcoord).EQ.'sdepth') THEN 
           IF (.NOT.do_3d) CYCLE 
         ELSE 
@@ -299,7 +299,7 @@ c --- - Map namelist variables
         vpositive=' '
 c
 c --- - Skip variable?
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
         IF (TRIM(zcoord).EQ.'sdepth') THEN 
           IF (.NOT.do_3d) CYCLE 
         ELSE 
@@ -368,7 +368,7 @@ c --- - Map namelist variables
         vpositive=' '
 c
 c --- - Skip variable?
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
         IF (TRIM(zcoord).EQ.'sdepth') THEN 
           IF (.NOT.do_3d) CYCLE 
         ELSE 
@@ -437,7 +437,7 @@ c --- - Map namelist variables
         vpositive=' '
 c
 c --- - Skip variable?
-        CALL get_vertcoord(table,ovnm,zcoord)
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
         IF (TRIM(zcoord).EQ.'sdepth') THEN 
           IF (.NOT.do_3d) CYCLE 
         ELSE 
@@ -807,7 +807,7 @@ c --- Call CMOR setup
       IF (error_flag.NE.0) STOP 'Problem setting up CMOR'
 c
 c --- Load CMOR table 
-      table_id=cmor_load_table(TRIM(table))
+      table_id=cmor_load_table(TRIM(tabledir)//TRIM(table))
       IF (error_flag.NE.0) STOP 'Problem with loading CMOR table'
 c
 c --- Activate CMOR table
@@ -924,8 +924,8 @@ c
       CALL handle_ncerror(status)
 c
 c --- Inquire time and vertical dimension of output variable 
-      CALL get_timecoord(table,ovnm,tcoord)
-      CALL get_vertcoord(table,ovnm,zcoord)
+      CALL get_timecoord(TRIM(tabledir)//TRIM(table),ovnm,tcoord)
+      CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
 c
 c --- Call CMOR setup 
       IF (verbose) THEN
@@ -952,7 +952,7 @@ c --- Call CMOR setup
       IF (error_flag.NE.0) STOP 'Problem setting up CMOR'
 c
 c --- Load CMOR table 
-      table_id=cmor_load_table(TRIM(table))
+      table_id=cmor_load_table(TRIM(tabledir)//TRIM(table))
       IF (error_flag.NE.0) STOP 'Problem with loading CMOR table'
 c
 c --- Activate CMOR table
