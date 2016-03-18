@@ -4,8 +4,8 @@ NORESM2CMOR (v20151113)
 1. General
 ----------
 
-noresm2cmor is a command line tool for post-processing NorESM output using
-the Climate Model Output Rewriter (cmor) libraries.
+noresm2cmor is a FORTRAN based command line tool for post-processing NorESM 
+output using the Climate Model Output Rewriter (cmor) libraries.
 
 System, model, experiment and variable information are set in namelist files 
 which noresm2cmor reads during its execution. 
