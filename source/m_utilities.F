@@ -92,8 +92,13 @@ c
           vnm6=' '
         ENDIF
       ELSE
-        vnm1=vnm
-        vnm2=' '
+        IF (INDEX(vnm,',').GT.0) THEN
+          vnm1=vnm(1:INDEX(vnm,',')-1)
+          vnm2=vnm(INDEX(vnm,',')+1:smax)
+        ELSE
+          vnm1=vnm
+          vnm2=' '
+        ENDIF
         vnm3=' '
         vnm4=' '
         vnm5=' '
@@ -132,82 +137,6 @@ c
       ENDIF
 c
       END SUBROUTINE resolve_vnm
-
-
-
-      LOGICAL FUNCTION var_in_file(fnm,vnm)
-c
-      IMPLICIT NONE
-c
-      REAL :: fac1,fac2,fac3,fac4,fac5,fac6
-      CHARACTER(LEN=*) :: fnm,vnm
-      CHARACTER(LEN=slenmax) :: vnm1,vnm2,vnm3,vnm4,vnm5,vnm6
-c
-      INTEGER :: ncid,rhid,status,ind
-c 
-      status=nf90_open(TRIM(fnm),nf90_nowrite,ncid)
-      IF (status.NE.nf90_noerr) THEN
-        IF (verbose) WRITE(*,*) 
-     .    'WARNING: no file found for tag=',TRIM(itag),
-     .    '. Will skip respective output group.' 
-        var_in_file=.FALSE.
-        RETURN 
-      ENDIF  
-c
-      var_in_file=.TRUE.
-      CALL resolve_vnm(slenmax,vnm,vnm1,vnm2,vnm3,vnm4,vnm5,vnm6,fac1,
-     .  fac2,fac3,fac4,fac5,fac6)
-      status=nf90_inq_varid(ncid,TRIM(vnm1),rhid)
-      IF (status.NE.nf90_noerr) THEN
-        var_in_file=.FALSE.
-          IF (verbose) WRITE(*,*)
-     .      'cam2cmor: skipping variable '//TRIM(vnm)
-      ENDIF
-      IF (LEN_TRIM(vnm2).GT.0) THEN
-        status=nf90_inq_varid(ncid,TRIM(vnm2),rhid)
-        IF (status.NE.nf90_noerr) THEN
-          var_in_file=.FALSE.
-            IF (verbose) WRITE(*,*)
-     .        'cam2cmor: skipping variable '//TRIM(vnm)
-        ENDIF
-      ENDIF
-      IF (LEN_TRIM(vnm3).GT.0) THEN
-        status=nf90_inq_varid(ncid,TRIM(vnm3),rhid)
-        IF (status.NE.nf90_noerr) THEN
-          var_in_file=.FALSE.
-            IF (verbose) WRITE(*,*)
-     .        'cam2cmor: skipping variable '//TRIM(vnm)
-        ENDIF
-      ENDIF
-      IF (LEN_TRIM(vnm4).GT.0) THEN
-        status=nf90_inq_varid(ncid,TRIM(vnm4),rhid)
-        IF (status.NE.nf90_noerr) THEN
-          var_in_file=.FALSE.
-            IF (verbose) WRITE(*,*)
-     .        'cam2cmor: skipping variable '//TRIM(vnm)
-        ENDIF
-      ENDIF
-      IF (LEN_TRIM(vnm5).GT.0) THEN
-        status=nf90_inq_varid(ncid,TRIM(vnm5),rhid)
-        IF (status.NE.nf90_noerr) THEN
-          var_in_file=.FALSE.
-            IF (verbose) WRITE(*,*)
-     .        'cam2cmor: skipping variable '//TRIM(vnm)
-        ENDIF
-      ENDIF
-      IF (LEN_TRIM(vnm6).GT.0) THEN
-        status=nf90_inq_varid(ncid,TRIM(vnm6),rhid)
-        IF (status.NE.nf90_noerr) THEN
-          var_in_file=.FALSE.
-            IF (verbose) WRITE(*,*)
-     .        'cam2cmor: skipping variable '//TRIM(vnm)
-        ENDIF
-      ENDIF
-c
-      status=nf90_close(ncid)
-      CALL handle_ncerror(status)
-c
-      END FUNCTION var_in_file
 
 
 
@@ -261,56 +190,79 @@ c
 
 
 
-      LOGICAL FUNCTION var_in_file2(fnm,vnm)
+      LOGICAL FUNCTION var_in_file(fnm,vnm)
 c
       IMPLICIT NONE
 c
-      REAL :: fac1,fac2
+      REAL :: fac1,fac2,fac3,fac4,fac5,fac6
       CHARACTER(LEN=*) :: fnm,vnm
-      CHARACTER(LEN=slenmax) :: vnm1a,vnm2a,vnm1b,vnm2b
+      CHARACTER(LEN=slenmax) :: vnm1,vnm2,vnm3,vnm4,vnm5,vnm6
 c
       INTEGER :: ncid,rhid,status,ind
 c 
       status=nf90_open(TRIM(fnm),nf90_nowrite,ncid)
-      CALL handle_ncerror(status)
-c
-      var_in_file2=.TRUE.
-      CALL resolve_vnm2(slenmax,vnm,vnm1a,vnm2a,vnm1b,vnm2b,fac1,fac2)
-      status=nf90_inq_varid(ncid,TRIM(vnm1a),rhid)
       IF (status.NE.nf90_noerr) THEN
-        var_in_file2=.FALSE.
+        IF (verbose) WRITE(*,*) 
+     .    'WARNING: no file found for tag=',TRIM(itag),
+     .    '. Will skip respective output group.' 
+        var_in_file=.FALSE.
+        RETURN 
+      ENDIF  
+c
+      var_in_file=.TRUE.
+      CALL resolve_vnm(slenmax,vnm,vnm1,vnm2,vnm3,vnm4,vnm5,vnm6,fac1,
+     .  fac2,fac3,fac4,fac5,fac6)
+      status=nf90_inq_varid(ncid,TRIM(vnm1),rhid)
+      IF (status.NE.nf90_noerr) THEN
+        var_in_file=.FALSE.
           IF (verbose) WRITE(*,*)
-     .      'cice2cmor: skipping variable '//TRIM(vnm)
+     .      'skipping variable '//TRIM(vnm)
       ENDIF
-      IF (LEN_TRIM(vnm2a).GT.0) THEN
-        status=nf90_inq_varid(ncid,TRIM(vnm2a),rhid)
+      IF (LEN_TRIM(vnm2).GT.0) THEN
+        status=nf90_inq_varid(ncid,TRIM(vnm2),rhid)
         IF (status.NE.nf90_noerr) THEN
-          var_in_file2=.FALSE.
+          var_in_file=.FALSE.
             IF (verbose) WRITE(*,*)
-     .        'cice2cmor: skipping variable '//TRIM(vnm)
+     .        'skipping variable '//TRIM(vnm)
         ENDIF
       ENDIF
-      IF (LEN_TRIM(vnm1b).GT.0) THEN
-        status=nf90_inq_varid(ncid,TRIM(vnm1b),rhid)
+      IF (LEN_TRIM(vnm3).GT.0) THEN
+        status=nf90_inq_varid(ncid,TRIM(vnm3),rhid)
         IF (status.NE.nf90_noerr) THEN
-          var_in_file2=.FALSE.
+          var_in_file=.FALSE.
             IF (verbose) WRITE(*,*)
-     .        'cice2cmor: skipping variable '//TRIM(vnm)
+     .        'skipping variable '//TRIM(vnm)
         ENDIF
       ENDIF
-      IF (LEN_TRIM(vnm2b).GT.0) THEN
-        status=nf90_inq_varid(ncid,TRIM(vnm2b),rhid)
+      IF (LEN_TRIM(vnm4).GT.0) THEN
+        status=nf90_inq_varid(ncid,TRIM(vnm4),rhid)
         IF (status.NE.nf90_noerr) THEN
-          var_in_file2=.FALSE.
+          var_in_file=.FALSE.
             IF (verbose) WRITE(*,*)
-     .        'cice2cmor: skipping variable '//TRIM(vnm)
+     .        'skipping variable '//TRIM(vnm)
+        ENDIF
+      ENDIF
+      IF (LEN_TRIM(vnm5).GT.0) THEN
+        status=nf90_inq_varid(ncid,TRIM(vnm5),rhid)
+        IF (status.NE.nf90_noerr) THEN
+          var_in_file=.FALSE.
+            IF (verbose) WRITE(*,*)
+     .        'skipping variable '//TRIM(vnm)
+        ENDIF
+      ENDIF
+      IF (LEN_TRIM(vnm6).GT.0) THEN
+        status=nf90_inq_varid(ncid,TRIM(vnm6),rhid)
+        IF (status.NE.nf90_noerr) THEN
+          var_in_file=.FALSE.
+            IF (verbose) WRITE(*,*)
+     .        'skipping variable '//TRIM(vnm)
         ENDIF
       ENDIF
 c
       status=nf90_close(ncid)
       CALL handle_ncerror(status)
 c
-      END FUNCTION var_in_file2 
+      END FUNCTION var_in_file
 
 
 
