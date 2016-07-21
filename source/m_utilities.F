@@ -412,7 +412,7 @@ c
       implicit none
 c 
       character*500 :: idir,cnam,ftag,fpre,fnam,listpath=' '
-      integer :: y1,m1,y2,m2,yref,yr,irec
+      integer :: y1,m1,y2,m2,yref,mref,dref,yr,irec
       integer,save :: y1old=0,m1old=0,y2old=0,m2old=0
       integer :: year,month
       real*8 :: tval,tbnd(2),mbnd(2)
@@ -498,15 +498,17 @@ c
         call handle_ncerror(nf90_get_att(ncid,rhid,'units',units))
         call ncsevl(units,n,sstartend)
         read(units(sstartend(1,3):sstartend(1,3)+3),*) yref
+        read(units(sstartend(1,4):sstartend(1,4)+1),*) mref
+        read(units(sstartend(1,5):sstartend(1,5)+1),*) dref
         calendar=' '
         call handle_ncerror(nf90_get_att(ncid,rhid,'calendar',calendar))
 c --- - translate time limits to date numbers
-        call nccaln(trim(calendar),y1,m1,1,yref,1,1,ndays)
+        call nccaln(trim(calendar),y1,m1,1,yref,mref,dref,ndays)
         dnumlo=ndays
         if (m2.lt.12) then
-          call nccaln(trim(calendar),y2,m2+1,1,yref,1,1,ndays)
+          call nccaln(trim(calendar),y2,m2+1,1,yref,mref,dref,ndays)
         else
-          call nccaln(trim(calendar),y2+1,1,1,yref,1,1,ndays)
+          call nccaln(trim(calendar),y2+1,1,1,yref,mref,dref,ndays)
         endif
         dnumhi=ndays
         call nccaln(trim(calendar),y1,m1,1,yr,1,1,ndays)
@@ -528,12 +530,12 @@ c
             tbnd=tval
           endif
 c --- --- check if time value lies within limits
-          call nccaln(trim(calendar),yref,1,1,y1,m1,1,ndays)
+          call nccaln(trim(calendar),yref,mref,dref,y1,m1,1,ndays)
           dnumlo=ndays
           if (m2.lt.12) then
-            call nccaln(trim(calendar),yref,1,1,y2,m2+1,1,ndays)
+            call nccaln(trim(calendar),yref,mref,dref,y2,m2+1,1,ndays)
           else
-            call nccaln(trim(calendar),yref,1,1,y2+1,1,1,ndays)
+            call nccaln(trim(calendar),yref,mref,dref,y2+1,1,1,ndays)
           endif
           dnumhi=ndays
           if (tbnd(1).ge.dnumlo.and.tbnd(2).le.dnumhi) then
