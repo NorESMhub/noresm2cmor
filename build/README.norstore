@@ -1,0 +1,18 @@
+Compiling
+---------
+
+Use login node to compile tool. 
+
+Before compilation:
+module unload gcc 
+module load gcc/4.7.2
+
+Running
+-------
+
+ssh from login node to cruncher.norstore.uio.no. 
+
+Before running: 
+module unload gcc netcdf netcdf.gnu hdf5.gnu 
+module load gcc/4.7.2
+

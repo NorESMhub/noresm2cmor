@@ -9,13 +9,14 @@ c
 c --- System namelist
       CHARACTER(LEN=slenmax), SAVE :: ibasedir,obasedir,tabledir,
      .  griddata
-      LOGICAL, SAVE :: createsubdirs,verbose
+      LOGICAL, SAVE :: createsubdirs,forcefilescan,verbose
       NAMELIST /system/
      .  ibasedir, 
      .  obasedir, 
      .  tabledir,
      .  griddata,
      .  createsubdirs,
+     .  forcefilescan,
      .  verbose
 c
 c --- Model namelist 
@@ -218,6 +219,7 @@ c --- Initialise namelist variables
       yearn         = 0
       monthn        = 12
       createsubdirs = .TRUE.
+      forcefilescan = .TRUE.
       verbose       = .TRUE.
       do_fx         = .TRUE.
       do_oyr        = .TRUE.

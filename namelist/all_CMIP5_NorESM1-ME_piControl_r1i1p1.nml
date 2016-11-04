@@ -4,6 +4,7 @@
  griddata      = 'griddata',
  tabledir      = '../table'
  createsubdirs = .true.,
+ forcefilescan = .true.,  
  verbose       = .true.,
 /
 

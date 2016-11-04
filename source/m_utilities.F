@@ -427,7 +427,7 @@ c
 c --- create file list if it does not exist already 
       listpath='/tmp/filelist_'//trim(cnam)
       inquire(file=trim(listpath),exist=lexist)
-      if (.not.lexist) then 
+      if ((.not.lexist).or.forcefilescan) then 
 cdiag   write(*,*) 'get_file_info: create new file list '
 cdiag.    //trim(listpath)
         call system('find '//trim(idir)//'/'//trim(cnam)//
