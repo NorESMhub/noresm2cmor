@@ -422,12 +422,12 @@ c
       integer, save :: fstat,n,nrec,unlimdimid,ncid,rhid,rhid2,
      .           status,sstartend(2,10),nskip,irecold,toff,ndays
       real*8,save :: dnumlo,dnumhi, tbndold(2)=(/-999999.,-999999./)
-      logical, save :: ltimebnds,ldone,lexist
+      logical, save :: ltimebnds,ldone,lexist,lfirst=.true.
 c
 c --- create file list if it does not exist already 
       listpath='/tmp/filelist_'//trim(cnam)
       inquire(file=trim(listpath),exist=lexist)
-      if ((.not.lexist).or.forcefilescan) then 
+      if (lfirst.and.((.not.lexist).or.forcefilescan)) then 
 cdiag   write(*,*) 'get_file_info: create new file list '
 cdiag.    //trim(listpath)
         call system('find '//trim(idir)//'/'//trim(cnam)//
@@ -438,6 +438,7 @@ cdiag.    //trim(listpath)
 cdiag   write(*,*) 'get_file_info: read existing file list '   
 cdiag.    //trim(listpath)
       endif
+      if (lfirst) lfirst=.false. 
 c 
 c --- check whether to start file list read from beginning or to resume 
       fpre=trim(cnam)//'.'//trim(ftag)//'.'    
