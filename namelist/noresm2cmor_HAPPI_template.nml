@@ -1,23 +1,23 @@
 &system
- ibasedir      = 'inputdata',
- obasedir      = '.',
+ ibasedir      = 'XXX',
+ obasedir      = 'XXX',
  griddata      = 'griddata',
  tabledir      = '../table'
- createsubdirs = .true.,
+ createsubdirs = .false.,
  forcefilescan = .true.,  
  verbose       = .true.,
 /
 
 &model
- model_id      = 'NorESM2-MMproto1',
- source        = 'NorESM2-MMproto1 2015',
-                 ' atmosphere: CAM-Oslo (CAM5-Oslo, f19L30);',
-                 ' ocean: MICOM (MICOM, tnx1v1L53);',
-                 ' sea ice: CICE (CICE4);',
-                 ' land: CLM (CLM4)',
- institution   = 'Norwegian Climate Centre',
+ model_id      = 'NorESM1-HAPPI',
+ source        = 'NorESM1-HAPPI 2016',
+                 ' atmosphere: CAM-Oslo (CAM4-Oslo-noresm-ver1_cmip5-r112, f09L26);',
+                 ' ocean: MICOM (MICOM-noresm-ver1_cmip5-r112, gx1v6L53);',
+                 ' sea ice: CICE (CICE4-noresm-ver1_cmip5-r112);',
+                 ' land: CLM (CLM4-noresm-ver1_cmip5-r112)',
+ institution   = 'NorESM Climate modeling Consortium',
  institute_id  = 'NCC',
- references    = ' ',
+ references    = 'Mitchell, D., AchutaRao, K., Allen, M., Bethke, I., Forster, P., Fuglestvedt, J., Gillett, N., Haustein, K., Iversen, T., Massey, N., Schleussner, C.-F., Scinocca, J., Seland, Ø., Shiogama, H., Shuckburgh, E., Sparrow, S., Stone, D., Wallom, D., Wehner, M., and Zaaboul, R.: Half a degree Additional warming, Projections, Prognosis and Impacts (HAPPI): Background and Experimental Design, Geosci. Model Dev., 2017',
  contact       = 'Please send any requests or bug reports to noresm-ncc@met.no.',
  tagoyr        = 'micom.hy',
  tagoyrbgc     = 'micom.hbgcy',
@@ -26,26 +26,26 @@
  tagoday       = 'micom.hd',
  tagimon       = 'cice.h',
  tagiday       = 'cice.h1',
- tagamon       = 'cam.h0',
- tagaday       = 'cam.h1',
- taga6hr       = 'cam.h2',
- taga3hr       = 'cam.h3',
- taga3hri      = 'cam.h4',
+ tagamon       = 'cam2.h0',
+ tagaday       = 'cam2.h1',
+ taga6hr       = 'cam2.h2',
+ taga3hr       = 'cam2.h3',
+ taga3hri      = 'cam2.h4',
  taglmon       = 'clm2.h0',
  taglday       = 'clm2.h1',
  tagl3hr       = 'clm2.h2',
  tagl3hri      = 'clm2.h3',
  rhotablesuff  = 'OnRho'
- atmgridfile   = 'grid_atm_0.9x1.25_tnx0.25v1.nc',
- ocngridfile   = 'grid_tnx0.25v1.nc',
- ocninitfile   = 'inicon_tnx0.25v1.nc',
- ocnmertfile   = 'mertraoceans_tnx0.25v1.dat',
- secindexfile  = 'secindex_tnx0.25v1.dat'
+ atmgridfile   = 'grid_atm_0.9x1.25_gx1v6.nc',
+ ocngridfile   = 'grid_gx1v6.nc',
+ ocninitfile   = 'inicon_gx1v6.nc',
+ ocnmertfile   = 'mertraoceans_gx1v6.dat',
+ secindexfile  = 'secindex_gx1v6.dat'
 /
 
 &experiment
- casename      = 'CAM5O1MICOM.100Y.cont',
- experiment_id = 'piControl',
+ casename      = 'XXX',
+ experiment_id = 'XXX',
  parent_experiment_id  = 'N/A',
  parent_experiment_rip = 'N/A',
  history       = ' ',
@@ -53,11 +53,11 @@
  forcing       = 'N/A',
  realization   = 1,
  branch_time   = 0.,
- year1         = 100,
- yearn         = 100,
+ year1         = 2006,
+ yearn         = 2016,
  month1        = 1,
- monthn        = 12,
- exprefyear    = 1
+ monthn        = 6,
+ exprefyear    = 1850
 /
 
 ! d* - do table true/false 
@@ -66,33 +66,34 @@
 ! v* - list of varibles: <cam name>,<cmor name>,<special operation>
 
 &table_grids
- tgrids        = 'CMIP5_grids'
+ tgrids        = 'HAPPI_grids'
 /
  
 &table_fx
  dfx           = .true. 
- tfx           = 'CMIP5_fx', 
+ tfx           = 'HAPPI_fx', 
  vfx           = 
                  'area          ','areacella ','rad2m     ',
                  'LANDFRAC      ','sftlf     ','unitless  ',
                  'PHIS          ','orog      ','m;xginv   ',
                  'PCT_GLACIER*0.01','sftgif  ','unitless;landfrac',
-                 'pdepth        ','deptho    ','zero2missing',
-                 'pdepth        ','volcello  ','volcello    ',
-                 'parea         ','areacello ','pmask       ',
-                 'pmask         ','sftof     ','unitless    ',
-                 'pmask         ','basin     ','basin;unitless;zero2missing',
+                 'mrsofc        ','mrsofc    ','          ',
+!                'pdepth        ','deptho    ','zero2missing',
+!                'pdepth        ','volcello  ','volcello    ',
+!                'parea         ','areacello ','pmask       ',
+!                'pmask         ','sftof     ','unitless    ',
+!                'pmask         ','basin     ','basin;unitless;zero2missing',
 /
 
 &table_oyr
- doyr          = .true.,
+ doyr          = .false.,
  royr          = 100000,
  toyr          = 'CMIP5_Oyr',
  voyr          = ' ' 
 /
 
 &table_oyrbgc
- doyrbgc       = .true.,
+ doyrbgc       = .false.,
  royrbgc       = 100000,
  toyrbgc       = 'CMIP5_Oyr',
  voyrbgc       =
@@ -115,7 +116,7 @@
 /
 
 &table_omon
- domon         = .true.,
+ domon         = .false.,
  romon         = 100000,
  tomon         = 'CMIP5_Omon',
  vomon         =
@@ -183,7 +184,7 @@
 /
 
 &table_omonbgc
- domonbgc      = .true.,
+ domonbgc      = .false.,
  romonbgc      = 100000,
  tomonbgc      = 'CMIP5_Omon',
  vomonbgc      =
@@ -214,7 +215,7 @@
 /
 
 &table_oimon
- doimon        = .true., 
+ doimon        = .false., 
  roimon        = 100000,
  toimon        = 'CMIP5_OImon', 
  voimon        = 
@@ -255,23 +256,22 @@
 
 &table_amon
  damon         = .true. 
- tamon         = 'CMIP5_Amon',
+ tamon         = 'HAPPI_Amon',
  ramon         = 1000000, 
  vamon         = 
                  'TREFHT        ','tas       ','          ',  
                  'TS            ','ts        ','          ',
-!                'TREFHTMN      ','tasmin    ','day2mon   ',
-!                'TREFHTMX      ','tasmax    ','day2mon   ',
-                 'TREFHMNAV     ','tasmin    ','          ',
-                 'TREFHMXAV     ','tasmax    ','          ',
+                 'TREFHTMN      ','tasmin    ','day2mon   ',
+                 'TREFHTMX      ','tasmax    ','day2mon   ',
+!                'TREFHMNAV     ','tasmin    ','          ',
+!                'TREFHMXAV     ','tasmax    ','          ',
                  'PSL           ','psl       ','          ',
                  'PS            ','ps        ','          ',
                  'RHREFHT       ','hurs      ','percent;hurcomment', 
                  'QREFHT        ','huss      ','          ',
+                 'QREFHTMN      ','hussmin   ','day2mon   ',
                  'PRECT         ','pr        ','kg m-2 s-1',
-                 'PRECC         ','prc       ','kg m-2 s-1',
                  'PRECSC+PRECSL ','prsn      ','kg m-2 s-1',
-                 'QFLX          ','evspsbl   ','evscomment',
                  'TAUX          ','tauu      ','positiveup',
                  'TAUY          ','tauv      ','positiveup',
                  'LHFLX         ','hfls      ','positiveup',
@@ -280,44 +280,24 @@
                  'FLDS+FLNS     ','rlus      ','positiveup',
                  'FSDS          ','rsds      ','positivedo',
                  'FSDS-FSNS     ','rsus      ','positiveup',
-                 'FSDSC         ','rsdscs    ','positivedo',
-                 'FSDSC-FSNSC   ','rsuscs    ','positiveup',
-                 'FLDSC         ','rldscs    ','positivedo',
                  'FSNTOA+FSUTOA ','rsdt      ','positivedo',
                  'FSUTOA        ','rsut      ','positiveup',
-                 'FLUT          ','rlut      ','positiveup',
-                 'FLUTC         ','rlutcs    ','positiveup',
-                 'SOLIN-FSNTOAC ','rsutcs    ','positiveup',
+                 'FSNTOA-FSNT+FLNT','rlut      ','positiveup',
                  'CLDTOT        ','clt       ','unitless  ', 
-                 'TGCLDLWP+TGCLDIWP','clwvi  ','          ',
-                 'TGCLDIWP      ','clivi     ','          ',
-                 'FSNT-FLNT     ','rtmt      ','positivedo',
-                 'PCONVB        ','ccb       ','          ',
-                 'PCONVT        ','cct       ','          ',
-                 'CLOUD         ','cl        ','unitless  ',
-                 'CLDLIQ        ','clw       ','unitless  ',
-                 'CLDICE        ','cli       ','unitless  ',
-                 'CMFMC+CMFMCDZM','mc        ','positiveup',
                  'T             ','ta        ','          ',
-                 'U             ','ua        ','          ',
-                 'V             ','va        ','          ',
-                 'U             ','uas       ','blayer    ',
-                 'V             ','vas       ','blayer    ',
-                 'Z3            ','zg        ','          ', 
-                 'Q             ','prw       ','calcload  ',
-                 'Q             ','hus       ','          ',
+                 'U             ','ua        ','catplev   ',
+                 'V             ','va        ','catplev   ',
+                 'UAS           ','uas       ','          ',
+                 'VAS           ','vas       ','          ',
+                 'Z3            ','zg        ','catplev   ', 
+                 'TMQ           ','prw       ','          ',
+                 'Q             ','hus       ','catplev   ',
                  'RELHUM        ','hur       ','percent;hurcomment',
-                 'OMEGA         ','wap       ','          ',
-                 'FREQSH        ','sci       ','unitless  ',
-                 'CO2           ','co2       ','co2units  ',
-                 'co2vmr*1.5172413793','co2mass','timesmass ',
-                 'ch4vmr        ','ch4global ','unitless  ',
-                 'n2ovmr        ','n2oglobal ','unitless  ',
-                 'FREQZM        ','ci        ','unitless  ',
+                 'OMEGA         ','wap       ','catplev   ',
 /
 
 &table_aero
- daero         = .true.
+ daero         = .false.
  taero         = 'CMIP5_aero',
  raero         = 1000000, 
  vaero         = 
@@ -371,107 +351,69 @@
 
 &table_lmon
  dlmon        = .true.
- tlmon        = 'CMIP5_Lmon'
+ tlmon        = 'HAPPI_Lmon'
  vlmon        =
+                 'QCHOCNR+QCHOCNR_ICE','dis  ','          ',
                  'SOILWATER_10CM','mrsos     ','          ',
                  'SOILLIQ+SOILICE','mrso     ','vertsum;miss2zero;limitmoist',
-                 'SOILICE       ','mrfso     ','vertsum;miss2zero;limitmoist',
                  'QOVER         ','mrros     ','          ',
                  'QRUNOFF+QSNWCPICE','mrro   ','          '
-                 'QINTR         ','prveg     ','          ',
-                 'QVEGE         ','evspsblveg','positiveup',
-                 'QVEGT         ','tran      ','positiveup',
-                 'QSOIL         ','evspsblsoi','positiveup',
-                 'SOILLIQ+SOILICE','mrlsl    ','missingval',
-                 'TSOI          ','tsl       ','missingval',
-                 'ANN_FAREA_BURNED','burntArea','percent  ',
-                 'TOTVEGC       ','cVeg      ','kg m-2    ',
-                 'TOTLITC       ','cLitter   ','kg m-2    ',
-                 'TLAI          ','lai       ','fraction  ',
-                 'SOILC         ','cSoil     ','kg m-2    ',
                  'GPP           ','gpp       ','kg m-2 s-1;positivedo',
-                 'AR            ','ra        ','kg m-2 s-1;positiveup',
                  'NPP           ','npp       ','kg m-2 s-1;positivedo',
-                 'HR            ','rh        ','kg m-2 s-1;positiveup',
-                 'COL_FIRE_CLOSS','fFire     ','kg m-2 s-1;positiveup',
-                 'WOOD_HARVESTC ','fHarvest  ','kg m-2 s-1;positiveup',
-                 'DWT_CLOSS     ','fLuc      ','kg m-2 s-1;positiveup',
-                 'NBP           ','nbp       ','kg m-2 s-1;positivedo',
-                 'LITFALL       ','fVegLitter ','kg m-2 s-1',
-                 'LITR1C_TO_SOIL1C+LITR2C_TO_SOIL2C+LITR3C_TO_SOIL3C','fLitterSoil ','kg m-2 s-1',
-                 'LEAFC         ','cLeaf     ','kg m-2    ',
-                 'LIVESTEMC+DEADSTEMC','cWood','kg m-2    ',
-                 'LIVECROOTC+DEADCROOTC','cRoot','kg m-2  ',
-                 'CWDC          ','cCwd      ','kg m-2    ',
-                 'SOIL1C        ','cSoilFast ','kg m-2    ',
-                 'SOIL2C        ','cSoilMedium','kg m-2   ',
-                 'SOIL3C        ','cSoilSlow ','kg m-2    ',
-                 'MR            ','rGrowth   ','kg m-2 s-1;positiveup',
-                 'GR            ','rMaint    ','kg m-2 s-1;positiveup',
-                 'LEAFC_ALLOC   ','nppLeaf   ','kg m-2 s-1;positivedo',
-                 'WOODC_ALLOC   ','nppWood   ','kg m-2 s-1;positivedo',
-                 'FROOTC_ALLOC  ','nppRoot   ','kg m-2 s-1;positivedo',
-                 'NEP           ','nep       ','kg m-2 s-1;positivedo',
 /
 
 
 &table_limon
  dlimon        = .true.
- tlimon        = 'CMIP5_LImon'
+ tlimon        = 'HAPPI_LImon'
  rlimon        = 1000000, 
  vlimon        =
-                 'FSNO          ','snc       ','percent   ',
                  'SNOWICE+SNOWLIQ','snw      ','          ',
-                 'SNOWDP        ','snd       ','          ',
-                 'SNOWLIQ       ','lwsnl     ','          ',
-                 'SNOBCMCL      ','sootsn    ','          ',
 /
 
 &table_day
  dday          = .true.
- tday          = 'CMIP5_day', 
+ tday          = 'HAPPI_day', 
  rday          = 1000000, 
  vday          = 
-                 'PSL           ','psl       ','          ',
-                 'QREFHT        ','huss      ','          ',
+                 'Z3            ','zg        ','catplev   ',
+                 'T             ','ta        ','catplev   ',
+                 'U             ','ua        ','catplev   ',
+                 'V             ','va        ','catplev   ',
+                 'Q             ','hus       ','catplev   ',
+                 'TREFHT        ','tas       ','          ',
+                 'TS            ','ts        ','          ',
                  'TREFHTMN      ','tasmin    ','          ',
                  'TREFHTMX      ','tasmax    ','          ',
-                 'TREFHT        ','tas       ','          ',
+                 'PSL           ','psl       ','          ',
+                 'PS            ','ps        ','          ',
+                 'RHREFHT       ','hurs      ','percent;hurcomment',
+                 'QREFHT        ','huss      ','          ',
+                 'QREFHTMN      ','hussmin   ','day2mon   ',
                  'PRECT         ','pr        ','kg m-2 s-1',
-                 'RHREFHT       ','rhs       ','percent   ',
-                 'CLDTOT        ','clt       ','unitless  ',
-                 'SNOWHLND      ','snw       ','kg m-2    ',
-                 'PRECC         ','prc       ','kg m-2 s-1',
                  'PRECSC+PRECSL ','prsn      ','kg m-2 s-1',
                  'LHFLX         ','hfls      ','positiveup',
                  'SHFLX         ','hfss      ','positiveup',
                  'FLDS          ','rlds      ','positivedo',
-                 'FSDS          ','rsds      ','positivedo',
                  'FLDS+FLNS     ','rlus      ','positiveup',
+                 'FSDS          ','rsds      ','positivedo',
                  'FSDS-FSNS     ','rsus      ','positiveup',
-                 'FLUT          ','rlut      ','positiveup',
-                 'T             ','ta        ','          ',
-                 'RELHUM        ','hur       ','percent;hurcomment',
-                 'Q             ','hus       ','          ',
-                 'OMEGA         ','wap       ','          ',
-                 'U             ','ua        ','          ',
-                 'V             ','va        ','          ',
-                 'U             ','uas       ','blayer    ',
-                 'V             ','vas       ','blayer    ',
-                 'Z3            ','zg        ','          ', 
-                 'aice_d        ','sic       ','          ',
-                 'hi_d          ','sit       ','          ',
-                 'fs_d          ','snc       ','          ',
-                 'uvel_d        ','usi       ','zero2missing',
-                 'vvel_d        ','vsi       ','zero2missing',
+                 'CLDTOT        ','clt       ','unitless  ',
+                 'UAS           ','uas       ','          ',
+                 'VAS           ','vas       ','          ',
+                 'TMQ           ','prw       ','          ',
+                 'QCHOCNR+QCHOCNR_ICE','dis  ','          ',
                  'SOILWATER_10CM','mrsos     ','          ',
-                 'QRUNOFF       ','mrro      ','          ',
-                 'sst           ','tos       ','          ',
-                 'maxmld        ','omldamax  ','          ',
+                 'SOILLIQ+SOILICE','mrso     ','vertsum;miss2zero;limitmoist',
+                 'QOVER         ','mrros     ','          ',
+                 'QRUNOFF+QSNWCPICE','mrro   ','          '
+                 'GPP           ','gpp       ','kg m-2 s-1;positivedo',
+                 'NPP           ','npp       ','kg m-2 s-1;positivedo',
+                 'SNOWICE+SNOWLIQ','snw      ','          ',
 /
 
 &table_6hrlev
- d6hrlev       = .true.
+ d6hrlev       = .false.
  t6hrlev       = 'CMIP5_6hrLev', 
  r6hrlev       = 1000000, 
  v6hrlev       = 
@@ -483,7 +425,7 @@
 /
 
 &table_6hrplev
- d6hrplev      = .true.
+ d6hrplev      = .false.
  t6hrplev      = 'CMIP5_6hrPlev', 
  r6hrplev      = 1000000, 
  v6hrplev      = 
@@ -494,7 +436,7 @@
 /
 
 &table_3hr 
- d3hr          = .true.
+ d3hr          = .false.
  t3hr          = 'CMIP5_3hr',
  r3hr          = 1000000, 
  v3hr          = 
@@ -518,7 +460,7 @@
 /
 
 &table_3hri
- d3hri         = .true.
+ d3hri         = .false.
  t3hri         = 'CMIP5_3hr',
  r3hri         = 1000000, 
  v3hri         = 

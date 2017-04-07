@@ -18,6 +18,7 @@ LD=$(FC)
 CMOR=/diverse/software/cmor-2.7.1
 UUID=/diverse/software/uuid-1.5.1
 NETCDF=/diverse/software/old_software/netcdf.gnu-4.2.1.1
+#NETCDF=/diverse/software/netcdf.gnu-4.4.0  
 
 # Directory list to search for library files
 LIBS=-L$(CMOR)/lib -Wl,-rpath=$(CMOR)/lib -L$(UUID)/lib -Wl,-rpath=$(UUID)/lib -lcmor -lnetcdff -lnetcdf -lhdf5 -lhdf5_hl -luuid -l:libudunits2.so.0 -l:libexpat.so.1

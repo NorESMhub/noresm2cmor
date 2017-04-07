@@ -29,5 +29,6 @@ rm wget_all.sh
 # create symbolic link 
 echo "Place symbolic link to grid data directory in run directory"
 cd $PWDDIR/run
+rm -rf griddata
 ln -sf $1 griddata 
 echo completed

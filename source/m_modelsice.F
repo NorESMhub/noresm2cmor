@@ -66,6 +66,9 @@ c
       LOGICAL :: badrec,last
       INTEGER :: m,n,nrec
 c
+c --- Skip if all ice tables deactivated
+      IF (.NOT.doimon) RETURN
+c
 c --- Print start information
       IF (verbose) THEN
         WRITE(*,*)

@@ -46,9 +46,9 @@ Run installation script for input data sample
 Change directory to noresm2cmor/run 
 
 Run test with 
- ./noresm2cmor ../namelist/all_CMIP5_NorESM1-M_historical_r1i1p1.nml
+ ./noresm2cmor ../namelist/noresm2cmor_CMIP5_NorESM1-M_historical_r1i1p1.nml
 
-To get general usage instructions for noresm2cmor, run
+Prompt syntax with
  ./noresm2cmor 
 
 4. Customization of namelists 

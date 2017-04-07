@@ -154,7 +154,7 @@ c --- - Check if 2d and/or 3d fields are to be written
           IF (.NOT.do_3d) CYCLE
 c --- --- Read pressure levels from table 
           IF (lreadplev) THEN 
-            CALL read_gridinfo_plev
+            CALL read_gridinfo_plev(TRIM(zcoord))
             lreadplev=.FALSE.
           ENDIF
         ELSE
@@ -176,7 +176,9 @@ c
 c --- - Check if input variable is present  
         IF (LEN_TRIM(pamon).eq.0) CALL scan_files(reset=.TRUE.)
 cdiag   write(*,*) 'DEBUG: ',trim(fnm),year1,year,month
-        IF (.NOT.var_in_file(fnm,ivnm)) CYCLE 
+        IF (INDEX(special,'catplev').LT.1) THEN 
+          IF (.NOT.var_in_file(fnm,ivnm)) CYCLE 
+        ENDIF
 c 
 c --- - Prepare special operations
         CALL special_pre    
@@ -212,7 +214,8 @@ cdiag      write(*,*) 'DEBUG: ',trim(fnm),rec,nrec,tbnd,mbnd,year,month
           tval=0.5*(tbnds(1,1)+tbnds(2,1))
 c 
 c --- --- Post processing 
-          IF (zcoord(1:4).EQ.'plev') THEN 
+          IF (zcoord(1:4).EQ.'plev'.AND.
+     .      INDEX(special,'catplev').LT.1) THEN 
             CALL interp_z
           ELSE
             ofld=ifld  
@@ -257,7 +260,7 @@ c --- - Check if 2d and/or 3d fields are to be written
           IF (.NOT.do_3d) CYCLE
 c --- --- Read pressure levels from table 
           IF (lreadplev) THEN
-            CALL read_gridinfo_plev
+            CALL read_gridinfo_plev(TRIM(zcoord))
             lreadplev=.FALSE.
           ENDIF
         ELSE
@@ -356,8 +359,8 @@ c --- - Check if 2d and/or 3d fields are to be written
           IF (.NOT.do_3d) CYCLE
 c --- --- Read pressure levels from table 
           IF (lreadplev) THEN
-            CALL read_gridinfo_plev
-            lreadplev=.FALSE.
+            CALL read_gridinfo_plev(TRIM(zcoord)) 
+!            lreadplev=.FALSE.
           ENDIF
         ELSE
           IF (.NOT.do_2d) CYCLE
@@ -368,7 +371,9 @@ c --- - Choose history file
 c
 c --- - Check if input variable is present  
         IF (LEN_TRIM(pday).eq.0) CALL  scan_files(reset=.TRUE.)
-        IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+        IF (INDEX(special,'catplev').LT.1) THEN 
+          IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+        ENDIF
 c
 c --- - Prepare output file 
         CALL special_pre
@@ -399,7 +404,8 @@ c --- --- Read data
           CALL read_tslice(rec,nrec,badrec,fnm)
 c
 c --- --- Post processing 
-          IF (zcoord(1:4).EQ.'plev') THEN
+          IF (zcoord(1:4).EQ.'plev'.AND.
+     .      INDEX(special,'catplev').LT.1) THEN 
             CALL interp_z
           ELSE
             ofld=ifld
@@ -518,7 +524,7 @@ c --- - Check if 2d and/or 3d fields are to be written
           IF (.NOT.do_3d) CYCLE
 c --- --- Read pressure levels from table 
           IF (lreadplev) THEN 
-            CALL read_gridinfo_plev
+            CALL read_gridinfo_plev(TRIM(zcoord))
             lreadplev=.FALSE.
           ENDIF
         ELSE
@@ -555,7 +561,8 @@ c --- --- Read data
           CALL read_tslice(rec,nrec,badrec,fnm)
 c
 c --- --- Post processing 
-          IF (zcoord(1:4).EQ.'plev') THEN     
+          IF (zcoord(1:4).EQ.'plev'.AND.
+     .      INDEX(special,'catplev').LT.1) THEN 
             CALL interp_z
           ELSE
             ofld=ifld
@@ -1053,10 +1060,11 @@ c
 
 
 
-      SUBROUTINE read_gridinfo_plev
+      SUBROUTINE read_gridinfo_plev(str)
 c
       IMPLICIT NONE
 c
+      CHARACTER(LEN=*) :: str
       INTEGER,PARAMETER :: kmax=200 
       REAL(KIND=8) :: kvec(kmax)
       CHARACTER(LEN=200) :: c200
@@ -1070,7 +1078,7 @@ c
       OPEN(10,FILE=TRIM(tabledir)//TRIM(table),STATUS='OLD')
       DO
         READ(10,'(a200)') c200
-        IF (INDEX(c200,'axis_entry: plev').LE.0) CYCLE
+        IF (INDEX(c200,'axis_entry: '//TRIM(str)).LE.0) CYCLE
         DO
           READ(10,'(a200)') c200
           IF (INDEX(c200,'requested:').LE.0) CYCLE
@@ -1240,7 +1248,7 @@ c
       INTEGER, PARAMETER :: ndimmax=10
       INTEGER :: n,ndims,dimids(ndimmax),dimlens(ndimmax)
       INTEGER :: physics_version=1,initialization_method=1
-      CHARACTER(len=slenmax) :: ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6
+      CHARACTER(len=slenmax) :: ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6,str
       REAL(KIND=8), DIMENSION(:), ALLOCATABLE :: tmp1d, tmp1d_2
       REAL(KIND=8), DIMENSION(:), ALLOCATABLE :: tmp2d
 c
@@ -1259,6 +1267,19 @@ c
         IF (LEN_TRIM(ivnm5).GT.0) WRITE(*,*) ' + ',TRIM(ivnm5),'*',fac5
         IF (LEN_TRIM(ivnm6).GT.0) WRITE(*,*) ' + ',TRIM(ivnm6),'*',fac6
       ENDIF 
+      IF (INDEX(special,'catplev').GE.1) THEN
+        str=' ' 
+        IF (nint(plevs(1)*1e-2).LT.1000) THEN  
+           WRITE(str,'(i3.3)') nint(plevs(1)*1e-2)
+        ELSE 
+           WRITE(str,'(i4.4)') nint(plevs(1)*1e-2)
+        ENDIF 
+        IF (ivnm1(1:2).EQ.'Z3') THEN
+          ivnm1='Z'//TRIM(str)
+        ELSE
+          ivnm1=TRIM(ivnm1)//TRIM(str)
+        ENDIF
+      ENDIF
       status=nf90_inq_varid(ncid,TRIM(ivnm1),rhid)
       IF (status.NE.nf90_noerr) THEN
         WRITE(*,*) 'cannot find input variable ',TRIM(ivnm1)
@@ -1291,6 +1312,9 @@ c       STOP
       ELSE
         kdm=1
       ENDIF
+      IF (INDEX(special,'catplev').GE.1) THEN
+        kdm=pdm
+      ENDIF  
       IF (ALLOCATED(ifld)) DEALLOCATE(ifld,ifld2,ifldacc)
       ALLOCATE(ifld(idm,jdm,kdm),ifld2(idm,jdm,kdm),
      .  ifldacc(idm,jdm,kdm),STAT=status)
@@ -1694,7 +1718,7 @@ c
       INTEGER :: ind,rec,nrec,i,j
       INTEGER, SAVE :: fid
       CHARACTER(LEN=*), INTENT(IN), OPTIONAL :: fname 
-      CHARACTER(LEN=slenmax) :: ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6
+      CHARACTER(LEN=slenmax) :: ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6,str
       LOGICAL :: badrec    
 c
 c --- Open input file 
@@ -1745,30 +1769,60 @@ c
 c --- Read data 
       CALL resolve_vnm(slenmax,ivnm,ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6,
      .  fac1,fac2,fac3,fac4,fac5,fac6)
-      status=nf90_inq_varid(fid,TRIM(ivnm1),rhid)
+      IF (INDEX(special,'catplev').LT.1) THEN 
+        status=nf90_inq_varid(fid,TRIM(ivnm1),rhid)
+      ENDIF
 cdiag WRITE(*,*) 'DEBUG',trim(ivnm1),rec,idm,jdm,kdm
       IF (INDEX(ivnm1,'vmr').GT.0) THEN 
           status=nf90_get_var(fid,rhid,ifld,(/rec/),(/1/))
       ELSE
-        IF (status.NE.nf90_noerr) THEN
-          WRITE(*,*) 'cannot find input variable ',TRIM(ivnm1)
-          STOP
-        ENDIF
-        IF (.NOT.readdummy) THEN
-          IF (kdm.eq.1) THEN
-            status=nf90_get_var(fid,rhid,ifld,(/1,1,rec/), 
-     .        (/idm,jdm,1/)) 
+        IF (INDEX(special,'catplev').LT.1) THEN 
+          IF (status.NE.nf90_noerr) THEN
+            WRITE(*,*) 'cannot find input variable ',TRIM(ivnm1)
+            STOP
+          ENDIF
+          IF (.NOT.readdummy) THEN
+            IF (kdm.eq.1) THEN
+              status=nf90_get_var(fid,rhid,ifld,(/1,1,rec/), 
+     .          (/idm,jdm,1/)) 
+            ELSE 
+              status=nf90_get_var(fid,rhid,ifld,(/1,1,1,rec/), 
+     .          (/idm,jdm,kdm,1/)) 
+            ENDIF 
+            CALL handle_ncerror(status)
           ELSE 
-            status=nf90_get_var(fid,rhid,ifld,(/1,1,1,rec/), 
-     .        (/idm,jdm,kdm,1/)) 
-          ENDIF 
-          CALL handle_ncerror(status)
-        ELSE 
-          ifld=0.
-        ENDIF
-        IF (fac1.ne.1) THEN
-          ifld=ifld*fac1
-        ENDIF
+            ifld=0.
+          ENDIF
+          IF (fac1.ne.1) THEN
+            ifld=ifld*fac1
+          ENDIF
+        ELSE         
+          DO i=1,kdm 
+            str=' ' 
+            IF (nint(plevs(i)*1e-2).LT.1000) THEN 
+              WRITE(str,'(i3.3)') nint(plevs(i)*1e-2) 
+            ELSE 
+              WRITE(str,'(i4.4)') nint(plevs(i)*1e-2) 
+            ENDIF 
+            IF (ivnm1(1:2).EQ.'Z3') THEN
+              status=nf90_inq_varid(fid,'Z'//TRIM(str),rhid) 
+            ELSE
+              status=nf90_inq_varid(fid,TRIM(ivnm1)//TRIM(str),rhid) 
+            ENDIF
+            IF (status.NE.nf90_noerr) THEN
+              WRITE(*,*) 'cannot find input variable ',
+     .          TRIM(ivnm1)//TRIM(str)
+              STOP
+            ENDIF
+            IF (.NOT.readdummy) THEN
+              status=nf90_get_var(fid,rhid,ps,(/1,1,rec/), 
+     .          (/idm,jdm,1/)) 
+               ifld(:,:,i)=ps 
+            ELSE 
+              ifld=0.
+            ENDIF
+          ENDDO         
+        ENDIF  
 c
         IF (LEN_TRIM(ivnm2).GT.0) THEN
           status=nf90_inq_varid(fid,TRIM(ivnm2),rhid)

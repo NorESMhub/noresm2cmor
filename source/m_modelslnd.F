@@ -11,10 +11,11 @@ c --- Netcdf variables
       INTEGER :: ncid,rhid,dimid,status
 c
 c --- Grid dimensions and variables 
-      INTEGER, SAVE :: idm,jdm,kdm 
-      REAL(KIND=8), ALLOCATABLE, SAVE, DIMENSION(:) :: lon,lat,lev
+      INTEGER, SAVE :: idm,jdm,kdm,idmrof,jdmrof
+      REAL(KIND=8), ALLOCATABLE, SAVE, DIMENSION(:) :: lon,lat,lev,
+     .  lonrof,latrof
       REAL(KIND=8), ALLOCATABLE, SAVE, DIMENSION(:,:) :: 
-     .  lon_bnds,lat_bnds,lev_bnds
+     .  lon_bnds,lat_bnds,lev_bnds,lonrof_bnds,latrof_bnds
       CHARACTER(LEN=slenmax) :: zcoord,tcoord   
 c 
 c --- Dataset related variables 
@@ -60,7 +61,10 @@ c
 c --- Read grid information from input files
       WRITE(*,*) 'Read grid information from input files'
       itag=taglmon
+      write(*,*) 'debug1'
       CALL read_gridinfo_ifile
+      write(*,*) 'debug2'
+
 c
 c --- Process table fx 
       fnm=pfx
@@ -626,10 +630,8 @@ c --- Read longitudes
       CALL handle_ncerror(status)
       status=nf90_inquire_dimension(ncid,dimid,len=idm)
       CALL handle_ncerror(status)
-c
       ALLOCATE(lon(idm),lon_bnds(2,idm),STAT=status) 
       IF (status.NE.0) STOP 'cannot ALLOCATE enough memory (1)'
-c
       status=nf90_inq_varid(ncid,'lon',rhid) 
       CALL handle_ncerror(status)
       status=nf90_get_var(ncid,rhid,lon)
@@ -640,6 +642,28 @@ c
         lon_bnds(1,i)=lon_bnds(2,i-1)
         lon_bnds(2,i)=lon(i)+0.5*(lon(2)-lon(1)) 
       ENDDO
+c
+      status=nf90_inq_varid(ncid,'lonrof',rhid)
+      IF (status.EQ.0) THEN
+        status=nf90_inq_dimid(ncid,'lonrof',dimid)
+        CALL handle_ncerror(status)      
+        status=nf90_inquire_dimension(ncid,dimid,len=idmrof)
+        CALL handle_ncerror(status)
+        ALLOCATE(lonrof(idmrof),lonrof_bnds(2,idmrof),STAT=status) 
+        IF (status.NE.0) STOP 'cannot ALLOCATE enough memory (1b)'
+        status=nf90_inq_varid(ncid,'lonrof',rhid)
+        CALL handle_ncerror(status)
+        status=nf90_get_var(ncid,rhid,lonrof)
+        CALL handle_ncerror(status)
+        lonrof_bnds(1,1)=lonrof(1)-0.5*(lonrof(2)-lonrof(1))
+        lonrof_bnds(2,1)=lonrof(1)+0.5*(lonrof(2)-lonrof(1))
+        DO i=2,idmrof
+          lonrof_bnds(1,i)=lonrof_bnds(2,i-1)
+          lonrof_bnds(2,i)=lonrof(i)+0.5*(lonrof(2)-lonrof(1))
+        ENDDO
+      ELSE 
+        idmrof=idm
+      ENDIF
 c
 c --- Read latitudes
       status=nf90_inq_dimid(ncid,'lat',dimid)
@@ -658,6 +682,28 @@ c --- Read latitudes
         lat_bnds(2,j)=min(90.,lat(j)+90./FLOAT(jdm-1))
         lat_bnds(1,j)=lat_bnds(2,j-1)
       ENDDO
+c
+      status=nf90_inq_varid(ncid,'latrof',rhid)
+      IF (status.EQ.0) THEN
+        status=nf90_inq_dimid(ncid,'latrof',dimid)
+        CALL handle_ncerror(status)
+        status=nf90_inquire_dimension(ncid,dimid,len=jdmrof)
+        CALL handle_ncerror(status)
+        ALLOCATE(latrof(jdmrof),latrof_bnds(2,jdmrof),STAT=status)
+        IF (status.NE.0) STOP 'cannot ALLOCATE enough memory (2b)'
+        status=nf90_inq_varid(ncid,'latrof',rhid)
+        CALL handle_ncerror(status)
+        status=nf90_get_var(ncid,rhid,latrof)
+        CALL handle_ncerror(status)
+        latrof_bnds(2,1)=latrof(1)+90./FLOAT(jdmrof-1)
+        latrof_bnds(1,1)=max(-90.,latrof(1)-90./FLOAT(jdmrof-1))
+        DO j=2,jdmrof
+          latrof_bnds(2,j)=min(90.,latrof(j)+90./FLOAT(jdmrof-1))
+          latrof_bnds(1,j)=latrof_bnds(2,j-1)
+        ENDDO
+      ELSE 
+        jdmrof=jdm
+      ENDIF
 c
 c --- Read soil depths  
       status=nf90_inq_dimid(ncid,'levgrnd',dimid)
@@ -893,13 +939,13 @@ c
       DO n=1,ndims
         status=nf90_inquire_dimension(ncid,dimids(n),len=dimlens(n))
         CALL handle_ncerror(status)
-      ENDDO
-      IF (dimlens(1).NE.idm) THEN
+      ENDDO 
+      IF (dimlens(1).NE.idm.AND.dimlens(1).NE.idmrof) THEN
         WRITE(*,*) 'unexpected first dimension of variable ',
      .    TRIM(ivnm1),': ',dimlens(1),' versus idm=',idm
         STOP
       ENDIF
-      IF (dimlens(2).NE.jdm) THEN
+      IF (dimlens(2).NE.jdm.AND.dimlens(2).NE.jdmrof) THEN
         WRITE(*,*) 'unexpected second dimension of variable ',
      .    TRIM(ivnm1),': ',dimlens(2),' versus jdm=',idm
         STOP
@@ -910,8 +956,13 @@ c
         kdm=1
       ENDIF
       IF (ALLOCATED(fld)) DEALLOCATE(fld,fld2,fldacc)
-      ALLOCATE(fld(idm,jdm,kdm),fld2(idm,jdm,kdm),
-     .  fldacc(idm,jdm,kdm),STAT=status)
+      IF (INDEX(ivnm,'QCHOCNR').GT.0) THEN 
+        ALLOCATE(fld(idmrof,jdmrof,kdm),fld2(idmrof,jdmrof,kdm),
+     .    fldacc(idmrof,jdmrof,kdm),STAT=status)
+      ELSE
+        ALLOCATE(fld(idm,jdm,kdm),fld2(idm,jdm,kdm),
+     .    fldacc(idm,jdm,kdm),STAT=status)
+      ENDIF
       IF (status.NE.0) STOP 'cannot ALLOCATE enough memory (4)'
 c 
       IF (LEN_TRIM(vunits).EQ.0) THEN
@@ -991,19 +1042,33 @@ c --- Define output dataset
      .  parent_experiment_rip = parent_experiment_rip)
 c
 c --- Define horizontal axes 
-      iaxid=cmor_axis(
-     .  table_entry     = 'longitude',
-     .  units           = 'degrees_east',
-     .  length          = idm,
-     .  coord_vals      = lon,
-     .  cell_bounds     = lon_bnds)
-c
-      jaxid=cmor_axis(
-     .  table_entry     = 'latitude', 
-     .  units           = 'degrees_north',
-     .  length          = jdm,
-     .  coord_vals      = lat,
-     .  cell_bounds     = lat_bnds)
+      IF (INDEX(ivnm,'QCHOCNR').GT.0) THEN 
+        iaxid=cmor_axis(
+     .    table_entry     = 'longitude',
+     .    units           = 'degrees_east',
+     .    length          = idmrof,
+     .    coord_vals      = lonrof,
+     .    cell_bounds     = lonrof_bnds)
+        jaxid=cmor_axis(
+     .    table_entry     = 'latitude', 
+     .    units           = 'degrees_north',
+     .    length          = jdmrof,
+     .    coord_vals      = latrof,
+     .    cell_bounds     = latrof_bnds)
+      ELSE
+        iaxid=cmor_axis(
+     .    table_entry     = 'longitude',
+     .    units           = 'degrees_east',
+     .    length          = idm,
+     .    coord_vals      = lon,
+     .    cell_bounds     = lon_bnds)
+        jaxid=cmor_axis(
+     .    table_entry     = 'latitude',
+     .    units           = 'degrees_north',
+     .    length          = jdm,
+     .    coord_vals      = lat,
+     .    cell_bounds     = lat_bnds)
+      ENDIF 
 c
 c --- Define time axis 
       taxid=cmor_axis(
@@ -1219,8 +1284,13 @@ c --- Read data
         STOP
       ENDIF
       IF (kdm.eq.1) THEN
-        status=nf90_get_var(fid,rhid,fld,(/1,1,rec/), 
-     .    (/idm,jdm,1/)) 
+        IF (INDEX(ivnm,'QCHOCNR').GT.0) THEN 
+          status=nf90_get_var(fid,rhid,fld,(/1,1,rec/), 
+     .      (/idmrof,jdmrof,1/)) 
+        ELSE
+          status=nf90_get_var(fid,rhid,fld,(/1,1,rec/), 
+     .      (/idm,jdm,1/)) 
+        ENDIF
       ELSE 
         status=nf90_get_var(fid,rhid,fld,(/1,1,1,rec/), 
      .    (/idm,jdm,kdm,1/)) 
@@ -1237,8 +1307,13 @@ c
           STOP
         ENDIF
         IF (kdm.eq.1) THEN
-          status=nf90_get_var(fid,rhid,fld2,(/1,1,rec/),
-     .      (/idm,jdm,1/))
+          IF (INDEX(ivnm,'QCHOCNR').GT.0) THEN
+            status=nf90_get_var(fid,rhid,fld2,(/1,1,rec/),
+     .        (/idmrof,jdmrof,1/))
+          ELSE
+            status=nf90_get_var(fid,rhid,fld2,(/1,1,rec/),
+     .        (/idm,jdm,1/))      
+          ENDIF
         ELSE
           status=nf90_get_var(fid,rhid,fld2,(/1,1,1,rec/),
      .      (/idm,jdm,kdm,1/))
@@ -1254,8 +1329,13 @@ c
           STOP
         ENDIF
         IF (kdm.eq.1) THEN
-          status=nf90_get_var(fid,rhid,fld2,(/1,1,rec/),
-     .      (/idm,jdm,1/))
+          IF (INDEX(ivnm,'QCHOCNR').GT.0) THEN
+            status=nf90_get_var(fid,rhid,fld2,(/1,1,rec/),
+     .        (/idmrof,jdmrof,1/))
+          ELSE
+            status=nf90_get_var(fid,rhid,fld2,(/1,1,rec/),
+     .        (/idm,jdm,1/))  
+          ENDIF 
         ELSE
           status=nf90_get_var(fid,rhid,fld2,(/1,1,1,rec/),
      .      (/idm,jdm,kdm,1/))
@@ -1271,8 +1351,13 @@ c
           STOP
         ENDIF
         IF (kdm.eq.1) THEN
-          status=nf90_get_var(fid,rhid,fld2,(/1,1,rec/),
-     .      (/idm,jdm,1/))
+          IF (INDEX(ivnm,'QCHOCNR').GT.0) THEN
+            status=nf90_get_var(fid,rhid,fld2,(/1,1,rec/),
+     .        (/idmrof,jdmrof,1/))
+          ELSE
+            status=nf90_get_var(fid,rhid,fld2,(/1,1,rec/),
+     .        (/idm,jdm,1/))
+          ENDIF
         ELSE
           status=nf90_get_var(fid,rhid,fld2,(/1,1,1,rec/),
      .      (/idm,jdm,kdm,1/))
@@ -1288,8 +1373,13 @@ c
           STOP
         ENDIF
         IF (kdm.eq.1) THEN
-          status=nf90_get_var(fid,rhid,fld2,(/1,1,rec/),
-     .      (/idm,jdm,1/))
+          IF (INDEX(ivnm,'QCHOCNR').GT.0) THEN
+            status=nf90_get_var(fid,rhid,fld2,(/1,1,rec/),
+     .        (/idmrof,jdmrof,1/))
+          ELSE
+            status=nf90_get_var(fid,rhid,fld2,(/1,1,rec/),
+     .        (/idm,jdm,1/))
+          ENDIF
         ELSE
           status=nf90_get_var(fid,rhid,fld2,(/1,1,1,rec/),
      .      (/idm,jdm,kdm,1/))
@@ -1305,8 +1395,13 @@ c
           STOP
         ENDIF
         IF (kdm.eq.1) THEN
-          status=nf90_get_var(fid,rhid,fld2,(/1,1,rec/),
-     .      (/idm,jdm,1/))
+          IF (INDEX(ivnm,'QCHOCNR').GT.0) THEN
+            status=nf90_get_var(fid,rhid,fld2,(/1,1,rec/),
+     .        (/idmrof,jdmrof,1/))
+          ELSE
+            status=nf90_get_var(fid,rhid,fld2,(/1,1,rec/),
+     .        (/idm,jdm,1/))
+          ENDIF
         ELSE
           status=nf90_get_var(fid,rhid,fld2,(/1,1,1,rec/),
      .      (/idm,jdm,kdm,1/))

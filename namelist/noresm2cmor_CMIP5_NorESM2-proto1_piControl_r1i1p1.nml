@@ -1,3 +1,65 @@
+&system
+ ibasedir      = 'inputdata',
+ obasedir      = '.',
+ griddata      = 'griddata',
+ tabledir      = '../table'
+ createsubdirs = .true.,
+ forcefilescan = .true.,  
+ verbose       = .true.,
+/
+
+&model
+ model_id      = 'NorESM2-MMproto1',
+ source        = 'NorESM2-MMproto1 2015',
+                 ' atmosphere: CAM-Oslo (CAM5-Oslo, f09L30);',
+                 ' ocean: MICOM (MICOM, tnx1v1L53);',
+                 ' sea ice: CICE (CICE4);',
+                 ' land: CLM (CLM4)',
+ institution   = 'Norwegian Climate Centre',
+ institute_id  = 'NCC',
+ references    = ' ',
+ contact       = 'Please send any requests or bug reports to noresm-ncc@met.no.',
+ tagoyr        = 'micom.hy',
+ tagoyrbgc     = 'micom.hbgcy',
+ tagomon       = 'micom.hm',
+ tagomonbgc    = 'micom.hbgcm',
+ tagoday       = 'micom.hd',
+ tagimon       = 'cice.h',
+ tagiday       = 'cice.h1',
+ tagamon       = 'cam.h0',
+ tagaday       = 'cam.h1',
+ taga6hr       = 'cam.h2',
+ taga3hr       = 'cam.h3',
+ taga3hri      = 'cam.h4',
+ taglmon       = 'clm2.h0',
+ taglday       = 'clm2.h1',
+ tagl3hr       = 'clm2.h2',
+ tagl3hri      = 'clm2.h3',
+ rhotablesuff  = 'OnRho'
+ atmgridfile   = 'grid_atm_0.9x1.25_tnx0.25v1.nc',
+ ocngridfile   = 'grid_tnx0.25v1.nc',
+ ocninitfile   = 'inicon_tnx0.25v1.nc',
+ ocnmertfile   = 'mertraoceans_tnx0.25v1.dat',
+ secindexfile  = 'secindex_tnx0.25v1.dat'
+/
+
+&experiment
+ casename      = 'CAM5O1MICOM.100Y.cont',
+ experiment_id = 'piControl',
+ parent_experiment_id  = 'N/A',
+ parent_experiment_rip = 'N/A',
+ history       = ' ',
+ comment       = ' ',
+ forcing       = 'N/A',
+ realization   = 1,
+ branch_time   = 0.,
+ year1         = 100,
+ yearn         = 100,
+ month1        = 1,
+ monthn        = 12,
+ exprefyear    = 1
+/
+
 ! d* - do table true/false 
 ! t* - path to table file (guessed if omitted) 
 ! p* - alternative path to data file (path created if omitted)
@@ -223,7 +285,7 @@
                  'FLDSC         ','rldscs    ','positivedo',
                  'FSNTOA+FSUTOA ','rsdt      ','positivedo',
                  'FSUTOA        ','rsut      ','positiveup',
-                 'FSNTOA-FSNT+FLNT','rlut      ','positiveup',
+                 'FLUT          ','rlut      ','positiveup',
                  'FLUTC         ','rlutcs    ','positiveup',
                  'SOLIN-FSNTOAC ','rsutcs    ','positiveup',
                  'CLDTOT        ','clt       ','unitless  ', 

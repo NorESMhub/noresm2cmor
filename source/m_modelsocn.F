@@ -72,6 +72,9 @@ c
       LOGICAL :: badrec,last,first
       INTEGER :: k,m,n,nrec
 c
+c --- Skip if monthly ocean table deactivated
+      IF (.NOT.domon) RETURN
+c
 c --- Print start information
       IF (verbose) THEN
         WRITE(*,*)

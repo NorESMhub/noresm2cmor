@@ -385,6 +385,7 @@ c
 c
       LOGICAL, INTENT(IN), OPTIONAL :: reset
 c
+c     write(*,*) ibasedir,casename,itag
       IF (PRESENT(reset)) THEN
         CALL get_file_info(ibasedir,casename,itag,fnm,
      .    year1,month1,yearn,monthn,exprefyear,reset,rec,tval(1),tbnd,
