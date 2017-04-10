@@ -2,20 +2,16 @@
  ibasedir      = 'inputdata',
  obasedir      = '.',
  griddata      = 'griddata',
- tabledir      = '../table'
- createsubdirs = .true.,
+ tabledir      = 'tabledata'
+ createsubdirs = .false.,
  forcefilescan = .true.,  
  verbose       = .true.,
 /
 
 &model
- model_id      = 'NorESM1-M',
- source        = 'NorESM1-M 2011',
-                 ' atmosphere: CAM-Oslo (CAM4-Oslo-noresm-ver1_cmip5-r112, f19L26);',
-                 ' ocean: MICOM (MICOM-noresm-ver1_cmip5-r112, gx1v6L53);',
-                 ' sea ice: CICE (CICE4-noresm-ver1_cmip5-r112);',
-                 ' land: CLM (CLM4-noresm-ver1_cmip5-r112)',
- institution   = 'Norwegian Climate Centre',
+ model_id      = 'XXX',
+ source        = 'NorESM',
+ institution   = 'Norwegian Climate modelling Consortium',
  institute_id  = 'NCC',
  references    = ' ',
  contact       = 'Please send any requests or bug reports to noresm-ncc@met.no.',
@@ -36,28 +32,28 @@
  tagl3hr       = 'clm2.h2',
  tagl3hri      = 'clm2.h3',
  rhotablesuff  = 'OnRho'
- atmgridfile   = 'grid_atm_1.9x2.5_gx1v6.nc',
- ocngridfile   = 'grid_gx1v6.nc',
- ocninitfile   = 'inicon_gx1v6.nc',
- ocnmertfile   = 'mertraoceans_gx1v6.dat',
- secindexfile  = 'secindex_gx1v6.dat'
+ atmgridfile   = 'XXX',
+ ocngridfile   = 'XXX',
+ ocninitfile   = 'XXX',
+ ocnmertfile   = 'XXX',
+ secindexfile  = 'XXX'
 /
 
 &experiment
- casename      = 'N20TRAERCN_f19_g16_01',
- experiment_id = 'historical',
- parent_experiment_id  = 'pre-industrial control',
- parent_experiment_rip = 'r1i1p1',
+ casename      = 'XXX',
+ experiment_id = 'GENERIC',
+ parent_experiment_id  = 'N/A',
+ parent_experiment_rip = 'N/A',
  history       = ' ',
  comment       = ' ',
- forcing       = 'N/A',
+ forcing       = ' ',
  realization   = 1,
- branch_time   = 255135.,
- year1         = 1850,
- yearn         = 2005,
+ branch_time   = 0.,
+ year1         = 1,
+ yearn         = 1,
  month1        = 1,
  monthn        = 12,
- exprefyear    = 1850
+ exprefyear    = 1
 /
 
 ! d* - do table true/false 
@@ -66,12 +62,12 @@
 ! v* - list of varibles: <cam name>,<cmor name>,<special operation>
 
 &table_grids
- tgrids        = 'CMIP5_grids'
+ tgrids        = 'GENERIC_grids'
 /
  
 &table_fx
  dfx           = .true. 
- tfx           = 'CMIP5_fx', 
+ tfx           = 'GENERIC_fx', 
  vfx           = 
                  'area          ','areacella ','rad2m     ',
                  'LANDFRAC      ','sftlf     ','unitless  ',
@@ -87,14 +83,14 @@
 &table_oyr
  doyr          = .true.,
  royr          = 100000,
- toyr          = 'CMIP5_Oyr',
+ toyr          = 'GENERIC_Oyr',
  voyr          = ' ' 
 /
 
 &table_oyrbgc
  doyrbgc       = .true.,
  royrbgc       = 100000,
- toyrbgc       = 'CMIP5_Oyr',
+ toyrbgc       = 'GENERIC_Oyr',
  voyrbgc       =
                  'diclvl        ','dissic    ','mol m-3   ',
                  'dissoclvl*122 ','dissoc    ','mol m-3   ',
@@ -117,7 +113,7 @@
 &table_omon
  domon         = .true.,
  romon         = 100000,
- tomon         = 'CMIP5_Omon',
+ tomon         = 'GENERIC_Omon',
  vomon         =
                  'fresh_ai      ','fsitherm  ','cmFW day-1 -> kg m-2 s-1',
                  'fsalt_ai      ','sfdsi     ','kg m-2 day-1 -> kg m-2 s-1',
@@ -185,7 +181,7 @@
 &table_omonbgc
  domonbgc      = .true.,
  romonbgc      = 100000,
- tomonbgc      = 'CMIP5_Omon',
+ tomonbgc      = 'GENERIC_Omon',
  vomonbgc      =
                  'cfc11         ','cfc11     ','cfcunits;cfc11comment',
                  'cfc12         ','cfc12     ','cfcunits;cfc12comment',
@@ -216,7 +212,7 @@
 &table_oimon
  doimon        = .true., 
  roimon        = 100000,
- toimon        = 'CMIP5_OImon', 
+ toimon        = 'GENERIC_OImon', 
  voimon        = 
                  'transix       ','transix   ','          ',
                  'transiy       ','transiy   ','          ',
@@ -255,13 +251,13 @@
 
 &table_amon
  damon         = .true. 
- tamon         = 'CMIP5_Amon',
+ tamon         = 'GENERIC_Amon',
  ramon         = 1000000, 
  vamon         = 
                  'TREFHT        ','tas       ','          ',  
                  'TS            ','ts        ','          ',
-!                'TREFHTMN      ','tasmin    ','day2mon   ',
-!                'TREFHTMX      ','tasmax    ','day2mon   ',
+                 'TREFHTMN      ','tasmin    ','day2mon   ',
+                 'TREFHTMX      ','tasmax    ','day2mon   ',
                  'TREFHMNAV     ','tasmin    ','          ',
                  'TREFHMXAV     ','tasmax    ','          ',
                  'PSL           ','psl       ','          ',
@@ -318,7 +314,7 @@
 
 &table_aero
  daero         = .true.
- taero         = 'CMIP5_aero',
+ taero         = 'GENERIC_aero',
  raero         = 1000000, 
  vaero         = 
                  'SO4_A1*3+SO4_A2*3+SO4_AC*3+SO4_N*3+SO4_NA*3+SO4_PR*3','loadso4 ','calcload',
@@ -371,7 +367,7 @@
 
 &table_lmon
  dlmon        = .true.
- tlmon        = 'CMIP5_Lmon'
+ tlmon        = 'GENERIC_Lmon'
  vlmon        =
                  'SOILWATER_10CM','mrsos     ','          ',
                  'SOILLIQ+SOILICE','mrso     ','vertsum;miss2zero;limitmoist',
@@ -417,7 +413,7 @@
 
 &table_limon
  dlimon        = .true.
- tlimon        = 'CMIP5_LImon'
+ tlimon        = 'GENERIC_LImon'
  rlimon        = 1000000, 
  vlimon        =
                  'FSNO          ','snc       ','percent   ',
@@ -429,7 +425,7 @@
 
 &table_day
  dday          = .true.
- tday          = 'CMIP5_day', 
+ tday          = 'GENERIC_day', 
  rday          = 1000000, 
  vday          = 
                  'PSL           ','psl       ','          ',
@@ -472,7 +468,7 @@
 
 &table_6hrlev
  d6hrlev       = .true.
- t6hrlev       = 'CMIP5_6hrLev', 
+ t6hrlev       = 'GENERIC_6hrLev', 
  r6hrlev       = 1000000, 
  v6hrlev       = 
                  'U             ','ua        ','          ',
@@ -484,7 +480,7 @@
 
 &table_6hrplev
  d6hrplev      = .true.
- t6hrplev      = 'CMIP5_6hrPlev', 
+ t6hrplev      = 'GENERIC_6hrPlev', 
  r6hrplev      = 1000000, 
  v6hrplev      = 
                  'U             ','ua        ','          ',
@@ -495,7 +491,7 @@
 
 &table_3hr 
  d3hr          = .true.
- t3hr          = 'CMIP5_3hr',
+ t3hr          = 'GENERIC_3hr',
  r3hr          = 1000000, 
  v3hr          = 
                  'PRECT         ','pr        ','kg m-2 s-1',
@@ -519,7 +515,7 @@
 
 &table_3hri
  d3hri         = .true.
- t3hri         = 'CMIP5_3hr',
+ t3hri         = 'GENERIC_3hr',
  r3hri         = 1000000, 
  v3hri         = 
                  'TREFHT        ','tas       ','          ',

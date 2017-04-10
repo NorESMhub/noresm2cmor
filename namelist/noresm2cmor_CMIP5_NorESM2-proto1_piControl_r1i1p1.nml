@@ -285,7 +285,7 @@
                  'FLDSC         ','rldscs    ','positivedo',
                  'FSNTOA+FSUTOA ','rsdt      ','positivedo',
                  'FSUTOA        ','rsut      ','positiveup',
-                 'FLUT          ','rlut      ','positiveup',
+                 'FSNTOA-FSNT+FLNT','rlut      ','positiveup',
                  'FLUTC         ','rlutcs    ','positiveup',
                  'SOLIN-FSNTOAC ','rsutcs    ','positiveup',
                  'CLDTOT        ','clt       ','unitless  ', 
