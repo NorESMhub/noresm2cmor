@@ -6,7 +6,7 @@ OBJ=m_namelists.o m_utilities.o m_modelsatm.o m_modelsice.o m_modelslnd.o m_mode
 
 # Paths 
 SRCDIR=../source
-BINDIR=../run
+BINDIR=../bin
 
 # Fortran compiler
 FC=gfortran 
@@ -38,9 +38,11 @@ all: $(TARGET)
 clean:
 	rm -f *.o *.f *.h *.inc *.mod *2cmor* 
 
-$(TARGET): $(OBJ) 
+$(TARGET): $(OBJ)
 	$(LD) -o $(TARGET) $(OBJ) $(LDFLAGS)
-	cp -f $(TARGET) $(BINDIR)
+	mkdir -p $(BINDIR) 
+	mv $(TARGET) $(BINDIR)
+	rm -f *.o *.f *.h *.inc *.mod *2cmor*
 
 noresm2cmor.o: $(SRCDIR)/noresm2cmor.F
 	$(FC) $(FFLAGS) -c $(SRCDIR)/noresm2cmor.F

@@ -1,5 +1,6 @@
-NORESM2CMOR (v20151113)
+noresm2cmor (v20170421)
 -----------------------
+
 
 1. General
 ----------
@@ -9,6 +10,7 @@ output using the Climate Model Output Rewriter (cmor) libraries.
 
 System, model, experiment and variable information are set in namelist files 
 which noresm2cmor reads during its execution. 
+
 
 2. Installation
 ---------------
@@ -32,26 +34,53 @@ Build with
 
 2.3 Installation of grid data and sample input
 
-Change directory to noresm2cmor/
+Change directory to noresm2cmor/scripts
 
 Run installation script for grid data 
  ./install_griddata.sh <absolute path to folder where grid data should be stored> 
 
 Run installation script for input data sample 
- ./install_griddata.sh <absolute path to folder where sample input should be stored> 
+ ./install_sampledata.sh <absolute path to folder where sample input should be stored> 
 
-3. Testing
-----------
+2.4 Configuration of output path
 
-Change directory to noresm2cmor/run 
+Change directory to noresm2cmor/scripts
 
-Run test with 
- ./noresm2cmor ../namelist/noresm2cmor_CMIP5_NorESM1-M_historical_r1i1p1.nml
+Run installation script for output path
+ ./install_cmorout.sh
 
-Prompt syntax with
- ./noresm2cmor 
 
-4. Customization of namelists 
------------------------------
+3 Testing of CMORization on sample data
+---------------------------------------
 
-coming soon...
+Change directory to noresm2cmor/scripts
+
+Run CMORization test  
+ ./cmorize_sampledata.sh 
+
+
+4. General usage of noresm2cmor binary executable 
+-------------------------------------------------
+
+Change directory to noresm2cmor/bin
+
+Start CMORization with 
+ ./noresm2cmor <path to noresm2cmor's namelist file>
+
+E.g.   
+ ./noresm2cmor ../namelists/noresm2cmor_CMIP5_NorESM1-M_historical_r1i1p1.nml 
+
+To prompt syntax call noresm2cmor without argument.
+
+
+5. Easy CMORization with cmorize_generic.sh wrapper script
+----------------------------------------------------------
+
+Change directory to noresm2cmor/scripts
+
+Start CMORization with 
+ ./cmorize_generic.sh <absolute path to NorESM case folder> <start year> <end year> 
+
+E.g. 
+ ./cmorize_generic.sh /projects/NS2345K/www/cmor/sampledata/N20TRAERCN_f19_g16_01 2000 2000
+
