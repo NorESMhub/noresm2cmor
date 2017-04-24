@@ -14,7 +14,7 @@ fi
 CASENAME=`basename $1` 
 CMORHOME=`dirname \`readlink -f $0\``/..
 GRIDDATA=${GRIDDATA:-$CMORHOME/data/griddata}
-CMOROUT=${CMOROUT:-$CMORHOME/data/cmorout}  
+CMOROUT=${CMOROUT:-$CMORHOME/data/cmorout/$USER}  
 OUTPATH=${OUTPATH:-${CMOROUT}/${CASENAME}.$2-$3}  
 
 # create output path and cd 
