@@ -421,6 +421,11 @@ c
       ENDIF  
 c
       OPEN(10,FILE=TRIM(nmlfpvar),STATUS='old',ACTION='read',RECL=200)
+      READ(10,nml=table_grids,IOSTAT=istatus)
+      REWIND(10)
+      IF (istatus.NE.0) WRITE(*,*) 
+     .  'WARNING: Table grids not in namelist file. Using CMIP5 default'
+      OPEN(10,FILE=TRIM(nmlfpvar),STATUS='old',ACTION='read',RECL=200)
       READ(10,nml=table_fx,IOSTAT=istatus)
       REWIND(10)
       IF (istatus.NE.0) WRITE(*,*) 

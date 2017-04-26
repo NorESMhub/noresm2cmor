@@ -12,6 +12,7 @@ fi
 
 # set path information etc
 CASENAME=`basename $1` 
+MODEL_ID=`echo $CASENAME | sed 's/_/-/g'`
 CMORHOME=`dirname \`readlink -f $0\``/..
 GRIDDATA=${GRIDDATA:-$CMORHOME/data/griddata}
 CMOROUT=${CMOROUT:-$CMORHOME/data/cmorout/$USER}  
@@ -23,7 +24,7 @@ cd $OUTPATH
 
 # prepare input namelist for noresm2cmor
 cp -f $CMORHOME/namelists/noresm2cmor_NorESM_GENERIC_template.nml noresm2cmor.in 
-sed -i "s/model_id      = .*/model_id      = '${CASENAME}',/" noresm2cmor.in  
+sed -i "s/model_id      = .*/model_id      = '${MODEL_ID}',/" noresm2cmor.in  
 sed -i "s/casename      = .*/casename      = '${CASENAME}',/" noresm2cmor.in  
 sed -i "s%ibasedir      = .*%ibasedir      = '`dirname $1`',%" noresm2cmor.in  
 sed -i "s%obasedir      = .*%obasedir      = '.',%" noresm2cmor.in  

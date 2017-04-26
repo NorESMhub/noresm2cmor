@@ -2,7 +2,7 @@
 
 # determine location of noresm2cmor and cd to bin-dir 
 CMORHOME=`dirname \`readlink -f $0\``/..
-OUTPATH=$CMORHOME/data/cmorout/N20TRAERCN_f19_g16_01
+OUTPATH=$CMORHOME/data/cmorout/$USER/N20TRAERCN_f19_g16_01
 mkdir -p $OUTPATH
 cd $CMORHOME/bin 
 
