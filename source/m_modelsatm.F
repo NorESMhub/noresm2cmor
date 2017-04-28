@@ -153,7 +153,7 @@ c --- - Check if 2d and/or 3d fields are to be written
      .    zcoord(2:5).EQ.'levh') THEN
           IF (.NOT.do_3d) CYCLE
 c --- --- Read pressure levels from table 
-          IF (lreadplev) THEN 
+          IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN 
             CALL read_gridinfo_plev(TRIM(zcoord))
             lreadplev=.FALSE.
           ENDIF
@@ -259,7 +259,7 @@ c --- - Check if 2d and/or 3d fields are to be written
      .    zcoord(2:5).EQ.'levh') THEN
           IF (.NOT.do_3d) CYCLE
 c --- --- Read pressure levels from table 
-          IF (lreadplev) THEN
+          IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN 
             CALL read_gridinfo_plev(TRIM(zcoord))
             lreadplev=.FALSE.
           ENDIF
@@ -358,7 +358,7 @@ c --- - Check if 2d and/or 3d fields are to be written
      .    zcoord(2:5).EQ.'levh') THEN
           IF (.NOT.do_3d) CYCLE
 c --- --- Read pressure levels from table 
-          IF (lreadplev) THEN
+          IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN 
             CALL read_gridinfo_plev(TRIM(zcoord)) 
 !            lreadplev=.FALSE.
           ENDIF
@@ -523,7 +523,7 @@ c --- - Check if 2d and/or 3d fields are to be written
      .    zcoord(2:5).EQ.'levh') THEN
           IF (.NOT.do_3d) CYCLE
 c --- --- Read pressure levels from table 
-          IF (lreadplev) THEN 
+          IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN 
             CALL read_gridinfo_plev(TRIM(zcoord))
             lreadplev=.FALSE.
           ENDIF
@@ -1071,6 +1071,7 @@ c
       LOGICAL :: fexists
 c
       INQUIRE(FILE=TRIM(tabledir)//TRIM(table),EXIST=fexists) 
+      write(*,*) trim(str)
       IF (.NOT.fexists) THEN
         WRITE(*,*) 'Table ',TRIM(table), ' does not exist' 
       ENDIF  

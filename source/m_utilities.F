@@ -426,7 +426,7 @@ c
       logical, save :: ltimebnds,ldone,lexist,lfirst=.true.
 c
 c --- create file list if it does not exist already 
-      listpath='/tmp/filelist_'//trim(cnam)
+      listpath='filelist_'//trim(cnam)
       inquire(file=trim(listpath),exist=lexist)
       if (lfirst.and.((.not.lexist).or.forcefilescan)) then 
 cdiag   write(*,*) 'get_file_info: create new file list '

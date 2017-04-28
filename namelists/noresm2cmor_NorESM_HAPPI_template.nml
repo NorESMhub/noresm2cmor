@@ -297,7 +297,7 @@
 /
 
 &table_aero
- daero         = .false.
+ daero         = .true.
  taero         = 'CMIP5_aero',
  raero         = 1000000, 
  vaero         = 

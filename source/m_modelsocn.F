@@ -64,7 +64,6 @@ c --- -----------------------------------------------------------------
 c --- -----------------------------------------------------------------
 
 
-
       SUBROUTINE ocn2cmor
 c
       IMPLICIT NONE
@@ -73,7 +72,7 @@ c
       INTEGER :: k,m,n,nrec
 c
 c --- Skip if monthly ocean table deactivated
-      IF (.NOT.domon) RETURN
+      IF (.NOT.(domon.OR.dday)) RETURN
 c
 c --- Print start information
       IF (verbose) THEN
