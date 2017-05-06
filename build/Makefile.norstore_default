@@ -17,15 +17,15 @@ LD=$(FC)
 # Libraries
 CMOR=/diverse/software/cmor-2.7.1
 UUID=/diverse/software/uuid-1.5.1
-NETCDF=/diverse/software/old_software/netcdf.gnu-4.2.1.1
-#NETCDF=/diverse/software/netcdf.gnu-4.4.0  
+NETCDFINC=/diverse/software/old_software/netcdf.gnu-4.2.1.1/include
+NETCDFLIB=/projects/NS2345K/libs/netcdf_gcc4.4.7/lib
 
 # Directory list to search for library files
-LIBS=-L$(CMOR)/lib -Wl,-rpath=$(CMOR)/lib -L$(UUID)/lib -Wl,-rpath=$(UUID)/lib -lcmor -lnetcdff -lnetcdf -lhdf5 -lhdf5_hl -luuid -l:libudunits2.so.0 -l:libexpat.so.1
+LIBS=-L$(CMOR)/lib -Wl,-rpath=$(CMOR)/lib -L$(UUID)/lib -Wl,-rpath=$(UUID)/lib -L$(NETCDFLIB) -Wl,-rpath=$(NETCDFLIB) -lcmor -lnetcdff -lnetcdf -lhdf5 -lhdf5_hl -luuid -l:libudunits2.so.0 -l:libexpat.so.1
 
 # Compiler flags
-#FFLAGS=-g -fbounds-check -fdefault-real-8 -I$(CMOR)/include -I$(NETCDF)/include
-FFLAGS=-O3 -fdefault-real-8 -I$(CMOR)/include -I$(NETCDF)/include
+#FFLAGS=-g -fbounds-check -fdefault-real-8 -I$(CMOR)/include -I$(NETCDFINC)
+FFLAGS=-O3 -fdefault-real-8 -I$(CMOR)/include -I$(NETCDFINC)
 
 # Linker flags
 #LDFLAGS=$(LIBS) -g -fbounds-check
