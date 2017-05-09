@@ -7,7 +7,7 @@
  forcefilescan = .false.,  
  verbose       = .true.,
 /
-
+ 
 &model
  model_id      = 'XXX',
  source        = 'NorESM',
