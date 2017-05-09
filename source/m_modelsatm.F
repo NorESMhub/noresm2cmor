@@ -18,7 +18,7 @@ c --- Grid dimensions and variables
      .  iilev,hyaii,hybii
       REAL(KIND=8), ALLOCATABLE, SAVE, DIMENSION(:,:) :: 
      .  lon_bnds,lat_bnds 
-      CHARACTER(LEN=slenmax) :: zcoord,tcoord   
+      CHARACTER(LEN=slenmax), SAVE :: zcoord,tcoord   
 c 
 c --- Dataset related variables 
       LOGICAL, SAVE :: lreqphis,lreqsst,lreadplev

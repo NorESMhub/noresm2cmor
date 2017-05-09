@@ -27,7 +27,7 @@ c --- Grid dimensions and variables
       CHARACTER(LEN=slenmax), ALLOCATABLE, SAVE, DIMENSION(:) :: 
      .  region1,section1
       CHARACTER, ALLOCATABLE, SAVE, DIMENSION(:,:) :: region,section
-      CHARACTER(LEN=slenmax),SAVE :: tcoord,zcoord,s1
+      CHARACTER(LEN=slenmax), SAVE :: tcoord,zcoord,s1
 c
 c --- Gravity
       REAL(KIND=8), PARAMETER :: g=9.80665,ginv=1.d0/g

@@ -22,7 +22,7 @@ c --- Grid dimensions and variables
      .  ulon_crns,ulat_crns,ulon_crnsp,ulat_crnsp,
      .  vlon_crns,vlat_crns,vlon_crnsp,vlat_crnsp,
      .  uvlon_crns,uvlat_crns,uvlon_crnsp,uvlat_crnsp
-      CHARACTER(LEN=slenmax) :: tcoord,zcoord   
+      CHARACTER(LEN=slenmax), SAVE :: tcoord,zcoord   
 c
 c --- Fram Strait grid info 
       INTEGER :: seclen 

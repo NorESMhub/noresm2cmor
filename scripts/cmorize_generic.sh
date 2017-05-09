@@ -15,8 +15,11 @@ CASENAME=`basename $1`
 MODEL_ID=`echo $CASENAME | sed 's/_/-/g'`
 CMORHOME=`dirname \`readlink -f $0\``/..
 GRIDDATA=${GRIDDATA:-$CMORHOME/data/griddata}
-CMOROUT=${CMOROUT:-$CMORHOME/data/cmorout/$USER}  
+CMOROUT=${CMOROUT:-$CMORHOME/data/cmorout}  
 OUTPATH=${OUTPATH:-${CMOROUT}/${CASENAME}.$2-$3}  
+
+# ensure that permission of new folders and files will be open 
+umask u=rxw,g=rxw,o=rx
 
 # create output path and cd 
 mkdir -p $OUTPATH 

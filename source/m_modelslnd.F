@@ -16,7 +16,7 @@ c --- Grid dimensions and variables
      .  lonrof,latrof
       REAL(KIND=8), ALLOCATABLE, SAVE, DIMENSION(:,:) :: 
      .  lon_bnds,lat_bnds,lev_bnds,lonrof_bnds,latrof_bnds
-      CHARACTER(LEN=slenmax) :: zcoord,tcoord   
+      CHARACTER(LEN=slenmax), SAVE :: zcoord,tcoord   
 c 
 c --- Dataset related variables 
       CHARACTER(LEN=slenmax), SAVE :: ivnm,ovnm,vunits,vpositive  
