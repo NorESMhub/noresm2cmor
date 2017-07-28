@@ -1,18 +1,30 @@
-Compiling
----------
+Compiling on Norstore
+---------------------
 
-Use login node to compile tool. 
-
-Before compilation:
+GNU: 
+. /usr/share/Modules/init/sh
 module unload gcc 
 module load gcc/4.7.2
+make -f Makefile_cmor2.norstore_gnu
 
-Running
--------
+INTEL: 
+. /usr/share/Modules/init/sh
+module load netcdf.intel/4.4.0 udunits/2.2.17 uuid/1.5.1 
+make -f Makefile_cmor2.norstore_intel
+
+
+Running on Norstore
+-------------------
 
 ssh from login node to cruncher.norstore.uio.no. 
 
-Before running: 
-module unload gcc netcdf netcdf.gnu hdf5.gnu 
+GNU: 
+. /usr/share/Modules/init/sh
+module unload gcc hdf netcdf 
 module load gcc/4.7.2
+
+INTEL: 
+. /usr/share/Modules/init/sh
+module load netcdf.intel/4.4.0 udunits/2.2.17 uuid/1.5.1
+
 

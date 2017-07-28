@@ -6,6 +6,14 @@ OUTPATH=$CMORHOME/data/cmorout/N20TRAERCN_f19_g16_01
 mkdir -p $OUTPATH
 cd $CMORHOME/bin 
 
+# load modules required for running noresm2cmor on norstore
+if [ `uname -n | grep norstore | wc -l` -gt 0 ]
+then
+  . /usr/share/Modules/init/sh
+  module unload netcdf gcc hdf
+  module load netcdf.intel/4.4.0 udunits/2.2.17 uuid/1.5.1
+fi
+
 # cmor-ize 
 echo "Output written to ${OUTPATH}" 
 echo "Log written to ${OUTPATH}/noresm2cmor.log"

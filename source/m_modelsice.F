@@ -116,7 +116,7 @@ c --- - Skip if ouput variable is atmosphere cell area
 c
 c --- - Prepare output file 
         CALL special_pre     
-        CALL open_ofile_fixed
+        CALL open_ofile(fx=.TRUE.)
 c
 c --- - Read field 
         CALL read_field
@@ -472,6 +472,8 @@ c
 c
       IMPLICIT NONE
 c
+      INTEGER :: i,j
+c
       str2=special
       DO
         IF (INDEX(str2,';').GT.0) THEN
@@ -500,19 +502,27 @@ c --- - Unit transformation: kg/m^2/day -> kg m-2 s-1
 c
 c --- - Flip sign
         CASE ('flipsign')
-          WHERE (fld.LT.1e20) fld=-fld
+          DO j=1,jdm
+            DO i=1,idm
+              IF (fld(i,j).LT.1e20) fld(i,j)=-fld(i,j)
+            ENDDO
+          ENDDO
 c
 c --- - Set ice free points to missing value
         CASE ('zero2missing')
-          WHERE (abs(fld).LT.1e-6)
-            fld=1e20
-          END WHERE
+          DO j=1,jdm
+            DO i=1,idm
+              IF (abs(fld(i,j)).LT.1e-6) fld(i,j)=1e20
+            ENDDO
+          ENDDO
 c
 c --- - Divide by cell area 
         CASE ('Xcellarea-1')
-          WHERE (abs(fld).LT.1e20)
-            fld=fld/tarea
-          END WHERE
+          DO j=1,jdm
+            DO i=1,idm
+              IF (abs(fld(i,j)).LT.1e20) fld(i,j)=fld(i,j)/tarea(i,j)
+            ENDDO
+          ENDDO
 c
         END SELECT
         IF (str1.EQ.str2) exit
@@ -563,8 +573,12 @@ c
      .  uarea(idm,jdm),STAT=status) 
       IF (status.NE.0) STOP 'cannot ALLOCATE enough memory (1)'
 c
-      FORALL (i=1:idm) xvec(i)=i 
-      FORALL (j=1:jdm) yvec(j)=j 
+      DO i=1,idm 
+        xvec(i)=i
+      ENDDO 
+      DO j=1,jdm 
+        yvec(j)=j
+      ENDDO 
 c
       status=nf90_inq_varid(ncid,'TLON',rhid) 
       CALL handle_ncerror(status)
@@ -733,184 +747,12 @@ c
 
 
 
-      SUBROUTINE open_ofile_fixed 
+      SUBROUTINE open_ofile(fx)
 c 
       IMPLICIT NONE
-c
-      REAL :: fac1,fac2
-      INTEGER, PARAMETER :: ndimmax=10
-      INTEGER :: n,ndims,dimids(ndimmax),dimlens(ndimmax)
-      CHARACTER(len=slenmax) :: coord,ivnm1a,ivnm2a,ivnm1b,ivnm2b
-c
-c --- Inquire variable units and dimensions in input file 
-      status=nf90_open(fnm,nf90_nowrite,ncid)
-      CALL handle_ncerror(status)
-c
-      CALL resolve_vnm2(slenmax,ivnm,ivnm1a,ivnm2a,ivnm1b,ivnm2b,fac1,
-     .  fac2)
-      status=nf90_inq_varid(ncid,TRIM(ivnm1a),rhid)
-      IF (status.NE.nf90_noerr) THEN
-        WRITE(*,*) 'cannot find input variable ',TRIM(ivnm1a)
-        STOP
-      ENDIF
-      status=nf90_inquire_variable(ncid,rhid,ndims=ndims)
-      CALL handle_ncerror(status)
-      status=nf90_inquire_variable(ncid,rhid,dimids=dimids(1:ndims))
-      CALL handle_ncerror(status)
-      dimlens=1
-      DO n=1,ndims
-        status=nf90_inquire_dimension(ncid,dimids(n),len=dimlens(n))
-        CALL handle_ncerror(status)
-      ENDDO
-      IF (dimlens(1).NE.idm) THEN
-        WRITE(*,*) 'unexpected first dimension of variable ',
-     .    TRIM(ivnm1a),': ',dimlens(1),' versus idm=',idm
-        STOP
-      ENDIF
-      IF (dimlens(2).NE.jdm) THEN
-        WRITE(*,*) 'unexpected second dimension of variable ',
-     .    TRIM(ivnm1a),': ',dimlens(2),' versus jdm=',idm
-        STOP
-      ENDIF
-      IF (ALLOCATED(fld)) DEALLOCATE(fld,fld2,fld3,fldacc)
-      ALLOCATE(fld(idm,jdm),fld2(idm,jdm),fld3(idm,jdm),
-     .  fldacc(idm,jdm),STAT=status)
-      IF (status.NE.0) STOP 'cannot ALLOCATE enough memory (4)'
 c 
-      IF (LEN_TRIM(vunits).EQ.0) THEN
-        status=nf90_get_att(ncid,rhid,'units',vunits)
-        CALL handle_ncerror(status)
-        IF (TRIM(vunits).EQ.'mm/s') vunits='kg m-2 s-1'
-      END IF
-c
-      coord=' '
-      status=nf90_get_att(ncid,rhid,'coordinates',coord)
-c
-      status=nf90_close(ncid)
-      CALL handle_ncerror(status)
-c
-c --- Call CMOR setup 
-      IF (verbose) THEN
-        IF (createsubdirs) THEN
-          error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_NORMAL,
-     .      exit_control=CMOR_EXIT_ON_MAJOR,create_subdirectories=1)
-        ELSE
-          error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_NORMAL,
-     .      exit_control=CMOR_EXIT_ON_MAJOR,create_subdirectories=0)
-        ENDIF
-      ELSE
-        IF (createsubdirs) THEN
-          error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_QUIET,
-     .      exit_control=CMOR_EXIT_ON_MAJOR,create_subdirectories=1)
-        ELSE
-          error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_QUIET,
-     .      exit_control=CMOR_EXIT_ON_MAJOR,create_subdirectories=0)
-        ENDIF
-      ENDIF
-      IF (error_flag.NE.0) STOP 'Problem setting up CMOR'
-c
-c --- Load CMOR table 
-      table_id=cmor_load_table(TRIM(tabledir)//TRIM(table))
-      IF (error_flag.NE.0) STOP 'Problem with loading CMOR table'
-      table_id_grid=cmor_load_table(TRIM(tabledir)//TRIM(tgrids))
-      IF (error_flag.NE.0) STOP 'Problem with loading grid table'
-c
-c --- Activate CMOR table
-      CALL cmor_set_table(table_id)
-      IF (error_flag.NE.0) STOP 'Problem with activating CMOR table'
-c
-c --- Define output dataset 
-      error_flag=cmor_dataset(
-     .  outpath         = obasedir,
-     .  experiment_id   = experiment_id,
-     .  institute_id    = institute_id,
-     .  institution     = institution1,
-     .  source          = source1,
-     .  calendar        = calendar,
-     .  realization     = realization,
-     .  contact         = contact1,
-     .  history         = history1,
-     .  comment         = comment1,
-     .  references      = references1,
-     .  model_id        = model_id,
-     .  forcing         = forcing1,
-     .  branch_time     = branch_time, 
-     .  parent_experiment_id = parent_experiment_id, 
-     .  parent_experiment_rip = parent_experiment_rip)
-c
-c --- Define horizontal axes 
-      CALL cmor_set_table(table_id_grid)
-      IF (error_flag.NE.0) STOP 'Problem with activating grid table'
-c
-      iaxid=cmor_axis(
-     .  table           = TRIM(tabledir)//TRIM(tgrids),
-     .  table_entry     = 'i_index',
-     .  units           = '1',
-     .  length          = idm,
-     .  coord_vals      = xvec)
-c
-      jaxid=cmor_axis(
-     .  table           = TRIM(tabledir)//TRIM(tgrids),
-     .  table_entry     = 'j_index',
-     .  units           = '1',
-     .  length          = jdm, 
-     .  coord_vals      = yvec)
-c
-      IF (coord(1:1).EQ.'T') THEN
-        grdid=cmor_grid(
-     .    axis_ids=(/iaxid,jaxid/),
-     .    latitude=tlat,
-     .    longitude=tlon,
-     .    latitude_vertices=tlat_crnsp, 
-     .    longitude_vertices=tlon_crnsp)    
-      ELSEIF (TRIM(ovnm).EQ.'transix') THEN
-        grdid=cmor_grid(
-     .    axis_ids=(/iaxid,jaxid/),
-     .    latitude=ulat,
-     .    longitude=ulon,
-     .    latitude_vertices=ulat_crnsp, 
-     .    longitude_vertices=ulon_crnsp)    
-      ELSEIF (TRIM(ovnm).EQ.'transiy') THEN
-        grdid=cmor_grid(
-     .    axis_ids=(/iaxid,jaxid/),
-     .    latitude=vlat,
-     .    longitude=vlon,
-     .    latitude_vertices=vlat_crnsp, 
-     .    longitude_vertices=vlon_crnsp)    
-      ELSEIF (TRIM(ovnm).EQ.'transifs') THEN
-        CONTINUE 
-      ELSE
-        grdid=cmor_grid(
-     .    axis_ids=(/iaxid,jaxid/),
-     .    latitude=uvlat,
-     .    longitude=uvlon,
-     .    latitude_vertices=uvlat_crnsp, 
-     .    longitude_vertices=uvlon_crnsp)    
-      ENDIF
-c   
-      CALL cmor_set_table(table_id)
-      IF (error_flag.NE.0) STOP 'Problem with reactivating CMOR table'
-c
-c --- Define output variable
-      varid=cmor_variable(
-     .  table_entry    = TRIM(ovnm),
-     .  units          = TRIM(vunits),
-     .  axis_ids       = (/ grdid /),
-     .  missing_value  = 1e20, 
-     .  original_name  = TRIM(ivnm),
-     .  comment        = TRIM(vcomment))
-c
-      END SUBROUTINE open_ofile_fixed
-
-
-
-      SUBROUTINE open_ofile
-c 
-      IMPLICIT NONE
+      LOGICAL, OPTIONAL :: fx
+      LOGICAL :: fxflag
 c
       REAL :: fac1,fac2
       INTEGER, PARAMETER :: ndimmax=10
@@ -919,6 +761,12 @@ c
       CHARACTER(len=slenmax) :: coord,ivnm1a,ivnm2a,ivnm1b,ivnm2b
       REAL(KIND=8), DIMENSION(:), ALLOCATABLE :: tmp1d, tmp1d_2
       REAL(KIND=8), DIMENSION(:,:), ALLOCATABLE :: tmp2d
+c
+c --- Check if output variable should have time coordinate
+      fxflag=.FALSE.
+      IF (PRESENT(fx)) THEN
+        IF (fx) fxflag=.TRUE.
+      ENDIF
 c
 c --- Inquire variable units and dimensions in input file 
       status=nf90_open(fnm,nf90_nowrite,ncid)
@@ -975,7 +823,9 @@ c
       CALL handle_ncerror(status)
 c
 c --- Inquire time dimension of output variable 
-      CALL get_timecoord(TRIM(tabledir)//TRIM(table),ovnm,tcoord)
+      IF (.NOT.fxflag) THEN 
+        CALL get_timecoord(TRIM(tabledir)//TRIM(table),ovnm,tcoord)
+      ENDIF
 c
 c --- Call CMOR setup 
       IF (verbose) THEN
@@ -1000,16 +850,6 @@ c --- Call CMOR setup
         ENDIF
       ENDIF
       IF (error_flag.NE.0) STOP 'Problem setting up CMOR'
-c
-c --- Load CMOR table 
-      table_id=cmor_load_table(TRIM(tabledir)//TRIM(table))
-      IF (error_flag.NE.0) STOP 'Problem with loading CMOR table'
-      table_id_grid=cmor_load_table(TRIM(tabledir)//TRIM(tgrids))
-      IF (error_flag.NE.0) STOP 'Problem with loading grid table'
-c
-c --- Activate CMOR table
-      CALL cmor_set_table(table_id)
-      IF (error_flag.NE.0) STOP 'Problem with activating CMOR table'
 c
 c --- Derive physics_version and initialization_method from
 c --- parent_experiment_rip
@@ -1043,9 +883,6 @@ c --- Define output dataset
      .  parent_experiment_rip = parent_experiment_rip)
 c
 c --- Define horizontal axes 
-      CALL cmor_set_table(table_id_grid)
-      IF (error_flag.NE.0) STOP 'Problem with activating grid table'
-c
       IF (TRIM(ovnm).NE.'transifs') THEN
         iaxid=cmor_axis(
      .    table           = TRIM(tabledir)//TRIM(tgrids),
@@ -1092,16 +929,14 @@ c
      .    latitude_vertices=uvlat_crnsp,
      .    longitude_vertices=uvlon_crnsp)
       ENDIF
-c   
-      CALL cmor_set_table(table_id)
-      IF (error_flag.NE.0) STOP 'Problem with reactivating CMOR table'
-
+c
 c --- Define vertical dummy coordinate
       IF (TRIM(zcoord).EQ.'olevel') THEN
         ALLOCATE (tmp1d(1),tmp2d(2,1))
         tmp1d(:) = (/5.d0/)
         tmp2d(:,1) = (/0.d0,10.d0/)
         kaxid=cmor_axis(
+     .    table           = TRIM(tabledir)//TRIM(table),
      .    table_entry     = 'depth_coord',
      .    units           = 'm',
      .    length          = 1,
@@ -1111,37 +946,55 @@ c --- Define vertical dummy coordinate
       ENDIF
 c
 c --- Define time axis 
-      taxid=cmor_axis(
-     .  table_entry    = TRIM(tcoord),
-     .  units          = TRIM(calunits))
+      IF (.NOT.fxflag) THEN
+        taxid=cmor_axis(
+     .    table          = TRIM(tabledir)//TRIM(table),
+     .    table_entry    = TRIM(tcoord),
+     .    units          = TRIM(calunits),
+     .    length         = 1)
+      ENDIF
 c
 c --- Define output variable
-      IF (TRIM(ovnm).EQ.'transifs') THEN
+      IF (fxflag) THEN 
         varid=cmor_variable(
+     .    table          = TRIM(tabledir)//TRIM(table),
      .    table_entry    = TRIM(ovnm),
      .    units          = TRIM(vunits),
-     .    axis_ids       = (/ taxid /),
-     .    missing_value  = 1e20, 
+     .    axis_ids       = (/ grdid /),
+     .    missing_value  = 1e20,
+     .    original_name  = TRIM(ivnm),
      .    comment        = TRIM(vcomment))
       ELSE
-        IF (TRIM(zcoord).EQ.'olevel') THEN
+        IF (TRIM(ovnm).EQ.'transifs') THEN
           varid=cmor_variable(
+     .      table          = TRIM(tabledir)//TRIM(table),
      .      table_entry    = TRIM(ovnm),
      .      units          = TRIM(vunits),
-     .      axis_ids       = (/ grdid, kaxid, taxid /),
-     .      original_name  = TRIM(ivnm),
+     .      axis_ids       = (/ taxid /),
      .      missing_value  = 1e20, 
-     .      positive       = TRIM(vpositive),
      .      comment        = TRIM(vcomment))
         ELSE
-          varid=cmor_variable(
-     .      table_entry    = TRIM(ovnm),
-     .      units          = TRIM(vunits),
-     .      axis_ids       = (/ grdid, taxid /),
-     .      original_name  = TRIM(ivnm),
-     .      missing_value  = 1e20, 
-     .      positive       = TRIM(vpositive),
-     .      comment        = TRIM(vcomment))
+          IF (TRIM(zcoord).EQ.'olevel') THEN
+            varid=cmor_variable(
+     .        table          = TRIM(tabledir)//TRIM(table),
+     .        table_entry    = TRIM(ovnm),
+     .        units          = TRIM(vunits),
+     .        axis_ids       = (/ grdid, kaxid, taxid /),
+     .        original_name  = TRIM(ivnm),
+     .        missing_value  = 1e20, 
+     .        positive       = TRIM(vpositive),
+     .        comment        = TRIM(vcomment))
+          ELSE
+            varid=cmor_variable(
+     .        table          = TRIM(tabledir)//TRIM(table),
+     .        table_entry    = TRIM(ovnm),
+     .        units          = TRIM(vunits),
+     .        axis_ids       = (/ grdid, taxid /),
+     .        original_name  = TRIM(ivnm),
+     .        missing_value  = 1e20, 
+     .        positive       = TRIM(vpositive),
+     .        comment        = TRIM(vcomment))
+          ENDIF
         ENDIF
       ENDIF
 c
@@ -1401,7 +1254,11 @@ c --- Do sea ice fraction weighting if required
         ENDIF
         status=nf90_get_var(fid,rhid,fld2,(/1,1,rec/),(/idm,jdm,1/))
         CALL handle_ncerror(status)
-        WHERE (fld2.GT.1e20) fld2=0
+        DO j=1,jdm 
+          DO i=1,idm   
+            IF (fld2(i,j).GT.1e20) fld2(i,j)=0
+          ENDDO
+        ENDDO 
         DO j=1,jdm 
           j1=MIN(j+1,jdm)
           DO i=1,idm   
@@ -1437,10 +1294,14 @@ c
 c
       IMPLICIT NONE
 c
+      INTEGER :: i,j 
+c
 c --- Set zero on ocean grid cells
-      WHERE (ABS(fld).GT.2e20) 
-        fld=0.
-      END WHERE
+      DO j=1,jdm
+        DO i=1,idm
+          IF (ABS(fld(i,j)).GT.2e20) fld(i,j)=0.
+        ENDDO
+      ENDDO
 c      
 c --- Store variable
       error_flag=cmor_write(
@@ -1455,10 +1316,14 @@ c
 c
       IMPLICIT NONE
 c
+      INTEGER :: i,j 
+c
 c --- Set missing on land grid cells
-      WHERE (ABS(fld).GT.1e20)
-        fld=1e20
-      END WHERE
+      DO j=1,jdm
+        DO i=1,idm
+          IF (ABS(fld(i,j)).GT.1e20) fld(i,j)=1e20
+        ENDDO
+      ENDDO
 c
 c --- Store variable
 c     WRITE(*,*) 'tbnds=',tbnds  

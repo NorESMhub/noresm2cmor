@@ -113,7 +113,7 @@ cdiag   write(*,*) 'DEBUG: ',trim(fnm),year,month
 c
 c --- - Prepare output file 
         CALL special_pre     
-        CALL open_ofile_fixed
+        CALL open_ofile(fx=.TRUE.)
 c
 c --- - Read field 
         CALL read_field
@@ -835,6 +835,8 @@ c
 c
       IMPLICIT NONE
 c
+      INTEGER :: i,j,k
+c
       str2=special
       DO
         IF (INDEX(str2,';').GT.0) THEN
@@ -865,21 +867,19 @@ c --- - Unit transformation: m s-1 -> kg m-2 s-1
         CASE ('kg m-2 s-1')
           ofld=ofld*1e3
 c
-c --- - Weight with DAYFOC^-1  
-        CASE ('dayfoc')
-          WHERE (ABS(ifld2).GT.1e-15)
-            ofld=ofld/ifld2
-          ELSEWHERE
-            ofld=1e20
-          ENDWHERE
-c
-c --- - Weight with CLDFOC^-1 or FOCHANA^-1  
-        CASE ('cldfoc','fochana')
-          WHERE (ABS(ifld2).GT.1e-15)
-            ofld=ofld/ifld2
-          ELSEWHERE
-            ofld=0.
-          ENDWHERE
+c --- - Weight with DAYFOC^-1, CLDFOC^-1 or FOCHANA^-1  
+        CASE ('dayfoc','cldfoc','fochana')
+          DO k=1,kdm
+            DO j=1,jdm
+              DO i=1,idm 
+                IF (ABS(ifld2(i,j,k)).GT.1e-15) THEN 
+                  ofld(i,j,k)=ofld(i,j,k)/ifld2(i,j,k)
+                ELSE
+                  ofld(i,j,k)=1e20
+                ENDIF
+              ENDDO
+            ENDDO
+          ENDDO
 c
 c --- - Weight with land fraction 
         CASE ('landfrac')
@@ -1071,7 +1071,6 @@ c
       LOGICAL :: fexists
 c
       INQUIRE(FILE=TRIM(tabledir)//TRIM(table),EXIST=fexists) 
-      write(*,*) trim(str)
       IF (.NOT.fexists) THEN
         WRITE(*,*) 'Table ',TRIM(table), ' does not exist' 
       ENDIF  
@@ -1105,145 +1104,12 @@ c
 
 
 
-      SUBROUTINE open_ofile_fixed 
+      SUBROUTINE open_ofile(fx)
 c 
       IMPLICIT NONE
 c
-      REAL :: fac1,fac2,fac3,fac4,fac5,fac6
-      INTEGER, PARAMETER :: ndimmax=10
-      INTEGER :: n,ndims,dimids(ndimmax),dimlens(ndimmax)
-      CHARACTER(len=slenmax) :: ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6
-c
-c --- Inquire variable units and dimensions in input file 
-      status=nf90_open(fnm,nf90_nowrite,ncid)
-      CALL handle_ncerror(status)
-c
-      CALL resolve_vnm(slenmax,ivnm,ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6,
-     .  fac1,fac2,fac3,fac4,fac5,fac6)
-      status=nf90_inq_varid(ncid,TRIM(ivnm1),rhid)
-      IF (status.NE.nf90_noerr) THEN
-        WRITE(*,*) 'cannot find input variable ',TRIM(ivnm1)
-        STOP
-      ENDIF
-      status=nf90_inquire_variable(ncid,rhid,ndims=ndims)
-      CALL handle_ncerror(status)
-      status=nf90_inquire_variable(ncid,rhid,dimids=dimids(1:ndims))
-      CALL handle_ncerror(status)
-      dimlens=1
-      DO n=1,ndims
-        status=nf90_inquire_dimension(ncid,dimids(n),len=dimlens(n))
-        CALL handle_ncerror(status)
-      ENDDO
-      IF (dimlens(1).NE.idm) THEN
-        WRITE(*,*) 'unexpected first dimension of variable ',
-     .    TRIM(ivnm1),': ',dimlens(1),' versus idm=',idm
-        STOP
-      ENDIF
-      IF (dimlens(2).NE.jdm) THEN
-        WRITE(*,*) 'unexpected second dimension of variable ',
-     .    TRIM(ivnm1),': ',dimlens(2),' versus jdm=',idm
-        STOP
-      ENDIF
-      IF (ALLOCATED(ifld)) DEALLOCATE(ifld,ifld2,ifldacc)
-      ALLOCATE(ifld(idm,jdm,1),ifld2(idm,jdm,1),ifldacc(idm,jdm,1),
-     .  STAT=status)
-      IF (status.NE.0) STOP 'cannot ALLOCATE enough memory (4)'
-c 
-      IF (LEN_TRIM(vunits).EQ.0) THEN
-        status=nf90_get_att(ncid,rhid,'units',vunits)
-        CALL handle_ncerror(status)
-      END IF
-c
-      status=nf90_close(ncid)
-      CALL handle_ncerror(status)
-c
-c --- Call CMOR setup 
-      IF (verbose) THEN
-        IF (createsubdirs) THEN
-          error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_NORMAL,
-     .      exit_control=CMOR_EXIT_ON_MAJOR,create_subdirectories=1)
-        ELSE
-          error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_NORMAL,
-     .      exit_control=CMOR_EXIT_ON_MAJOR,create_subdirectories=0)
-        ENDIF
-      ELSE
-        IF (createsubdirs) THEN
-          error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_QUIET,
-     .      exit_control=CMOR_EXIT_ON_MAJOR,create_subdirectories=1)
-        ELSE
-          error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_QUIET,
-     .      exit_control=CMOR_EXIT_ON_MAJOR,create_subdirectories=0)
-        ENDIF
-      ENDIF
-      IF (error_flag.NE.0) STOP 'Problem setting up CMOR'
-c
-c --- Load CMOR table 
-      table_id=cmor_load_table(TRIM(tabledir)//TRIM(table))
-      IF (error_flag.NE.0) STOP 'Problem with loading CMOR table'
-c
-c --- Activate CMOR table
-      CALL cmor_set_table(table_id)
-      IF (error_flag.NE.0) STOP 'Problem with activating CMOR table'
-c
-c --- Define output dataset
-      error_flag=cmor_dataset(
-     .  outpath         = obasedir,
-     .  experiment_id   = experiment_id,
-     .  institute_id    = institute_id,
-     .  institution     = institution1,
-     .  source          = source1,
-     .  calendar        = calendar,
-     .  realization     = realization,
-     .  contact         = contact1,
-     .  history         = history1,
-     .  comment         = comment1,
-     .  references      = references1,
-     .  model_id        = model_id,
-     .  forcing         = forcing1,
-     .  branch_time     = branch_time, 
-     .  parent_experiment_id = parent_experiment_id, 
-     .  parent_experiment_rip = parent_experiment_rip)
-c
-c --- Define horizontal axes 
-      iaxid=cmor_axis(
-     .  table_entry     = 'longitude',
-     .  units           = 'degrees_east',
-     .  length          = idm,
-     .  coord_vals      = lon,
-     .  cell_bounds     = lon_bnds)
-c
-      jaxid=cmor_axis(
-     .  table_entry     = 'latitude',
-     .  units           = 'degrees_north',
-     .  length          = jdm,
-     .  coord_vals      = lat,
-     .  cell_bounds     = lat_bnds)
-c
-c --- Define output variable
-      varid=cmor_variable(
-     .  table_entry    = TRIM(ovnm),
-     .  units          = TRIM(vunits),
-     .  axis_ids       = (/ iaxid, jaxid /),
-     .  original_name  = TRIM(ivnm),
-     .  missing_value  = 1e20,
-     .  comment        = TRIM(vcomment))
-
-c --- Allocate memory for output variable
-      IF (ALLOCATED(ofld)) DEALLOCATE(ofld)
-      ALLOCATE(ofld(idm,jdm,1),STAT=status)
-      IF (status.NE.0) STOP 'cannot allocate enough memory (0)'
-c
-      END SUBROUTINE open_ofile_fixed
-
-
-
-      SUBROUTINE open_ofile
-c 
-      IMPLICIT NONE
+      LOGICAL, OPTIONAL :: fx
+      LOGICAL :: fxflag
 c
       REAL :: fac1,fac2,fac3,fac4,fac5,fac6
       INTEGER, PARAMETER :: ndimmax=10
@@ -1252,6 +1118,12 @@ c
       CHARACTER(len=slenmax) :: ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6,str
       REAL(KIND=8), DIMENSION(:), ALLOCATABLE :: tmp1d, tmp1d_2
       REAL(KIND=8), DIMENSION(:), ALLOCATABLE :: tmp2d
+c
+c --- Check if output variable should have time coordinate
+      fxflag=.FALSE.
+      IF (PRESENT(fx)) THEN
+        IF (fx) fxflag=.TRUE.
+      ENDIF
 c
 c --- Inquire variable units and dimensions in input file 
       status=nf90_open(fnm,nf90_nowrite,ncid)
@@ -1330,8 +1202,10 @@ c
       CALL handle_ncerror(status)
 c
 c --- Inquire time and vertical dimension of output variable 
-      CALL get_timecoord(TRIM(tabledir)//TRIM(table),ovnm,tcoord)
-      IF (LEN_TRIM(tcoord).EQ.0) tcoord='time'
+      IF (.NOT.fxflag) THEN 
+        CALL get_timecoord(TRIM(tabledir)//TRIM(table),ovnm,tcoord)
+        IF (LEN_TRIM(tcoord).EQ.0) tcoord='time'
+      ENDIF  
       CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
       IF (zcoord(2:4).EQ.'lev'.OR.INDEX(special,'calcload').GT.0) THEN 
         IF (.NOT.ALLOCATED(ps)) THEN 
@@ -1382,14 +1256,6 @@ c --- Call CMOR setup
       ENDIF
       IF (error_flag.NE.0) STOP 'Problem setting up CMOR'
 c
-c --- Load CMOR table 
-      table_id=cmor_load_table(TRIM(tabledir)//TRIM(table))
-      IF (error_flag.NE.0) STOP 'Problem with loading CMOR table'
-c
-c --- Activate CMOR table
-      CALL cmor_set_table(table_id)
-      IF (error_flag.NE.0) STOP 'Problem with activating CMOR table'
-c
 c --- Derive physics_version and initialization_method from
 c --- parent_experiment_rip
       IF (TRIM(parent_experiment_rip).NE.'r1i1p1'.AND.
@@ -1423,6 +1289,7 @@ c --- Define output dataset
 c
 c --- Define horizontal axes 
       iaxid=cmor_axis(
+     .  table           = TRIM(tabledir)//TRIM(table),
      .  table_entry     = 'longitude',
      .  units           = 'degrees_east',
      .  length          = idm,
@@ -1430,6 +1297,7 @@ c --- Define horizontal axes
      .  cell_bounds     = lon_bnds)
 c
       jaxid=cmor_axis(
+     .  table           = TRIM(tabledir)//TRIM(table),
      .  table_entry     = 'latitude', 
      .  units           = 'degrees_north',
      .  length          = jdm,
@@ -1437,13 +1305,18 @@ c
      .  cell_bounds     = lat_bnds)
 c
 c --- Define time axis 
-      taxid=cmor_axis(
-     .  table_entry    = TRIM(tcoord),
-     .  units          = TRIM(calunits))
+      IF (.NOT.fxflag) THEN  
+        taxid=cmor_axis(
+     .    table          = TRIM(tabledir)//TRIM(table),
+     .    table_entry    = TRIM(tcoord),
+     .    units          = TRIM(calunits),
+     .    length         = 1)
+      ENDIF 
 c
 c --- Define vertical axis 
       IF (zcoord(1:4).EQ.'plev') THEN
         kaxid=cmor_axis(
+     .    table         = TRIM(tabledir)//TRIM(table),
      .    table_entry   = TRIM(zcoord),
      .    units         = 'Pa',
      .    length        = pdm,
@@ -1454,6 +1327,7 @@ c --- Define vertical axis
         tmp1d_2(1) = dble(ilev(kdm+1))*1.d-3
         tmp1d_2(2) = dble(ilev(kdm))*1.d-3
         kaxid=cmor_axis(
+     .    table         = TRIM(tabledir)//TRIM(table),
      .    table_entry   = 'standard_hybrid_sigma',
      .    units         = '1',
      .    length        = 1,
@@ -1487,6 +1361,7 @@ c --- Define vertical axis
         tmp1d(:) =   1.d-3*lev(:)
         tmp1d_2(:) = 1.d-3*ilev(:)
         kaxid=cmor_axis(
+     .    table         = TRIM(tabledir)//TRIM(table),
      .    table_entry   = 'standard_hybrid_sigma',
      .    units         = '1',
      .    length        = ldm,
@@ -1520,6 +1395,7 @@ c --- Define vertical axis
         tmp1d(:) = ilev(:)*1.d-3
         tmp1d_2(:) = iilev(:)*1.d-3 
         kaxid=cmor_axis(
+     .    table         = TRIM(tabledir)//TRIM(table),
      .    table_entry   = 'standard_hybrid_sigma',
      .    units         = '1',
      .    length        = ldm+1,
@@ -1551,43 +1427,58 @@ c --- Define vertical axis
       ENDIF
 c
 c --- Define output variable
-      IF (zcoord(1:4).EQ.'plev'.OR.zcoord(1:4).EQ.'alev') THEN
+      IF (fxflag) THEN 
         varid=cmor_variable(
+     .    table          = TRIM(tabledir)//TRIM(table),
      .    table_entry    = TRIM(ovnm),
      .    units          = TRIM(vunits),
-     .    axis_ids       = (/ iaxid, jaxid, kaxid, taxid /),
-     .    original_name  = TRIM(ivnm), 
+     .    axis_ids       = (/ iaxid, jaxid /),
+     .    original_name  = TRIM(ivnm),
      .    missing_value  = 1e20,
-     .    comment        = TRIM(vcomment),
-     .    positive       = TRIM(vpositive))
-      ELSEIF (ndims.EQ.1) THEN
+     .    comment        = TRIM(vcomment))
+      ELSE  
+        IF (zcoord(1:4).EQ.'plev'.OR.zcoord(1:4).EQ.'alev') THEN
           varid=cmor_variable(
+     .      table          = TRIM(tabledir)//TRIM(table),
      .      table_entry    = TRIM(ovnm),
      .      units          = TRIM(vunits),
-     .      axis_ids       = (/ taxid /),
-     .      original_name  = TRIM(ivnm),
+     .      axis_ids       = (/ iaxid, jaxid, kaxid, taxid /),
+     .      original_name  = TRIM(ivnm), 
      .      missing_value  = 1e20,
      .      comment        = TRIM(vcomment),
      .      positive       = TRIM(vpositive))
-      ELSE
-        IF (lreqsst) THEN 
-          varid=cmor_variable(
-     .      table_entry    = TRIM(ovnm),
-     .      units          = TRIM(vunits),
-     .      axis_ids       = (/ iaxid, jaxid, taxid /),
-     .      original_name  = TRIM(ivnm),
-     .      missing_value  = 1e20,
-     .      comment        = TRIM(vcomment),
-     .      positive       = TRIM(vpositive))
+        ELSEIF (ndims.EQ.1) THEN
+            varid=cmor_variable(
+     .        table          = TRIM(tabledir)//TRIM(table),
+     .        table_entry    = TRIM(ovnm),
+     .        units          = TRIM(vunits),
+     .        axis_ids       = (/ taxid /),
+     .        original_name  = TRIM(ivnm),
+     .        missing_value  = 1e20,
+     .        comment        = TRIM(vcomment),
+     .        positive       = TRIM(vpositive))
         ELSE
-          varid=cmor_variable(
-     .      table_entry    = TRIM(ovnm),
-     .      units          = TRIM(vunits),
-     .      axis_ids       = (/ iaxid, jaxid, taxid /),
-     .      original_name  = TRIM(ivnm),
-     .      missing_value  = 1e20,
-     .      comment        = TRIM(vcomment),
-     .      positive       = TRIM(vpositive))
+          IF (lreqsst) THEN 
+            varid=cmor_variable(
+     .        table          = TRIM(tabledir)//TRIM(table),
+     .        table_entry    = TRIM(ovnm),
+     .        units          = TRIM(vunits),
+     .        axis_ids       = (/ iaxid, jaxid, taxid /),
+     .        original_name  = TRIM(ivnm),
+     .        missing_value  = 1e20,
+     .        comment        = TRIM(vcomment),
+     .        positive       = TRIM(vpositive))
+          ELSE
+            varid=cmor_variable(
+     .        table          = TRIM(tabledir)//TRIM(table),
+     .        table_entry    = TRIM(ovnm),
+     .        units          = TRIM(vunits),
+     .        axis_ids       = (/ iaxid, jaxid, taxid /),
+     .        original_name  = TRIM(ivnm),
+     .        missing_value  = 1e20,
+     .        comment        = TRIM(vcomment),
+     .        positive       = TRIM(vpositive))
+          ENDIF
         ENDIF
       ENDIF
 

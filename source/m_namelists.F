@@ -561,51 +561,50 @@ c
 c 
       WRITE(*,*) 
       WRITE(*,*) 'System namelist:'
-      WRITE(*,*) ' input directory  = ',trim(ibasedir)
-      WRITE(*,*) ' output directory = ',trim(obasedir)
-      WRITE(*,*) ' table directory  = ',trim(tabledir)
-      WRITE(*,*) ' grid data dir.   = ',trim(griddata)
+      WRITE(*,*) ' input directory  = ',TRIM(ibasedir)
+      WRITE(*,*) ' output directory = ',TRIM(obasedir)
+      WRITE(*,*) ' table directory  = ',TRIM(tabledir)
+      WRITE(*,*) ' grid data dir.   = ',TRIM(griddata)
       WRITE(*,*) ' create sub-dirs  = ',createsubdirs
       WRITE(*,*) ' verbose          = ',verbose
       WRITE(*,*) 
       WRITE(*,*) 'Model namelist:' 
-      WRITE(*,*) ' institution      = ',trim(institution1)
-      WRITE(*,*) ' model id         = ',trim(model_id)
-      WRITE(*,*) ' source           = ',trim(source1)
-      WRITE(*,*) ' references       = ',trim(references1)
-      WRITE(*,*) ' contact          = ',trim(contact1)
-      WRITE(*,*) ' tag annual ocn   = ',trim(tagoyr)
-      WRITE(*,*) ' tag annual bgc   = ',trim(tagoyrbgc)
-      WRITE(*,*) ' tag monthly ocn  = ',trim(tagomon)
-      WRITE(*,*) ' tag monthly bgc  = ',trim(tagomonbgc)
-      WRITE(*,*) ' tag daily ocn    = ',trim(tagoday)
-      WRITE(*,*) ' tag daily bgc    = ',trim(tagodaybgc)
-      WRITE(*,*) ' tag monthly ice  = ',trim(tagimon)
-      WRITE(*,*) ' tag daily ice    = ',trim(tagiday)
-      WRITE(*,*) ' tag monthly atm  = ',trim(tagamon)
-      WRITE(*,*) ' tag daily atm    = ',trim(tagaday)
-      WRITE(*,*) ' tag 6hourly atm  = ',trim(taga6hr) 
-      WRITE(*,*) ' tag 3hourly atm  = ',trim(taga3hr) 
-      WRITE(*,*) ' tag 3hourly insa = ',trim(taga3hri) 
-      WRITE(*,*) ' tag monthly lnd  = ',trim(taglmon)
-      WRITE(*,*) ' tag daily lnd    = ',trim(taglday)
-      WRITE(*,*) ' tag 3hourly lnd  = ',trim(tagl3hr) 
-      WRITE(*,*) ' tag 3hourly insl = ',trim(tagl3hri) 
-      WRITE(*,*) ' atmos grid file  = ',trim(atmgridfile)
-      WRITE(*,*) ' ocean grid file  = ',trim(ocngridfile)
-      WRITE(*,*) ' ocean ini file   = ',trim(ocninitfile)
-      WRITE(*,*) ' ocean sec file   = ',trim(secindexfile)
-      WRITE(*,*) ' ocean moc file   = ',trim(ocnmertfile)
+      WRITE(*,*) ' institution      = ',TRIM(institution1)
+      WRITE(*,*) ' model id         = ',TRIM(model_id)
+      WRITE(*,*) ' source           = ',TRIM(source1)
+      WRITE(*,*) ' references       = ',TRIM(references1)
+      WRITE(*,*) ' contact          = ',TRIM(contact1)
+      WRITE(*,*) ' tag annual ocn   = ',TRIM(tagoyr)
+      WRITE(*,*) ' tag annual bgc   = ',TRIM(tagoyrbgc)
+      WRITE(*,*) ' tag monthly ocn  = ',TRIM(tagomon)
+      WRITE(*,*) ' tag monthly bgc  = ',TRIM(tagomonbgc)
+      WRITE(*,*) ' tag daily ocn    = ',TRIM(tagoday)
+      WRITE(*,*) ' tag daily bgc    = ',TRIM(tagodaybgc)
+      WRITE(*,*) ' tag monthly ice  = ',TRIM(tagimon)
+      WRITE(*,*) ' tag daily ice    = ',TRIM(tagiday)
+      WRITE(*,*) ' tag monthly atm  = ',TRIM(tagamon)
+      WRITE(*,*) ' tag daily atm    = ',TRIM(tagaday)
+      WRITE(*,*) ' tag 6hourly atm  = ',TRIM(taga6hr) 
+      WRITE(*,*) ' tag 3hourly atm  = ',TRIM(taga3hr) 
+      WRITE(*,*) ' tag 3hourly insa = ',TRIM(taga3hri) 
+      WRITE(*,*) ' tag monthly lnd  = ',TRIM(taglmon)
+      WRITE(*,*) ' tag daily lnd    = ',TRIM(taglday)
+      WRITE(*,*) ' tag 3hourly lnd  = ',TRIM(tagl3hr) 
+      WRITE(*,*) ' tag 3hourly insl = ',TRIM(tagl3hri) 
+      WRITE(*,*) ' atmos grid file  = ',TRIM(atmgridfile)
+      WRITE(*,*) ' ocean grid file  = ',TRIM(ocngridfile)
+      WRITE(*,*) ' ocean ini file   = ',TRIM(ocninitfile)
+      WRITE(*,*) ' ocean sec file   = ',TRIM(secindexfile)
+      WRITE(*,*) ' ocean moc file   = ',TRIM(ocnmertfile)
       WRITE(*,*) ' allow line break = ',linebreaks 
 c
       WRITE(*,*) 
       WRITE(*,*) 'Experiment namelist:'
-      WRITE(*,*) ' case name        = ',trim(casename) 
-      WRITE(*,*) ' experiment id    = ',trim(experiment_id)
-      WRITE(*,*) ' contact          = ',trim(contact1)
-      WRITE(*,*) ' history          = ',trim(history1)
-      WRITE(*,*) ' comment          = ',trim(comment1)
-      WRITE(*,*) ' forcing          = ',trim(forcing1)
+      WRITE(*,*) ' case name        = ',TRIM(casename) 
+      WRITE(*,*) ' experiment id    = ',TRIM(experiment_id)
+      WRITE(*,*) ' history          = ',TRIM(history1)
+      WRITE(*,*) ' comment          = ',TRIM(comment1)
+      WRITE(*,*) ' forcing          = ',TRIM(forcing1)
       WRITE(*,*) ' realization      =',realization
       WRITE(*,*) ' start year       = ',year1 
       WRITE(*,*) ' end year         = ',yearn 
@@ -616,96 +615,96 @@ c
 c
       WRITE(*,*) 
       WRITE(*,*) 'Table grids:'
-      WRITE(*,*) ' grid table file  = ',trim(tgrids)
+      WRITE(*,*) ' grid table file  = ',TRIM(tgrids)
 c
       WRITE(*,*) 
       WRITE(*,*) 'Table fx:'
       DO n=1,nfx
-        WRITE(*,*) ' ',vfx(:,n)
+        WRITE(*,'(1X,A20,A20,A20)') vfx(:,n)
       ENDDO
 c
       WRITE(*,*)
       WRITE(*,*) 'Table yr:'
       DO n=1,noyr
-        WRITE(*,*) ' ',voyr(:,n)
+        WRITE(*,'(1X,A20,A20,A20)') voyr(:,n)
       ENDDO
 c
       WRITE(*,*)
       WRITE(*,*) 'Table yr (bgc):'
       DO n=1,noyrbgc
-        WRITE(*,*) ' ',voyrbgc(:,n)
+        WRITE(*,'(1X,A20,A20,A20)') voyrbgc(:,n)
       ENDDO
 c
       WRITE(*,*)
       WRITE(*,*) 'Table omon:'
       DO n=1,nomon
-        WRITE(*,*) ' ',vomon(:,n)
+        WRITE(*,'(1X,A20,A20,A20)') vomon(:,n)
       ENDDO
 c
       WRITE(*,*)
       WRITE(*,*) 'Table omon (bgc):'
       DO n=1,nomonbgc
-        WRITE(*,*) ' ',vomonbgc(:,n)
+        WRITE(*,'(1X,A20,A20,A20)') vomonbgc(:,n)
       ENDDO
 c
       WRITE(*,*)
       WRITE(*,*) 'Table oimon:'
       DO n=1,namon
-        WRITE(*,*) ' ',voimon(:,n)
+        WRITE(*,'(1X,A20,A20,A20)') voimon(:,n)
       ENDDO
 c
       WRITE(*,*) 
       WRITE(*,*) 'Table amon:'
       DO n=1,namon
-        WRITE(*,*) ' ',vamon(:,n)
+        WRITE(*,'(1X,A20,A20,A20)') vamon(:,n)
       ENDDO
 c
       WRITE(*,*) 
       WRITE(*,*) 'Table aero:'
       DO n=1,naero
-        WRITE(*,*) ' ',vaero(:,n)
+        WRITE(*,'(1X,A20,A20,A20)') vaero(:,n)
       ENDDO
 c
       WRITE(*,*)
       WRITE(*,*) 'Table Lmon:'
       DO n=1,nlmon
-        WRITE(*,*) ' ',vlmon(:,n)
+        WRITE(*,'(1X,A20,A20,A20)') vlmon(:,n)
       ENDDO
 c
       WRITE(*,*)
       WRITE(*,*) 'Table LImon:'
       DO n=1,nlimon
-        WRITE(*,*) ' ',vlimon(:,n)
+        WRITE(*,'(1X,A20,A20,A20)') vlimon(:,n)
       ENDDO
 c
       WRITE(*,*) 
       WRITE(*,*) 'Table day:'
       DO n=1,nday
-        WRITE(*,*) ' ',vday(:,n)
+        WRITE(*,'(1X,A20,A20,A20)') vday(:,n)
       ENDDO
 c
       WRITE(*,*) 
       WRITE(*,*) 'Table 6hrlev:'
       DO n=1,n6hrlev
-        WRITE(*,*) ' ',v6hrlev(:,n)
+        WRITE(*,'(1X,A20,A20,A20)') v6hrlev(:,n)
       ENDDO
 c
       WRITE(*,*) 
       WRITE(*,*) 'Table 6hrplev:'
       DO n=1,n6hrplev
-        WRITE(*,*) ' ',v6hrplev(:,n)
+        WRITE(*,'(1X,A20,A20,A20)') v6hrplev(:,n)
       ENDDO
 c
       WRITE(*,*) 
       WRITE(*,*) 'Table 3hr:'
       DO n=1,n3hr
-        WRITE(*,*) ' ',v3hr(:,n)
+        WRITE(*,'(1X,A20,A20,A20)') v3hr(:,n)
       ENDDO
 c
       WRITE(*,*) 
       WRITE(*,*) 'Table 3hri:'
       DO n=1,n3hri
-        WRITE(*,*) ' ',v3hri(:,n)
+        WRITE(*,'(1X,A20,A20,A20)') v3hri(:,n)
       ENDDO
 c
       END SUBROUTINE print_namelists

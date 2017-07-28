@@ -1,7 +1,9 @@
       MODULE m_utilities
 c
       USE netcdf
-      USE m_namelists
+      USE m_namelists, only: itag,verbose,ibasedir,slenmax,lenmax,
+     .  casename,fnm,year1,month1,yearn,monthn,exprefyear,rec,tval,
+     .  tbnd,mbnd,year,month,forcefilescan
 c
       IMPLICIT NONE
 c 
@@ -311,6 +313,9 @@ c
       CHARACTER(LEN=80) :: c80
 c
 cdiag WRITE(*,*) 'getvertcoord:tnm,vnm=',tnm(1:lenmax),vnm(1:lenmax)
+#ifdef CMOR3
+
+#else
       OPEN(10,FILE=TRIM(tnm))
       DO
         READ(10,'(a80)') c80
@@ -333,6 +338,7 @@ cdiag WRITE(*,*) 'getvertcoord:tnm,vnm=',tnm(1:lenmax),vnm(1:lenmax)
         EXIT
       END DO
       CLOSE(10)
+#endif
 c
       END SUBROUTINE get_vertcoord
 
@@ -856,7 +862,11 @@ c
       enddo
 c
 c --- Move reference to Greenland
-      strmf=strmf-strmf(idm,jdm,1)
+      do j=1,jdm 
+        do i=1,idm
+          strmf(i,j,1)=strmf(i,j,1)-strmf(idm,jdm,1)
+        enddo 
+      enddo
 c
 c --- ------------------------------------------------------------------
 c --- interpolate the streamfunction to the p-point (also smooths)

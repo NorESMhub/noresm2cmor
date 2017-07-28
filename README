@@ -55,14 +55,27 @@ Run installation script for output path
 
 Change directory to noresm2cmor/scripts
 
-Run CMORization test  
- ./cmorize_sampledata.sh 
+Run CMORization test with 
+ ./cmorize_sampledata_intel.sh 
+or 
+ ./cmorize_sampledata_gnu.sh 
+depending on whether noresm2cmor was compiled with intel or gnu. 
 
 
 4. General usage of noresm2cmor binary executable 
 -------------------------------------------------
 
 Change directory to noresm2cmor/bin
+
+On hexagon, load modules 
+ . /usr/share/Modules/init/sh
+ module unload netcdf gcc hdf
+ module load gcc/4.7.2
+or
+ . /usr/share/Modules/init/sh
+ module unload netcdf gcc hdf
+ module load netcdf.intel/4.4.0 udunits/2.2.17 uuid/1.5.1
+depending on whether noresm2cmor was compiled with intel or gnu. 
 
 Start CMORization with 
  ./noresm2cmor <path to noresm2cmor's namelist file>
@@ -79,8 +92,12 @@ To prompt syntax call noresm2cmor without argument.
 Change directory to noresm2cmor/scripts
 
 Start CMORization with 
- ./cmorize_generic.sh <absolute path to NorESM case folder> <start year> <end year> 
+ ./cmorize_generic_gnu.sh <absolute path to NorESM case folder> <start year> <end year> 
+or
+ ./cmorize_generic_intel.sh <absolute path to NorESM case folder> <start year> <end year> 
 
 E.g. 
- ./cmorize_generic.sh /projects/NS2345K/www/cmor/sampledata/N20TRAERCN_f19_g16_01 2000 2000
+ ./cmorize_generic_gnu.sh /projects/NS2345K/www/cmor/sampledata/N20TRAERCN_f19_g16_01 2000 2000
+or
+ ./cmorize_generic_intel.sh /projects/NS2345K/www/cmor/sampledata/N20TRAERCN_f19_g16_01 2000 2000
 
