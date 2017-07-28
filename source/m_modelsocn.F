@@ -38,7 +38,7 @@ c --- Dataset related variables
       LOGICAL, SAVE :: lsumz 
 c
 c --- Table related variables 
-      CHARACTER(LEN=lenmax), SAVE :: table,tablepath
+      CHARACTER(LEN=slenmax), SAVE :: table,tablepath
 c
 c --- Cmor parameters 
       CHARACTER(LEN=1024) :: fnmo  

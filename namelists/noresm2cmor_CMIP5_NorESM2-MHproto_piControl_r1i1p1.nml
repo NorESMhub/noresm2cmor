@@ -155,7 +155,6 @@
                  'swa           ','rsntds    ','positivedo',
                  'dz            ','zfull     ','dz2zfull  ',
                  'dz            ','zhalf     ','dz2zhalf  ',
-                 'sst           ','tos       ','          ',
                  'uvel          ','uo        ','          ',
                  'uvellvl       ','uo        ','          ',
                  'vvel          ','vo        ','          ',
