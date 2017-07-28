@@ -1,5 +1,5 @@
 # Targets 
-TARGET=noresm2cmor_intel
+TARGET=noresm2cmor
 
 # Objects
 OBJ=m_namelists.o m_utilities.o m_modelsatm.o m_modelsice.o m_modelslnd.o m_modelsocn.o noresm2cmor.o
