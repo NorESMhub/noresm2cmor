@@ -68,7 +68,7 @@ c --- Process table fx
       table=tfx 
       linstant=.FALSE.
       DO n=1,nfx 
-        IF(.NOT.dfx) EXIT
+        IF (skip_variable(n,nfx,dfx)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=vfx(1,n) 
@@ -114,7 +114,7 @@ c --- Process table lmon
       table=tlmon 
       linstant=.FALSE.
       DO n=1,nlmon 
-        IF(.NOT.dlmon) EXIT
+        IF (skip_variable(n,nlmon,dlmon)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=vlmon(1,n) 
@@ -202,7 +202,7 @@ c --- Process table limon
       table=tlimon
       linstant=.FALSE.
       DO n=1,nlimon
-        IF(.NOT.dlimon) EXIT
+        IF (skip_variable(n,nlimon,dlimon)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=vlimon(1,n)
@@ -290,7 +290,7 @@ c --- Process table day
       table=tday
       linstant=.FALSE.
       DO n=1,nday
-        IF(.NOT.dday) EXIT
+        IF (skip_variable(n,nday,dday)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=vday(1,n)
@@ -359,7 +359,7 @@ c --- Process table 3hr (averaged fields)
       table=t3hr
       linstant=.FALSE.
       DO n=1,n3hr
-        IF(.NOT.d3hr) EXIT
+        IF (skip_variable(n,n3hr,d3hr)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=v3hr(1,n)
@@ -428,7 +428,7 @@ c --- Process table 3hr (instantaneous fields)
       table=t3hri
       linstant=.TRUE.
       DO n=1,n3hri
-        IF(.NOT.d3hri) EXIT
+        IF (skip_variable(n,n3hri,d3hri)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=v3hri(1,n)

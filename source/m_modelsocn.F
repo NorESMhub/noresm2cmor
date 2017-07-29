@@ -93,7 +93,7 @@ c --- Process table fx
       fnm=TRIM(griddata)//TRIM(ocngridfile)
       table=tfx 
       DO n=1,nfx 
-        IF(.NOT.dfx) EXIT
+        IF (skip_variable(n,nfx,dfx)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=vfx(1,n) 
@@ -133,7 +133,7 @@ c --- Process table oyr
       fnm=poyr
       table=toyr
       DO n=1,noyr
-       IF(.NOT.doyr) EXIT
+        IF (skip_variable(n,noyr,doyr)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=voyr(1,n)
@@ -222,7 +222,7 @@ c --- Process table oyr (bgc)
       fnm=poyrbgc
       table=toyrbgc
       DO n=1,noyrbgc
-       IF(.NOT.doyrbgc) EXIT
+        IF (skip_variable(n,noyrbgc,doyrbgc)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=voyrbgc(1,n)
@@ -311,7 +311,7 @@ c --- Process table omon
       fnm=pomon
       table=tomon 
       DO n=1,nomon 
-       IF(.NOT.domon) EXIT
+        IF (skip_variable(n,nomon,domon)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=vomon(1,n) 
@@ -409,7 +409,7 @@ c --- Process table omon (bgc)
       fnm=pomonbgc
       table=tomonbgc
       DO n=1,nomonbgc
-       IF(.NOT.domonbgc) EXIT
+        IF (skip_variable(n,nomonbgc,domonbgc)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=vomonbgc(1,n)
@@ -504,7 +504,7 @@ c --- Process table day
       fnm=pday
       table=tday
       DO n=1,nday
-        IF(.NOT.dday) EXIT
+        IF (skip_variable(n,nday,dday)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=vday(1,n)

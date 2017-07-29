@@ -85,7 +85,7 @@ c --- Process table fx
       table=tfx 
       linstant=.FALSE.
       DO n=1,nfx 
-        IF(.NOT.dfx) EXIT
+        IF (skip_variable(n,nfx,dfx)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=vfx(1,n) 
@@ -137,7 +137,7 @@ c --- Process table amon
       linstant=.FALSE.
       lreadplev=.TRUE.
       DO n=1,namon 
-        IF(.NOT.damon) EXIT
+        IF (skip_variable(n,namon,damon)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=vamon(1,n) 
@@ -242,7 +242,7 @@ c --- Process table aero
       linstant=.FALSE.
       lreadplev=.FALSE.
       DO n=1,naero
-        IF(.NOT.daero) EXIT
+        IF (skip_variable(n,naero,daero)) CYCLE
 c 
 c --- - Map namelist variables 
         ivnm=vaero(1,n)
@@ -342,7 +342,7 @@ c --- Process table day
       linstant=.FALSE.
       lreadplev=.TRUE.
       DO n=1,nday
-        IF(.NOT.dday) EXIT
+        IF (skip_variable(n,nday,dday)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=vday(1,n)
@@ -390,7 +390,7 @@ c
 c --- --- Read variable into buffer (average if necessary)
           rec=0
           IF (LEN_TRIM(pday).eq.0) CALL scan_files 
-          IF (rec.EQ.0) EXIT
+          IF (rec.EQ.0) CYCLE
 cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
           IF (tbnd(1).EQ.tbnd(2)) THEN 
             IF(verbose) WRITE(*,*) 'Skip initialisation record'
@@ -433,7 +433,7 @@ c --- Process table 6hrlev
       table=t6hrlev
       linstant=.TRUE.
       DO n=1,n6hrlev
-        IF(.NOT.d6hrlev) EXIT
+        IF (skip_variable(n,n6hrlev,d6hrlev)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=v6hrlev(1,n)
@@ -507,7 +507,7 @@ c --- Process table 6hrplev
       linstant=.TRUE.
       lreadplev=.TRUE.
       DO n=1,n6hrplev
-        IF(.NOT.d6hrplev) EXIT
+        IF (skip_variable(n,n6hrplev,d6hrplev)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=v6hrplev(1,n)
@@ -590,7 +590,7 @@ c --- Process table 3hr
       table=t3hr
       linstant=.FALSE.
       DO n=1,n3hr
-        IF(.NOT.d3hr) EXIT
+        IF (skip_variable(n,n3hr,d3hr)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=v3hr(1,n)
@@ -662,7 +662,7 @@ c --- Process table 3hr (instantaneous)
       table=t3hri
       linstant=.TRUE.
       DO n=1,n3hri
-        IF(.NOT.d3hri) EXIT
+        IF (skip_variable(n,n3hri,d3hri)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=v3hri(1,n)

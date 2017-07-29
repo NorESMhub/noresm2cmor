@@ -101,3 +101,20 @@ E.g.
 or
  ./cmorize_generic_intel.sh /projects/NS2345K/www/cmor/sampledata/N20TRAERCN_f19_g16_01 2000 2000
 
+
+6. Parallel CMORization on NorStore
+-----------------------------------
+
+COMPILATION:
+
+Load modules with 
+ module load intel/2017.1 openmpi.intel/1.10.2
+
+Compile with
+ cd build 
+ make -f Makefile_cmor2mpi.norstore_intel 
+
+CMORize (e.g. using 8 tasks) with 
+ cd ../bin 
+ export I_MPI_WAIT_MODE=1
+ mpirun -n 8 noresm2cmor_mpi <path to namelist> 

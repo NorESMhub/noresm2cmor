@@ -159,7 +159,7 @@ c --- Tables
       NAMELIST /table_3hri/    d3hri,p3hri,t3hri,r3hri,v3hri
 c
 c --- Misc 
-      INTEGER :: istatus
+      INTEGER :: istatus,funit 
       CHARACTER(LEN=slenmax), SAVE :: fnm,itag,nmlfp ! input file name and tag 
       CHARACTER(LEN=slenmax), SAVE :: nmlfpsys,nmlfpmod,nmlfpexp, 
      .  nmlfpvar  ! namelist file paths 
@@ -390,10 +390,12 @@ c --- Read namelists
           STOP
         ENDIF
       ENDIF
-c
-      OPEN(10,FILE=TRIM(nmlfpsys),STATUS='old',ACTION='read',RECL=200)
-      READ(10,nml=system,IOSTAT=istatus)
-      CLOSE(10)
+c        
+      funit=get_free_unit()
+      OPEN(funit,FILE=TRIM(nmlfpsys),STATUS='old',ACTION='read',
+     .  RECL=200)
+      READ(funit,nml=system,IOSTAT=istatus)
+      CLOSE(funit)
       IF (istatus.NE.0) THEN 
         WRITE(*,*) 'Problem reading namelist system in file '//
      .    TRIM(nmlfpsys)
@@ -402,91 +404,95 @@ c
       griddata=TRIM(griddata)//'/' 
       tabledir=TRIM(tabledir)//'/' 
 c
-      OPEN(10,FILE=TRIM(nmlfpmod),STATUS='old',ACTION='read',RECL=200)
-      READ(10,nml=model,IOSTAT=istatus)
-      CLOSE(10)
+      OPEN(funit,FILE=TRIM(nmlfpmod),STATUS='old',ACTION='read',
+     .  RECL=200)
+      READ(funit,nml=model,IOSTAT=istatus)
+      CLOSE(funit)
       IF (istatus.NE.0) THEN 
         WRITE(*,*) 'Problem reading namelist model in file '//
      .    TRIM(nmlfpmod)
         STOP
       ENDIF  
 c
-      OPEN(10,FILE=TRIM(nmlfpexp),STATUS='old',ACTION='read',RECL=200)
-      READ(10,nml=experiment,IOSTAT=istatus)
-      CLOSE(10)
+      OPEN(funit,FILE=TRIM(nmlfpexp),STATUS='old',ACTION='read',
+     .  RECL=200)
+      READ(funit,nml=experiment,IOSTAT=istatus)
+      CLOSE(funit)
       IF (istatus.NE.0) THEN 
         WRITE(*,*) 'Problem reading namelist experiment in file '//
      .    TRIM(nmlfpexp)
         STOP
       ENDIF  
 c
-      OPEN(10,FILE=TRIM(nmlfpvar),STATUS='old',ACTION='read',RECL=200)
-      READ(10,nml=table_grids,IOSTAT=istatus)
-      REWIND(10)
+      OPEN(funit,FILE=TRIM(nmlfpvar),STATUS='old',ACTION='read',
+     .  RECL=200)
+      READ(funit,nml=table_grids,IOSTAT=istatus)
+      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table grids not in namelist file. Using CMIP5 default'
-      OPEN(10,FILE=TRIM(nmlfpvar),STATUS='old',ACTION='read',RECL=200)
-      READ(10,nml=table_fx,IOSTAT=istatus)
-      REWIND(10)
+      OPEN(funit,FILE=TRIM(nmlfpvar),STATUS='old',ACTION='read',
+     .  RECL=200)
+      READ(funit,nml=table_fx,IOSTAT=istatus)
+      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table FX not in namelist file. Skipping table...'
-      READ(10,nml=table_oyr,IOSTAT=istatus)
-      REWIND(10)
+      READ(funit,nml=table_oyr,IOSTAT=istatus)
+      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Oyr not in namelist file. Skipping table...'
-      READ(10,nml=table_oyrbgc,IOSTAT=istatus)
-      REWIND(10)
+      READ(funit,nml=table_oyrbgc,IOSTAT=istatus)
+      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Oyrbgc not in namelist file. Skipping table...'
-      READ(10,nml=table_omon,IOSTAT=istatus)
-      REWIND(10)
+      READ(funit,nml=table_omon,IOSTAT=istatus)
+      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Omon not in namelist file. Skipping table...'
-      READ(10,nml=table_omonbgc,IOSTAT=istatus)
-      REWIND(10)
+      READ(funit,nml=table_omonbgc,IOSTAT=istatus)
+      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Omonbgc not in namelist file. Skipping table...'
-      READ(10,nml=table_oimon,IOSTAT=istatus)
-      REWIND(10)
+      READ(funit,nml=table_oimon,IOSTAT=istatus)
+      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table OImon not in namelist file. Skipping table...'
-      READ(10,nml=table_amon,IOSTAT=istatus)
-      REWIND(10)
+      READ(funit,nml=table_amon,IOSTAT=istatus)
+      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Amon not in namelist file. Skipping table...'
-      READ(10,nml=table_aero,IOSTAT=istatus)
-      REWIND(10)
+      READ(funit,nml=table_aero,IOSTAT=istatus)
+      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Aero not in namelist file. Skipping table...'
-      READ(10,nml=table_lmon,IOSTAT=istatus)
-      REWIND(10)
+      READ(funit,nml=table_lmon,IOSTAT=istatus)
+      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Lmon not in namelist file. Skipping table...'
-      READ(10,nml=table_limon,IOSTAT=istatus)
-      REWIND(10)
+      READ(funit,nml=table_limon,IOSTAT=istatus)
+      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table LImon not in namelist file. Skipping table...'
-      READ(10,nml=table_day,IOSTAT=istatus)
-      REWIND(10)
+      READ(funit,nml=table_day,IOSTAT=istatus)
+      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Day not in namelist file. Skipping table...'
-      READ(10,nml=table_6hrlev,IOSTAT=istatus)
-      REWIND(10)
+      READ(funit,nml=table_6hrlev,IOSTAT=istatus)
+      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table 6hrLev not in namelist file. Skipping table...'
-      READ(10,nml=table_6hrplev,IOSTAT=istatus)
-      REWIND(10)
+      READ(funit,nml=table_6hrplev,IOSTAT=istatus)
+      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table 6hrPLev not in namelist file. Skipping table...'
-      READ(10,nml=table_3hr,IOSTAT=istatus)
-      REWIND(10)
+      READ(funit,nml=table_3hr,IOSTAT=istatus)
+      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table 3hr not in namelist file. Skipping table...'
-      READ(10,nml=table_3hri,IOSTAT=istatus)
-      REWIND(10)
+      READ(funit,nml=table_3hri,IOSTAT=istatus)
+      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table 3hri not in namelist file. Skipping table...'
-      CLOSE(10)
+      CLOSE(funit)
 c
 c
 c --- Merge global string arrays
@@ -740,6 +746,21 @@ c
       ENDDO           
 c
       END SUBROUTINE merge_strarr 
+
+
+      
+      INTEGER function get_free_unit
+c
+      IMPLICIT NONE
+c
+      LOGICAL :: in_use
+c     
+      DO get_free_unit=10,99
+        INQUIRE(get_free_unit,OPENED=in_use)  
+        IF (.NOT.in_use) EXIT 
+      ENDDO 
+c
+      END FUNCTION get_free_unit
 
 
 

@@ -3,7 +3,7 @@ c
       USE netcdf
       USE m_namelists, only: itag,verbose,ibasedir,slenmax,lenmax,
      .  casename,fnm,year1,month1,yearn,monthn,exprefyear,rec,tval,
-     .  tbnd,mbnd,year,month,forcefilescan
+     .  tbnd,mbnd,year,month,forcefilescan,funit
 c
       IMPLICIT NONE
 c 
@@ -316,14 +316,14 @@ cdiag WRITE(*,*) 'getvertcoord:tnm,vnm=',tnm(1:lenmax),vnm(1:lenmax)
 #ifdef CMOR3
 
 #else
-      OPEN(10,FILE=TRIM(tnm))
+      OPEN(funit,FILE=TRIM(tnm))
       DO
-        READ(10,'(a80)') c80
+        READ(funit,'(a80)') c80
         IF (INDEX(c80,'variable_entry:').LE.0) CYCLE
         c80=ADJUSTL(TRIM(c80(16:)))
         IF (c80(1:lenmax).NE.vnm(1:lenmax)) CYCLE
         DO
-          READ(10,'(a80)') c80
+          READ(funit,'(a80)') c80
           IF (INDEX(c80,'dimensions:').LE.0) CYCLE
           c80=ADJUSTL(TRIM(c80(12:)))
           c80=c80((INDEX(c80,' ')+1):)
@@ -337,7 +337,7 @@ cdiag WRITE(*,*) 'getvertcoord:tnm,vnm=',tnm(1:lenmax),vnm(1:lenmax)
         END DO
         EXIT
       END DO
-      CLOSE(10)
+      CLOSE(funit)
 #endif
 c
       END SUBROUTINE get_vertcoord
@@ -352,14 +352,14 @@ c
 c
       CHARACTER(LEN=80) :: c80
 c
-      OPEN(10,FILE=TRIM(tnm))
+      OPEN(funit,FILE=TRIM(tnm))
       DO
-        READ(10,'(a80)') c80
+        READ(funit,'(a80)') c80
         IF (INDEX(c80,'variable_entry:').LE.0) CYCLE
         c80=ADJUSTL(TRIM(c80(16:)))
         IF (c80(1:lenmax).NE.vnm(1:lenmax)) CYCLE
         DO
-          READ(10,'(a80)') c80
+          READ(funit,'(a80)') c80
           IF (INDEX(c80,'dimensions:').LE.0) CYCLE
           c80=ADJUSTL(TRIM(c80(12:)))
           IF (TRIM(VNM).NE.'mfo'.AND.TRIM(VNM).NE.'thetaoga'
@@ -379,7 +379,7 @@ c
         END DO
         EXIT
       END DO
-      CLOSE(10)
+      CLOSE(funit)
 c
       END SUBROUTINE get_timecoord
 
@@ -418,7 +418,7 @@ c
       use netcdf
       implicit none
 c 
-      character*500 :: idir,cnam,ftag,fpre,fnam,listpath=' '
+      character*500 :: idir,cnam,ftag,fpre,fnam
       integer :: y1,m1,y2,m2,yref,mref,dref,yr,irec
       integer,save :: y1old=0,m1old=0,y2old=0,m2old=0
       integer :: year,month
@@ -429,24 +429,8 @@ c
       integer, save :: fstat,n,nrec,unlimdimid,ncid,rhid,rhid2,
      .           status,sstartend(2,10),nskip,irecold,toff,ndays
       real*8,save :: dnumlo,dnumhi, tbndold(2)=(/-999999.,-999999./)
-      logical, save :: ltimebnds,ldone,lexist,lfirst=.true.
+      logical, save :: ltimebnds,ldone
 c
-c --- create file list if it does not exist already 
-      listpath='filelist_'//trim(cnam)
-      inquire(file=trim(listpath),exist=lexist)
-      if (lfirst.and.((.not.lexist).or.forcefilescan)) then 
-cdiag   write(*,*) 'get_file_info: create new file list '
-cdiag.    //trim(listpath)
-        call system('find '//trim(idir)//'/'//trim(cnam)//
-     .    ' -path "*/hist/*" -name "*.nc"'
-     .    //' | sort > '//trim(listpath))
-      else 
-        continue  
-cdiag   write(*,*) 'get_file_info: read existing file list '   
-cdiag.    //trim(listpath)
-      endif
-      if (lfirst) lfirst=.false. 
-c 
 c --- check whether to start file list read from beginning or to resume 
       fpre=trim(cnam)//'.'//trim(ftag)//'.'    
       if (y1old.ne.y1.or.y2old.ne.y2.or.m1old.ne.m1
@@ -471,16 +455,16 @@ c --- check whether to start file list read from beginning or to resume
       endif
 c
 c --- loop over files 
-      open(10,FILE=trim(listpath),FORM='formatted')
+      open(funit,FILE=trim('filelist_'//cnam),FORM='formatted')
 c     skip all files that have already been scanned       
       do n=1,nskip
-        read(10,'(a500)',iostat=fstat) fnam
+        read(funit,'(a500)',iostat=fstat) fnam
         if (fstat.ne.0) stop 'unexpected end of list file'
       enddo
 c     continue with files that have not yet been scanned 
       ldone=.false.
       do
-        read(10,'(a500)',iostat=fstat) fnam
+        read(funit,'(a500)',iostat=fstat) fnam
         if (fstat.ne.0) then
           fnam=' '
           irec=0
@@ -570,7 +554,7 @@ c --- --- check if time value lies within limits
           exit
         endif
       enddo
-      close(10)
+      close(funit)
 c 
 c --- get bounds of month 
       call tbndmon(calendar,yr,0.5*(tbnd(1)+tbnd(2)),mbnd,year,month)
@@ -781,15 +765,15 @@ c
       IF (.NOT.fexist) RETURN
 c
       seclen=0
-      OPEN(10,FILE=TRIM(fname))
+      OPEN(funit,FILE=TRIM(fname))
       DO
         c100=' '
-        READ(10,'(a100)',IOSTAT=iostatus) c100
+        READ(funit,'(a100)',IOSTAT=iostatus) c100
         IF (iostatus.LT.0) EXIT
         IF (INDEX(c100,'fram_strait').GT.0) THEN
           DO
             c100=' '
-            READ(10,'(a100)',IOSTAT=iostatus) c100
+            READ(funit,'(a100)',IOSTAT=iostatus) c100
             IF (iostatus.LT.0) EXIT
             IF (INDEX(c100,'Name').GT.0) EXIT
             seclen=seclen+1
@@ -799,7 +783,7 @@ c
           ENDDO
         ENDIF
       ENDDO
-      CLOSE(10)
+      CLOSE(funit)
 c
       END SUBROUTINE read_secindex
 
@@ -1436,5 +1420,26 @@ C
    70 CONTINUE
       END SUBROUTINE VINTH2PECMWF
 
+
+
+      LOGICAL FUNCTION skip_variable(n,nmax,do_table) 
+      IMPLICIT NONE 
+      INCLUDE 'mpif.h'
+      LOGICAL :: do_table
+      INTEGER :: n,nmax
+      INTEGER :: mpirank, mpisize, mpierror
+#ifdef MPI 
+      CALL MPI_COMM_SIZE(MPI_COMM_WORLD, mpisize, mpierror)
+      CALL MPI_COMM_RANK(MPI_COMM_WORLD, mpirank, mpierror)
+#else 
+      mpirank=0 
+      mpisize=1
+#endif 
+      IF (do_table.AND.MOD(n-1,mpisize).EQ.mpirank) THEN 
+        skip_variable=.FALSE.
+      ELSE 
+        skip_variable=.TRUE.
+      ENDIF  
+      END FUNCTION skip_variable
 
       END MODULE m_utilities

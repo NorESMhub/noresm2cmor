@@ -94,7 +94,7 @@ c --- Process table fx
       fnm=pfx
       table=tfx 
       DO n=1,nfx 
-        IF(.NOT.dfx) EXIT
+        IF (skip_variable(n,nfx,dfx)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=vfx(1,n) 
@@ -138,7 +138,7 @@ c --- Process table omon
       fnm=pomon
       table=tomon
       DO n=1,nomon
-        IF(.NOT.domon) EXIT    
+        IF (skip_variable(n,nomon,domon)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=vomon(1,n)
@@ -231,7 +231,7 @@ c --- Process table oimon
       fnm=poimon
       table=toimon
       DO n=1,noimon
-        IF(.NOT.doimon) EXIT
+        IF (skip_variable(n,noimon,doimon)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=voimon(1,n)
@@ -321,7 +321,7 @@ c --- Process table day
       fnm=pday
       table=tday
       DO n=1,nday
-        IF(.NOT.dday) EXIT
+        IF (skip_variable(n,nday,dday)) CYCLE
 c
 c --- - Map namelist variables 
         ivnm=vday(1,n)
