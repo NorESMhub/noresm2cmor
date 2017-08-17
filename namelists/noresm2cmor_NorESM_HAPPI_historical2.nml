@@ -44,20 +44,20 @@
 /
 
 &experiment
- casename      = 'N1850AERCN_f09_g16_01',
- experiment_id = 'piControl',
- parent_experiment_id  = 'N/A',
- parent_experiment_rip = 'N/A',
+ casename      = 'N20TRAERCN_f09_g16_happi02',
+ experiment_id = 'historical',
+ parent_experiment_id  = 'pre-industrial control',
+ parent_experiment_rip = 'r1i1p1',
  history       = ' ',
  comment       = ' ',
- forcing       = 'N/A',
- realization   = 1,
+ forcing       = 'GHG, SA, Oz, Sl, Vl, BC, OC',
+ realization   = 2,
  branch_time   = 0.,
- year1         = 900,
- yearn         = 1399,
+ year1         = 1850,
+ yearn         = 2005,
  month1        = 1,
  monthn        = 12,
- exprefyear    = 900
+ exprefyear    = 0
 /
 
 ! d* - do table true/false 
@@ -66,12 +66,12 @@
 ! v* - list of varibles: <cam name>,<cmor name>,<special operation>
 
 &table_grids
- tgrids        = 'HAPPI_grids'
+ tgrids        = 'CMIP5_grids'
 /
  
 &table_fx
  dfx           = .true. 
- tfx           = 'HAPPI_fx', 
+ tfx           = 'CMIP5_fx', 
  vfx           = 
                  'area          ','areacella ','rad2m     ',
                  'LANDFRAC      ','sftlf     ','unitless  ',
@@ -255,7 +255,7 @@
 
 &table_amon
  damon         = .true. 
- tamon         = 'HAPPI_Amon',
+ tamon         = 'CMIP5_Amon',
  ramon         = 1000000, 
  vamon         = 
                  'TREFHT        ','tas       ','          ',  
@@ -350,7 +350,7 @@
 
 &table_lmon
  dlmon        = .false.
- tlmon        = 'HAPPI_Lmon'
+ tlmon        = 'CMIP5_Lmon'
  vlmon        =
                  'QCHOCNR+QCHOCNR_ICE','dis  ','          ',
                  'SOILWATER_10CM','mrsos     ','          ',
@@ -364,7 +364,7 @@
 
 &table_limon
  dlimon        = .false.
- tlimon        = 'HAPPI_LImon'
+ tlimon        = 'CMIP5_LImon'
  rlimon        = 1000000, 
  vlimon        =
                  'SNOWICE+SNOWLIQ','snw      ','          ',
@@ -372,7 +372,7 @@
 
 &table_day
  dday          = .false.
- tday          = 'HAPPI_day', 
+ tday          = 'CMIP5_day', 
  rday          = 1000000, 
  vday          = 
                  'Z3            ','zg        ','          ',

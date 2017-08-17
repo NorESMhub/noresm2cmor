@@ -12,6 +12,9 @@ then
   . /usr/share/Modules/init/sh
   module unload netcdf gcc hdf
   module load netcdf.intel/4.4.0 udunits/2.2.17 uuid/1.5.1
+elif [ `uname -n | grep tos | wc -l` -gt 0 ]
+then
+  source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux
 fi
 
 # cmor-ize 

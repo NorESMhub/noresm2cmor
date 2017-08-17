@@ -18,15 +18,17 @@ LD=$(FC)
 #CMOR=/projects/NS2345K/noresm2cmor/cmorlib/norstore_intel/cmor-CMOR-2.9.2_debug
 CMOR=/projects/NS2345K/noresm2cmor/cmorlib/norstore_intel/cmor-CMOR-2.9.2
 UUID=/diverse/software/uuid-1.5.1
-HDF5=/diverse/software/hdf5.intel-1.8.17
-NETCDF=/diverse/software/netcdf.intel-4.4.0
+HDF5=/projects/NS2345K/noresm2cmor/cmorlib/norstore_intel/hdf5-1.8.9
+NETCDF=/projects/NS2345K/noresm2cmor/cmorlib/norstore_intel/netcdf-4.4.1.1
+NETCDFF=/norstore_osl/projects/NS2345K/noresm2cmor/cmorlib/norstore_intel/netcdf-fortran-4.4.4
 
 # Directory list to search for library files
-LIBS=-L$(CMOR)/lib -Wl,-rpath=$(CMOR)/lib -L$(UUID)/lib -Wl,-rpath=$(UUID)/lib -L$(NETCDF)/lib -Wl,-rpath=$(NETCDF)/lib -L$(HDF5)/lib -Wl,-rpath=$(HDF5)/lib -lcmor -lnetcdff -lnetcdf -l:libhdf5_fortran.so -l:libhdf5hl_fortran.so -luuid -l:libudunits2.so.0 -l:libexpat.so.1
+#LIBS=-L$(CMOR)/lib -Wl,-rpath=$(CMOR)/lib -L$(UUID)/lib -Wl,-rpath=$(UUID)/lib -L$(NETCDFF)/lib -Wl,-rpath=$(NETCDFF)/lib -L$(NETCDF)/lib -Wl,-rpath=$(NETCDF)/lib -L$(HDF5)/lib -Wl,-rpath=$(HDF5)/lib -lcmor -lnetcdff -lnetcdf -l:libhdf5_fortran.so -l:libhdf5hl_fortran.so -luuid -l:libudunits2.so.0 -l:libexpat.so.1
+LIBS=-L$(CMOR)/lib -Wl,-rpath=$(CMOR)/lib -L$(UUID)/lib -Wl,-rpath=$(UUID)/lib -L$(NETCDFF)/lib -Wl,-rpath=$(NETCDFF)/lib -L$(NETCDF)/lib -Wl,-rpath=$(NETCDF)/lib -L$(HDF5)/lib -Wl,-rpath=$(HDF5)/lib -lcmor -lnetcdff -lnetcdf -luuid -l:libudunits2.so.0 -l:libexpat.so.1
 
 # Compiler flags
 #FFLAGS=-g -O0 -traceback -r8 -I$(CMOR)/include -I$(NETCDF)/include -DMPI
-FFLAGS=-O3 -r8 -I$(CMOR)/include -I$(NETCDF)/include -DMPI
+FFLAGS=-O3 -r8 -I$(CMOR)/include -I$(NETCDF)/include -I$(NETCDFF)/include -DMPI
 
 # Linker flags
 #LDFLAGS=$(LIBS) -g 

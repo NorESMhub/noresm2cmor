@@ -204,7 +204,7 @@ c --- --- Read variable into buffer (average if necessary)
             ENDIF 
             nrec=nrec+1
 cdiag      write(*,*) 'DEBUG: ',trim(fnm),rec,nrec,tbnd,mbnd,year,month
-            CALL read_tslice(rec,nrec,badrec,fnm)
+            CALL read_tslice(rec,badrec,fnm)
             ifldacc=ifldacc+ifld 
             IF (tbnd(2).EQ.mbnd(2)) EXIT 
           ENDDO 
@@ -307,7 +307,7 @@ c --- --- Read variable into buffer (average if necessary)
             ENDIF
             nrec=nrec+1
 cdiag       write(*,*) 'DEBUG: ',trim(fnm),rec,nrec,tbnd,mbnd,year,month
-            CALL read_tslice(rec,nrec,badrec,fnm)
+            CALL read_tslice(rec,badrec,fnm)
             ifldacc=ifldacc+ifld
             IF (tbnd(2).EQ.mbnd(2)) EXIT
           ENDDO
@@ -401,7 +401,7 @@ cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
           tval=0.5*(tbnds(1,1)+tbnds(2,1))
 c
 c --- --- Read data 
-          CALL read_tslice(rec,nrec,badrec,fnm)
+          CALL read_tslice(rec,badrec,fnm)
 c
 c --- --- Post processing 
           IF (zcoord(1:4).EQ.'plev'.AND.
@@ -479,7 +479,7 @@ cdiag    write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
           tval=0.5*(tbnds(1,1)+tbnds(2,1))
 c
 c --- --- Read data 
-          CALL read_tslice(rec,nrec,badrec,fnm) 
+          CALL read_tslice(rec,badrec,fnm) 
 c
 c --- --- Post processing 
           ofld=ifld
@@ -558,7 +558,7 @@ cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
           tval=0.5*(tbnds(1,1)+tbnds(2,1))
 c
 c --- --- Read data 
-          CALL read_tslice(rec,nrec,badrec,fnm)
+          CALL read_tslice(rec,badrec,fnm)
 c
 c --- --- Post processing 
           IF (zcoord(1:4).EQ.'plev'.AND.
@@ -636,7 +636,7 @@ cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
           tval=0.5*(tbnds(1,1)+tbnds(2,1))
 c
 c --- --- Read data 
-          CALL read_tslice(rec,nrec,badrec,fnm)
+          CALL read_tslice(rec,badrec,fnm)
 
 c --- --- Post processing 
           ofld=ifld
@@ -708,7 +708,7 @@ cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
           tval=0.5*(tbnds(1,1)+tbnds(2,1))
 c
 c --- --- Read data 
-          CALL read_tslice(rec,nrec,badrec,fnm)
+          CALL read_tslice(rec,badrec,fnm)
 c
 c --- --- Post processing 
           ofld=ifld
@@ -1075,12 +1075,12 @@ c
         WRITE(*,*) 'Table ',TRIM(table), ' does not exist' 
       ENDIF  
       pdm=0
-      OPEN(10,FILE=TRIM(tabledir)//TRIM(table),STATUS='OLD')
+      OPEN(funit,FILE=TRIM(tabledir)//TRIM(table),STATUS='OLD')
       DO
-        READ(10,'(a200)') c200
+        READ(funit,'(a200)') c200
         IF (INDEX(c200,'axis_entry: '//TRIM(str)).LE.0) CYCLE
         DO
-          READ(10,'(a200)') c200
+          READ(funit,'(a200)') c200
           IF (INDEX(c200,'requested:').LE.0) CYCLE
           c200=ADJUSTL(TRIM(c200(11:)))
           DO
@@ -1093,7 +1093,7 @@ c
         ENDDO
         EXIT
       ENDDO
-      CLOSE(10)
+      CLOSE(funit)
 c
       IF (ALLOCATED(plevs)) DEALLOCATE(plevs) 
       ALLOCATE(plevs(pdm)) 
@@ -1602,12 +1602,12 @@ c
 
 
 
-      SUBROUTINE read_tslice(rec,nrec,badrec,fname)
+      SUBROUTINE read_tslice(rec,badrec,fname)
 c
       IMPLICIT NONE
 c
       REAL :: fac1,fac2,fac3,fac4,fac5,fac6
-      INTEGER :: ind,rec,nrec,i,j
+      INTEGER :: ind,rec,i,j
       INTEGER, SAVE :: fid
       CHARACTER(LEN=*), INTENT(IN), OPTIONAL :: fname 
       CHARACTER(LEN=slenmax) :: ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6,str
@@ -1618,10 +1618,8 @@ c --- Open input file
         status=nf90_open(fname,nf90_nowrite,fid)
         CALL handle_ncerror(status)
       ELSE
-        IF (rec.EQ.1) THEN
-          status=nf90_open(fnm,nf90_nowrite,fid)
-          CALL handle_ncerror(status)
-        ENDIF
+        status=nf90_open(fnm,nf90_nowrite,fid)
+        CALL handle_ncerror(status)
       ENDIF
 c
       IF (.FALSE.) THEN 
@@ -1876,19 +1874,8 @@ c --- Mask SSTs
         ENDDO
       ENDIF
 c     
-c      WRITE(*,*) 'fnm,ivnm1=',fnm,ivnm
-c      WRITE(*,*) 'ifld=',ifld
-c
-      IF (PRESENT(fname)) THEN 
-c      WRITE(*,*) 'fname=',fname
-        status=nf90_close(fid)
-        CALL handle_ncerror(status)
-      ELSE
-        IF (rec.EQ.nrec) THEN
-          status=nf90_close(fid)
-          CALL handle_ncerror(status)
-        ENDIF
-      ENDIF
+      status=nf90_close(fid)
+      CALL handle_ncerror(status)
 c
       END SUBROUTINE read_tslice
 

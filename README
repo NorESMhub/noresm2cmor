@@ -67,7 +67,7 @@ depending on whether noresm2cmor was compiled with intel or gnu.
 
 Change directory to noresm2cmor/bin
 
-On hexagon, load modules 
+On Norstore, load modules 
  . /usr/share/Modules/init/sh
  module unload netcdf gcc hdf
  module load gcc/4.7.2

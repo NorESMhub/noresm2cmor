@@ -1424,7 +1424,9 @@ C
 
       LOGICAL FUNCTION skip_variable(n,nmax,do_table) 
       IMPLICIT NONE 
+#ifdef MPI 
       INCLUDE 'mpif.h'
+#endif 
       LOGICAL :: do_table
       INTEGER :: n,nmax
       INTEGER :: mpirank, mpisize, mpierror

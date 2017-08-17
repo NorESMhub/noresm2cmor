@@ -169,7 +169,7 @@ c --- --- Read variable into buffer (average if necessary)
             ENDIF
             nrec=nrec+1
 cdiag       write(*,*) 'DEBUG: ',trim(fnm),rec,nrec,tbnd,mbnd,year,month
-            CALL read_tslice(rec,nrec,badrec,fnm)
+            CALL read_tslice(rec,badrec,fnm)
             fldacc=fldacc+fld
             IF (tbnd(2).EQ.mbnd(2)) EXIT
           ENDDO
@@ -257,7 +257,7 @@ c --- --- Read variable into buffer (average if necessary)
             ENDIF
             nrec=nrec+1
 cdiag       write(*,*) 'DEBUG: ',trim(fnm),rec,nrec,tbnd,mbnd,year,month
-            CALL read_tslice(rec,nrec,badrec,fnm)
+            CALL read_tslice(rec,badrec,fnm)
             fldacc=fldacc+fld
             IF (tbnd(2).EQ.mbnd(2)) EXIT
           ENDDO
@@ -333,7 +333,7 @@ c --- --- Read variable into buffer
           tval=0.5*(tbnds(1,1)+tbnds(2,1))
 c
 c --- --- Read data 
-          CALL read_tslice(rec,nrec,badrec,fnm)
+          CALL read_tslice(rec,badrec,fnm)
 c 
 c --- --- Post processing 
           CALL special_post
@@ -402,7 +402,7 @@ c --- --- Read variable into buffer
           tval=0.5*(tbnds(1,1)+tbnds(2,1))
 c
 c --- --- Read data 
-          CALL read_tslice(rec,nrec,badrec,fnm)
+          CALL read_tslice(rec,badrec,fnm)
 c 
 c --- --- Post processing 
           CALL special_post
@@ -471,7 +471,7 @@ c --- --- Read variable into buffer
           tval=0.5*(tbnds(1,1)+tbnds(2,1))
 c
 c --- --- Read data 
-          CALL read_tslice(rec,nrec,badrec,fnm)
+          CALL read_tslice(rec,badrec,fnm)
 c 
 c --- --- Post processing 
           CALL special_post
@@ -1124,12 +1124,12 @@ c
 
 
 
-      SUBROUTINE read_tslice(rec,nrec,badrec,fname)
+      SUBROUTINE read_tslice(rec,badrec,fname)
 c
       IMPLICIT NONE
 c
       REAL :: fac1,fac2,fac3,fac4,fac5,fac6
-      INTEGER :: ind,rec,nrec 
+      INTEGER :: ind,rec
       INTEGER, SAVE :: fid 
       LOGICAL :: badrec
       CHARACTER(LEN=*), INTENT(IN), OPTIONAL :: fname
@@ -1140,10 +1140,8 @@ c --- Open input file
         status=nf90_open(fname,nf90_nowrite,fid)
         CALL handle_ncerror(status)
       ELSE
-        IF (rec.EQ.1) THEN
-          status=nf90_open(fnm,nf90_nowrite,fid)
-          CALL handle_ncerror(status)
-        ENDIF
+        status=nf90_open(fnm,nf90_nowrite,fid)
+        CALL handle_ncerror(status)
       ENDIF
 c
       IF (.FALSE.) THEN 
