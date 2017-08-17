@@ -15,6 +15,7 @@ then
 elif [ `uname -n | grep tos | wc -l` -gt 0 ]
 then
   source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux
+  ulimit -s unlimited
 fi
 
 # cmor-ize 

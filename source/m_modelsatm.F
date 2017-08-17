@@ -390,7 +390,7 @@ c
 c --- --- Read variable into buffer (average if necessary)
           rec=0
           IF (LEN_TRIM(pday).eq.0) CALL scan_files 
-          IF (rec.EQ.0) CYCLE
+          IF (rec.EQ.0) EXIT
 cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
           IF (tbnd(1).EQ.tbnd(2)) THEN 
             IF(verbose) WRITE(*,*) 'Skip initialisation record'
