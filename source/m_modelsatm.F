@@ -955,9 +955,15 @@ c
       status=nf90_get_var(ncid,rhid,lon)
       CALL handle_ncerror(status)
       status=nf90_inq_varid(ncid,'slon',rhid) 
-      CALL handle_ncerror(status)
-      status=nf90_get_var(ncid,rhid,slon)
-      CALL handle_ncerror(status)
+      IF (status.EQ.0) THEN 
+        status=nf90_get_var(ncid,rhid,slon)
+        CALL handle_ncerror(status)
+      ELSE 
+        slon(i)=0.5*(lon(1)+lon(idm)-360)
+        DO i=2,idm
+          slon(i)=0.5*(lon(i)+lon(i-1))
+        ENDDO
+      ENDIF
 c
       DO i=1,idm-1 
         lon_bnds(1,i)=slon(i)
@@ -980,9 +986,14 @@ c
       status=nf90_get_var(ncid,rhid,lat)
       CALL handle_ncerror(status)
       status=nf90_inq_varid(ncid,'slat',rhid) 
-      CALL handle_ncerror(status)
-      status=nf90_get_var(ncid,rhid,slat)
-      CALL handle_ncerror(status)
+      IF (status.EQ.0) THEN 
+        status=nf90_get_var(ncid,rhid,slat)
+        CALL handle_ncerror(status)
+      ELSE 
+        DO j=1,jdm-1
+          slat(j)=0.5*(lat(j+1)+lat(j))
+        ENDDO
+      ENDIF
 c
       lat_bnds(1,1)=-90.
       lat_bnds(2,1)=slat(1)
