@@ -81,6 +81,8 @@ c
 c --- Read grid information from input files
       WRITE(*,*) 'Read grid information from input files'
       itag=tagimon
+      CALL scan_files(reset=.TRUE.)
+      IF (LEN_TRIM(fnm).EQ.0) RETURN 
       CALL read_gridinfo_ifile
 c 
 c --- Read Fram Strait grid information from secindex.dat
@@ -426,6 +428,10 @@ c
 c --- - Fix micrometers units 
         CASE ('micrometer')
           vunits='micrometers'
+c 
+c --- - Convert degC to K 
+        CASE ('Celsius2Kelvin')
+          vunits='K'
 c
 c --- - Fix m-2 units 
         CASE ('m-2')
@@ -487,6 +493,10 @@ c
 c --- - Convert units from radians2 to m2    
         CASE ('rad2m')
           fld=fld*6.37122e6**2
+c 
+c --- - Convert degC to K 
+        CASE ('Celsius2Kelvin')
+          fld=fld+273.15
 c
 c --- - Unit transformation: cm day-1 -> kg m-2 s-1 
         CASE ('cmFW day-1 -> kg m-2 s-1')
@@ -597,17 +607,29 @@ c
       status=nf90_get_var(ncid,rhid,uvlat)
       CALL handle_ncerror(status)
       status=nf90_inq_varid(ncid,'ANGLE',rhid) 
-      CALL handle_ncerror(status)
-      status=nf90_get_var(ncid,rhid,angle)
-      CALL handle_ncerror(status)
+      IF (status.EQ.NF90_NOERR) THEN 
+        status=nf90_get_var(ncid,rhid,angle)
+        CALL handle_ncerror(status)
+      ELSE 
+        WRITE(*,*) 'ANGLE not in sea ice file. Setting to zero.'
+        angle=0 
+      ENDIF
       status=nf90_inq_varid(ncid,'tarea',rhid) 
-      CALL handle_ncerror(status)
-      status=nf90_get_var(ncid,rhid,tarea)
-      CALL handle_ncerror(status)
+      IF (status.EQ.NF90_NOERR) THEN 
+        status=nf90_get_var(ncid,rhid,tarea)
+        CALL handle_ncerror(status)
+      ELSE 
+        WRITE(*,*) 'tarea not in sea ice file. Setting to one.'
+        tarea=1
+      ENDIF
       status=nf90_inq_varid(ncid,'uarea',rhid) 
-      CALL handle_ncerror(status)
-      status=nf90_get_var(ncid,rhid,uarea)
-      CALL handle_ncerror(status)
+      IF (status.EQ.NF90_NOERR) THEN 
+        status=nf90_get_var(ncid,rhid,uarea)
+        CALL handle_ncerror(status)
+      ELSE 
+        WRITE(*,*) 'uarea not in sea ice file. Setting to one.'
+        uarea=1
+      ENDIF
 c
 c --- Read calendar info (override/change units)
       status=nf90_inq_varid(ncid,'time',rhid)

@@ -61,6 +61,8 @@ c
 c --- Read grid information from input files
       WRITE(*,*) 'Read grid information from input files'
       itag=taglmon
+      CALL scan_files(reset=.TRUE.)
+      IF (LEN_TRIM(fnm).EQ.0) RETURN 
       CALL read_gridinfo_ifile
 c
 c --- Process table fx 

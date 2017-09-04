@@ -73,6 +73,8 @@ c --- Print start information
 c
 c --- Read grid information from input files
       itag=tagamon
+      CALL scan_files(reset=.TRUE.)
+      IF (LEN_TRIM(fnm).EQ.0) RETURN 
       CALL read_gridinfo_ifile
 c
 c --- Initialise pressure level dimension 
@@ -783,7 +785,11 @@ c
 c --- - Set N_AER units
         CASE ('cm-3')
           vunits='cm-3'
-c        
+c
+c --- - Convert degress Celsius to K 
+        CASE ('Celsius2Kelvin')
+          vunits='K'
+c       
 c --- - Convert units from radians2 to m2    
         CASE ('rad2m')
           vunits='m2'
@@ -846,6 +852,10 @@ c
           str1=str2
         ENDIF
         SELECT CASE (str1)
+c
+c --- - Convert degress Celsius to K 
+        CASE ('Celsius2Kelvin')
+          ofld=ofld+273.15 
 c
 c --- - CO2 units 
         CASE ('co2units')
