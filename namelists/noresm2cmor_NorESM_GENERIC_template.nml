@@ -224,7 +224,7 @@
                  'hs            ','snd       ','          ',
                  'fs            ','snc       ','          ',
                  'albice        ','ialb      ','zero2missing'
-                 'Tsfc          ','tsice     ','tsicecomment',
+                 'Tsfc          ','tsice     ','tsicecomment;Celsius2Kelvin',
                  'rain_ai       ','pr        ','cmFW day-1 -> kg m-2 s-1',
                  'snow_ai       ','prsn      ','cmFW day-1 -> kg m-2 s-1',
                  'iage          ','ageice    ','          ',
