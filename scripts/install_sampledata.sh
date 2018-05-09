@@ -20,7 +20,7 @@ cd $1
 # fetch data
 echo "Download sample data"
 TARFILE=N20TRAERCN_f19_g16_01.tar.gz
-wget -c -N http://ns2345k.norstore.uio.no/cmor/sampledata/$TARFILE
+wget -c -N http://ns2345k.web.sigma2.no/cmor/sampledata/$TARFILE
 
 # unpack tar file
 echo "Unpack tar file"
@@ -29,5 +29,6 @@ rm $TARFILE
 
 # create symbolic link 
 echo "Placed symbolic link to sample data directory in data directory of noresm2cmor."
+mkdir -p `dirname $SCRIPTPATH`/../data
 cd `dirname $SCRIPTPATH`/../data
 ln -sf $1 sampledata 

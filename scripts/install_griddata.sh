@@ -19,7 +19,7 @@ cd $1
 
 # fetch data
 echo "Download grid data" 
-BASEURL=http://ns2345k.norstore.uio.no/cmor/griddata
+BASEURL=http://ns2345k.web.sigma2.no/cmor/griddata
 wget -qN $BASEURL/
 for FILE in `cat index.html | grep "\.nc" | cut -d"\"" -f8`
 do
@@ -29,6 +29,7 @@ rm -f index.html
 
 # create symbolic link 
 echo "Placed symbolic link to grid data directory in data directory of noresm2cmor."
+mkdir -p `dirname $SCRIPTPATH`/../data
 cd `dirname $SCRIPTPATH`/../data
 rm -rf griddata
 ln -sf $1 griddata 

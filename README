@@ -24,7 +24,7 @@ Download noresm2cmor with
 
 Change directory to noresm2cmor/build/  
 
-Make a copy of Makefile.norstore_default - e.g., Makefile.xxx - and customize 
+Make a copy of Makefile.nird_intel - e.g., Makefile.xxx - and customize 
 your make file. IMPORTANT: The build of noresm2cmor requires the fortran version 
 of the cmor-library (see https://pcmdi.github.io/cmor-site/download.htm for 
 download instructions).  
@@ -56,11 +56,7 @@ Run installation script for output path
 Change directory to noresm2cmor/scripts
 
 Run CMORization test with 
- ./cmorize_sampledata_intel.sh 
-or 
- ./cmorize_sampledata_gnu.sh 
-depending on whether noresm2cmor was compiled with intel or gnu. 
-
+ ./cmorize_sampledata.sh 
 
 4. General usage of noresm2cmor binary executable 
 -------------------------------------------------
@@ -92,14 +88,10 @@ To prompt syntax call noresm2cmor without argument.
 Change directory to noresm2cmor/scripts
 
 Start CMORization with 
- ./cmorize_generic_gnu.sh <absolute path to NorESM case folder> <start year> <end year> 
-or
- ./cmorize_generic_intel.sh <absolute path to NorESM case folder> <start year> <end year> 
+ ./cmorize_generic.sh <absolute path to NorESM case folder> <start year> <end year> 
 
 E.g. 
- ./cmorize_generic_gnu.sh /projects/NS2345K/www/cmor/sampledata/N20TRAERCN_f19_g16_01 2000 2000
-or
- ./cmorize_generic_intel.sh /projects/NS2345K/www/cmor/sampledata/N20TRAERCN_f19_g16_01 2000 2000
+ ./cmorize_generic.sh /projects/NS2345K/www/cmor/sampledata/N20TRAERCN_f19_g16_01 2000 2000
 
 
 6. Parallel CMORization on NorStore
