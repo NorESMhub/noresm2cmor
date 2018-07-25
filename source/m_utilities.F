@@ -306,15 +306,29 @@ c
 
       SUBROUTINE get_vertcoord(tnm,vnm,cnm)
 c  
+#ifdef CMOR3
+      USE json_module
+#endif 
       IMPLICIT NONE
 c
       CHARACTER(LEN=*)  :: tnm,vnm,cnm
 c
       CHARACTER(LEN=80) :: c80
+#ifdef CMOR3
+      TYPE(json_file) :: json
+      LOGICAL :: found
+      CHARACTER(len=:), ALLOCATABLE :: cval
+#endif 
 c
 cdiag WRITE(*,*) 'getvertcoord:tnm,vnm=',tnm(1:lenmax),vnm(1:lenmax)
 #ifdef CMOR3
-
+      CALL json%initialize()
+      CALL json%load_file(filename=TRIM(tnm))
+      CALL json%get('variable_entry.'//TRIM(vnm)//'.dimensions',cval,
+     .  found)
+      CALL json%destroy()
+      c80=TRIM(cval)
+      DEALLOCATE(cval)
 #else
       OPEN(funit,FILE=TRIM(tnm))
       DO
@@ -326,6 +340,7 @@ cdiag WRITE(*,*) 'getvertcoord:tnm,vnm=',tnm(1:lenmax),vnm(1:lenmax)
           READ(funit,'(a80)') c80
           IF (INDEX(c80,'dimensions:').LE.0) CYCLE
           c80=ADJUSTL(TRIM(c80(12:)))
+#endif
           c80=c80((INDEX(c80,' ')+1):)
           c80=c80((INDEX(c80,' ')+1):)
           IF (c80(1:4).NE.'time') THEN
@@ -333,6 +348,7 @@ cdiag WRITE(*,*) 'getvertcoord:tnm,vnm=',tnm(1:lenmax),vnm(1:lenmax)
           ELSE
             cnm=c80((INDEX(c80,' ')+1):)
           END IF
+#ifndef CMOR3
           EXIT
         END DO
         EXIT
@@ -346,12 +362,29 @@ c
 
       SUBROUTINE get_timecoord(tnm,vnm,cnm)
 c  
+#ifdef CMOR3
+      USE json_module
+#endif 
       IMPLICIT NONE
 c
       CHARACTER(LEN=*)  :: tnm,vnm,cnm
 c
       CHARACTER(LEN=80) :: c80
+#ifdef CMOR3
+      TYPE(json_file) :: json
+      LOGICAL :: found
+      CHARACTER(len=:), ALLOCATABLE :: cval
+#endif 
 c
+#ifdef CMOR3
+      CALL json%initialize()
+      CALL json%load_file(filename=TRIM(tnm))
+      CALL json%get('variable_entry.'//TRIM(vnm)//'.dimensions',cval,
+     .  found)
+      CALL json%destroy()
+      c80=TRIM(cval)
+      DEALLOCATE(cval)
+#else 
       OPEN(funit,FILE=TRIM(tnm))
       DO
         READ(funit,'(a80)') c80
@@ -362,6 +395,7 @@ c
           READ(funit,'(a80)') c80
           IF (INDEX(c80,'dimensions:').LE.0) CYCLE
           c80=ADJUSTL(TRIM(c80(12:)))
+#endif 
           IF (TRIM(VNM).NE.'mfo'.AND.TRIM(VNM).NE.'thetaoga'
      .      .AND.TRIM(VNM).NE.'soga'.AND.TRIM(VNM).NE.'zosga'
      .      .AND.TRIM(VNM).NE.'zossga'.AND.TRIM(VNM).NE.'zostoga'
@@ -375,11 +409,13 @@ c
           ELSE
             cnm=TRIM(c80(1:5))
           END IF
+#ifndef CMOR3
           EXIT
         END DO
         EXIT
       END DO
       CLOSE(funit)
+#endif 
 c
       END SUBROUTINE get_timecoord
 

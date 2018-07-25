@@ -884,6 +884,9 @@ c --- parent_experiment_rip
       ENDIF
 c
 c --- Define output dataset 
+#ifdef CMOR3
+      error_flag=cmor_dataset_json('namelist_'//TRIM(casename)//'.json')
+#else
       error_flag=cmor_dataset(
      .  outpath         = obasedir,
      .  experiment_id   = experiment_id,
@@ -903,6 +906,7 @@ c --- Define output dataset
      .  branch_time     = branch_time,
      .  parent_experiment_id = parent_experiment_id, 
      .  parent_experiment_rip = parent_experiment_rip)
+#endif 
 c
 c --- Define horizontal axes 
       IF (TRIM(ovnm).NE.'transifs') THEN

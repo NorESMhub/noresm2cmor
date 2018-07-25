@@ -151,6 +151,7 @@ c --- - Map namelist variables
 c 
 c --- - Check if 2d and/or 3d fields are to be written 
         CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+cdiag   WRITE(*,*) TRIM(ovnm),TRIM(zcoord),do_3d
         IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
      .    zcoord(2:5).EQ.'levh') THEN
           IF (.NOT.do_3d) CYCLE
@@ -256,7 +257,7 @@ c --- - Map namelist variables
 c 
 c --- - Check if 2d and/or 3d fields are to be written 
         CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
-        WRITE(*,*) TRIM(ovnm),TRIM(zcoord),do_3d
+cdiag   WRITE(*,*) TRIM(ovnm),TRIM(zcoord),do_3d
         IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
      .    zcoord(2:5).EQ.'levh') THEN
           IF (.NOT.do_3d) CYCLE
@@ -1082,6 +1083,10 @@ c
 
 
       SUBROUTINE read_gridinfo_plev(str)
+c  
+#ifdef CMOR3
+      USE json_module
+#endif 
 c
       IMPLICIT NONE
 c
@@ -1090,10 +1095,37 @@ c
       REAL(KIND=8) :: kvec(kmax)
       CHARACTER(LEN=200) :: c200
       LOGICAL :: fexists
+#ifdef CMOR3
+      TYPE(json_file) :: json
+      LOGICAL :: found
+      INTEGER :: k 
+      CHARACTER(len=10), ALLOCATABLE :: cval(:)
+#endif 
 c
+#ifdef CMOR3
+      INQUIRE(FILE=TRIM(tabledir)//TRIM(coordtable),
+     .  EXIST=fexists) 
+      IF (.NOT.fexists) THEN
+        WRITE(*,*) 'Table ',TRIM(tabledir)//TRIM(coordtable),
+     .   ' does not exist' 
+        STOP
+      ENDIF  
+      CALL json%initialize()
+      CALL json%load_file(filename=
+     .  TRIM(tabledir)//TRIM(coordtable))
+      CALL json%get('axis_entry.'//TRIM(str)//'.requested',cval,
+     .  found)
+      CALL json%destroy()
+      pdm=size(cval)
+      DO k=1,pdm
+        READ(cval(k)(1:10),*) kvec(k)
+      ENDDO
+      DEALLOCATE(cval)
+#else
       INQUIRE(FILE=TRIM(tabledir)//TRIM(table),EXIST=fexists) 
       IF (.NOT.fexists) THEN
         WRITE(*,*) 'Table ',TRIM(table), ' does not exist' 
+        STOP
       ENDIF  
       pdm=0
       OPEN(funit,FILE=TRIM(tabledir)//TRIM(table),STATUS='OLD')
@@ -1115,11 +1147,13 @@ c
         EXIT
       ENDDO
       CLOSE(funit)
+#endif 
 c
       IF (ALLOCATED(plevs)) DEALLOCATE(plevs) 
       ALLOCATE(plevs(pdm)) 
       IF (status.NE.0) STOP 'cannot ALLOCATE enough memory (3)'  
       plevs=kvec(1:pdm)
+      WRITE(*,*) TRIM(str),': ',plevs
 c    
       END SUBROUTINE read_gridinfo_plev
 
@@ -1135,7 +1169,6 @@ c
       REAL :: fac1,fac2,fac3,fac4,fac5,fac6
       INTEGER, PARAMETER :: ndimmax=10
       INTEGER :: n,ndims,dimids(ndimmax),dimlens(ndimmax)
-      INTEGER :: physics_version=1,initialization_method=1
       CHARACTER(len=slenmax) :: ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6,str
       REAL(KIND=8), DIMENSION(:), ALLOCATABLE :: tmp1d, tmp1d_2
       REAL(KIND=8), DIMENSION(:), ALLOCATABLE :: tmp2d
@@ -1277,17 +1310,10 @@ c --- Call CMOR setup
       ENDIF
       IF (error_flag.NE.0) STOP 'Problem setting up CMOR'
 c
-c --- Derive physics_version and initialization_method from
-c --- parent_experiment_rip
-      IF (TRIM(parent_experiment_rip).NE.'r1i1p1'.AND.
-     .    TRIM(parent_experiment_rip).NE.'N/A') THEN 
-        READ(parent_experiment_rip(INDEX(parent_experiment_rip,'i')+1:
-     .    INDEX(parent_experiment_rip,'p')-1),*) initialization_method 
-        READ(parent_experiment_rip(INDEX(parent_experiment_rip,'p')+1:),
-     .    *) physics_version 
-      ENDIF 
-c
 c --- Define output dataset 
+#ifdef CMOR3
+      error_flag=cmor_dataset_json('namelist_'//TRIM(casename)//'.json')
+#else
       error_flag=cmor_dataset(
      .  outpath         = obasedir,
      .  experiment_id   = experiment_id,
@@ -1307,6 +1333,7 @@ c --- Define output dataset
      .  branch_time     = branch_time,
      .  parent_experiment_id = parent_experiment_id, 
      .  parent_experiment_rip = parent_experiment_rip)
+#endif
 c
 c --- Define horizontal axes 
       iaxid=cmor_axis(
@@ -1335,6 +1362,10 @@ c --- Define time axis
       ENDIF 
 c
 c --- Define vertical axis 
+      str='ps'
+#ifdef CMOR3 
+      IF (tcoord(1:5).EQ.'time1') str='ps1'
+#endif
       IF (zcoord(1:4).EQ.'plev') THEN
         kaxid=cmor_axis(
      .    table         = TRIM(tabledir)//TRIM(table),
@@ -1374,7 +1405,7 @@ c --- Define vertical axis
      .    zfactor_bounds= (/hyai(kdm+1),hyai(kdm)/))
         zfacid=cmor_zfactor(
      .    zaxis_id      = kaxid,
-     .    zfactor_name  = 'ps',
+     .    zfactor_name  = TRIM(str),
      .    axis_ids      = (/iaxid,jaxid,taxid/),
      .    units         = 'Pa' )
       ELSEIF (TRIM(zcoord).EQ.'alevel') THEN
@@ -1408,7 +1439,7 @@ c --- Define vertical axis
      .    zfactor_bounds= hyai )
         zfacid=cmor_zfactor(   
      .    zaxis_id      = kaxid,                          
-     .    zfactor_name  = 'ps',                      
+     .    zfactor_name  = TRIM(str),                     
      .    axis_ids      = (/iaxid,jaxid,taxid/),        
      .    units         = 'Pa' )
       ELSEIF (TRIM(zcoord).EQ.'alevhalf') THEN
@@ -1417,7 +1448,11 @@ c --- Define vertical axis
         tmp1d_2(:) = iilev(:)*1.d-3 
         kaxid=cmor_axis(
      .    table         = TRIM(tabledir)//TRIM(table),
+#ifdef CMOR3
+     .    table_entry   = 'standard_hybrid_sigma_half',
+#else
      .    table_entry   = 'standard_hybrid_sigma',
+#endif 
      .    units         = '1',
      .    length        = ldm+1,
      .    coord_vals    = tmp1d, !ilev*1d-3,
@@ -1430,19 +1465,27 @@ c --- Define vertical axis
      .    zfactor_values= p0)
         error_flag=cmor_zfactor(
      .    zaxis_id      = kaxid,
+#ifdef CMOR3
+     .    zfactor_name  = 'b_half',
+#else
      .    zfactor_name  = 'b',
+#endif 
      .    axis_ids      = (/kaxid/),
      .    zfactor_values= hybi,
      .    zfactor_bounds= hybii )
         error_flag=cmor_zfactor(
      .    zaxis_id      = kaxid,
+#ifdef CMOR3
+     .    zfactor_name  = 'a_half',
+#else
      .    zfactor_name  = 'a',
+#endif 
      .    axis_ids      = (/kaxid/),
      .    zfactor_values= hyai,
      .    zfactor_bounds= hyaii )
         zfacid=cmor_zfactor(
      .    zaxis_id      = kaxid,
-     .    zfactor_name  = 'ps',
+     .    zfactor_name  = TRIM(str),
      .    axis_ids      = (/iaxid,jaxid,taxid/),
      .    units         = 'Pa' )
       ENDIF
@@ -1490,6 +1533,7 @@ c --- Define output variable
      .        comment        = TRIM(vcomment),
      .        positive       = TRIM(vpositive))
           ELSE
+cdiag       WRITE(*,*) 'DEBUG 1'
             varid=cmor_variable(
      .        table          = TRIM(tabledir)//TRIM(table),
      .        table_entry    = TRIM(ovnm),
@@ -1499,6 +1543,7 @@ c --- Define output variable
      .        missing_value  = 1e20,
      .        comment        = TRIM(vcomment),
      .        positive       = TRIM(vpositive))
+cdiag       WRITE(*,*) 'DEBUG 2'
           ENDIF
         ENDIF
       ENDIF

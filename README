@@ -73,13 +73,21 @@ or
  module load netcdf.intel/4.4.0 udunits/2.2.17 uuid/1.5.1
 depending on whether noresm2cmor was compiled with intel or gnu. 
 
+On Nird, first do 
+ source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux 
+ ulimit -s unlimited 
+
+
 Start CMORization with 
  ./noresm2cmor <path to noresm2cmor's namelist file>
+or 
+ ./noresm2cmor3 <path to noresm2cmor3's namelist file>
 
 E.g.   
  ./noresm2cmor ../namelists/noresm2cmor_CMIP5_NorESM1-M_historical_r1i1p1.nml 
+ ./noresm2cmor3 ../namelists/noresm2cmor3_CMIP5_NorESM1-M_historical_r1i1p1.nml
 
-To prompt syntax call noresm2cmor without argument.
+To prompt syntax call noresm2cmor or noresm2cmor3 without argument.
 
 
 5. Easy CMORization with cmorize_generic.sh wrapper script

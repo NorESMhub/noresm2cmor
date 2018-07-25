@@ -15,7 +15,7 @@ c
       INTEGER :: mpierror,mpirank  
 c
 c --- Initialise mpi 
-      call MPI_INIT(mpierror) 
+      CALL MPI_INIT(mpierror) 
 #endif 
 c
 c --- Read namelists 

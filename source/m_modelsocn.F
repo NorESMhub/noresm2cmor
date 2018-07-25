@@ -72,7 +72,7 @@ c
       INTEGER :: k,m,n,nrec
 c
 c --- Skip if monthly ocean table deactivated
-      IF (.NOT.(domon.OR.dday)) RETURN
+c     IF (.NOT.(domon.OR.dday)) RETURN
 c
 c --- Print start information
       IF (verbose) THEN
@@ -129,7 +129,49 @@ c --- - Close output file
 c
       ENDDO 
 c
+c
+#ifdef CMOR3 
+c --- Process table Ofx 
+      WRITE(*,*) 'Process table Ofx'
+      fnm=TRIM(griddata)//TRIM(ocngridfile)
+      table=tofx
+      DO n=1,nofx
+        IF (skip_variable(n,nofx,dofx)) CYCLE
+c
+c --- - Map namelist variables 
+        ivnm=vofx(1,n)
+        ovnm=vofx(2,n)
+        special=vofx(3,n)
+        vunits=' '
+        vpositive=' '
+        vcomment=' '
+c
+c --- - Check if input variable is present 
+        IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+c
+c --- - Check if vertical coordinate required        
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+c
+c --- - Prepare output file 
+        CALL special_pre
+        CALL open_ofile(fx=.TRUE.)
+c
+c --- - Read field 
+        CALL read_field
+c
+c --- - Post Processing 
+        CALL special_post
+c         
+c --- - Write field 
+        CALL write_field
+c
+c --- - Close output file 
+        CALL close_ofile
+c
+      ENDDO
+c
 c 
+#endif 
 c --- Process table oyr
       WRITE(*,*) 'Process table oyr'
       fnm=poyr
@@ -1387,7 +1429,6 @@ c
       REAL :: fac1,fac2,fac3,fac4,fac5,fac6
       INTEGER, PARAMETER :: ndimmax=10
       INTEGER :: i,j,k,n,ndims,dimids(ndimmax),dimlens(ndimmax)
-      INTEGER :: physics_version=1,initialization_method=1
       CHARACTER(len=slenmax) :: coord,ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,
      .  ivnm6
 c
@@ -1532,19 +1573,9 @@ c --- Derive path to CMOR table
         tablepath=TRIM(tabledir)//TRIM(table)
       ENDIF
 c
-c --- Derive physics_version and initialization_method from
-c --- parent_experiment_rip
-      IF (TRIM(parent_experiment_rip).NE.'r1i1p1'.AND.
-     .    TRIM(parent_experiment_rip).NE.'N/A') THEN
-        READ(parent_experiment_rip(INDEX(parent_experiment_rip,'i')+1:
-     .    INDEX(parent_experiment_rip,'p')-1),*) initialization_method
-        READ(parent_experiment_rip(INDEX(parent_experiment_rip,'p')+1:),
-     .    *) physics_version
-      ENDIF
-c
 c --- Define output dataset 
 #ifdef CMOR3
-      error_flag=cmor_dataset_json('dataset_test.json')
+      error_flag=cmor_dataset_json('namelist_'//TRIM(casename)//'.json')
 #else
       error_flag=cmor_dataset(
      .  outpath         = obasedir,

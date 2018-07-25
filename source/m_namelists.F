@@ -2,6 +2,13 @@
 c
       IMPLICIT NONE 
 c
+c --- MPI 
+#ifdef CMOR3 
+#ifdef MPI
+      INCLUDE 'mpif.h'
+      INTEGER :: mpierror,mpirank
+#endif 
+#endif 
 c --- Namelist limits 
       INTEGER, PARAMETER :: rowmax=100,colmax=3,lenmax=80 
       INTEGER, PARAMETER :: slenmax=500,smax=10  
@@ -33,7 +40,19 @@ c --- Model namelist
      .  secindexfile,ocngridfile,ocninitfile,ocnmertfile,rhotablesuff,
      .  atmgridfile
       LOGICAL, SAVE :: linebreaks
+#ifdef CMOR3
+      CHARACTER(LEN=slenmax), SAVE :: 
+     .  source_type,parent_source_id,grid,grid_label,grid_resolution,
+     .  coordtable
+#endif 
       NAMELIST /model/
+#ifdef CMOR3
+     .  source_type, 
+     .  parent_source_id, 
+     .  grid,
+     .  grid_label,
+     .  grid_resolution, 
+#endif 
      .  model_id,
      .  source,              
      .  institution,
@@ -58,6 +77,9 @@ c --- Model namelist
      .  tagl3hr,
      .  tagl3hri,
      .  rhotablesuff, ! hidden
+#ifdef CMOR3
+     .  coordtable, ! hidden
+#endif 
      .  secindexfile,
      .  atmgridfile,
      .  ocngridfile,
@@ -79,7 +101,36 @@ c --- Experiment namelist
      .  do_fx,do_oyr,do_oyrbgc,do_amon,do_omon,do_omonbgc,do_oimon,
      .  do_lmon,do_limon,do_aero,do_day,do_6hrlev,do_6hrplev,do_3hr,
      .  do_3hri,do_2d,do_3d,do_xd,do_bgc
+      INTEGER, SAVE :: 
+     .  physics_version=1,initialization_method=1
+#ifdef CMOR3 
+      LOGICAL, SAVE :: do_ofx 
+      CHARACTER(LEN=slenmax), SAVE ::
+     .  activity_id,parent_variant_label,parent_mip_era,mip_era,
+     .  sub_experiment,parent_sub_experiment,parent_activity_id, 
+     .  branch_method,parent_time_units,tracking_prefix,variant_label
+      REAL(KIND=8), SAVE :: branch_time_in_child,branch_time_in_parent
+      INTEGER, SAVE :: forcing_index
+#endif 
       NAMELIST /experiment/ 
+#ifdef CMOR3 
+     .  activity_id, 
+     .  variant_label,
+     .  parent_variant_label,
+     .  parent_mip_era,
+     .  mip_era,
+     .  sub_experiment,
+     .  parent_sub_experiment,
+     .  parent_activity_id,
+     .  branch_time_in_child,
+     .  branch_time_in_parent,
+     .  branch_method, 
+     .  parent_time_units,
+     .  tracking_prefix,
+     .  physics_version, 
+     .  initialization_method, 
+     .  forcing_index,
+#endif 
      .  casename, 
      .  experiment_id,    
      .  history,
@@ -115,6 +166,9 @@ c --- Experiment namelist
      .  do_3d, ! hidden
      .  do_xd, ! hidden
      .  do_bgc, ! hidden
+#ifdef CMOR3 
+     .  do_ofx, ! hidden
+#endif 
      .  dry_run, ! hidden
      .  plevdummy, ! hidden
      .  readdummy, ! hidden
@@ -157,6 +211,21 @@ c --- Tables
      .                         v6hrplev
       NAMELIST /table_3hr/     d3hr,p3hr,t3hr,r3hr,v3hr
       NAMELIST /table_3hri/    d3hri,p3hri,t3hri,r3hri,v3hri
+#ifdef CMOR3 
+      LOGICAL, SAVE :: 
+     .  dofx 
+      CHARACTER(len=lenmax),DIMENSION(colmax,rowmax), SAVE :: 
+     .  vofx
+      CHARACTER(len=slenmax), SAVE ::
+     .  pofx 
+      CHARACTER(len=slenmax), SAVE ::
+     .  tofx 
+      INTEGER, SAVE ::
+     .  nofx 
+      INTEGER, SAVE ::
+     .  rofx 
+      NAMELIST /table_ofx/      dofx,pofx,tofx,vofx
+#endif 
 c
 c --- Misc 
       INTEGER :: istatus,funit 
@@ -214,6 +283,9 @@ c --- Initialise namelist variables
       ocnmertfile   = ' '
       secindexfile  = ' '
       rhotablesuff  = 'OnRho'
+#ifdef CMOR3
+      coordtable  = 'CMIP6_coordinate.json'
+#endif
       year1         = 0 
       month1        = 1
       yearn         = 0
@@ -240,6 +312,9 @@ c --- Initialise namelist variables
       do_3d         = .TRUE.
       do_xd         = .TRUE.
       do_bgc        = .TRUE.
+#ifdef CMOR3
+      do_ofx        = .TRUE.
+#endif 
       dry_run       = .FALSE.  
       plevdummy     = .FALSE.  
       readdummy     = .FALSE.  
@@ -261,21 +336,24 @@ c
       parent_experiment_id = ' ' 
       parent_experiment_rip = ' ' 
 c
-      dfx           = .true.
-      doyr          = .true. 
-      doyrbgc       = .true. 
-      domon         = .true. 
-      domonbgc      = .true. 
-      doimon        = .true. 
-      damon         = .true. 
-      daero         = .true. 
-      dlmon         = .true. 
-      dlimon        = .true. 
-      dday          = .true. 
-      d6hrlev       = .true. 
-      d6hrplev      = .true. 
-      d3hr          = .true. 
-      d3hri         = .true.
+      dfx           = .false.
+      doyr          = .false. 
+      doyrbgc       = .false. 
+      domon         = .false. 
+      domonbgc      = .false. 
+      doimon        = .false. 
+      damon         = .false. 
+      daero         = .false. 
+      dlmon         = .false. 
+      dlimon        = .false. 
+      dday          = .false. 
+      d6hrlev       = .false. 
+      d6hrplev      = .false. 
+      d3hr          = .false. 
+      d3hri         = .false.
+#ifdef CMOR3 
+      dofx          = .false. 
+#endif 
 c
       vfx           = ' ' 
       voyr          = ' '
@@ -292,6 +370,9 @@ c
       v6hrplev      = ' ' 
       v3hr          = ' ' 
       v3hri         = ' ' 
+#ifdef CMOR3 
+      vofx          = ' ' 
+#endif 
 c
       pfx           = ' '
       poyr          = ' '
@@ -308,6 +389,9 @@ c
       p6hrplev      = ' '
       p3hr          = ' '
       p3hri         = ' '
+#ifdef CMOR3 
+      pofx          = ' ' 
+#endif 
 c
       royr          = 1000000
       royrbgc       = 1000000
@@ -323,7 +407,11 @@ c
       r6hrplev      = 1000000
       r3hr          = 1000000
       r3hri         = 1000000
+#ifdef CMOR3 
+      rofx          = 1000000
+#endif 
 c
+#ifndef CMOR3 
       tgrids        = 'CMIP5_grids'
       tfx           = 'CMIP5_fx'
       toyr          = 'CMIP5_Oyr'
@@ -340,6 +428,26 @@ c
       t6hrplev      = 'CMIP5_6hrPlev' 
       t3hr          = 'CMIP5_3hr' 
       t3hri         = 'CMIP5_3hr' 
+#else 
+      tgrids        = 'CMIP6_grids.json'
+      tfx           = 'CMIP6_fx.json'
+      toyr          = 'CMIP6_Oyr.json'
+      toyrbgc       = 'CMIP6_Oyr.json'
+      tomon         = 'CMIP6_Omon.json'
+      tomonbgc      = 'CMIP6_Omon.json'
+      toimon        = 'CMIP6_OImon.json'
+      tamon         = 'CMIP6_Amon.json'
+      taero         = 'CMIP6_aero.json'
+      tlmon         = 'CMIP6_Lmon.json'
+      tlimon        = 'CMIP6_LImon.json'
+      tday          = 'CMIP6_da.json'
+      t6hrlev       = 'CMIP6_6hrLev.json'
+      t6hrplev      = 'CMIP6_6hrPlev.json'
+      t3hr          = 'CMIP6_3hr.json'
+      t3hri         = 'CMIP6_3hr.json'
+c
+      tofx          = 'CMIP6_ofx.json'
+#endif 
 c
 c --- Read namelists 
       IF (iargc().NE.1.AND.iargc().NE.4) THEN 
@@ -432,6 +540,7 @@ c
      .  'WARNING: Table grids not in namelist file. Using CMIP5 default'
       OPEN(funit,FILE=TRIM(nmlfpvar),STATUS='old',ACTION='read',
      .  RECL=200)
+c
       READ(funit,nml=table_fx,IOSTAT=istatus)
       REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
@@ -492,8 +601,14 @@ c
       REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table 3hri not in namelist file. Skipping table...'
-      CLOSE(funit)
+#ifdef CMOR3
+      READ(funit,nml=table_ofx,IOSTAT=istatus)
+      REWIND(funit)
+      IF (istatus.NE.0) WRITE(*,*) 
+     .  'WARNING: Table Ofx not in namelist file. Skipping table...'
+#endif
 c
+      CLOSE(funit)
 c
 c --- Merge global string arrays
       CALL merge_strarr(slenmax,smax,source,source1,linebreaks)  
@@ -537,6 +652,12 @@ c --- Count number of table entries
         IF (LEN_TRIM(v3hr(1,n)).ne.0) n3hr=n3hr+1 
         IF (LEN_TRIM(v3hri(1,n)).ne.0) n3hri=n3hri+1 
       ENDDO 
+#ifdef CMOR3
+      nofx=0
+      DO n=1,rowmax 
+        IF (LEN_TRIM(vofx(1,n)).ne.0) nofx=nofx+1 
+      ENDDO 
+#endif
 c     
 c --- Skip deselected namelists 
       if (.not.do_fx)      nfx=0   
@@ -554,7 +675,33 @@ c --- Skip deselected namelists
       if (.not.do_6hrplev) n6hrplev=0   
       if (.not.do_3hr)     n3hr=0   
       if (.not.do_3hri)    n3hri=0   
+#ifdef CMOR3
+      if (.not.do_ofx)     nofx=0   
+#endif 
 c
+#ifndef CMOR3
+c --- Derive physics_version and initialization_method from
+c --- parent_experiment_rip
+      IF (TRIM(parent_experiment_rip).NE.'r1i1p1'.AND.
+     .    TRIM(parent_experiment_rip).NE.'N/A') THEN
+        READ(parent_experiment_rip(INDEX(parent_experiment_rip,'i')+1:
+     .    INDEX(parent_experiment_rip,'p')-1),*) initialization_method
+        READ(parent_experiment_rip(INDEX(parent_experiment_rip,'p')+1:),
+     .    *) physics_version
+      ENDIF
+#endif 
+c
+#ifdef CMOR3
+#ifdef MPI
+      CALL MPI_COMM_RANK(MPI_COMM_WORLD, mpirank, mpierror)
+      IF (mpirank.EQ.0) THEN
+#endif 
+c --- Dump experiment and model information to json file (only master)
+      CALL write_namelist_json 
+#ifdef MPI
+      ENDIF 
+#endif 
+#endif 
       END SUBROUTINE read_namelists       
 
      
@@ -763,5 +910,89 @@ c
       END FUNCTION get_free_unit
 
 
+
+#ifdef CMOR3
+      SUBROUTINE write_namelist_json 
+c
+      USE json_module
+c
+      IMPLICIT NONE
+c
+      TYPE(json_core) :: json 
+      TYPE(json_value), POINTER :: p 
+c
+      CALL json%initialize()
+      CALL json%create_object(p,'') 
+c --- mapped from cmor2     
+      CALL json%add(p,'outpath',TRIM(obasedir)) 
+      CALL json%add(p,'experiment_id',TRIM(experiment_id)) 
+      CALL json%add(p,'institution_id',TRIM(institute_id)) 
+      CALL json%add(p,'institution',TRIM(institution1))
+      CALL json%add(p,'source_id',TRIM(source1))
+      CALL json%add(p,'source',TRIM(source1))
+      CALL json%add(p,'calendar',TRIM(calendar))
+      CALL json%add(p,'realization_index',realization)
+      CALL json%add(p,'physics_index',physics_version)
+      CALL json%add(p,'initialization_index',initialization_method)
+      CALL json%add(p,'contact',TRIM(contact1))
+      CALL json%add(p,'history',TRIM(history1))
+      CALL json%add(p,'comment',TRIM(comment1))
+      CALL json%add(p,'references',TRIM(references1))
+      CALL json%add(p,'model_id',TRIM(model_id))
+      CALL json%add(p,'run_variant',TRIM(forcing1))
+      CALL json%add(p,'branch_time',branch_time)
+      CALL json%add(p,'parent_experiment_id',TRIM(parent_experiment_id))
+c --- new for cmor3
+      CALL json%add(p,'forcing_index',forcing_index)
+      CALL json%add(p,'parent_variant_label',TRIM(parent_variant_label))
+      CALL json%add(p,'_control_vocabulary_file',
+     .  TRIM(tabledir)//'CMIP6_CV.json')
+      CALL json%add(p,'_cmip6_option','CMIP6')
+      CALL json%add(p,'activity_id',TRIM(activity_id))  
+      CALL json%add(p,'source_type',TRIM(source_type))  
+      CALL json%add(p,'sub_experiment',TRIM(sub_experiment))
+      CALL json%add(p,'sub_experiment_id',TRIM(sub_experiment))
+      CALL json%add(p,'parent_sub_experiment_id',
+     .  TRIM(parent_sub_experiment))
+      CALL json%add(p,'parent_mip_era',TRIM(parent_mip_era))
+      CALL json%add(p,'mip_era',TRIM(mip_era))
+      CALL json%add(p,'parent_activity_id',TRIM(parent_activity_id))  
+      CALL json%add(p,'parent_source_id',TRIM(parent_source_id))  
+      CALL json%add(p,'grid',TRIM(grid))
+      CALL json%add(p,'grid_label',TRIM(grid_label))
+      CALL json%add(p,'nominal_resolution',TRIM(grid_resolution))
+      CALL json%add(p,'branch_method',TRIM(branch_method)) 
+      CALL json%add(p,'branch_time_in_child',branch_time_in_child) 
+      CALL json%add(p,'branch_time_in_parent',branch_time_in_parent) 
+      CALL json%add(p,'parent_time_units',TRIM(parent_time_units)) 
+      CALL json%add(p,'tracking_prefix',TRIM(tracking_prefix)) 
+      CALL json%add(p,'output_path_template','<activity_id>'
+     .  //'<institution_id><source_id><experiment_id><variant_label>'
+     .  //'<table><variable_id><grid_label><version>')
+      CALL json%add(p,'output_file_template','<variable_id><table>'
+     .  //'<experiment_id><source_id><variant_label><grid_label>')
+      CALL json%add(p,'license',
+     . "CMIP6 model data produced by NCC is licensed under a Creative "
+     .//"Commons Attribution ShareAlike 4.0 International License "
+     .//"(https://creativecommons.org/licenses). Consult "
+     .//"https://pcmdi.llnl.gov/CMIP6/TermsOfUse for terms of use " 
+     .//"governing CMIP6 output, including citation requirements and " 
+     .//"proper acknowledgment. Further information about this " 
+     .//"data, including some limitations, can be found via the "
+     .//"further_info_url (recorded as a global attribute in this " 
+     .//"file) and at https:///pcmdi.llnl.gov/. "
+     .//"The data producers and data providers make no "
+     .//"warranty, either express or implied, including, but not " 
+     .//"limited to, warranties of merchantability and fitness for a "
+     .//"particular purpose. All liabilities arising from the " 
+     .//"supply of the information (including any liability arising " 
+     .//"in negligence) are excluded to the fullest extent permitted " 
+     .//"by law.") 
+c
+      call json%print(p,'namelist_'//TRIM(casename)//'.json')  
+      call json%destroy(p)            !cleanup
+c
+      END SUBROUTINE write_namelist_json 
+#endif 
 
       END MODULE m_namelists       
