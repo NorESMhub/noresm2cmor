@@ -25,6 +25,10 @@ for FILE in `cat index.html | grep "\.nc" | cut -d"\"" -f8`
 do
   wget -c -N $BASEURL/$FILE
 done
+for FILE in `cat index.html | grep "\.dat" | cut -d"\"" -f8`
+do
+  wget -c -N $BASEURL/$FILE
+done
 rm -f index.html 
 
 # create symbolic link 
