@@ -9,7 +9,7 @@ c
 c
       IMPLICIT NONE
 c
-      INTEGER :: fileexists 
+      LOGICAL :: fileexists 
 #ifdef MPI
       INCLUDE 'mpif.h' 
       INTEGER :: mpierror,mpirank  

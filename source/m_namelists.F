@@ -896,14 +896,15 @@ c
 
 
       
-      INTEGER function get_free_unit
+      FUNCTION get_free_unit() RESULT(free_unit)
 c
       IMPLICIT NONE
 c
+      INTEGER :: free_unit
       LOGICAL :: in_use
 c     
-      DO get_free_unit=10,99
-        INQUIRE(get_free_unit,OPENED=in_use)  
+      DO free_unit=10,99
+        INQUIRE(free_unit,OPENED=in_use)  
         IF (.NOT.in_use) EXIT 
       ENDDO 
 c
