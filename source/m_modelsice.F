@@ -382,6 +382,71 @@ c --- - Close output file if still open
 c
       ENDDO
 c
+c
+c --- Process table SIday
+      WRITE(*,*) 'Process table SIday'
+      fnm=pSIday
+      table=tSIday
+      DO n=1,nSIday
+        IF (skip_variable(n,nSIday,dSIday)) CYCLE
+c
+c --- - Map namelist variables 
+        ivnm=vSIday(1,n)
+        ovnm=vSIday(2,n)
+        special=vSIday(3,n)
+        vunits=' '
+        vpositive=' '
+        vcomment=' '
+c
+c --- - Check if vertical coordinate required        
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+c
+c --- - Choose history file 
+        itag=tagiday
+c
+c --- - Check if input variable is present  
+        IF (LEN_TRIM(pSIday).eq.0) CALL scan_files(reset=.TRUE.)
+        IF (.NOT.var_in_file(fnm,ivnm).AND..NOT.TRIM(ivnm).EQ.'transifs'
+     .    .OR.TRIM(ivnm).EQ.'transifs'.AND..NOT.lsecindex) CYCLE
+c
+c --- - Prepare output file 
+        CALL special_pre
+c
+c --- - Loop over input files 
+        m=0
+        DO
+          m=m+1
+c
+c --- --- Open output file
+          IF (MOD(m-1,rSIday).EQ.0) CALL open_ofile
+c
+c --- --- Read variable into buffer 
+          rec=0
+          IF (LEN_TRIM(pSIday).eq.0) CALL scan_files(reset=.FALSE.)
+          IF (rec.EQ.0) EXIT
+          tbnds(:,1)=tbnd
+          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+c
+c --- --- Read data 
+          CALL read_tslice(rec,badrec,fnm)
+c 
+c --- --- Post processing 
+          CALL special_post
+c
+c --- --- Write time slice to output file 
+          CALL write_tslice
+c
+c --- --- Close output file if max rec has been reached 
+          IF (MOD(m,rSIday).EQ.0) CALL close_ofile
+c
+c --- - End loop over files and records
+        ENDDO
+c
+c --- - Close output file if still open 
+        IF (MOD(m,rSIday).GT.0) CALL close_ofile
+c
+      ENDDO
+c
       END SUBROUTINE ice2cmor 
 
 

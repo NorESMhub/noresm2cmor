@@ -611,6 +611,71 @@ c --- - Close output file if still open
 c
       ENDDO
 c
+c
+c --- Process table Oday
+      WRITE(*,*) 'Process table Oday'
+      fnm=pOday
+      table=tOday
+      DO n=1,nOday
+        IF (skip_variable(n,nOday,dOday)) CYCLE
+c
+c --- - Map namelist variables 
+        ivnm=vOday(1,n)
+        ovnm=vOday(2,n)
+        special=vOday(3,n)
+        vunits=' '
+        vpositive=' '
+        vcomment=' '
+c
+c --- - Check if vertical coordinate required        
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+c 
+c --- - Choose history file 
+        itag=tagoday
+c
+c --- - Check if input variable is present  
+        IF (LEN_TRIM(pOday).eq.0) CALL scan_files(reset=.TRUE.)
+        IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+c
+c --- - Prepare output file 
+        CALL special_pre
+c --- - Loop over input files 
+        m=0
+        DO
+          m=m+1
+c
+c --- --- Open output file
+          IF (MOD(m-1,rOday).EQ.0) CALL open_ofile
+c
+c --- --- Read variable into buffer 
+          rec=0
+          IF (LEN_TRIM(pOday).eq.0) CALL scan_files(reset=.false.)
+          IF (rec.EQ.0) EXIT
+          tbnds(1,1)=tval(1)-0.5
+          tbnds(2,1)=tval(1)+0.5
+          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+c
+c --- --- Read data 
+          CALL read_tslice(rec,badrec,fnm)
+c 
+c --- --- Post processing 
+          CALL special_post
+c
+c --- --- Write time slice to output file 
+          IF (badrec) fld=1e20
+          CALL write_tslice
+c
+c --- --- Close output file if max rec has been reached 
+          IF (MOD(m,rOday).EQ.0) CALL close_ofile
+c
+c --- - End loop over files and records
+        ENDDO
+c
+c --- - Close output file if still open 
+        IF (MOD(m,rOday).GT.0) CALL close_ofile
+c
+      ENDDO
+c
 c           exception for fill day 
 c           IF (year.EQ.year1.AND.month.EQ.month1.AND.add_fill_day) THEN
 c             day1=0
@@ -1594,15 +1659,14 @@ c --- Derive path to CMOR table
 c
 c --- Define output dataset 
 #ifdef CMOR3
+      grid_label=ocngrid_label
+      grid=TRIM(ocngrid) 
       IF (TRIM(vtype).EQ.'layer'.AND..NOT.
      .  (lsumz.OR.INDEX(special,'glbave').GT.0
      .  .OR.INDEX(special,'2zos').GT.0 
      .  .OR.INDEX(special,'level1').GT.0)) THEN
-        grid_label=ocngrid_label
         grid=TRIM(ocngrid)//', vertical density coordinate' 
       ELSE 
-        grid_label=ocngrid_label
-        grid=TRIM(ocngrid) 
         IF (INDEX(special,'glbave').GT.0
      .     .OR.INDEX(special,'2zos').GT.0) THEN 
           grid_label='gm'
@@ -1611,7 +1675,7 @@ c --- Define output dataset
           IF (vtype(1:3).EQ.'mer'.OR.ovnm(1:7).EQ.'hfbasin') THEN 
             grid_label='grz' 
             grid='zonal mean or integral'  
-          ELSE 
+          ELSEIF (ndims.GE.3) THEN 
             grid_label='gr' 
             grid=TRIM(ocngrid)//', interpolated to z-levels'
           ENDIF 
@@ -1705,7 +1769,7 @@ c --- Define vertical axis
         IF (INDEX(special,'half').GT.0) THEN 
 #ifdef CMOR3
           kaxid=cmor_axis(
-     .      table           = TRIM(tabledir)//'CMIP6_coordinate.json',
+     .      table           = TRIM(tablepath),
      .      table_entry     = 'rho',
      .      units           = 'kg m-3',
      .      length          = kdm+1,

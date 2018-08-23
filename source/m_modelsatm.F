@@ -238,7 +238,144 @@ c --- - Close output file if still open
         IF (MOD(m,ramon).GT.0) CALL close_ofile
 c
       ENDDO    
+c 
+c --- Process table amon
+      fnm=pEmon
+      table=tEmon
+      linstant=.FALSE.
+      lreadplev=.TRUE.
+      DO n=1,nEmon
+        IF (skip_variable(n,nEmon,dEmon)) CYCLE
 c
+c --- - Map namelist variables 
+        ivnm=vEmon(1,n)
+        ovnm=vEmon(2,n)
+        special=vEmon(3,n)
+        vunits=' '
+        vpositive=' '
+        vcomment=' '
+c 
+c --- - Check if 2d and/or 3d fields are to be written 
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+cdiag   WRITE(*,*) TRIM(ovnm),TRIM(zcoord),do_3d
+        IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
+     .    zcoord(2:5).EQ.'levh') THEN
+          IF (.NOT.do_3d) CYCLE
+c --- --- Read pressure levels from table 
+          IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN
+            CALL read_gridinfo_plev(TRIM(zcoord))
+            lreadplev=.FALSE.
+          ENDIF
+        ELSE
+          IF (.NOT.do_2d) CYCLE
+        ENDIF
+c 
+c --- - Choose history file 
+        SELECT CASE (TRIM(special))
+          CASE ('day2mon')
+            itag=tagaday
+          CASE ('6hr2mon')
+            itag=taga6hr
+          CASE ('3hr2mon')
+            itag=taga3hr
+          CASE DEFAULT
+            itag=tagamon
+        END SELECT
+c
+c --- - Check if input variable is present  
+        IF (LEN_TRIM(pEmon).eq.0) CALL scan_files(reset=.TRUE.)
+cdiag   write(*,*) 'DEBUG: ',trim(fnm),year1,year,month
+        IF (INDEX(special,'catplev').LT.1) THEN
+          IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+        ENDIF
+c 
+c --- - Prepare special operations
+        CALL special_pre
+c
+c --- - Loop over input files 
+        m=0
+        DO
+          m=m+1
+c
+c --- --- Open output file
+          IF (MOD(m-1,rEmon).EQ.0) CALL open_ofile
+c
+c --- --- Read variable into buffer (average if necessary)
+          rec=0
+          nrec=0
+          ifldacc=0.
+          LAST=.FALSE.
+          DO
+            IF (LEN_TRIM(pEmon).eq.0) CALL scan_files
+            IF (rec.EQ.0) THEN
+              last=.TRUE.
+              EXIT
+            ENDIF
+            nrec=nrec+1
+cdiag      write(*,*) 'DEBUG: ',trim(fnm),rec,nrec,tbnd,mbnd,year,month
+            CALL read_tslice(rec,badrec,fnm)
+            ifldacc=ifldacc+ifld
+            IF (tbnd(2).EQ.mbnd(2)) EXIT
+          ENDDO
+          IF (last) EXIT
+          ifld=ifldacc/FLOAT(nrec)
+          tbnds(:,1)=mbnd
+          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+c 
+c --- --- Post processing 
+          IF (zcoord(1:4).EQ.'plev'.AND.
+     .      INDEX(special,'catplev').LT.1) THEN
+            CALL interp_z
+          ELSE
+            ofld=ifld
+          ENDIF
+          CALL special_post
+c
+c --- --- Read variable into buffer (average if necessary)
+          rec=0
+          nrec=0
+          ifldacc=0.
+          LAST=.FALSE.
+          DO
+            IF (LEN_TRIM(pEmon).eq.0) CALL scan_files
+            IF (rec.EQ.0) THEN
+              last=.TRUE.
+              EXIT
+            ENDIF
+            nrec=nrec+1
+cdiag      write(*,*) 'DEBUG: ',trim(fnm),rec,nrec,tbnd,mbnd,year,month
+            CALL read_tslice(rec,badrec,fnm)
+            ifldacc=ifldacc+ifld
+            IF (tbnd(2).EQ.mbnd(2)) EXIT
+          ENDDO
+          IF (last) EXIT
+          ifld=ifldacc/FLOAT(nrec)
+          tbnds(:,1)=mbnd
+          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+c 
+c --- --- Post processing 
+          IF (zcoord(1:4).EQ.'plev'.AND.
+     .      INDEX(special,'catplev').LT.1) THEN
+            CALL interp_z
+          ELSE
+            ofld=ifld
+          ENDIF
+          CALL special_post
+c
+c --- --- Write time slice to output file 
+          CALL write_tslice
+c
+c --- --- Close output file if max rec has been reached 
+          IF (MOD(m,rEmon).EQ.0) CALL close_ofile
+c
+c --- - End loop over files and records
+        ENDDO
+c
+c --- - Close output file if still open 
+        IF (MOD(m,rEmon).GT.0) CALL close_ofile
+c
+      ENDDO
+c 
 c --- Process table aero
       fnm=paero
       table=taero

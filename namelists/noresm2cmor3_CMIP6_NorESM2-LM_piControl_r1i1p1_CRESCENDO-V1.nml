@@ -18,7 +18,7 @@
  source_type   = 'AOGCM',
  atmgrid       = 'finite-volume grid with 1.9x2.5 degree lat/lon resolution',
  atmgrid_label = 'gn', 
- atmgrid_resolution = '200 km',
+ atmgrid_resolution = '250 km',
  ocngrid       = 'tripolar grid with 1deg nominal resolution',
  ocngrid_label = 'gn', 
  ocngrid_resolution = '100 km',
@@ -27,7 +27,7 @@
  icegrid_resolution = '100 km',
  lndgrid       = 'finite-volume grid with 1.9x2.5 degree lat/lon resolution',
  lndgrid_label = 'gn', 
- lndgrid_resolution = '200 km',
+ lndgrid_resolution = '250 km',
  parent_source_id = 'NorESM2-LM',
  tagoyr        = 'micom.hy',
  tagoyrbgc     = 'micom.hbgcy',
@@ -375,19 +375,10 @@
  taero         = 'CMIP6_AERmon.json',
  raero         = 1000000, 
  vaero         = 
-!! -> Emon table 'SO4_A1*3+SO4_A2*3+SO4_AC*3+SO4_N*3+SO4_NA*3+SO4_PR*3','loadso4 ','calcload',
-!! -> Emon table 'BC_A+BC_AC+BC_AI+BC_AX+BC_N+BC_NI','loadbc ','calcload',
-!! -> Emon table 'SS_A1+SS_A2+SS_A3','loadss ','calcload  ',
-!! -> Emon table 'OM_AC+OM_AI+OM_NI','loadpoa ','calcload ',
-!! -> Emon table 'DST_A2+DST_A3 ','loaddust  ','calcload  ',
 !! not requested 'BC            ','sconcbc   ','          ',
 !! not requested 'POM           ','sconcpoa  ','          ',
-!! -> Emon table 'SO4           ','sconcso4  ','          ',
-!! -> Emon table 'DUST          ','sconcdust ','          ',
-!! -> Emon table 'SS            ','sconcss   ','          ',
                  'TAUE550       ','od550aer  ','unitless;dayfoc',
                  'TAUA550       ','abs550aer ','unitless;dayfoc',
-!! -> Emon table 'BAK           ','ec550aer  ','dayfoc    ',
                  'EMI_POM       ','emioa     ','          ',
                  'EMI_BC        ','emibc     ','          ',
                  'EMI_SS        ','emiss     ','          ',
@@ -407,20 +398,42 @@
                  'WET_SS        ','wetss     ','          ',      
                  'WET_SO2*2     ','wetso2    ','          ',
                  'WET_SO4*3     ','wetso4    ','          ',
-!! -> Emon table 'SWCF          ','rsdsdiff  ','          ',
                  'REHANA        ','reffclwtop','fochana;micrometer',
-!! -> Emon table 'CDNCINT       ','cldnvi    ','fochana;m-2',
-!! -> Emon table 'REFFL         ','reffclws  ','cldfoc;micrometer',
                  'CDNC          ','cdnc      ','cldfoc;cm-3      ',
 !! not requested 'POM           ','concpoa   ','          ',
 !! not requested 'BC            ','concbc    ','          ',
-!! -> Emon table 'SO4           ','concso4   ','          ',
-!! -> Emon table 'SO2CO         ','concso2   ','unitless  ', 
-!! -> Emon table 'DMSCO*1.4375  ','concdms   ','unitless  ', 
-!! -> Emon table 'SS            ','concss    ','          ',
-!! -> Emon table 'DUST          ','concdust  ','          ',
-!! -> Emon table 'SOLLD+SOLSD   ','rsdsdiff  ','positivedo',
-!! -> Emon table 'N_AER         ','conccn    ','cm-3      '
+/
+
+&table_Emon
+ dEmon        = .true.
+ tEmon        = 'CMIP6_Emon.json'
+ vEmon        =
+                 'SO4_A1*3+SO4_A2*3+SO4_AC*3+SO4_N*3+SO4_NA*3+SO4_PR*3','loadso4 ','calcload',
+!! only in Eday  'BC_A+BC_AC+BC_AI+BC_AX+BC_N+BC_NI','loadbc ','calcload',
+                 'SS_A1+SS_A2+SS_A3','loadss ','calcload  ',
+                 'OM_AC+OM_AI+OM_NI','loadpoa ','calcload ',
+                 'DST_A2+DST_A3 ','loaddust  ','calcload  ',
+                 'SO4           ','sconcso4  ','          ',
+                 'DUST          ','sconcdust ','          ',
+                 'SS            ','sconcss   ','          ',
+                 'BAK           ','ec550aer  ','dayfoc    ',
+                 'SWCF          ','rsdsdiff  ','positivedo',
+                 'SOLLD+SOLSD   ','rsdsdiff  ','positivedo',
+                 'CDNCINT       ','cldnvi    ','fochana;m-2',
+                 'REFFL         ','reffclws  ','cldfoc;micrometer',
+                 'SO4           ','concso4   ','          ',
+                 'SO2CO         ','concso2   ','unitless  ', 
+                 'DMSCO*1.4375  ','concdms   ','unitless  ', 
+                 'SS            ','concss    ','          ',
+                 'DUST          ','concdust  ','          ',
+                 'N_AER         ','conccn    ','cm-3      '
+                 'SOILC         ','cSoil     ','kg m-2    ',
+                 'GPP           ','gpp       ','kg m-2 s-1;positivedo',
+                 'NPP           ','npp       ','kg m-2 s-1;positivedo',
+                 'WOOD_HARVESTC ','fHarvest  ','kg m-2 s-1;positiveup',
+                 'DWT_CLOSS     ','fLuc      ','kg m-2 s-1;positiveup',
+                 'LIVESTEMC+DEADSTEMC','cWood','kg m-2    ',
+                 'NEP           ','nep       ','kg m-2 s-1;positivedo',
 /
 
 &table_lmon
@@ -442,19 +455,13 @@
                  'TOTVEGC       ','cVeg      ','kg m-2    ',
                  'TOTLITC       ','cLitter   ','kg m-2    ',
                  'TLAI          ','lai       ','fraction  ',
-!! -> Emon table 'SOILC         ','cSoil     ','kg m-2    ',
-!! -> Emon table 'GPP           ','gpp       ','kg m-2 s-1;positivedo',
                  'AR            ','ra        ','kg m-2 s-1;positiveup',
-!! -> Emon table 'NPP           ','npp       ','kg m-2 s-1;positivedo',
                  'HR            ','rh        ','kg m-2 s-1;positiveup',
                  'COL_FIRE_CLOSS','fFire     ','kg m-2 s-1;positiveup',
-!! -> Emon table 'WOOD_HARVESTC ','fHarvest  ','kg m-2 s-1;positiveup',
-!! -> Emon table 'DWT_CLOSS     ','fLuc      ','kg m-2 s-1;positiveup',
                  'NBP           ','nbp       ','kg m-2 s-1;positivedo',
                  'LITFALL       ','fVegLitter ','kg m-2 s-1',
                  'LITR1C_TO_SOIL1C+LITR2C_TO_SOIL2C+LITR3C_TO_SOIL3C','fLitterSoil ','kg m-2 s-1',
                  'LEAFC         ','cLeaf     ','kg m-2    ',
-!! -> Emon table 'LIVESTEMC+DEADSTEMC','cWood','kg m-2    ',
                  'LIVECROOTC+DEADCROOTC','cRoot','kg m-2  ',
                  'CWDC          ','cCwd      ','kg m-2    ',
                  'SOIL1C        ','cSoilFast ','kg m-2    ',
@@ -465,7 +472,6 @@
                  'LEAFC_ALLOC   ','nppLeaf   ','kg m-2 s-1;positivedo',
                  'WOODC_ALLOC   ','nppWood   ','kg m-2 s-1;positivedo',
                  'FROOTC_ALLOC  ','nppRoot   ','kg m-2 s-1;positivedo',
-!! -> Emon table 'NEP           ','nep       ','kg m-2 s-1;positivedo',
 /
 
 
@@ -515,15 +521,29 @@
 !                'U             ','uas       ','blayer    ',
 !                'V             ','vas       ','blayer    ',
                  'Z3            ','zg        ','          ', 
-!! ->SIday table 'aice_d        ','siconc    ','          ',
-!! ->SIday table 'hi_d          ','sithick   ','          ',
-!! ->SIday table 'fs_d          ','sisnconc  ','          ',
-!! ->SIday table 'uvel_d        ','siu       ','zero2missing',
-!! ->SIday table 'vvel_d        ','siv       ','zero2missing',
                  'SOILWATER_10CM','mrsos     ','          ',
                  'QRUNOFF       ','mrro      ','          ',
-!! ->Oday table  'sst           ','tos       ','          ',
-!! ->Oday table  'maxmld        ','omldamax  ','          ',
+/
+
+&table_SIday
+ dSIday        = .true.
+ tSIday        = 'CMIP6_SIday.json', 
+ rSIday        = 1000000, 
+ vSIday        = 
+                 'aice_d        ','siconc    ','          ',
+                 'hi_d          ','sithick   ','          ',
+                 'fs_d          ','sisnconc  ','          ',
+                 'uvel_d        ','siu       ','zero2missing',
+                 'vvel_d        ','siv       ','zero2missing',
+/
+
+&table_Oday
+ dOday         = .true.
+ tOday         = 'CMIP6_Oday.json', 
+ rOday         = 1000000, 
+ vOday         = 
+                 'sst           ','tos       ','          ',
+                 'maxmld        ','omldamax  ','          ',
 /
 
 &table_6hrlev

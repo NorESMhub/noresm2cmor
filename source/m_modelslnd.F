@@ -198,6 +198,94 @@ c
       ENDDO
 c
 c 
+c --- Process table Emon
+      WRITE(*,*) 'Process table Emon'
+      fnm=pEmon
+      table=tEmon
+      linstant=.FALSE.
+      DO n=1,nEmon
+        IF (skip_variable(n,nEmon,dEmon)) CYCLE
+c
+c --- - Map namelist variables 
+        ivnm=vEmon(1,n)
+        ovnm=vEmon(2,n)
+        special=vEmon(3,n)
+        vunits=' '
+        vpositive=' '
+c
+c --- - Skip variable?
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+        IF (TRIM(zcoord).EQ.'sdepth') THEN
+          IF (.NOT.do_3d) CYCLE
+        ELSE
+          IF (.NOT.do_2d) CYCLE
+        ENDIF
+c 
+c --- - Choose history file 
+        SELECT CASE (TRIM(special))
+          CASE ('day2mon')
+            itag=taglday
+          CASE ('3hr2mon')
+            itag=tagl3hr
+          CASE DEFAULT
+            itag=taglmon
+        END SELECT
+c
+c --- - Check if input variable is present  
+        IF (LEN_TRIM(pEmon).eq.0) CALL scan_files(reset=.TRUE.)
+        IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+c
+c --- - Prepare output file 
+        CALL special_pre
+c
+c --- - Loop over input files 
+        m=0
+        DO
+          m=m+1
+c
+c --- --- Open output file
+          IF (MOD(m-1,rEmon).EQ.0) CALL open_ofile
+c
+c --- --- Read variable into buffer (average if necessary)
+          rec=0
+          nrec=0
+          fldacc=0.
+          LAST=.FALSE.
+          DO
+            IF (LEN_TRIM(pEmon).eq.0) CALL scan_files(reset=.FALSE.)
+            IF (rec.EQ.0) then
+              last=.TRUE.
+              EXIT
+            ENDIF
+            nrec=nrec+1
+cdiag       write(*,*) 'DEBUG: ',trim(fnm),rec,nrec,tbnd,mbnd,year,month
+            CALL read_tslice(rec,badrec,fnm)
+            fldacc=fldacc+fld
+            IF (tbnd(2).EQ.mbnd(2)) EXIT
+          ENDDO
+          IF (last) EXIT
+          fld=fldacc/FLOAT(nrec)
+          tbnds(:,1)=mbnd
+          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+c 
+c --- --- Post processing 
+          CALL special_post
+c
+c --- --- Write time slice to output file 
+          CALL write_tslice
+c
+c --- --- Close output file if max rec has been reached 
+          IF (MOD(m,rEmon).EQ.0) CALL close_ofile
+c
+c --- - End loop over files and records
+        ENDDO
+c
+c --- - Close output file if still open 
+        IF (MOD(m,rEmon).GT.0) CALL close_ofile
+c
+      ENDDO
+c
+c 
 c --- Process table limon
       WRITE(*,*) 'Process table limon'
       fnm=plimon
