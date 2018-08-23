@@ -1675,7 +1675,7 @@ c --- Define output dataset
           IF (vtype(1:3).EQ.'mer'.OR.ovnm(1:7).EQ.'hfbasin') THEN 
             grid_label='grz' 
             grid='zonal mean or integral'  
-          ELSEIF (ndims.GE.3) THEN 
+          ELSEIF (TRIM(vtype).EQ.'level') THEN 
             grid_label='gr' 
             grid=TRIM(ocngrid)//', interpolated to z-levels'
           ENDIF 
