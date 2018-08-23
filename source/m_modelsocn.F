@@ -16,10 +16,11 @@ c --- Grid dimensions and variables
       INTEGER, PARAMETER :: ncrns=4
       INTEGER, ALLOCATABLE, SAVE, DIMENSION(:,:) :: basin
       REAL(KIND=8), ALLOCATABLE, SAVE, DIMENSION(:) :: xvec,yvec,kvec,
-     .  kvechalf,sigma,depth,slat 
+     .  kvechalf,sigma,sigmahalf,depth,slat 
       REAL(KIND=8), ALLOCATABLE, SAVE, DIMENSION(:,:) :: parea,pmask,
      .  pdepth,plon,plat,ulon,ulat,vlon,vlat,slat_bnds,sigma_bnds,
-     .  depth_bnds,bpini,bpinit,uscaley,vscalex,udepth,vdepth
+     .  sigmahalf_bnds,depth_bnds,bpini,bpinit,uscaley,vscalex,udepth,
+     .  vdepth
       REAL(KIND=8), ALLOCATABLE, SAVE, DIMENSION(:,:,:) :: 
      .  plon_crns,plat_crns,ulon_crns,ulat_crns,vlon_crns,vlat_crns,
      .  plon_crnsp,plat_crnsp,ulon_crnsp,ulat_crnsp,vlon_crnsp,
@@ -28,6 +29,9 @@ c --- Grid dimensions and variables
      .  region1,section1
       CHARACTER, ALLOCATABLE, SAVE, DIMENSION(:,:) :: region,section
       CHARACTER(LEN=slenmax), SAVE :: tcoord,zcoord,s1
+#ifdef CMOR3 
+      CHARACTER(LEN=slenmax), SAVE :: grid, grid_label 
+#endif 
 c
 c --- Gravity
       REAL(KIND=8), PARAMETER :: g=9.80665,ginv=1.d0/g
@@ -463,10 +467,6 @@ c --- - Map namelist variables
         vpositive=' '
         vcomment=' ' 
 c
-c --- - Check if input variable is present  
-        IF (LEN_TRIM(pomonbgc).eq.0) CALL scan_files(reset=.TRUE.)
-        IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
-c
 c --- - Check if vertical coordinate required     
         write(*,*) trim(ovnm)   
         CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
@@ -487,6 +487,10 @@ c --- - Choose history file
         ELSE
           itag=tagomonbgc
         ENDIF
+c
+c --- - Check if input variable is present  
+        IF (LEN_TRIM(pomonbgc).eq.0) CALL scan_files(reset=.TRUE.)
+        IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
 c
 c --- - Prepare output file 
         CALL special_pre
@@ -1112,7 +1116,8 @@ c
       IF (status.EQ.nf90_noerr) THEN
         status=nf90_inquire_dimension(ncid,dimid,len=kdm)
         CALL handle_ncerror(status)
-        ALLOCATE(sigma(kdm),sigma_bnds(2,kdm),STAT=status)
+        ALLOCATE(sigma(kdm),sigmahalf(kdm+1),sigma_bnds(2,kdm),
+     .    sigmahalf_bnds(2,kdm+1),STAT=status)
         IF (status.NE.0) STOP 'cannot ALLOCATE enough memory (1b)'
         status=nf90_inq_varid(ncid,'sigma',rhid)
         CALL handle_ncerror(status)
@@ -1126,6 +1131,12 @@ c
         ENDDO
         sigma_bnds(1,kdm)=0.5*(sigma(kdm)+sigma(kdm-1))
         sigma_bnds(2,kdm)=sigma(kdm)+0.5*(sigma(kdm)-sigma(kdm-1)) 
+        sigmahalf(1:kdm)=sigma_bnds(1,1:kdm) 
+        sigmahalf(kdm+1)=sigma_bnds(2,kdm)
+        sigmahalf_bnds(1,2:kdm+1)=sigma
+        sigmahalf_bnds(2,1:kdm)=sigma
+        sigmahalf_bnds(1,1)=sigmahalf(1)
+        sigmahalf_bnds(2,kdm+1)=sigmahalf(kdm+1)
       ENDIF
 c
       status=nf90_inq_dimid(ncid,'depth',dimid)
@@ -1531,7 +1542,11 @@ c --- Derive path of CMOR table
      .  (lsumz.OR.INDEX(special,'glbave').GT.0
      .  .OR.INDEX(special,'2zos').GT.0
      .  .OR.INDEX(special,'level1').GT.0)) THEN
+#ifdef CMOR3
+        tablepath=TRIM(tabledir)//TRIM(table)
+#else 
         tablepath=TRIM(tabledir)//TRIM(table)//TRIM(rhotablesuff)
+#endif
       ELSE
         tablepath=TRIM(tabledir)//TRIM(table)
       ENDIF
@@ -1568,13 +1583,41 @@ c --- Derive path to CMOR table
      .  (lsumz.OR.INDEX(special,'glbave').GT.0
      .  .OR.INDEX(special,'2zos').GT.0 
      .  .OR.INDEX(special,'level1').GT.0)) THEN
+#ifdef CMOR3
+        tablepath=TRIM(tabledir)//TRIM(table)
+#else 
         tablepath=TRIM(tabledir)//TRIM(table)//TRIM(rhotablesuff)
+#endif 
       ELSE
         tablepath=TRIM(tabledir)//TRIM(table)
       ENDIF
 c
 c --- Define output dataset 
 #ifdef CMOR3
+      IF (TRIM(vtype).EQ.'layer'.AND..NOT.
+     .  (lsumz.OR.INDEX(special,'glbave').GT.0
+     .  .OR.INDEX(special,'2zos').GT.0 
+     .  .OR.INDEX(special,'level1').GT.0)) THEN
+        grid_label=ocngrid_label
+        grid=TRIM(ocngrid)//', vertical density coordinate' 
+      ELSE 
+        grid_label=ocngrid_label
+        grid=TRIM(ocngrid) 
+        IF (INDEX(special,'glbave').GT.0
+     .     .OR.INDEX(special,'2zos').GT.0) THEN 
+          grid_label='gm'
+          grid='global mean or integral'  
+        ELSE
+          IF (vtype(1:3).EQ.'mer'.OR.ovnm(1:7).EQ.'hfbasin') THEN 
+            grid_label='grz' 
+            grid='zonal mean or integral'  
+          ELSE 
+            grid_label='gr' 
+            grid=TRIM(ocngrid)//', interpolated to z-levels'
+          ENDIF 
+        ENDIF 
+      ENDIF 
+      CALL write_namelist_json(grid,grid_label,ocngrid_resolution)
       error_flag=cmor_dataset_json('namelist_'//TRIM(casename)//'.json')
 #else
       error_flag=cmor_dataset(
@@ -1660,19 +1703,39 @@ c --- Define vertical axis
      .  .OR.INDEX(special,'2zos').GT.0
      .  .OR.INDEX(special,'level1').GT.0)) THEN 
         IF (INDEX(special,'half').GT.0) THEN 
+#ifdef CMOR3
+          kaxid=cmor_axis(
+     .      table           = TRIM(tabledir)//'CMIP6_coordinate.json',
+     .      table_entry     = 'rho',
+     .      units           = 'kg m-3',
+     .      length          = kdm+1,
+     .      coord_vals      = 1000.+sigmahalf,
+     .      cell_bounds     = 1000.+sigmahalf_bnds)
+#else 
           kaxid=cmor_axis(
      .      table           = TRIM(tablepath),
      .      table_entry     = 'olev',
      .      units           = '1',
      .      length          = kdm+1,
      .      coord_vals      = kvechalf)
+#endif 
         ELSE
+#ifdef CMOR3
+          kaxid=cmor_axis(
+     .      table           = TRIM(tablepath),
+     .      table_entry     = 'rho',
+     .      units           = 'kg m-3',
+     .      length          = kdm,
+     .      coord_vals      = 1000.+sigma,
+     .      cell_bounds     = 1000.+sigma_bnds)
+#else 
           kaxid=cmor_axis(
      .      table           = TRIM(tablepath),
      .      table_entry     = 'olev',
      .      units           = '1',
      .      length          = kdm,
      .      coord_vals      = kvec(1:kdm))
+#endif 
         ENDIF
       ELSEIF (INDEX(special,'level1').GT.0) THEN 
         kaxid=cmor_axis(

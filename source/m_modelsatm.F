@@ -1312,6 +1312,13 @@ c --- Call CMOR setup
 c
 c --- Define output dataset 
 #ifdef CMOR3
+      IF (ndims.EQ.1) THEN 
+        CALL write_namelist_json('global mean or integral','gm',
+     .    atmgrid_resolution) 
+      ELSE 
+        CALL write_namelist_json(atmgrid,atmgrid_label,
+     .    atmgrid_resolution)
+      ENDIF
       error_flag=cmor_dataset_json('namelist_'//TRIM(casename)//'.json')
 #else
       error_flag=cmor_dataset(

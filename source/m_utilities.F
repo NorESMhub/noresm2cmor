@@ -218,14 +218,14 @@ c
       IF (status.NE.nf90_noerr) THEN
         var_in_file=.FALSE.
           IF (verbose) WRITE(*,*)
-     .      'skipping variable '//TRIM(vnm)
+     .      'skipping variable. '//TRIM(vnm)//' not in '//TRIM(fnm) 
       ENDIF
       IF (LEN_TRIM(vnm2).GT.0) THEN
         status=nf90_inq_varid(ncid,TRIM(vnm2),rhid)
         IF (status.NE.nf90_noerr) THEN
           var_in_file=.FALSE.
             IF (verbose) WRITE(*,*)
-     .        'skipping variable '//TRIM(vnm)
+     .        'skipping variable. '//TRIM(vnm2)//' not in '//TRIM(fnm)
         ENDIF
       ENDIF
       IF (LEN_TRIM(vnm3).GT.0) THEN
@@ -233,7 +233,7 @@ c
         IF (status.NE.nf90_noerr) THEN
           var_in_file=.FALSE.
             IF (verbose) WRITE(*,*)
-     .        'skipping variable '//TRIM(vnm)
+     .        'skipping variable. '//TRIM(vnm3)//' not in '//TRIM(fnm)
         ENDIF
       ENDIF
       IF (LEN_TRIM(vnm4).GT.0) THEN
@@ -241,7 +241,7 @@ c
         IF (status.NE.nf90_noerr) THEN
           var_in_file=.FALSE.
             IF (verbose) WRITE(*,*)
-     .        'skipping variable '//TRIM(vnm)
+     .        'skipping variable. '//TRIM(vnm3)//' not in '//TRIM(fnm)
         ENDIF
       ENDIF
       IF (LEN_TRIM(vnm5).GT.0) THEN

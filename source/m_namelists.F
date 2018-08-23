@@ -42,16 +42,20 @@ c --- Model namelist
       LOGICAL, SAVE :: linebreaks
 #ifdef CMOR3
       CHARACTER(LEN=slenmax), SAVE :: 
-     .  source_type,parent_source_id,grid,grid_label,grid_resolution,
-     .  coordtable
+     .  source_type,parent_source_id,coordtable,
+     .  atmgrid,atmgrid_label,atmgrid_resolution,
+     .  ocngrid,ocngrid_label,ocngrid_resolution,
+     .  icegrid,icegrid_label,icegrid_resolution,
+     .  lndgrid,lndgrid_label,lndgrid_resolution
 #endif 
       NAMELIST /model/
 #ifdef CMOR3
      .  source_type, 
      .  parent_source_id, 
-     .  grid,
-     .  grid_label,
-     .  grid_resolution, 
+     .  atmgrid,atmgrid_label,atmgrid_resolution,
+     .  ocngrid,ocngrid_label,ocngrid_resolution,
+     .  icegrid,icegrid_label,icegrid_resolution,
+     .  lndgrid,lndgrid_label,lndgrid_resolution,
 #endif 
      .  model_id,
      .  source,              
@@ -691,17 +695,6 @@ c --- parent_experiment_rip
       ENDIF
 #endif 
 c
-#ifdef CMOR3
-#ifdef MPI
-      CALL MPI_COMM_RANK(MPI_COMM_WORLD, mpirank, mpierror)
-      IF (mpirank.EQ.0) THEN
-#endif 
-c --- Dump experiment and model information to json file (only master)
-      CALL write_namelist_json 
-#ifdef MPI
-      ENDIF 
-#endif 
-#endif 
       END SUBROUTINE read_namelists       
 
      
@@ -913,15 +906,20 @@ c
 
 
 #ifdef CMOR3
-      SUBROUTINE write_namelist_json 
+      SUBROUTINE write_namelist_json(grid,grid_label,grid_resolution)
 c
       USE json_module
 c
       IMPLICIT NONE
-c
+c 
+      CHARACTER(len=*) :: grid,grid_label,grid_resolution
       TYPE(json_core) :: json 
       TYPE(json_value), POINTER :: p 
 c
+#ifdef MPI
+      CALL MPI_COMM_RANK(MPI_COMM_WORLD, mpirank, mpierror)
+      IF (mpirank.EQ.0) THEN
+#endif 
       CALL json%initialize()
       CALL json%create_object(p,'') 
 c --- mapped from cmor2     
@@ -993,6 +991,9 @@ c
       call json%print(p,'namelist_'//TRIM(casename)//'.json')  
       call json%destroy(p)            !cleanup
 c
+#ifdef MPI
+      ENDIF
+#endif 
       END SUBROUTINE write_namelist_json 
 #endif 
 
