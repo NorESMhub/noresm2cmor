@@ -1,0 +1,86 @@
+# Targets 
+TARGET=noresm2cmor3mpi
+
+# Objects
+OBJ=json_kinds.o json_parameters.o json_string_utilities.o json_value_module.o json_file_module.o json_module.o m_namelists.o m_utilities.o m_modelsice.o m_modelslnd.o m_modelsatm.o m_modelsocn.o noresm2cmor.o
+
+# Paths 
+SRCDIR=../source
+BINDIR=../bin
+
+# Fortran compiler
+FC=mpiifort
+
+# Linker
+LD=$(FC)
+
+# Libraries
+CMOR=/projects/NS2345K/noresm2cmor/cmorlib/nird_intel/cmor-CMOR-3.3.3
+UUID=/projects/NS2345K/noresm2cmor/cmorlib/nird_intel/uuid-1.6.2
+HDF5=/projects/NS2345K/noresm2cmor/cmorlib/nird_intel/hdf5-1.8.9
+NETCDF=/projects/NS2345K/noresm2cmor/cmorlib/nird_intel/netcdf-4.4.1.1
+NETCDFF=/projects/NS2345K/noresm2cmor/cmorlib/nird_intel/netcdf-fortran-4.4.4
+UDUNITS=/projects/NS2345K/noresm2cmor/cmorlib/nird_intel/udunits-2.2.25
+
+# Directory list to search for library files
+LIBS=-L$(CMOR)/lib -Wl,-rpath=$(CMOR)/lib -L$(UUID)/lib -Wl,-rpath=$(UUID)/lib -L$(NETCDF)/lib -Wl,-rpath=$(NETCDF)/lib -L$(NETCDFF)/lib -Wl,-rpath=$(NETCDFF)/lib -L$(HDF5)/lib -Wl,-rpath=$(HDF5)/lib -L$(UDUNITS)/lib -Wl,-rpath=$(UDUNITS)/lib -lcmor -lnetcdff -lnetcdf -luuid -ludunits2 -l:libexpat.so.1
+
+# Compiler flags
+#FFLAGS=-g -O0 -traceback -r8 -I$(SRCDIR) -I$(CMOR)/include -I$(NETCDF)/include -I$(NETCDFF)/include -DCMOR3
+FFLAGS=-O2 -r8 -I$(SRCDIR) -I$(CMOR)/include -I$(NETCDF)/include -I$(NETCDFF)/include -DCMOR3 
+
+# Linker flags
+LDFLAGS=$(LIBS) -g 
+
+.PHONY: all clean
+
+all: $(TARGET)
+
+clean:
+	rm -f *.o *.f *.h *.inc *.mod *2cmor* 
+
+$(TARGET): $(OBJ)
+	$(LD) -o $(TARGET) $(OBJ) $(LDFLAGS)
+	mkdir -p $(BINDIR) 
+	mv $(TARGET) $(BINDIR)
+	rm -f *.o *.f *.h *.inc *.mod *2cmor*
+
+noresm2cmor.o: $(SRCDIR)/noresm2cmor.F
+	$(FC) $(FFLAGS) -c $(SRCDIR)/noresm2cmor.F
+
+m_modelsatm.o: $(SRCDIR)/m_modelsatm.F
+	$(FC) $(FFLAGS) -c $(SRCDIR)/m_modelsatm.F
+
+m_modelsice.o: $(SRCDIR)/m_modelsice.F
+	$(FC) $(FFLAGS) -c $(SRCDIR)/m_modelsice.F
+
+m_modelslnd.o: $(SRCDIR)/m_modelslnd.F
+	$(FC) $(FFLAGS) -c $(SRCDIR)/m_modelslnd.F
+
+m_modelsocn.o: $(SRCDIR)/m_modelsocn.F
+	$(FC) $(FFLAGS) -c $(SRCDIR)/m_modelsocn.F
+
+m_namelists.o: $(SRCDIR)/m_namelists.F
+	$(FC) $(FFLAGS) -c $(SRCDIR)/m_namelists.F
+
+m_utilities.o: $(SRCDIR)/m_utilities.F
+	$(FC) $(FFLAGS) -c $(SRCDIR)/m_utilities.F
+
+json_module.o: $(SRCDIR)/json_module.F90
+	$(FC) $(FFLAGS) -c $(SRCDIR)/json_module.F90
+
+json_file_module.o: $(SRCDIR)/json_file_module.F90
+	$(FC) $(FFLAGS) -c $(SRCDIR)/json_file_module.F90
+
+json_value_module.o: $(SRCDIR)/json_value_module.F90
+	$(FC) $(FFLAGS) -c $(SRCDIR)/json_value_module.F90
+
+json_string_utilities.o: $(SRCDIR)/json_string_utilities.F90
+	$(FC) $(FFLAGS) -c $(SRCDIR)/json_string_utilities.F90
+
+json_parameters.o: $(SRCDIR)/json_parameters.F90
+	$(FC) $(FFLAGS) -c $(SRCDIR)/json_parameters.F90
+
+json_kinds.o: $(SRCDIR)/json_kinds.F90
+	$(FC) $(FFLAGS) -c $(SRCDIR)/json_kinds.F90
+

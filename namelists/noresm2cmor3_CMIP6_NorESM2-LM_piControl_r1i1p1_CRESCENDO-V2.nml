@@ -1,6 +1,6 @@
 &system
  ibasedir      = '/projects/NS2345K/noresm/cases',
- obasedir      = '../data/cmorout/N1850OCECO_f09_tn14_r227T40B',
+ obasedir      = '/scratch/ingo/cmorout/N1850OCECO_f09_tn14_r227T40B_mpi',
  griddata      = '../data/griddata',
  tabledir      = '../tables'
  createsubdirs = .false.,
