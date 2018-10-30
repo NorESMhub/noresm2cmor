@@ -1300,13 +1300,14 @@ c
 
 
 #ifdef CMOR3
-      SUBROUTINE write_namelist_json(grid,grid_label,grid_resolution)
+      SUBROUTINE write_namelist_json(grid,grid_label,grid_resolution,
+     .                               varname)
 c
       USE json_module
 c
       IMPLICIT NONE
 c 
-      CHARACTER(len=*) :: grid,grid_label,grid_resolution
+      CHARACTER(len=*) :: grid,grid_label,grid_resolution,varname
       TYPE(json_core) :: json 
       TYPE(json_value), POINTER :: p 
 c
@@ -1382,7 +1383,8 @@ c --- new for cmor3
      .//"in negligence) are excluded to the fullest extent permitted " 
      .//"by law.") 
 c
-      call json%print(p,'namelist_'//TRIM(casename)//'.json')  
+      call json%print(p,'namelist_'//TRIM(casename)//'_'//TRIM(varname)
+     .//'.json')  
       call json%destroy(p)            !cleanup
 c
 #ifdef MPI

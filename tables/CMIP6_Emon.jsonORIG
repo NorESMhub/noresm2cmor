@@ -2443,25 +2443,7 @@
             "valid_max": "", 
             "ok_min_mean_abs": "", 
             "ok_max_mean_abs": ""
-        },
-        "loadbc": {
-            "frequency": "day",
-            "modeling_realm": "atmos",
-            "standard_name": "atmosphere_mass_content_of_elemental_carbon_dry_aerosol_particles", 
-            "units": "kg m-2",
-            "cell_methods": "area: time: mean",
-            "cell_measures": "area: areacella",
-            "long_name": "Load of Black Carbon Aerosol",
-            "comment": "'Content' indicates a quantity per unit area. The 'atmosphere content' of a quantity refers to the vertical integral from the surface to the top of the atmosphere. For the content between specified levels in the atmosphere, standard names including content_of_atmosphere_layer are used. The mass is the total mass of the particles. 'Aerosol' means the system of suspended liquid or solid particles in air (except cloud droplets) and their carrier gas, the air itself. Aerosol takes up ambient water (a process known as hygroscopic growth) depending on the relative humidity and the composition of the aerosol. 'Dry aerosol particles' means aerosol particles without any water uptake. Chemically, 'elemental carbon' is the carbonaceous fraction of particulate matter that is thermally stable in an inert atmosphere to high temperatures near 4000K and can only be gasified by oxidation starting at temperatures above 340 C.",
-            "dimensions": "longitude latitude time",
-            "out_name": "loadbc",
-            "type": "real",
-            "positive": "",
-            "valid_min": "",
-            "valid_max": "",
-            "ok_min_mean_abs": "",
-            "ok_max_mean_abs": ""
-        },
+        }, 
         "loaddust": {
             "frequency": "mon", 
             "modeling_realm": "atmos", 
@@ -2480,24 +2462,6 @@
             "ok_min_mean_abs": "", 
             "ok_max_mean_abs": ""
         }, 
-        "loadpoa": {
-            "frequency": "day",
-            "modeling_realm": "atmos",
-            "standard_name": "atmosphere_mass_content_of_primary_particulate_organic_matter_dry_aerosol_particles",
-            "units": "kg m-2",
-            "cell_methods": "area: time: mean",
-            "cell_measures": "area: areacella",
-            "long_name": "Load of Dry Aerosol Primary Organic Matter",
-            "comment": "'Content' indicates a quantity per unit area. The 'atmosphere content' of a quantity refers to the vertical integral from the surface to the top of the atmosphere. For the content between specified levels in the atmosphere, standard names including content_of_atmosphere_layer are used. The mass is the total mass of the particles. 'Aerosol' means the system of suspended liquid or solid particles in air (except cloud droplets) and their carrier gas, the air itself. Aerosol takes up ambient water (a process known as hygroscopic growth) depending on the relative humidity and the composition of the aerosol. 'Dry aerosol particles' means aerosol particles without any water uptake. 'Primary particulate organic matter ' means all organic matter emitted directly to the atmosphere as particles except elemental carbon. The sum of primary_particulate_organic_matter_dry_aerosol and secondary_particulate_organic_matter_dry_aerosol is particulate_organic_matter_dry_aerosol.",
-            "dimensions": "longitude latitude time",
-            "out_name": "loadpoa",
-            "type": "real",
-            "positive": "",
-            "valid_min": "",
-            "valid_max": "",
-            "ok_min_mean_abs": "",
-            "ok_max_mean_abs": ""
-        },
         "loadso4": {
             "frequency": "mon", 
             "modeling_realm": "atmos", 

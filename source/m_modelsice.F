@@ -950,8 +950,10 @@ c --- parent_experiment_rip
 c
 c --- Define output dataset 
 #ifdef CMOR3
-      CALL write_namelist_json(icegrid,icegrid_label,icegrid_resolution)
-      error_flag=cmor_dataset_json('namelist_'//TRIM(casename)//'.json')
+      CALL write_namelist_json(icegrid,icegrid_label,icegrid_resolution,
+     .  ovnm)
+      error_flag=cmor_dataset_json('namelist_'//TRIM(casename)//'_'//
+     .  TRIM(ovnm)//'.json')
 #else
       error_flag=cmor_dataset(
      .  outpath         = obasedir,
