@@ -1247,6 +1247,163 @@ c
         WRITE(*,'(1X,A20,A20,A20)') v3hri(:,n)
       ENDDO
 c
+#ifdef CMOR3
+      WRITE(*,*) 
+      WRITE(*,*) 'Table ofx:'
+      DO n=1,nofx
+        WRITE(*,'(1X,A20,A20,A20)') vofx(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table 6hrPlevPt:'
+      DO n=1,n6hrPlevPt
+        WRITE(*,'(1X,A20,A20,A20)') v6hrPlevPt(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table AERday:'
+      DO n=1,nAERday
+        WRITE(*,'(1X,A20,A20,A20)') vAERday(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table AERhr:'
+      DO n=1,nAERhr
+        WRITE(*,'(1X,A20,A20,A20)') vAERhr(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table AERmonZ:'
+      DO n=1,nAERmonZ
+        WRITE(*,'(1X,A20,A20,A20)') vAERmonZ(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table CF3hr:'
+      DO n=1,nCF3hr
+        WRITE(*,'(1X,A20,A20,A20)') vCF3hr(:,n)
+      ENDDO
+c
+      WRITE(*,*)
+      WRITE(*,*) 'Table CFday:'
+      DO n=1,nCFday
+        WRITE(*,'(1X,A20,A20,A20)') vCFday(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table CFmon:'
+      DO n=1,nCFmon
+        WRITE(*,'(1X,A20,A20,A20)') vCFmon(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table CFsubhr:'
+      DO n=1,nCFsubhr
+        WRITE(*,'(1X,A20,A20,A20)') vCFsubhr(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table E1hrClimMon:'
+      DO n=1,nE1hrClimMon
+        WRITE(*,'(1X,A20,A20,A20)') vE1hrClimMon(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table E1hr:'
+      DO n=1,nE1hr
+        WRITE(*,'(1X,A20,A20,A20)') vE1hr(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table E3hr:'
+      DO n=1,nE3hr
+        WRITE(*,'(1X,A20,A20,A20)') vE3hr(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table CE3hrPt:'
+      DO n=1,nCE3hrPt
+        WRITE(*,'(1X,A20,A20,A20)') vCE3hrPt(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table E6hrZ:'
+      DO n=1,nE6hrZ
+        WRITE(*,'(1X,A20,A20,A20)') vE6hrZ(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table Eday:'
+      DO n=1,nEday
+        WRITE(*,'(1X,A20,A20,A20)') vEday(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table EdayZ:'
+      DO n=1,nEdayZ
+        WRITE(*,'(1X,A20,A20,A20)') vEdayZ(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table Efx:'
+      DO n=1,nEfx
+        WRITE(*,'(1X,A20,A20,A20)') vEfx(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table Emon:'
+      DO n=1,nEmon
+        WRITE(*,'(1X,A20,A20,A20)') vEmon(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table EmonZ:'
+      DO n=1,nEmonZ
+        WRITE(*,'(1X,A20,A20,A20)') vEmonZ(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table Esubhr:'
+      DO n=1,nEsubhr
+        WRITE(*,'(1X,A20,A20,A20)') vEsubhr(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table Eyr:'
+      DO n=1,nEyr
+        WRITE(*,'(1X,A20,A20,A20)') vEyr(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table Oclim:'
+      DO n=1,nOclim
+        WRITE(*,'(1X,A20,A20,A20)') vOclim(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table Oday:'
+      DO n=1,nOday
+        WRITE(*,'(1X,A20,A20,A20)') vOday(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table Odec:'
+      DO n=1,nOdec
+        WRITE(*,'(1X,A20,A20,A20)') vOdec(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table COfx:'
+      DO n=1,nCOfx
+        WRITE(*,'(1X,A20,A20,A20)') vCOfx(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table SIday:'
+      DO n=1,nSIday
+        WRITE(*,'(1X,A20,A20,A20)') vSIday(:,n)
+      ENDDO
+#endif 
       END SUBROUTINE print_namelists
 
 
