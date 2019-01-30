@@ -111,7 +111,7 @@ Start CMORization with
  ./cmorize_generic.sh <absolute path to NorESM case folder> <start year> <end year> 
 
 E.g. 
- ./cmorize_generic.sh `pwd`/..data/sampledata/N20TRAERCN_f19_g16_01 2000 2000
+ ./cmorize_generic.sh `pwd`/../data/sampledata/N20TRAERCN_f19_g16_01 2000 2000
 
 
 6. Parallel CMORization
