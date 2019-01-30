@@ -383,6 +383,7 @@ c
       ENDDO
 c
 c
+#ifdef CMOR3 
 c --- Process table SIday
       WRITE(*,*) 'Process table SIday'
       fnm=pSIday
@@ -446,6 +447,7 @@ c --- - Close output file if still open
         IF (MOD(m,rSIday).GT.0) CALL close_ofile
 c
       ENDDO
+#endif
 c
       END SUBROUTINE ice2cmor 
 

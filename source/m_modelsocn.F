@@ -612,6 +612,7 @@ c
       ENDDO
 c
 c
+#ifdef CMOR3
 c --- Process table Oday
       WRITE(*,*) 'Process table Oday'
       fnm=pOday
@@ -675,6 +676,7 @@ c --- - Close output file if still open
         IF (MOD(m,rOday).GT.0) CALL close_ofile
 c
       ENDDO
+#endif 
 c
 c           exception for fill day 
 c           IF (year.EQ.year1.AND.month.EQ.month1.AND.add_fill_day) THEN

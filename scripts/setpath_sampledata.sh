@@ -19,5 +19,6 @@ then
   chmod g+w $1
 fi
 echo "Placed symbolic link to sample daata in data directory `dirname $SCRIPTPATH`/../data"
+mkdir -p `dirname $SCRIPTPATH`/../data
 cd `dirname $SCRIPTPATH`/../data
 ln -sf $1 sampledata

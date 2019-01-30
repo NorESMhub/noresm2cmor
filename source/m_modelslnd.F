@@ -198,6 +198,7 @@ c
       ENDDO
 c
 c 
+#ifdef CMOR3
 c --- Process table Emon
       WRITE(*,*) 'Process table Emon'
       fnm=pEmon
@@ -284,6 +285,7 @@ c --- - Close output file if still open
         IF (MOD(m,rEmon).GT.0) CALL close_ofile
 c
       ENDDO
+#endif
 c
 c 
 c --- Process table limon

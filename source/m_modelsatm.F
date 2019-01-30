@@ -239,7 +239,8 @@ c --- - Close output file if still open
 c
       ENDDO    
 c 
-c --- Process table amon
+#ifdef CMOR3
+c --- Process table pEmon
       fnm=pEmon
       table=tEmon
       linstant=.FALSE.
@@ -375,6 +376,7 @@ c --- - Close output file if still open
         IF (MOD(m,rEmon).GT.0) CALL close_ofile
 c
       ENDDO
+#endif
 c 
 c --- Process table aero
       fnm=paero
@@ -614,7 +616,7 @@ c --- --- Read variable into buffer (average if necessary)
           rec=0
           IF (LEN_TRIM(p6hrlev).eq.0) CALL scan_files
           IF (rec.EQ.0) EXIT
-cdiag    write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
+cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
           tbnds(:,1)=tbnd
           tval=0.5*(tbnds(1,1)+tbnds(2,1))
 c

@@ -82,12 +82,13 @@ depending on whether noresm2cmor was compiled with intel or gnu.
 
 NIRD:
 
-First do 
+Make intel environment available and increase stack size  
  source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux 
  ulimit -s unlimited 
 
 
-Change directory to noresm2cmor/bin
+Change directory to folder with executable
+ cd noresm2cmor/bin
 
 Start CMORization with 
  ./noresm2cmor <path to noresm2cmor's namelist file>
@@ -98,7 +99,7 @@ E.g.
  ./noresm2cmor ../namelists/noresm2cmor_CMIP5_NorESM1-M_historical_r1i1p1.nml 
  ./noresm2cmor3 ../namelists/noresm2cmor3_CMIP5_NorESM1-M_historical_r1i1p1.nml
 
-To prompt syntax call noresm2cmor or noresm2cmor3 without argument.
+Call noresm2cmor or noresm2cmor3 without argument to prompt syntax.
 
 
 5. Easy CMORization with cmorize_generic.sh wrapper script
@@ -110,7 +111,7 @@ Start CMORization with
  ./cmorize_generic.sh <absolute path to NorESM case folder> <start year> <end year> 
 
 E.g. 
- ./cmorize_generic.sh /projects/NS2345K/www/cmor/sampledata/N20TRAERCN_f19_g16_01 2000 2000
+ ./cmorize_generic.sh `pwd`/..data/sampledata/N20TRAERCN_f19_g16_01 2000 2000
 
 
 6. Parallel CMORization
