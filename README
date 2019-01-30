@@ -32,7 +32,7 @@ download instructions).
 Build with
  make –f Makefile.xxx 
 
-2.3 Installation of grid data and sample input
+2.3 Installation of grid data and sample input (use only if data not available)
 
 Change directory to noresm2cmor/scripts
 
@@ -42,12 +42,18 @@ Run installation script for grid data
 Run installation script for input data sample 
  ./install_sampledata.sh <absolute path to folder where sample input should be stored> 
 
-2.4 Configuration of output path
+2.4 Set paths to grid data, sample data and output folder  
 
 Change directory to noresm2cmor/scripts
 
-Run installation script for output path
- ./install_cmorout.sh
+If install_griddata.sh not used, set path to grid data 
+ ./setpath_griddata.sh <absolute path to folder where grid data is stored>
+
+If install_sampledata.sh not used, set path to sample data 
+ ./setpath_griddata.sh <absolute path to folder where sample input is stored>
+
+Set path to output folder
+ ./install_cmorout.sh <absolute path to folder where CMOR output should be stored>
 
 
 3 Testing of CMORization on sample data
@@ -58,12 +64,13 @@ Change directory to noresm2cmor/scripts
 Run CMORization test with 
  ./cmorize_sampledata.sh 
 
+
 4. General usage of noresm2cmor binary executable 
 -------------------------------------------------
 
-Change directory to noresm2cmor/bin
+NORSTORE:  
 
-On Norstore, load modules 
+Load modules 
  . /usr/share/Modules/init/sh
  module unload netcdf gcc hdf
  module load gcc/4.7.2
@@ -73,10 +80,14 @@ or
  module load netcdf.intel/4.4.0 udunits/2.2.17 uuid/1.5.1
 depending on whether noresm2cmor was compiled with intel or gnu. 
 
-On Nird, first do 
+NIRD:
+
+First do 
  source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux 
  ulimit -s unlimited 
 
+
+Change directory to noresm2cmor/bin
 
 Start CMORization with 
  ./noresm2cmor <path to noresm2cmor's namelist file>
@@ -102,10 +113,10 @@ E.g.
  ./cmorize_generic.sh /projects/NS2345K/www/cmor/sampledata/N20TRAERCN_f19_g16_01 2000 2000
 
 
-6. Parallel CMORization on NorStore
------------------------------------
+6. Parallel CMORization
+-----------------------
 
-COMPILATION:
+NORSTORE (only CMOR2 parallel support):
 
 Load modules with 
  module load intel/2017.1 openmpi.intel/1.10.2
@@ -118,3 +129,17 @@ CMORize (e.g. using 8 tasks) with
  cd ../bin 
  export I_MPI_WAIT_MODE=1
  mpirun -n 8 noresm2cmor_mpi <path to namelist> 
+
+NIRD: 
+
+Compile with
+ cd build 
+ make -f Makefile_cmor2mpi.nird_intel
+ make -f Makefile_cmor3mpi.nird_intel
+
+CMORize (e.g. using 8 tasks) with 
+ cd ../bin 
+ export I_MPI_WAIT_MODE=1
+ mpirun -n 8 noresm2cmor_mpi <path to namelist> 
+ mpirun -n 8 noresm2cmor3_mpi <path to namelist> 
+

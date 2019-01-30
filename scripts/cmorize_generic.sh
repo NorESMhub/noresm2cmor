@@ -5,7 +5,7 @@ if [[ ! $1 || `echo $1 | head -1c` == '-' ]]
 then
   echo "Usage: $0 <absolute path to case folder> <start year> <end year> "
   echo 
-  echo "Example: $0 /projects/NS2345K/www/cmor/sampledata/N20TRAERCN_f19_g16_01 2000 2000"
+  echo "Example: $0 /projects/NS9560K/cmor/sampledata/N20TRAERCN_f19_g16_01 2000 2000"
   echo 
   exit
 fi

@@ -465,7 +465,7 @@
  tlmon        = 'CMIP6_Lmon.json'
  vlmon        =
                  'SOILWATER_10CM','mrsos     ','          ',
-                 'SOILLIQ+SOILICE','mrso     ','vertsum;miss2zero;limitmoist',
+                 'SOILLIQ',     'mrso     ','vertsum;miss2zero;limitmoist',
                  'SOILICE       ','mrfso     ','vertsum;miss2zero;limitmoist',
                  'QOVER         ','mrros     ','          ',
                  'QRUNOFF+QSNWCPICE','mrro   ','          '

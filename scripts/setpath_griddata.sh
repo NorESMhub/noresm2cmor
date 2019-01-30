@@ -3,9 +3,9 @@
 # print help information if input arguments are incorrect 
 if [[ ! $1 || `echo $1 | head -1c` == '-' ]] 
 then 
-  echo "Usage: $0 <absolute path to folder where CMOR output should be stored"
+  echo "Usage: $0 <absolute path to folder where grid data is stored"
   echo 
-  echo "Example: $0 /work/${USER}/cmorout"
+  echo "Example: $0 /work/${USER}/cmor/griddata"
   echo 
   exit
 fi 
@@ -18,6 +18,6 @@ then
   mkdir -p $1
   chmod g+w $1
 fi
-echo "Placed symbolic link cmorout in data directory `dirname $SCRIPTPATH`/../data"
+echo "Placed symbolic link griddata in data directory `dirname $SCRIPTPATH`/../data"
 cd `dirname $SCRIPTPATH`/../data
-ln -s $1 cmorout
+ln -sf $1 griddata

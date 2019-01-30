@@ -1,5 +1,5 @@
 # Targets 
-TARGET=noresm2cmor3mpi
+TARGET=noresm2cmor3_mpi
 
 # Objects
 OBJ=json_kinds.o json_parameters.o json_string_utilities.o json_value_module.o json_file_module.o json_module.o m_namelists.o m_utilities.o m_modelsice.o m_modelslnd.o m_modelsatm.o m_modelsocn.o noresm2cmor.o
@@ -15,12 +15,13 @@ FC=mpiifort
 LD=$(FC)
 
 # Libraries
-CMOR=/projects/NS2345K/noresm2cmor/cmorlib/nird_intel/cmor-CMOR-3.3.3
-UUID=/projects/NS2345K/noresm2cmor/cmorlib/nird_intel/uuid-1.6.2
-HDF5=/projects/NS2345K/noresm2cmor/cmorlib/nird_intel/hdf5-1.8.9
-NETCDF=/projects/NS2345K/noresm2cmor/cmorlib/nird_intel/netcdf-4.4.1.1
-NETCDFF=/projects/NS2345K/noresm2cmor/cmorlib/nird_intel/netcdf-fortran-4.4.4
-UDUNITS=/projects/NS2345K/noresm2cmor/cmorlib/nird_intel/udunits-2.2.25
+CMORLIB=/projects/NS9560K/cmor/cmorlib/nird_intel
+CMOR=$(CMORLIB)/cmor-CMOR-3.3.3
+UUID=$(CMORLIB)/uuid-1.6.2
+HDF5=$(CMORLIB)/hdf5-1.8.9
+NETCDF=$(CMORLIB)/netcdf-4.4.1.1
+NETCDFF=$(CMORLIB)/netcdf-fortran-4.4.4
+UDUNITS=$(CMORLIB)/udunits-2.2.25
 
 # Directory list to search for library files
 LIBS=-L$(CMOR)/lib -Wl,-rpath=$(CMOR)/lib -L$(UUID)/lib -Wl,-rpath=$(UUID)/lib -L$(NETCDF)/lib -Wl,-rpath=$(NETCDF)/lib -L$(NETCDFF)/lib -Wl,-rpath=$(NETCDFF)/lib -L$(HDF5)/lib -Wl,-rpath=$(HDF5)/lib -L$(UDUNITS)/lib -Wl,-rpath=$(UDUNITS)/lib -lcmor -lnetcdff -lnetcdf -luuid -ludunits2 -l:libexpat.so.1
