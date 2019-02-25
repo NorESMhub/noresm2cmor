@@ -3056,6 +3056,27 @@ type:              real
 !
 
 !============
+variable_entry:    cfc12
+!============
+modeling_realm:    ocean
+!----------------------------------
+! Variable attributes:
+!----------------------------------
+standard_name:     moles_of_cfc12_per_unit_mass_in_sea_water
+units:             mol kg-1 
+cell_methods:      time: mean
+cell_measures:     area: areacello volume: volcello
+long_name:         Moles Per Unit Mass of CFC-12 in Sea Water 
+!----------------------------------
+! Additional variable information:
+!----------------------------------
+dimensions:        longitude latitude olevel time
+out_name:          cfc12
+type:              real
+!----------------------------------
+!
+
+!============
 variable_entry:    msftbarot
 !============
 modeling_realm:    ocean
