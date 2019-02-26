@@ -28,7 +28,7 @@ LIBS=-L$(CMOR)/lib -Wl,-rpath=$(CMOR)/lib -L$(UUID)/lib -Wl,-rpath=$(UUID)/lib -
 
 # Compiler flags
 #FFLAGS=-g -O0 -traceback -r8 -I$(SRCDIR) -I$(CMOR)/include -I$(NETCDF)/include -I$(NETCDFF)/include -DCMOR3
-FFLAGS=-O2 -r8 -I$(SRCDIR) -I$(CMOR)/include -I$(NETCDF)/include -I$(NETCDFF)/include -DCMOR3 
+FFLAGS=-O2 -r8 -I$(SRCDIR) -I$(CMOR)/include -I$(NETCDF)/include -I$(NETCDFF)/include -DCMOR3 -DMPI
 
 # Linker flags
 LDFLAGS=$(LIBS) -g 

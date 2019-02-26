@@ -1653,20 +1653,6 @@
                 "source_id":"NICAM16-9S",
                 "source":"NICAM16-9S (2017): \naerosol: Prescribed MACv2-SP\natmos: NICAM.16 (14km icosahedral grid; 2,621,442 grid cells (=10*4^9+2); 38 levels; top level 40 km)\natmosChem: none\nland: MATSIRO6 (w/o MOSAIC)\nlandIce: none\nocean: none\nocnBgchem: none\nseaIce: Fixed"
             },
-            "NorESM1-ME":{
-                "activity_participation":[
-                    "CMIP",
-                    "DCPP",
-                ],
-                "cohort":[
-                    "Registered"
-                ],
-                "institution_id":[
-                    "NCC"
-                ],
-                "source_id":"NorESM1-ME",
-                "source":"NorESM1-ME (2011): \naerosol: OsloAero\natmos: CAM-OSLO (2 degree resolution; 144 x 96; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: none\nocean: MICOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
-            },
             "NorESM2-HH":{
                 "activity_participation":[
                     "CMIP",

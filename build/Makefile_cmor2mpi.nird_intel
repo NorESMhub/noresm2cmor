@@ -9,7 +9,7 @@ SRCDIR=../source
 BINDIR=../bin
 
 # Fortran compiler
-FC=ifort
+FC=mpiifort
 
 # Linker
 LD=$(FC)
@@ -29,7 +29,7 @@ LIBS=-L$(CMOR)/lib -Wl,-rpath=$(CMOR)/lib -L$(UUID)/lib -Wl,-rpath=$(UUID)/lib -
 
 # Compiler flags
 #FFLAGS=-g -O0 -traceback -r8 -I$(CMOR)/include -I$(NETCDF)/include 
-FFLAGS=-O2 -r8 -I$(CMOR)/include -I$(NETCDF)/include -I$(NETCDFF)/include
+FFLAGS=-O2 -r8 -I$(CMOR)/include -I$(NETCDF)/include -I$(NETCDFF)/include -DMPI 
 
 # Linker flags
 #LDFLAGS=$(LIBS) -g 

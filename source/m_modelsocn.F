@@ -1160,7 +1160,7 @@ c
       IMPLICIT NONE
 c
       LOGICAL :: check 
-      INTEGER :: i,j,k,n
+      INTEGER :: i,j,k,n,fid
       REAL(KIND=8) :: missing,phiu,phil
 c
 c --- Open first input file 
@@ -1244,8 +1244,10 @@ c
       ENDIF
 c
       WRITE(*,*) 'read region'
-      status=nf90_inq_dimid(ncid,'region',dimid)
+      status=nf90_inq_varid(ncid,'region',rhid)
       IF (status.EQ.nf90_noerr) THEN
+        status=nf90_inq_dimid(ncid,'region',dimid)
+        CALL handle_ncerror(status)
         status=nf90_inquire_dimension(ncid,dimid,len=rdm)
         CALL handle_ncerror(status)
         status=nf90_inq_dimid(ncid,'slenmax',dimid)
@@ -1263,12 +1265,40 @@ c
           DO j=1,slenmax2 
             region1(i)(j:j)=region(j,i)
           ENDDO
+        ENDDO 
+      ELSE 
+        status=nf90_open(TRIM(griddata)//TRIM(ocngridfile),nf90_nowrite,
+     .  fid)
+        CALL handle_ncerror(status)
+        status=nf90_inq_dimid(fid,'region',dimid)
+        CALL handle_ncerror(status)
+        status=nf90_inquire_dimension(fid,dimid,len=rdm)
+        CALL handle_ncerror(status)
+        status=nf90_inq_dimid(fid,'slenmax',dimid)
+        status=nf90_inquire_dimension(fid,dimid,len=slenmax2)
+        CALL handle_ncerror(status)
+        ALLOCATE(region(slenmax2,rdm),region1(rdm),STAT=status)
+        IF (status.NE.0) STOP 'cannot ALLOCATE enough memory (1d)'
+        status=nf90_inq_varid(fid,'region',rhid)
+        CALL handle_ncerror(status)
+        WRITE(*,*) 'read region',slenmax2,rdm,shape(region)
+        status=nf90_get_var(fid,rhid,region,(/1,1/),(/slenmax2,rdm/))
+        CALL handle_ncerror(status)
+        status=nf90_close(fid)
+        CALL handle_ncerror(status)
+        region1=' '
+        DO i=1,rdm
+          DO j=1,slenmax2
+            region1(i)(j:j)=region(j,i)
+          ENDDO
         ENDDO
       ENDIF
 c
       WRITE(*,*) 'read section'
-      status=nf90_inq_dimid(ncid,'section',dimid)
+      status=nf90_inq_varid(ncid,'section',rhid)
       IF (status.EQ.nf90_noerr) THEN
+        status=nf90_inq_dimid(ncid,'section',dimid)
+        CALL handle_ncerror(status)
         status=nf90_inquire_dimension(ncid,dimid,len=secdm)
         CALL handle_ncerror(status)
         status=nf90_inq_dimid(ncid,'slenmax',dimid)
@@ -1293,6 +1323,44 @@ c
           ELSEIF (TRIM(s1).EQ.'florida_bahamas') THEN  
             section1(i)='florida_bahamas_strait'
           ELSEIF (TRIM(s1).EQ.'taiwan_and_luzon_straits') THEN  
+            section1(i)='taiwan_luzon_straits'
+          ELSE
+            section1(i)=TRIM(s1)
+          ENDIF
+          k=k+1
+        ENDDO
+      ELSE
+        status=nf90_open(TRIM(griddata)//TRIM(ocngridfile),nf90_nowrite,
+     .  fid)
+        CALL handle_ncerror(status)
+        status=nf90_inq_dimid(fid,'section',dimid)
+        CALL handle_ncerror(status)
+        status=nf90_inquire_dimension(fid,dimid,len=secdm)
+        CALL handle_ncerror(status)
+        status=nf90_inq_dimid(fid,'slenmax',dimid)
+        status=nf90_inquire_dimension(fid,dimid,len=slenmax2)
+        CALL handle_ncerror(status)
+        ALLOCATE(section(slenmax2,secdm),section1(secdm),
+     .    STAT=status)
+        IF (status.NE.0) STOP 'cannot ALLOCATE enough memory (1d)'
+        status=nf90_inq_varid(fid,'section',rhid)
+        CALL handle_ncerror(status)
+        status=nf90_get_var(fid,rhid,section,(/1,1/),
+     .    (/slenmax2,secdm/))
+        CALL handle_ncerror(status)
+        status=nf90_close(fid)
+        CALL handle_ncerror(status)
+        section1=' '
+        DO i=1,secdm
+          s1=' '
+          DO j=1,slenmax2
+            s1(j:j)=section(j,i)
+          ENDDO
+          IF (TRIM(s1).EQ.'equatorial_undercurrent') THEN
+            section1(i)='pacific_equatorial_undercurrent'
+          ELSEIF (TRIM(s1).EQ.'florida_bahamas') THEN
+            section1(i)='florida_bahamas_strait'
+          ELSEIF (TRIM(s1).EQ.'taiwan_and_luzon_straits') THEN
             section1(i)='taiwan_luzon_straits'
           ELSE
             section1(i)=TRIM(s1)

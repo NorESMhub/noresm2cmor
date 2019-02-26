@@ -1821,7 +1821,7 @@ c
 c
       REAL :: fac1,fac2,fac3,fac4,fac5,fac6
       INTEGER :: ind,rec,i,j
-      INTEGER, SAVE :: fid
+      INTEGER, SAVE :: fid,fidphis
       CHARACTER(LEN=*), INTENT(IN), OPTIONAL :: fname 
       CHARACTER(LEN=slenmax) :: ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6,str
       LOGICAL :: badrec    
@@ -2057,14 +2057,24 @@ c
       IF (lreqphis) THEN
         IF (.NOT.readdummy) THEN
           status=nf90_inq_varid(fid,'PHIS',rhid)
-          CALL handle_ncerror(status)
-          status=nf90_get_var(fid,rhid,phis,(/1,1,rec/),(/idm,jdm,1/))
+          IF(status.NE.nf90_noerr) THEN 
+            status=nf90_open(TRIM(griddata)//TRIM(atmgridfile),
+     .       nf90_nowrite,fidphis)
+            CALL handle_ncerror(status)
+            status=nf90_inq_varid(fidphis,'PHIS',rhid)
+            CALL handle_ncerror(status)
+            status=nf90_get_var(fidphis,rhid,phis,(/1,1/),(/idm,jdm/))
+            CALL handle_ncerror(status)
+            status=nf90_close(fidphis) 
+          ELSE
+            status=nf90_get_var(fid,rhid,phis,(/1,1,rec/),(/idm,jdm,1/))
+          ENDIF
           CALL handle_ncerror(status)
           status=nf90_inq_varid(fid,'T',rhid)
           CALL handle_ncerror(status)
           status=nf90_get_var(fid,rhid,tbot,(/1,1,ldm,rec/),
      .      (/idm,jdm,1,1/))
-          CALL handle_ncerror(status)
+          CALL handle_ncerror(status)          
         ELSE 
           phis=0.
         ENDIF
