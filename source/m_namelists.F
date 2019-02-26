@@ -699,21 +699,21 @@ c --- Read namelists
           STOP
         ENDIF
         nmlfpmod=' ' 
-        CALL getarg(1,nmlfpmod)
+        CALL getarg(2,nmlfpmod)
         INQUIRE(FILE=TRIM(nmlfpmod),EXIST=fexist)
         IF (.NOT.fexist) THEN
           WRITE(*,*) 'cannot find namelist file'//TRIM(nmlfpmod) 
           STOP
         ENDIF
         nmlfpexp=' ' 
-        CALL getarg(1,nmlfpexp)
+        CALL getarg(3,nmlfpexp)
         INQUIRE(FILE=TRIM(nmlfpexp),EXIST=fexist)
         IF (.NOT.fexist) THEN
           WRITE(*,*) 'cannot find namelist file'//TRIM(nmlfpexp) 
           STOP
         ENDIF
         nmlfpvar=' ' 
-        CALL getarg(1,nmlfpvar)
+        CALL getarg(4,nmlfpvar)
         INQUIRE(FILE=TRIM(nmlfpvar),EXIST=fexist)
         IF (.NOT.fexist) THEN
           WRITE(*,*) 'cannot find namelist file'//TRIM(nmlfpvar) 
