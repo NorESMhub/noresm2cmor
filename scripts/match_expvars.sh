@@ -5,7 +5,7 @@ set -e
 
 if [ $# -lt 1 ] || [ $1 == "--help" ]
 then
-    printf "Usage:\t./check_expvars.sh [FULL_PATH/]CASE_NAME\n"
+    printf "Usage:\t./match_expvars.sh [FULL_PATH/]CASE_NAME\n"
     printf "\tFULL_PATH to the CASE is optional;\n"
     printf "\tIf not provide, will use current path, or /projects/NS2345K/noresm/cases,...\n"
     printf "\tor /projects/NS2345K/.snapshots/Tuesday-15-Jan-2019/noresm/cases/\n"
