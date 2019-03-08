@@ -42,11 +42,10 @@ do
     sample_file=$(find ${casepath}/*/hist/ -type f  -name "*${ftag}*.nc" -print -quit)
     ExpVARs+=($(cdo -s showname ${sample_file} 2>/dev/null))
 done </tmp/$USER/ftaglist.txt
-echo ${ExpVARs[*]} >/tmp/$USER/ExpVARs.txt
+# echo ${ExpVARs[*]} >/tmp/$USER/ExpVARs.txt
 
 # Remove duplicated variables
 ExpVARs=($(echo ${ExpVARs[*]} | sed 's/ /\n/g' |sort -u ))
-
 
 echo "DOWNLOAD GOOGLE SHEET AND EXTRACT DATA IN COLUMN E ..."
 # Download CMIP6 google sheet
@@ -82,6 +81,6 @@ for (( k = 1; k < ${#NorESMvars[*]}; k++ )); do
 done
 echo "----------------------------------------------------------------"
 echo "SUCCESSFULLY GENERATE A TAB-SEPERATED VARLIST FILE ./ExpVARs.tsv"
-echo "YOU CAN IMPORT THE FILE TO EXCEL/NUMBERS AND DOUBLE."
+echo "YOU CAN IMPORT THE FILE TO EXCEL/NUMBERS AND DOUBLE CHECK."
 echo "AND FINALLY APPEND THE FIRST COLUMN TO THE END OF GOOGLE SHEET"
 echo "----------------------------------------------------------------"
