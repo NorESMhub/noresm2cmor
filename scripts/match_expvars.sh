@@ -50,10 +50,10 @@ ExpVARs=($(echo ${ExpVARs[*]} | sed 's/ /\n/g' |sort -u ))
 echo "DOWNLOAD GOOGLE SHEET AND EXTRACT DATA IN COLUMN E ..."
 # Download CMIP6 google sheet
 wget -q 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTjTYfkkjySo2KHEtbeWD0dBavZFS_joYaLPyscN8LvpGzNojrKHxaKf7WcpNZi8oVQhLlwTNHjy4xi/pub?gid=251590531&single=true&output=tsv' -O /tmp/$USER/CMIP6_data_request_v1.00.30beta1.tsv
-printf "\n" >>/tmp/$USER/CMIP6_data_request_v1.00.30beta1.tsv
+printf "\n" >/tmp/$USER/CMIP6_data_request_v1.00.30beta1.tsv
 
 # Extract "NorESMvars" (column E)
-rm -f /tmp/$USER/NorESMvars.txt
+#rm -f /tmp/$USER/NorESMvars.txt
 k=0
 while read -r ENTRY
 do
