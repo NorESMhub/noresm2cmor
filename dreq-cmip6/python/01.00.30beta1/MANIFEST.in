@@ -1,0 +1,28 @@
+
+
+recursive-include docs *
+include LICENSE
+include dreqPy/docs/BlockSchema.csv
+include dreqPy/docs/CMIP6_MIP_tables.xlsx
+include dreqPy/docs/dc1.xsd
+include dreqPy/docs/pav.xsd
+include dreqPy/docs/dreq2Defn.xml
+include dreqPy/docs/dreq2Sample.xml
+include dreqPy/docs/dreq2Schema.xsd
+include dreqPy/docs/dreqML.pdf
+include dreqPy/docs/dreqPy.pdf
+include dreqPy/docs/dreqSample.xml
+include dreqPy/docs/dreq.xml
+include dreqPy/docs/vocabDefn.xml
+include dreqPy/docs/vocabFrameworkSchema_01beta.xsd
+include dreqPy/docs/vocabSample.xml
+include dreqPy/docs/vocabSchema.xsd
+include dreqPy/docs/vocab.xml
+include dreqPy/docs/xlink.xsd
+include dreqPy/docs/xml.xsd
+include dreqPy/docs/dreqSuppSchema.xsd
+include dreqPy/docs/dreqSuppDefn.xml
+include dreqPy/docs/dreqSupp.xml
+include dreqPy/docs/dreqManifest.txt
+include dreqPy/docs/md5Manifest.txt
+include dreqPy/docs/sfheadings.csv
