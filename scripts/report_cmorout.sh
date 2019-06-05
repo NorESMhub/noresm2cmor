@@ -1,10 +1,41 @@
 #!/bin/sh 
+set -e
 
-CMOROUT=/scratch/$USER/cmorout
-cd $CMOROUT
+if [ $# -lt 1 ] || [ $1 == "--help" ]
+then
+    printf "Usage:\t./report_cmorout.sh [FULL_PATH/]CASE_NAME\n"
+    printf "\tFULL_PATH to the CASE is optional;\n"
+    printf "\tIf not provide, will use current path, or /scratch/$USER/cmorout/\n"
+    exit 1
+fi
 
-rm -f ~/noresm2cmor/tmp/cmorized_vars.txt
-for FNAME in $(ls *nc)
+datetag=20190531
+
+FullName=$1
+DirName=$(dirname $1)
+ExpID=$(basename $1)
+
+if [ -d $FullName ]
+then
+    CasePath=$FullName
+elif [ -d ./$FullName ]
+then
+    CasePath=./$FullName
+elif [ -d /scratch/$USER/$FullName ]
+then
+    CasepPth=/scratch/$USER/$FullName
+else
+    echo "CAN NOT FIND $FullName !!!"
+    echo "EIXT..."
+    exit 1
+fi
+
+if [ ! -d /tmp/$USER ]; then mkdir -p /tmp/$USER; fi
+if [ ! -d ../tmp ]; then mkdir -p ../tmp; fi
+
+# method 1, extract info from file metadata
+rm -f /tmp/$USER/cmorized_var_${ExpID}_v1.txt
+for FNAME in $(ls $CasePath/*nc)
 do 
     echo $FNAME
     TABLE=$(ncdump -h $FNAME |grep 'table_id' |cut -d'"' -f2)
@@ -12,14 +43,14 @@ do
     REALM=$(ncdump -h $FNAME |grep 'realm' |cut -d'"' -f2)
     CMIPname=$(echo $FNAME | cut -d_ -f1 | sort -u)
     NorESMname=$(ncdump -h $FNAME | grep original_name | cut -d'"' -f2)
-    echo -e "$TABLE\t$FREQUENCY\t$REALM\t$CMIPname\t$NorESMname" >>  ~/noresm2cmor/tmp/cmorized_vars_piControl_v1_unsort.txt
-    #echo -e "$TABLE\t$FREQUENCY\t$REALM\t$CMIPname" >>  ~/noresm2cmor/tmp/cmorized_vars_piControl_v1_unsort.txt
+    #echo -e "$TABLE\t$FREQUENCY\t$REALM\t$CMIPname\t$NorESMname" >> /tmp/$USER/cmorized_var_${ExpID}_v1.txt
+    echo -e "$TABLE\t$FREQUENCY\t$REALM\t$CMIPname" >>/tmp/$USER/cmorized_var_${ExpID}_v1.txt
 done 
-cat  ~/noresm2cmor/tmp/cmorized_vars_piControl_v1_unsort.txt |sort -u -k1,1 -k2,2 -k3,3 -k4,4 >  ~/noresm2cmor/tmp/cmorized_vars_piControl_v2_sort.txt
-#rm -f  ~/noresm2cmor/tmp/cmorized_vars_piControl_v1_unsort.txt
+# use LC_ALL to sort as C/posix standard using ASCII order
+#cat  /tmp/$USER/cmorized_var_${ExpID}_v1.txt | LC_ALL=C sort -u -k1,1 -k2,2 -k3,3 -k4,4 -k5,5 >/tmp/$USER/cmorized_var_${ExpID}_v2.txt
+cat  /tmp/$USER/cmorized_var_${ExpID}_v1.txt | LC_ALL=C sort -u -k1,1 -k2,2 -k3,3 -k4,4 >/tmp/$USER/cmorized_var_${ExpID}_v2.txt
 
-
-#--------------------------------------------#
+# method 2, extract info from file names
 #for TABLE in `ls *nc | cut -d_ -f2 | sort -u`
 #do 
   #echo $TABLE 
@@ -32,3 +63,36 @@ cat  ~/noresm2cmor/tmp/cmorized_vars_piControl_v1_unsort.txt |sort -u -k1,1 -k2,
   #echo 
 #done 
 
+# Download CMIP6 google sheet
+if [ -f ../tmp/CMIP6_data_request_v1.00.30beta1.v${datetag}.tsv ]
+then
+        ln -sf ../tmp/CMIP6_data_request_v1.00.30beta1.v${datetag}.tsv ../tmp/CMIP6_data_request_v1.00.30beta1.tsv
+else
+        wget -q "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjTYfkkjySo2KHEtbeWD0dBavZFS_joYaLPyscN8LvpGzNojrKHxaKf7WcpNZi8oVQhLlwTNHjy4xi/pub?gid=251590531&single=true&output=tsv" -O ../tmp/CMIP6_data_request_v1.00.30beta1.tsv
+    printf "\n" >>../tmp/CMIP6_data_request_v1.00.30beta1.tsv
+    count=$(head -5 ../tmp/CMIP6_data_request_v1.00.30beta1.tsv |grep -c 'DOCTYPE html' |cat )
+    if [ $count -eq 0  ]
+    then
+        sed -i '1d' ../tmp/CMIP6_data_request_v1.00.30beta1.tsv
+        mv ../tmp/CMIP6_data_request_v1.00.30beta1.tsv ../tmp/CMIP6_data_request_v1.00.30beta1.v$(date +%Y%m%d).tsv
+        ln -sf ../tmp/CMIP6_data_request_v1.00.30beta1.v$(date +%Y%m%d).tsv ../tmp/CMIP6_data_request_v1.00.30beta1.tsv
+    else
+        echo 'WRONG CMIP6 DATA REQUEST SHEET, SHOULD REPULBISH THE FILE "FILE->Publish to web"'
+        exit 1
+    fi
+fi
+
+rm -f ../tmp/cmorized_var_${ExpID}_v3.txt
+k=0
+while read -r LINEcmip6
+do
+      LINEcmip6c1to4=$(echo "$LINEcmip6" |cut -f1-4)
+      COUNT=$(grep -c -w "$LINEcmip6c1to4"  /tmp/$USER/cmorized_var_${ExpID}_v2.txt |cat)
+      if [ $COUNT -eq 1  ]
+      then
+          echo "TRUE">>../tmp/cmorized_var_${ExpID}_v3.txt
+      else
+          echo "FALSE">>../tmp/cmorized_var_${ExpID}_v3.txt
+      fi
+done <../tmp/CMIP6_data_request_v1.00.30beta1.tsv
+sed -i '1d' ../tmp/cmorized_var_${ExpID}_v3.txt
