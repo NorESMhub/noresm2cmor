@@ -742,7 +742,7 @@ c --- - CFC11 comment
      .' 264.4, 262.9, 262.0, 260.3, 258.1, 256.0, 254.1, 252.0,'//
      .' 248.9, 246.9, 245.3'
 c
-c --- - CFC11 comment
+c --- - CFC12 comment
         CASE ('cfc12comment')
           vcomment='In this simulation, annual means of reconstructed'//
      .' Northern Hemisphere CFC-12 are applied globally to the ocean.'//
@@ -844,6 +844,14 @@ c
 c --- - Compute fixed cell volume of interpolated grid
         CASE ('volcello')
           vunits='m3'
+
+c --- - Convert units from [mol P/m3] to [kg Chl/m3] using [60 gC/gChl]
+        CASE ('mol P m-3 -> kg Chl m-3')
+          vunits='kg m-3'
+c
+c --- - Convert units from [m3] to [1e3 km3]
+        CASE ('1e3 km3')
+          vunits='1e3 km3'
 c
         END SELECT
         IF (str1.EQ.str2) exit
@@ -1147,7 +1155,46 @@ c --- - uatm to Pa
             ENDDO
           ENDDO
 c
+c --- - Convert units from [mol P/m3] to [kg Chl/m3] using [60 gC/gChl]
+        CASE ('mol P m-3 -> kg Chl m-3')
+          fld=fld*122*12/60/1000
+c
+c --- - Convert units from [m3] to [1e3 km3]
+        CASE ('1e3 km3')
+          fld=fld/1e3/1e9
+c
+c --- - Mask grid points in the southern hemisphere
+        CASE ('masks')
+          DO k=1,kk
+            DO j=1,jj 
+              DO i=1,ii    
+                IF (plat(i,j).LT.0.0) fld(i,j,k)=1e20
+              ENDDO  
+            ENDDO 
+          ENDDO
+c
+c --- - Mask grid points in the southern hemisphere
+        CASE ('maskn')
+          DO k=1,kk
+            DO j=1,jj 
+              DO i=1,ii    
+                IF (plat(i,j).GT.0.0) fld(i,j,k)=1e20
+              ENDDO  
+            ENDDO 
+          ENDDO
+c
+c --- - Multiple parea
+        CASE ('xparea')
+          DO k=1,kk
+            DO j=1,jj 
+              DO i=1,ii    
+                fld(i,j,k)=fld(i,j,k)*parea(i,j)
+              ENDDO  
+            ENDDO 
+          ENDDO
+c
         END SELECT
+c
         IF (str1.EQ.str2) exit
       END DO
 c
