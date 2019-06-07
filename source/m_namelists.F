@@ -293,7 +293,7 @@ c --- Tables
       NAMELIST /table_Esubhr/    dEsubhr,pEsubhr,tEsubhr,vEsubhr
       NAMELIST /table_Eyr/       dEyr,pEyr,tEyr,vEyr
       NAMELIST /table_Oclim/     dOclim,pOclim,tOclim,vOclim
-      NAMELIST /table_Oday/      dOday,pOday,tOday,vOday
+      NAMELIST /table_Oday/      dOday,pOday,rOday,tOday,vOday
       NAMELIST /table_Odec/      dOdec,pOdec,tOdec,vOdec
       NAMELIST /table_COfx/      dCOfx,pCOfx,tCOfx,vCOfx
       NAMELIST /table_SIday/     dSIday,pSIday,tSIday,vSIday
