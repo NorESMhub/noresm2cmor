@@ -73,8 +73,8 @@ c --- Process table fx
         IF (skip_variable(n,nfx,dfx)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vfx(1,n) 
-        ovnm=vfx(2,n) 
+        ovnm=vfx(1,n) 
+        ivnm=vfx(2,n) 
         special=vfx(3,n)
         vunits=' ' 
         vpositive=' ' 
@@ -119,8 +119,8 @@ c --- Process table lmon
         IF (skip_variable(n,nlmon,dlmon)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vlmon(1,n) 
-        ovnm=vlmon(2,n) 
+        ovnm=vlmon(1,n) 
+        ivnm=vlmon(2,n) 
         special=vlmon(3,n)
         vunits=' ' 
         vpositive=' ' 
@@ -208,8 +208,8 @@ c --- Process table Emon
         IF (skip_variable(n,nEmon,dEmon)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vEmon(1,n)
-        ovnm=vEmon(2,n)
+        ovnm=vEmon(1,n)
+        ivnm=vEmon(2,n)
         special=vEmon(3,n)
         vunits=' '
         vpositive=' '
@@ -297,8 +297,8 @@ c --- Process table limon
         IF (skip_variable(n,nlimon,dlimon)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vlimon(1,n)
-        ovnm=vlimon(2,n)
+        ovnm=vlimon(1,n)
+        ivnm=vlimon(2,n)
         special=vlimon(3,n)
         vunits=' '
         vpositive=' '
@@ -385,8 +385,8 @@ c --- Process table day
         IF (skip_variable(n,nday,dday)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vday(1,n)
-        ovnm=vday(2,n)
+        ovnm=vday(1,n)
+        ivnm=vday(2,n)
         special=vday(3,n)
         vunits=' '
         vpositive=' '
@@ -454,8 +454,8 @@ c --- Process table 3hr (averaged fields)
         IF (skip_variable(n,n3hr,d3hr)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=v3hr(1,n)
-        ovnm=v3hr(2,n)
+        ovnm=v3hr(1,n)
+        ivnm=v3hr(2,n)
         special=v3hr(3,n)
         vunits=' '
         vpositive=' '
@@ -523,8 +523,8 @@ c --- Process table 3hr (instantaneous fields)
         IF (skip_variable(n,n3hri,d3hri)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=v3hri(1,n)
-        ovnm=v3hri(2,n)
+        ovnm=v3hri(1,n)
+        ivnm=v3hri(2,n)
         special=v3hri(3,n)
         vunits=' '
         vpositive=' '

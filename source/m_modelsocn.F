@@ -102,8 +102,8 @@ c --- Process table fx
         IF (skip_variable(n,nfx,dfx)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vfx(1,n) 
-        ovnm=vfx(2,n) 
+        ovnm=vfx(1,n) 
+        ivnm=vfx(2,n) 
         special=vfx(3,n)
         vunits=' ' 
         vpositive=' ' 
@@ -143,8 +143,8 @@ c --- Process table Ofx
         IF (skip_variable(n,nofx,dofx)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vofx(1,n)
-        ovnm=vofx(2,n)
+        ovnm=vofx(1,n)
+        ivnm=vofx(2,n)
         special=vofx(3,n)
         vunits=' '
         vpositive=' '
@@ -176,16 +176,16 @@ c
 c
 c 
 #endif 
-c --- Process table oyr
-      WRITE(*,*) 'Process table oyr'
+c --- Process table Oyr
+      WRITE(*,*) 'Process table Oyr'
       fnm=poyr
       table=toyr
       DO n=1,noyr
         IF (skip_variable(n,noyr,doyr)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=voyr(1,n)
-        ovnm=voyr(2,n)
+        ovnm=voyr(1,n)
+        ivnm=voyr(2,n)
         special=voyr(3,n)
         vunits=' '
         vpositive=' '
@@ -273,8 +273,8 @@ c --- Process table oyr (bgc)
         IF (skip_variable(n,noyrbgc,doyrbgc)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=voyrbgc(1,n)
-        ovnm=voyrbgc(2,n)
+        ovnm=voyrbgc(1,n)
+        ivnm=voyrbgc(2,n)
         special=voyrbgc(3,n)
         vunits=' '
         vpositive=' '
@@ -354,16 +354,16 @@ c
       ENDDO
 c
 c 
-c --- Process table omon
-      WRITE(*,*) 'Process table omon'
+c --- Process table Omon
+      WRITE(*,*) 'Process table Omon'
       fnm=pomon
       table=tomon 
       DO n=1,nomon 
         IF (skip_variable(n,nomon,domon)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vomon(1,n) 
-        ovnm=vomon(2,n) 
+        ovnm=vomon(1,n) 
+        ivnm=vomon(2,n) 
         special=vomon(3,n)
         vunits=' ' 
         vpositive=' ' 
@@ -460,8 +460,8 @@ c --- Process table omon (bgc)
         IF (skip_variable(n,nomonbgc,domonbgc)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vomonbgc(1,n)
-        ovnm=vomonbgc(2,n)
+        ovnm=vomonbgc(1,n)
+        ivnm=vomonbgc(2,n)
         special=vomonbgc(3,n)
         vunits=' '
         vpositive=' '
@@ -555,8 +555,8 @@ c --- Process table day
         IF (skip_variable(n,nday,dday)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vday(1,n)
-        ovnm=vday(2,n)
+        ovnm=vday(1,n)
+        ivnm=vday(2,n)
         special=vday(3,n)
         vunits=' '
         vpositive=' '
@@ -621,8 +621,8 @@ c --- Process table Oday
         IF (skip_variable(n,nOday,dOday)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vOday(1,n)
-        ovnm=vOday(2,n)
+        ovnm=vOday(1,n)
+        ivnm=vOday(2,n)
         special=vOday(3,n)
         vunits=' '
         vpositive=' '

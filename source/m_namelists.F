@@ -277,7 +277,7 @@ c --- Tables
       NAMELIST /table_AERmonZ/   dAERmonZ,pAERmonZ,tAERmonZ,vAERmonZ
       NAMELIST /table_CF3hr/     dCF3hr,pCF3hr,tCF3hr,vCF3hr
       NAMELIST /table_CFday/     dCFday,pCFday,tCFday,vCFday
-      NAMELIST /table_CFmon/     dCFmon,pCFmon,tCFmon,vCFmon
+      NAMELIST /table_CFmon/     dCFmon,pCFmon,tCFmon,rCFmon,vCFmon
       NAMELIST /table_CFsubhr/   dCFsubhr,pCFsubhr,tCFsubhr,vCFsubhr
       NAMELIST /table_E1hrClimMon/ dE1hrClimMon,pE1hrClimMon,
      .                             tE1hrClimMon,vE1hrClimMon
@@ -293,10 +293,10 @@ c --- Tables
       NAMELIST /table_Esubhr/    dEsubhr,pEsubhr,tEsubhr,vEsubhr
       NAMELIST /table_Eyr/       dEyr,pEyr,tEyr,vEyr
       NAMELIST /table_Oclim/     dOclim,pOclim,tOclim,vOclim
-      NAMELIST /table_Oday/      dOday,pOday,rOday,tOday,vOday
+      NAMELIST /table_Oday/      dOday,pOday,tOday,rOday,vOday
       NAMELIST /table_Odec/      dOdec,pOdec,tOdec,vOdec
       NAMELIST /table_COfx/      dCOfx,pCOfx,tCOfx,vCOfx
-      NAMELIST /table_SIday/     dSIday,pSIday,tSIday,vSIday
+      NAMELIST /table_SIday/     dSIday,pSIday,tSIday,rSIday,vSIday
 #endif
 c
 c --- Misc 

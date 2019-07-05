@@ -67,7 +67,7 @@ c
       INTEGER :: m,n,nrec
 c
 c --- Skip if all ice tables deactivated
-      IF (.NOT.doimon) RETURN
+c      IF (.NOT.doimon) RETURN
 c
 c --- Print start information
       IF (verbose) THEN
@@ -99,8 +99,8 @@ c --- Process table fx
         IF (skip_variable(n,nfx,dfx)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vfx(1,n) 
-        ovnm=vfx(2,n) 
+        ovnm=vfx(1,n) 
+        ivnm=vfx(2,n) 
         special=vfx(3,n)
         vunits=' ' 
         vpositive=' ' 
@@ -143,8 +143,8 @@ c --- Process table omon
         IF (skip_variable(n,nomon,domon)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vomon(1,n)
-        ovnm=vomon(2,n)
+        ovnm=vomon(1,n)
+        ivnm=vomon(2,n)
         special=vomon(3,n)
         vunits=' '
         vpositive=' '
@@ -236,8 +236,8 @@ c --- Process table oimon
         IF (skip_variable(n,noimon,doimon)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=voimon(1,n)
-        ovnm=voimon(2,n)
+        ovnm=voimon(1,n)
+        ivnm=voimon(2,n)
         special=voimon(3,n)
         vunits=' '
         vpositive=' '
@@ -326,8 +326,8 @@ c --- Process table day
         IF (skip_variable(n,nday,dday)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vday(1,n)
-        ovnm=vday(2,n)
+        ovnm=vday(1,n)
+        ivnm=vday(2,n)
         special=vday(3,n)
         vunits=' '
         vpositive=' '
@@ -392,8 +392,8 @@ c --- Process table SIday
         IF (skip_variable(n,nSIday,dSIday)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vSIday(1,n)
-        ovnm=vSIday(2,n)
+        ovnm=vSIday(1,n)
+        ivnm=vSIday(2,n)
         special=vSIday(3,n)
         vunits=' '
         vpositive=' '

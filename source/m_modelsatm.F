@@ -90,8 +90,8 @@ c --- Process table fx
         IF (skip_variable(n,nfx,dfx)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vfx(1,n) 
-        ovnm=vfx(2,n) 
+        ovnm=vfx(1,n) 
+        ivnm=vfx(2,n) 
         special=vfx(3,n)
         vunits=' ' 
         vpositive=' ' 
@@ -142,8 +142,8 @@ c --- Process table amon
         IF (skip_variable(n,namon,damon)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vamon(1,n) 
-        ovnm=vamon(2,n) 
+        ovnm=vamon(1,n) 
+        ivnm=vamon(2,n) 
         special=vamon(3,n)
         vunits=' ' 
         vpositive=' ' 
@@ -240,7 +240,7 @@ c
       ENDDO    
 c 
 #ifdef CMOR3
-c --- Process table pEmon
+c --- Process table Emon
       fnm=pEmon
       table=tEmon
       linstant=.FALSE.
@@ -249,8 +249,8 @@ c --- Process table pEmon
         IF (skip_variable(n,nEmon,dEmon)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vEmon(1,n)
-        ovnm=vEmon(2,n)
+        ovnm=vEmon(1,n)
+        ivnm=vEmon(2,n)
         special=vEmon(3,n)
         vunits=' '
         vpositive=' '
@@ -387,8 +387,8 @@ c --- Process table aero
         IF (skip_variable(n,naero,daero)) CYCLE
 c 
 c --- - Map namelist variables 
-        ivnm=vaero(1,n)
-        ovnm=vaero(2,n)
+        ovnm=vaero(1,n)
+        ivnm=vaero(2,n)
         special=vaero(3,n)
         vunits=' '
         vpositive=' ' 
@@ -487,8 +487,8 @@ c --- Process table day
         IF (skip_variable(n,nday,dday)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=vday(1,n)
-        ovnm=vday(2,n)
+        ovnm=vday(1,n)
+        ivnm=vday(2,n)
         special=vday(3,n)
         vunits=' '
         vpositive=' '
@@ -578,8 +578,8 @@ c --- Process table 6hrlev
         IF (skip_variable(n,n6hrlev,d6hrlev)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=v6hrlev(1,n)
-        ovnm=v6hrlev(2,n)
+        ovnm=v6hrlev(1,n)
+        ivnm=v6hrlev(2,n)
         special=v6hrlev(3,n)
         vunits=' '
         vpositive=' '
@@ -652,8 +652,8 @@ c --- Process table 6hrplev
         IF (skip_variable(n,n6hrplev,d6hrplev)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=v6hrplev(1,n)
-        ovnm=v6hrplev(2,n)
+        ovnm=v6hrplev(1,n)
+        ivnm=v6hrplev(2,n)
         special=v6hrplev(3,n)
         vunits=' '
         vpositive=' '
@@ -735,8 +735,8 @@ c --- Process table 3hr
         IF (skip_variable(n,n3hr,d3hr)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=v3hr(1,n)
-        ovnm=v3hr(2,n)
+        ovnm=v3hr(1,n)
+        ivnm=v3hr(2,n)
         special=v3hr(3,n)
         vunits=' '
         vpositive=' '
@@ -807,8 +807,8 @@ c --- Process table 3hr (instantaneous)
         IF (skip_variable(n,n3hri,d3hri)) CYCLE
 c
 c --- - Map namelist variables 
-        ivnm=v3hri(1,n)
-        ovnm=v3hri(2,n)
+        ovnm=v3hri(1,n)
+        ivnm=v3hri(2,n)
         special=v3hri(3,n)
         vunits=' '
         vpositive=' '
@@ -925,6 +925,10 @@ c
 c --- - Set N_AER units
         CASE ('cm-3')
           vunits='cm-3'
+c 
+c --- - Set OH_aft units
+        CASE ('mol mol-1')
+          vunits='mol mol-1'
 c
 c --- - Convert degress Celsius to K 
         CASE ('Celsius2Kelvin')
