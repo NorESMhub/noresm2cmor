@@ -10,12 +10,26 @@ then
 fi
 
 #datetag=20190531
-datetag=20190703
+#datetag=20190703
+datetag=20190704
 noresm2cmorpath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
 
 FullName=$1
 DirName=$(dirname $1)
 ExpID=$(basename $1)
+
+if [ $(command -v cdo) ]
+then
+    CDO=$(which cdo)
+else
+    if [ -x /opt/cdo197/bin/cdo ]
+    then
+        CDO=/opt/cdo197/bin/cdo
+    else
+        echo "ERROR: no cdo found!"
+        exit 1
+    fi
+fi
 
 if [ -d $FullName ]
 then
@@ -40,11 +54,29 @@ rm -f /tmp/$USER/cmorized_var_${ExpID}_v1.txt
 for FNAME in $(ls $CasePath/*nc)
 do 
     echo $FNAME
-    TABLE=$(ncdump -h $FNAME |grep 'table_id' |cut -d'"' -f2)
-    FREQUENCY=$(ncdump -h $FNAME |grep 'frequency' |cut -d'"' -f2)
-    REALM=$(ncdump -h $FNAME |grep 'realm' |cut -d'"' -f2)
-    CMIPname=$(basename $FNAME | cut -d_ -f1 | sort -u)
-    NorESMname=$(ncdump -h $FNAME | grep original_name | cut -d'"' -f2)
+#   Use ncdump, not accurate
+    #TABLE=$(ncdump -h $FNAME |grep 'table_id' |cut -d'"' -f2)
+    #FREQUENCY=$(ncdump -h $FNAME |grep 'frequency' |cut -d'"' -f2)
+    #REALM=$(ncdump -h $FNAME |grep 'realm' |cut -d'"' -f2)
+    #CMIPname=$(basename $FNAME | cut -d_ -f1 | sort -u)
+    #NorESMname=$(ncdump -h $FNAME | grep original_name | cut -d'"' -f2)
+
+#   Use cdo
+    TABLE=$($CDO -s showattribute,table_id $FNAME | tail -1 | cut -d'"' -f2)
+    FREQUENCY=$($CDO -s showattribute,frequency $FNAME | tail -1 | cut -d'"' -f2)
+    REALM=$($CDO -s showattribute,realm $FNAME | tail -1 | cut -d'"' -f2)
+    CMIPname=$($CDO -s showattribute,variable_id $FNAME | tail -1 | cut -d'"' -f2)
+    CMIPname2=$(basename $FNAME | cut -d_ -f1 | sort -u)
+    if [ "$CMIPname" != "$CMIPname2" ]
+    then
+        echo "ERROR: different CMIPname"
+        echo "CMIPname (variable_id) : $CMIPname"
+        echo "CMIPname (in file name): $CMIPname2"
+        echo "EXIT..."
+        exit 1
+    fi
+    #NorESMname=$($CDO -s showattribute,${CMIPname}@original_name $FNAME | tail -1 | cut -d'"' -f2)
+
     #echo -e "$TABLE\t$FREQUENCY\t$REALM\t$CMIPname\t$NorESMname" >> /tmp/$USER/cmorized_var_${ExpID}_v1.txt
     echo -e "$TABLE\t$FREQUENCY\t$REALM\t$CMIPname" >>/tmp/$USER/cmorized_var_${ExpID}_v1.txt
 done 

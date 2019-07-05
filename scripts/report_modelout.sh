@@ -238,7 +238,7 @@ paste ${Files[*]} > ${noresm2cmorpath}/tmp/${expid}_UnUsedVars.txt
 echo "----------------------------------------------------------------"
 echo "SUCCESSFULLY GENERATE A TAB-SEPERATED VARIABLE LIST FILES"
 echo "1, ${noresm2cmorpath}/tmp/${expid}_UsedVars.txt FOR USED VARS FOR CMIP6"
-echo "2, ${noresm2cmorpath}/tmp/${expid}_UnUsedVARs.txt FOR UNUSED VARS FOR CMIP6"
+echo "2, ${noresm2cmorpath}/tmp/${expid}_UnUsedVars.txt FOR UNUSED VARS FOR CMIP6"
 echo "YOU CAN IMPORT THE FILE TO EXCEL/NUMBERS AND DOUBLE CHECK."
 echo "AND FINALLY APPEND THE FIRST COLUMN TO THE END OF GOOGLE SHEET"
 echo "----------------------------------------------------------------"
