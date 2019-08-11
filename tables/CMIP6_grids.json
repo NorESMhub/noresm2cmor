@@ -1,12 +1,12 @@
 {
     "Header": {
         "product": "output", 
-        "cmor_version": "3.3", 
+        "cmor_version": "3.5", 
         "Conventions": "CF-1.7 CMIP-6.2", 
         "table_id": "Table grids", 
-        "data_specs_version": "01.00.28", 
+        "data_specs_version": "01.00.31", 
         "missing_value": "1e20", 
-        "table_date": "06 November 2018"
+        "table_date": "24 July 2019"
     }, 
     "mapping_entry": {
         "sample_user_mapping": {
@@ -21,7 +21,7 @@
             "standard_name": "grid_latitude", 
             "out_name": "rlat", 
             "units": "degrees", 
-            "type": "", 
+            "type": "double", 
             "axis": "Y"
         }, 
         "y_deg": {
@@ -29,7 +29,7 @@
             "standard_name": "projection_y_coordinate", 
             "out_name": "y", 
             "units": "degrees", 
-            "type": "", 
+            "type": "double", 
             "axis": "Y"
         }, 
         "l_index": {
@@ -45,7 +45,7 @@
             "standard_name": "grid_longitude", 
             "out_name": "rlon", 
             "units": "degrees", 
-            "type": "", 
+            "type": "double", 
             "axis": "X"
         }, 
         "k_index": {
@@ -69,7 +69,7 @@
             "standard_name": "projection_x_coordinate", 
             "out_name": "x", 
             "units": "degrees", 
-            "type": "", 
+            "type": "double", 
             "axis": "X"
         }, 
         "i_index": {
@@ -93,7 +93,7 @@
             "standard_name": "projection_y_coordinate", 
             "out_name": "", 
             "units": "m", 
-            "type": "", 
+            "type": "double", 
             "axis": "Y"
         }, 
         "x": {
@@ -101,7 +101,7 @@
             "standard_name": "projection_x_coordinate", 
             "out_name": "", 
             "units": "m", 
-            "type": "", 
+            "type": "double", 
             "axis": "X"
         }, 
         "m_index": {
@@ -116,6 +116,7 @@
     "variable_entry": {
         "latitude": {
             "dimensions": "longitude latitude", 
+            "type": "double", 
             "valid_min": "-90.0", 
             "long_name": "latitude", 
             "standard_name": "latitude", 
@@ -125,6 +126,7 @@
         }, 
         "vertices_latitude": {
             "dimensions": "vertices longitude latitude", 
+            "type": "double", 
             "valid_min": "-90.0", 
             "long_name": "", 
             "standard_name": "", 
@@ -134,6 +136,7 @@
         }, 
         "vertices_longitude": {
             "dimensions": "vertices longitude latitude", 
+            "type": "double", 
             "valid_min": "0.0", 
             "long_name": "", 
             "standard_name": "", 
@@ -143,6 +146,7 @@
         }, 
         "longitude": {
             "dimensions": "longitude latitude", 
+            "type": "double", 
             "valid_min": "0.0", 
             "long_name": "longitude", 
             "standard_name": "longitude", 

@@ -53,7 +53,8 @@
  yearn         = XXX,
  month1        = 1,
  monthn        = 12,
- exprefyear    = 1
+ exprefyear    = 1,
+ newcolumnorder=.false.
 /
 
 ! d* - do table true/false 

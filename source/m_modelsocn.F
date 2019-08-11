@@ -102,8 +102,8 @@ c --- Process table fx
         IF (skip_variable(n,nfx,dfx)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=vfx(1,n) 
-        ivnm=vfx(2,n) 
+        ovnm=vfx(ovnmpos,n) 
+        ivnm=vfx(ivnmpos,n) 
         special=vfx(3,n)
         vunits=' ' 
         vpositive=' ' 
@@ -143,8 +143,8 @@ c --- Process table Ofx
         IF (skip_variable(n,nofx,dofx)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=vofx(1,n)
-        ivnm=vofx(2,n)
+        ovnm=vofx(ovnmpos,n)
+        ivnm=vofx(ivnmpos,n)
         special=vofx(3,n)
         vunits=' '
         vpositive=' '
@@ -184,8 +184,8 @@ c --- Process table Oyr
         IF (skip_variable(n,noyr,doyr)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=voyr(1,n)
-        ivnm=voyr(2,n)
+        ovnm=voyr(ovnmpos,n)
+        ivnm=voyr(ivnmpos,n)
         special=voyr(3,n)
         vunits=' '
         vpositive=' '
@@ -273,8 +273,8 @@ c --- Process table oyr (bgc)
         IF (skip_variable(n,noyrbgc,doyrbgc)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=voyrbgc(1,n)
-        ivnm=voyrbgc(2,n)
+        ovnm=voyrbgc(ovnmpos,n)
+        ivnm=voyrbgc(ivnmpos,n)
         special=voyrbgc(3,n)
         vunits=' '
         vpositive=' '
@@ -362,8 +362,8 @@ c --- Process table Omon
         IF (skip_variable(n,nomon,domon)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=vomon(1,n) 
-        ivnm=vomon(2,n) 
+        ovnm=vomon(ovnmpos,n) 
+        ivnm=vomon(ivnmpos,n) 
         special=vomon(3,n)
         vunits=' ' 
         vpositive=' ' 
@@ -460,8 +460,8 @@ c --- Process table omon (bgc)
         IF (skip_variable(n,nomonbgc,domonbgc)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=vomonbgc(1,n)
-        ivnm=vomonbgc(2,n)
+        ovnm=vomonbgc(ovnmpos,n)
+        ivnm=vomonbgc(ivnmpos,n)
         special=vomonbgc(3,n)
         vunits=' '
         vpositive=' '
@@ -555,8 +555,8 @@ c --- Process table day
         IF (skip_variable(n,nday,dday)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=vday(1,n)
-        ivnm=vday(2,n)
+        ovnm=vday(ovnmpos,n)
+        ivnm=vday(ivnmpos,n)
         special=vday(3,n)
         vunits=' '
         vpositive=' '
@@ -621,8 +621,8 @@ c --- Process table Oday
         IF (skip_variable(n,nOday,dOday)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=vOday(1,n)
-        ivnm=vOday(2,n)
+        ovnm=vOday(ovnmpos,n)
+        ivnm=vOday(ivnmpos,n)
         special=vOday(3,n)
         vunits=' '
         vpositive=' '
@@ -1740,21 +1740,21 @@ c --- Call CMOR setup
       IF (verbose) THEN
         IF (createsubdirs) THEN  
           error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_NORMAL, 
+     .      netcdf_file_action=CMOR_REPLACE_4,set_verbosity=CMOR_NORMAL, 
      .      create_subdirectories=1)
         ELSE
           error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_NORMAL, 
+     .      netcdf_file_action=CMOR_REPLACE_4,set_verbosity=CMOR_NORMAL, 
      .      create_subdirectories=0)
         ENDIF
       ELSE
         IF (createsubdirs) THEN
           error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_QUIET,
+     .      netcdf_file_action=CMOR_REPLACE_4,set_verbosity=CMOR_QUIET,
      .      create_subdirectories=1)
         ELSE
           error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_QUIET,
+     .      netcdf_file_action=CMOR_REPLACE_4,set_verbosity=CMOR_QUIET,
      .      create_subdirectories=0)
         ENDIF
       ENDIF
@@ -2090,6 +2090,9 @@ c --- Define output variable
      .      positive       = TRIM(vpositive))
         ENDIF
       ENDIF
+#ifdef DEFLATE
+      error_flag = cmor_set_deflate(varid,1,1,5)
+#endif 
 c
       END SUBROUTINE open_ofile
 

@@ -104,9 +104,9 @@ c --- Experiment namelist
       LOGICAL, SAVE :: dry_run,plevdummy,readdummy,add_fill_day,
      .  do_fx,do_oyr,do_oyrbgc,do_amon,do_omon,do_omonbgc,do_oimon,
      .  do_lmon,do_limon,do_aero,do_day,do_6hrlev,do_6hrplev,do_3hr,
-     .  do_3hri,do_2d,do_3d,do_xd,do_bgc
+     .  do_3hri,do_2d,do_3d,do_xd,do_bgc,newcolumnorder
       INTEGER, SAVE :: 
-     .  physics_version=1,initialization_method=1
+     .  physics_version=1,initialization_method=1,ivnmpos=1,ovnmpos=2
 #ifdef CMOR3 
       LOGICAL, SAVE :: do_ofx,do_6hrPlevPt,do_AERday,do_AERhr,
      .  do_AERmonZ,do_CF3hr,do_CFday,do_CFmon,do_CFsubhr,do_E1hrClimMon,
@@ -205,7 +205,8 @@ c --- Experiment namelist
      .  dry_run, ! hidden
      .  plevdummy, ! hidden
      .  readdummy, ! hidden
-     .  add_fill_day ! hidden
+     .  add_fill_day,! hidden
+     .  newcolumnorder ! hidden
 c 
 c --- Tables 
       LOGICAL, SAVE :: 
@@ -416,6 +417,7 @@ c --- Initialise namelist variables
       plevdummy     = .FALSE.  
       readdummy     = .FALSE.  
       add_fill_day  = .FALSE.
+      newcolumnorder= .TRUE.  
 c
       casename      = ' '
       experiment_id = ' '
@@ -1088,6 +1090,12 @@ c --- parent_experiment_rip
      .    *) physics_version
       ENDIF
 #endif 
+c
+c --- Map column order of variable definitions
+      IF (newcolumnorder) THEN 
+        ivnmpos=2 
+        ovnmpos=1
+      ENDIF  
 c
       END SUBROUTINE read_namelists       
 

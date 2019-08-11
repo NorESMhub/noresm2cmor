@@ -74,7 +74,8 @@
  branch_time_in_child   = 0.,
  branch_time_in_parent  = 0.,
  parent_time_units  = 'days since 0001-01-01', 
- tracking_prefix   = 'hdl:21.14100'
+ tracking_prefix   = 'hdl:21.14100',
+ newcolumnorder = 'false'
 /
 
 ! d* - do table true/false 

@@ -3,7 +3,7 @@
  obasedir      = '../data/cmorout',
  griddata      = '../data/griddata',
  tabledir      = '../tables'
- createsubdirs = .false.,
+ createsubdirs = .true.,
  forcefilescan = .false.,  
  verbose       = .true.,
 /

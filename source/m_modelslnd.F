@@ -73,8 +73,8 @@ c --- Process table fx
         IF (skip_variable(n,nfx,dfx)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=vfx(1,n) 
-        ivnm=vfx(2,n) 
+        ovnm=vfx(ovnmpos,n) 
+        ivnm=vfx(ivnmpos,n) 
         special=vfx(3,n)
         vunits=' ' 
         vpositive=' ' 
@@ -119,8 +119,8 @@ c --- Process table lmon
         IF (skip_variable(n,nlmon,dlmon)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=vlmon(1,n) 
-        ivnm=vlmon(2,n) 
+        ovnm=vlmon(ovnmpos,n) 
+        ivnm=vlmon(ivnmpos,n) 
         special=vlmon(3,n)
         vunits=' ' 
         vpositive=' ' 
@@ -208,8 +208,8 @@ c --- Process table Emon
         IF (skip_variable(n,nEmon,dEmon)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=vEmon(1,n)
-        ivnm=vEmon(2,n)
+        ovnm=vEmon(ovnmpos,n)
+        ivnm=vEmon(ivnmpos,n)
         special=vEmon(3,n)
         vunits=' '
         vpositive=' '
@@ -297,8 +297,8 @@ c --- Process table limon
         IF (skip_variable(n,nlimon,dlimon)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=vlimon(1,n)
-        ivnm=vlimon(2,n)
+        ovnm=vlimon(ovnmpos,n)
+        ivnm=vlimon(ivnmpos,n)
         special=vlimon(3,n)
         vunits=' '
         vpositive=' '
@@ -385,8 +385,8 @@ c --- Process table day
         IF (skip_variable(n,nday,dday)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=vday(1,n)
-        ivnm=vday(2,n)
+        ovnm=vday(ovnmpos,n)
+        ivnm=vday(ivnmpos,n)
         special=vday(3,n)
         vunits=' '
         vpositive=' '
@@ -454,8 +454,8 @@ c --- Process table 3hr (averaged fields)
         IF (skip_variable(n,n3hr,d3hr)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=v3hr(1,n)
-        ivnm=v3hr(2,n)
+        ovnm=v3hr(ovnmpos,n)
+        ivnm=v3hr(ivnmpos,n)
         special=v3hr(3,n)
         vunits=' '
         vpositive=' '
@@ -523,8 +523,8 @@ c --- Process table 3hr (instantaneous fields)
         IF (skip_variable(n,n3hri,d3hri)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=v3hri(1,n)
-        ivnm=v3hri(2,n)
+        ovnm=v3hri(ovnmpos,n)
+        ivnm=v3hri(ivnmpos,n)
         special=v3hri(3,n)
         vunits=' '
         vpositive=' '
@@ -974,21 +974,21 @@ c --- Call CMOR setup
       IF (verbose) THEN
         IF (createsubdirs) THEN  
           error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_NORMAL, 
+     .      netcdf_file_action=CMOR_REPLACE_4,set_verbosity=CMOR_NORMAL, 
      .      create_subdirectories=1)
         ELSE
           error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_NORMAL, 
+     .      netcdf_file_action=CMOR_REPLACE_4,set_verbosity=CMOR_NORMAL, 
      .      create_subdirectories=0)
         ENDIF
       ELSE
         IF (createsubdirs) THEN
           error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_QUIET,
+     .      netcdf_file_action=CMOR_REPLACE_4,set_verbosity=CMOR_QUIET,
      .      create_subdirectories=1)
         ELSE
           error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_QUIET,
+     .      netcdf_file_action=CMOR_REPLACE_4,set_verbosity=CMOR_QUIET,
      .      create_subdirectories=0)
         ENDIF
       ENDIF
@@ -1114,6 +1114,9 @@ c --- Define output variable
      .      positive      = TRIM(vpositive))
         ENDIF
       ENDIF
+#ifdef DEFLATE
+      error_flag = cmor_set_deflate(varid,1,1,5)
+#endif 
 c
       END SUBROUTINE open_ofile
 

@@ -1,6 +1,6 @@
 &model
- model_id      = 'NorESM1-ME',
- source        = 'NorESM1-ME',
+ model_id      = 'NorESM1-LM',
+ source        = 'NorESM1-LM',
  institution   = 'NorESM Climate modeling Consortium',
  institute_id  = 'NCC',
  references    = ' ',
@@ -18,7 +18,7 @@
  lndgrid       = 'finite-volume grid with 1.9x2.5 degree lat/lon resolution',
  lndgrid_label = 'gn',
  lndgrid_resolution = '250 km',
- parent_source_id = 'NorESM2-LM',
+ parent_source_id = 'NorESM1-LM',
  tagoyr        = 'micom.hy',
  tagoyrbgc     = 'micom.hbgcy',
  tagomon       = 'micom.hm',

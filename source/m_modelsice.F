@@ -99,8 +99,8 @@ c --- Process table fx
         IF (skip_variable(n,nfx,dfx)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=vfx(1,n) 
-        ivnm=vfx(2,n) 
+        ovnm=vfx(ovnmpos,n) 
+        ivnm=vfx(ivnmpos,n) 
         special=vfx(3,n)
         vunits=' ' 
         vpositive=' ' 
@@ -143,8 +143,8 @@ c --- Process table omon
         IF (skip_variable(n,nomon,domon)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=vomon(1,n)
-        ivnm=vomon(2,n)
+        ovnm=vomon(ovnmpos,n)
+        ivnm=vomon(ivnmpos,n)
         special=vomon(3,n)
         vunits=' '
         vpositive=' '
@@ -236,8 +236,8 @@ c --- Process table oimon
         IF (skip_variable(n,noimon,doimon)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=voimon(1,n)
-        ivnm=voimon(2,n)
+        ovnm=voimon(ovnmpos,n)
+        ivnm=voimon(ivnmpos,n)
         special=voimon(3,n)
         vunits=' '
         vpositive=' '
@@ -326,8 +326,8 @@ c --- Process table day
         IF (skip_variable(n,nday,dday)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=vday(1,n)
-        ivnm=vday(2,n)
+        ovnm=vday(ovnmpos,n)
+        ivnm=vday(ivnmpos,n)
         special=vday(3,n)
         vunits=' '
         vpositive=' '
@@ -392,8 +392,8 @@ c --- Process table SIday
         IF (skip_variable(n,nSIday,dSIday)) CYCLE
 c
 c --- - Map namelist variables 
-        ovnm=vSIday(1,n)
-        ivnm=vSIday(2,n)
+        ovnm=vSIday(ovnmpos,n)
+        ivnm=vSIday(ivnmpos,n)
         special=vSIday(3,n)
         vunits=' '
         vpositive=' '
@@ -920,21 +920,21 @@ c --- Call CMOR setup
       IF (verbose) THEN
         IF (createsubdirs) THEN  
           error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_NORMAL, 
+     .      netcdf_file_action=CMOR_REPLACE_4,set_verbosity=CMOR_NORMAL, 
      .      create_subdirectories=1)
         ELSE
           error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_NORMAL, 
+     .      netcdf_file_action=CMOR_REPLACE_4,set_verbosity=CMOR_NORMAL, 
      .      create_subdirectories=0)
         ENDIF
       ELSE
         IF (createsubdirs) THEN
           error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_QUIET,
+     .      netcdf_file_action=CMOR_REPLACE_4,set_verbosity=CMOR_QUIET,
      .      create_subdirectories=1)
         ELSE
           error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE,set_verbosity=CMOR_QUIET,
+     .      netcdf_file_action=CMOR_REPLACE_4,set_verbosity=CMOR_QUIET,
      .      create_subdirectories=0)
         ENDIF
       ENDIF
@@ -1093,6 +1093,9 @@ c --- Define output variable
           ENDIF
         ENDIF
       ENDIF
+#ifdef DEFLATE
+      error_flag = cmor_set_deflate(varid,1,1,5)
+#endif 
 c
       END SUBROUTINE open_ofile
 
