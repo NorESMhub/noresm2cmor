@@ -1,9 +1,9 @@
-&system
+&sys
  ibasedir      = '../data/cmorin',
- obasedir      = '../data/cmorout',
+ obasedir      = '/projects/NS9034K/CMIP6/cmorout',
  griddata      = '../data/griddata',
  tabledir      = '../tables'
- createsubdirs = .true.,
+ createsubdirs = .false.,
  forcefilescan = .false.,  
  verbose       = .true.,
 /

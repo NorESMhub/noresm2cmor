@@ -17,7 +17,7 @@ c --- System namelist
       CHARACTER(LEN=slenmax), SAVE :: ibasedir,obasedir,tabledir,
      .  griddata
       LOGICAL, SAVE :: createsubdirs,forcefilescan,verbose
-      NAMELIST /system/
+      NAMELIST /sys/
      .  ibasedir, 
      .  obasedir, 
      .  tabledir,
@@ -94,7 +94,7 @@ c
 c --- Experiment namelist
       CHARACTER(LEN=slenmax), SAVE :: 
      .  casename,experiment_id,parent_experiment_id,
-     .  parent_experiment_rip 
+     .  parent_experiment_rip,osubdir
       CHARACTER(LEN=slenmax), DIMENSION(smax), SAVE :: 
      .  history,comment,forcing
       CHARACTER(LEN=(slenmax+1)*smax), SAVE :: 
@@ -206,7 +206,8 @@ c --- Experiment namelist
      .  plevdummy, ! hidden
      .  readdummy, ! hidden
      .  add_fill_day,! hidden
-     .  newcolumnorder ! hidden
+     .  newcolumnorder,! hidden
+     .  osubdir ! hidden
 c 
 c --- Tables 
       LOGICAL, SAVE :: 
@@ -434,6 +435,7 @@ c
       branch_time   = 0.0 
       parent_experiment_id = ' ' 
       parent_experiment_rip = ' ' 
+      osubdir     = ' ' 
 c
       dfx           = .FALSE.
       doyr          = .FALSE. 
@@ -726,7 +728,7 @@ c
       funit=get_free_unit()
       OPEN(funit,FILE=TRIM(nmlfpsys),STATUS='old',ACTION='read',
      .  RECL=200)
-      READ(funit,nml=system,IOSTAT=istatus)
+      READ(funit,nml=sys,IOSTAT=istatus)
       CLOSE(funit)
       IF (istatus.NE.0) THEN 
         WRITE(*,*) 'Problem reading namelist system in file '//
@@ -1096,6 +1098,10 @@ c --- Map column order of variable definitions
         ivnmpos=2 
         ovnmpos=1
       ENDIF  
+c 
+c --- Modify output path and create output folder 
+      obasedir=TRIM(obasedir)//'/'//TRIM(osubdir) 
+      call SYSTEM('mkdir -p '//TRIM(obasedir))
 c
       END SUBROUTINE read_namelists       
 

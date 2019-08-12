@@ -1,5 +1,6 @@
 &experiment
  casename      = 'N1850AERCNOC_f19_g16_CMIP6forcings_13',
+ osubdir       = 'NorESM1-LM/piControl/v20190812' 
  experiment_id = 'piControl',
  parent_experiment_id  = 'N/A',
  parent_experiment_rip = 'N/A',
