@@ -852,6 +852,10 @@ c
 c --- - Convert units from [m3] to [1e3 km3]
         CASE ('1e3 km3')
           vunits='1e3 km3'
+
+c --- - Convert units from [s-1] to [s-2], fix bug for the units of bfsq in micom
+        CASE ('s-2')
+          vunits='s-2'
 c
         END SELECT
         IF (str1.EQ.str2) exit

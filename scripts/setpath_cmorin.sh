@@ -21,4 +21,4 @@ fi
 echo "Placed symbolic link cmorin in data directory `dirname $SCRIPTPATH`/../data"
 mkdir -p `dirname $SCRIPTPATH`/../data
 cd `dirname $SCRIPTPATH`/../data
-ln -sf $1 cmorin
+ln -sfT $1 cmorin

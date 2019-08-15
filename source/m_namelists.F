@@ -104,7 +104,7 @@ c --- Experiment namelist
       LOGICAL, SAVE :: dry_run,plevdummy,readdummy,add_fill_day,
      .  do_fx,do_oyr,do_oyrbgc,do_amon,do_omon,do_omonbgc,do_oimon,
      .  do_lmon,do_limon,do_aero,do_day,do_6hrlev,do_6hrplev,do_3hr,
-     .  do_3hri,do_2d,do_3d,do_xd,do_bgc,newcolumnorder
+     .  do_3hri,do_2d,do_3d,do_xd,do_bgc,newcolumnorder,scanallfiles
       INTEGER, SAVE :: 
      .  physics_version=1,initialization_method=1,ivnmpos=1,ovnmpos=2
 #ifdef CMOR3 
@@ -207,7 +207,8 @@ c --- Experiment namelist
      .  readdummy, ! hidden
      .  add_fill_day,! hidden
      .  newcolumnorder,! hidden
-     .  osubdir ! hidden
+     .  osubdir,! hidden
+     .  scanallfiles ! hidden
 c 
 c --- Tables 
       LOGICAL, SAVE :: 
@@ -419,6 +420,7 @@ c --- Initialise namelist variables
       readdummy     = .FALSE.  
       add_fill_day  = .FALSE.
       newcolumnorder= .TRUE.  
+      scanallfiles  = .TRUE.  
 c
       casename      = ' '
       experiment_id = ' '

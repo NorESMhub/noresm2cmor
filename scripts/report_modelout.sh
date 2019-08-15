@@ -7,14 +7,15 @@ if [ $# -lt 1 ] || [ $1 == "--help" ]
 then
     printf "Usage:\t./report_modelout.sh [FULL_PATH/]CASE_NAME\n"
     printf "\tFULL_PATH to the CASE is optional;\n"
-    printf "\tIf not provide, will use current path, or /projects/NS2345Ktmp/noresm/cases,...\n"
-    printf "\tor /projects/NS2345K/.snapshots/Tuesday-15-Jan-2019/noresm/cases/\n"
+    printf "\tIf not provide, will use current path, or /projects/NS2345K/noresm/cases,...\n"
+    printf "\tor /projects/NS9560K/noresm/cases/\n"
     exit 1
 fi
 
 #datetag=20190531
 #datetag=20190703
-datetag=20190704
+#datetag=20190704
+datetag=20190811
 noresm2cmorpath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
 if [ $(command -v cdo) ]
 then
@@ -49,12 +50,9 @@ then
 elif [ -d /projects/NS2345K/noresm/cases/$expid ]
 then
     casepath=/projects/NS2345K/noresm/cases/$expid
-elif [ -d /projects/NS2345Ktmp/FRAM/noresm/cases/$expid ]
+elif [ -d /projects/NS9560/noresm/cases/$expid ]
 then
-    casepath=/projects/NS2345Ktmp/FRAM/noresm/cases/$expid
-elif [ -d /projects/NS2345K/.snapshots/Tuesday-15-Jan-2019/noresm/cases/$expid ]
-then
-    casepath=/projects/NS2345K/.snapshots/Tuesday-15-Jan-2019/noresm/cases/$expid
+    casepath=/projects/NS9560/noresm/cases/$expid
 else
     echo "CAN NOT FIND $expid !!!"
     echo "EIXT..."

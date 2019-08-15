@@ -37,7 +37,7 @@ c --- Create file list if it does not exist
       ELSE
         WRITE(*,*) 'get_file_info: read existing file list '   
      .    //TRIM('filelist_'//casename)
-      endif
+      ENDIF
 #ifdef MPI
       ENDIF 
       CALL MPI_BARRIER(MPI_COMM_WORLD,mpierror)
@@ -54,4 +54,5 @@ c --- Finalise mpi
       call MPI_FINALIZE(mpierror) 
 c
 #endif 
+      WRITE(*,*) 'ALL JOBS DONE'   
       END PROGRAM main

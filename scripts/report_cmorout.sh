@@ -11,7 +11,8 @@ fi
 
 #datetag=20190531
 #datetag=20190703
-datetag=20190704
+#datetag=20190704
+datetag=20190811
 noresm2cmorpath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
 
 FullName=$1
@@ -51,7 +52,7 @@ if [ ! -d $noresm2cmorpath/tmp ]; then mkdir -p $noresm2cmorpath/tmp; fi
 
 # method 1, extract info from file metadata
 rm -f /tmp/$USER/cmorized_var_${ExpID}_v1.txt
-for FNAME in $(ls $CasePath/*nc)
+for FNAME in $(find ${CasePath} -name "*.nc" -print)
 do 
     echo $FNAME
 #   Use ncdump, not accurate

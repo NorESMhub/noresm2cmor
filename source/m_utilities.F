@@ -3,7 +3,7 @@ c
       USE netcdf
       USE m_namelists, only: itag,verbose,ibasedir,slenmax,lenmax,
      .  casename,fnm,year1,month1,yearn,monthn,exprefyear,rec,tval,
-     .  tbnd,mbnd,year,month,forcefilescan,funit
+     .  tbnd,mbnd,year,month,forcefilescan,funit,scanallfiles
 c
       IMPLICIT NONE
 c 
@@ -514,19 +514,21 @@ c --- - pick out files that match fpre
         endif
 
 c --- - skip files beyond year1 - yearn (with one-year halo)
-        idx  = scan(fnam,".",back=.true.)
-        str1 = fnam(1:idx-1)
-        idx  = scan(str1,".",back=.true.)
-        str2 = str1(idx+1:idx+4)
-        read(str2,"(i4)") yyyy
-        if (yyyy.lt.y1-1 .or. yyyy.gt.y2+1) then
-          nskip=nskip+1
-          irecold=0
-          cycle
+        if (.not. scanallfiles) then
+            idx  = scan(fnam,".",back=.true.)
+            str1 = fnam(1:idx-1)
+            idx  = scan(str1,".",back=.true.)
+            str2 = str1(idx+1:idx+4)
+            read(str2,"(i4)") yyyy
+            if (yyyy.lt.y1-1 .or. yyyy.gt.y2+1) then
+              nskip=nskip+1
+              irecold=0
+              cycle
+            endif
         endif
 
 c --- - read time information from files 
-cdiag   IF (verbose) WRITE(*,*) 'Scanning file ',TRIM(fnam)
+        IF (verbose) WRITE(*,*) 'Scanning file ',TRIM(fnam)
         call handle_ncerror(nf90_open(trim(fnam),nf90_nowrite,ncid))
 c
         call handle_ncerror(nf90_inquire(ncid,

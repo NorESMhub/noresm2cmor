@@ -1,4 +1,4 @@
-! d* - do table true/false
+! d* - do table true/
 ! t* - path to table file (guessed if omitted) 
 ! p* - alternative path to data file (path created if omitted)
 ! r* - ?
@@ -34,11 +34,7 @@
  royr          = 100000,
  toyr          = 'CMIP6_Oyr.json',
  voyr          = ' ' 
-!==========
-!todo            'cfc11         ','cfc11lvl          ','                             ',
-!todo            'cfc12         ','cfc12lvl          ','                             ',
-!todo            'sf6           ','sf6lvl            ','                             ',
-!todo            'volcello      ','pdepth            ','volcello                     ',
+!====todo list=====
 /
 
 &table_oyrbgc
@@ -82,17 +78,7 @@
                  'talknat       ','nattalklvl        ','mol m-3   ',
                  'zooc          ','zooc*122          ','mol m-3   ',
                  'zooc          ','zooclvl*122       ','mol m-3   ',
-!==========
-!todo            'bfe           ','detoclvl          ','mol m-3;fe2ph            ',
-!todo            'chl           ','phyclvl           ','mol P m-3 -> kg Chl m-3  ',
-!todo            'co3satarag    ','co3lvl/omegaalvl  ','mol m-3                  ',
-!todo            'co3satcalc    ','co3lvl/omegaclvl  ','mol m-3                  ',
-!todo            'fgco2         ','co2fxd-co2fxu     ','kg m-2 s-1;positivedo    ',
-!todo            'o2sat         ','satoxylvl         ','mol m-3                  ',
-!todo            'phyn          ','phyclvl*16        ','mol m-3                  ',
-!todo            'phyp          ','phyclvl           ','mol m-3                  ',
-!todo            'pon           ','detoclvl*16       ','mol m-3                  ',
-!todo            'pop           ','detoclvl          ','mol m-3                  ',
+!====todo list====
 /
 
 &table_omon
@@ -133,8 +119,8 @@
                  'msftmrhompa   ','mmftdl           ','           ',
                  'msftmz        ','mmflxd           ','           ',
                  'msftmzmpa     ','mmftdd           ','           ',
-                 'obvfsq        ','bfsq             ','           ',
-                 'obvfsq        ','bfsqlvl          ','           ',
+                 'obvfsq        ','bfsq             ','s-2        ',
+                 'obvfsq        ','bfsqlvl          ','s-2        ',
                  'pbo           ','dp               ','sumz       ',
                  'pbo           ','pbot             ','           ',
                  'prra          ','lip              ','           ',
@@ -154,8 +140,7 @@
                  'tauvo         ','tauy             ','positivedo ',
                  'thetao        ','temp             ','           ',
                  'thetao        ','templvl          ','           ',
-                 'thetaoga      ','temp             ','glbave3d   ',
-                 'thetaoga      ','tempga           ','           ',
+!done, but old   'thetaoga      ','temp             ','glbave3d   ',
                  'tob           ','tbot             ','           ',
                  'tos           ','sst              ','           ',
                  'umo           ','uflx             ','           ',
@@ -168,30 +153,13 @@
                  'vmo           ','vflxlvl          ','           ',
                  'vo            ','vvel             ','           ',
                  'vo            ','vvellvl          ','           ',
-                 'volo          ','volgs            ','           ',
                  'vsf           ','sflx             ','           ',
                  'wfo           ','lip+sop+eva+rnf+rfi+fmltfz     ','    ',
                  'wmo           ','wflx             ','halflayer  ',
                  'wmo           ','wflxlvl          ','           ',
                  'zos           ','sealv            ','           ',
                  'zostoga       ','temp             ','t2zostoga  ',
-!==========
-!??              'hfsithermds   ','fhocn_ai         ','           ',
-!??              'hfsithermds   ','hmltfz           ','           ',
-!??              'wmosq         ','wflx2lvl         ','           ',
-!??              'wo            ','wflxlvl          ','wmo2wo     ', ! operator not implemented yet
-!todo            'masso         ','dp               ','sumz;glbave2d;xginv;xglbarea;kg',
-!todo            'masso         ','massgs           ','           ',
-!todo            'soga          ','saln             ','psu;glbave3d',
-!todo            'soga          ','salnga           ','           ',
-!todo            'sosga         ','sssga            ','           ',
-!todo            'thkcello      ','dz               ','           ',
-!todo            'tosga         ','sstga            ','           ',
-!todo            'tossq         ','sstsq            ','           ',
-!todo            'volcello      ','pdepth           ','volcello   ',
-!todo            'zfullo        ','dz               ','dz2zfull   ',
-!todo            'zhalfo        ','dz               ','dz2zhalf   ',
-!todo            'zhalfo        ','dz               ','dz2zhalf   ',
+!====todo list====
 /
 
 &table_omonbgc
@@ -251,66 +219,7 @@
                  'talkos        ','srftalk                     ','mol m-3                  ',
                  'zooc          ','zooc*122         ','mol m-3    ',
                  'zooc          ','zooclvl*122      ','mol m-3    ',
-!==========
-!todo            'bfe           ','detoclvl                    ','mol m-3;fe2ph            ',
-!todo            'bfeos         ','detoclvl                    ','mol m-3;fe2ph;lvl2srf    ',
-!todo            'bsios         ','opallvl                     ','                         ',
-!todo            'bsios         ','opallvl                     ','                         ',
-!todo            'calcos        ','calclvl                     ','                         ',
-!todo            'chl           ','phyclvl*122*12/60/1000      ','                         ',
-!todo            'chlos         ','srfphyclvl                  ','mol P m-3 -> kg Chl m-3',
-!todo            'co3nat        ','natco3lvl                   ','                         ',
-!todo            'co3natos      ','natco3lvl                   ','                         ',
-!todo            'co3os         ','co3lvl                      ','                         ',
-!todo            'co3satarag    ','co3lvl/omegaalvl            ','                         ',
-!todo            'co3satarag    ','co3lvl/omegaalvl            ','                         ',
-!todo            'co3sataragos  ','co3lvl/omegaalvl            ','                         ',
-!todo            'co3satcalc    ','co3lvl/omegaclvl            ','                         ',
-!todo            'co3satcalc    ','co3lvl/omegaclvl            ','                         ',
-!todo            'co3satcalcos  ','co3lvl/omegaclvl            ','                         ',
-!todo            'detocos       ','detoclvl*122                ','                         ',
-!todo            'dfeos         ','srfdfe                      ','mol m-3                  ',
-!todo            'dissicnatos   ','srfnatdissic                ','                         ',
-!todo            'dissicos      ','srfdissic                   ','mol m-3                  ',
-!todo            'dissocos      ','dissoclvl*122               ','                         ',
-!todo            'dmsos         ','dms                         ','mol m-3                  ',
-!todo            'dpco2         ','natpco2-atmco2              ','uatm2Pa??                ',
-!todo            'dpco2         ','pco2-atmco2                 ','uatm2Pa                  ',  !natpco2 unit uatm, but atmco2 ppm
-!todo            'dpco2nat      ','natpco2-atmco2              ','uatm2Pa                  ',  !natpco2 unit uatm, but atmco2 ppm
-!todo            'epfe100       ','epc100*5.*1.e-6             ','positivedo               ',
-!todo            'epn100        ','epc100/122*16               ','positivedo               ',
-!todo            'epp100        ','epc100/122                  ','positivedo               ',
-!todo            'fgco2nat      ','natco2fx                    ','                         ',
-!todo            'frfe          ','carflx_bot*5.*1.e-6         ','                         ',
-!todo            'fric          ','calflx_bot                  ','mol m-2 s-1;positivedo   ',
-!todo            'frn           ','carflx_bot/122*16+dnitint   ','                         ',
-!todo            'froc          ','carflx_bot                  ','mol m-2 s-1;positivedo   ',
-!todo            'intdic        ','vint(dissiclvl*12/1000)     ','                         ',
-!todo            'intdoc        ','vint(dissoclvl*122*12/1000) ','                         ',
-!todo            'intpn2        ','nfixint                     ','mol m-2 s-1              ',
-!todo            'intpoc        ','vint(detoclvl*122*12/1000)  ','                         ',
-!todo            'intpp         ','ppint                       ','                         ',
-!todo            'no3os         ','srfno3                      ','mol m-3                  ',
-!todo            'o2min         ','calculate from o2lvl        ','                         ',
-!todo            'o2os          ','srfo2                       ','mol m-3                  ',
-!todo            'o2satos       ','satoxylvl                   ','                         ',
-!todo            'phnat         ','natphlvl                    ','                         ',
-!todo            'phos          ','phlvl                       ','                         ',
-!todo            'phyfe         ','phyclvl*5.*122*1.e-6        ','                         ',
-!todo            'phyfeos       ','phyclvl*5.*122*1.e-6        ','                         ',
-!todo            'phyn          ','phyclvl*16                  ','                         ',
-!todo            'phynos        ','phyclvl*16                  ','                         ',
-!todo            'phyp          ','phyclvl                     ','                         ',
-!todo            'phypos        ','phyclvl                     ','                         ',
-!todo            'po4os         ','srfpo4                      ','mol m-3                  ',
-!todo            'ponos         ','detoclvl*16                 ','                         ',
-!todo            'popos         ','detoclvl                    ','                         ',
-!todo            'intpp         ','ppint                       ','mol m-2 s-1              ',
-!todo            'ppos          ','pplvl                       ','                         ',
-!todo            'sios          ','srfsi                       ','mol m-3                  ',
-!todo            'spco2nat      ','natpco2*muatm2pa            ','                         ',
-!todo            'talknatos     ','srfnattalk                  ','                         ',
-!todo            'zoocos        ','zooclvl*122                 ','                         ',
+!====todo list====
 /
 
 &table_oimon
@@ -384,47 +293,7 @@
                  'sndmasssnf       ','sndmasssnf    ','               ',
                  'sndmasssnf       ','snow_ai       ','cmFW day-1 -> kg m-2 s-1',
                  'sndmasswindrif   ','sndmasswindrif','               ',
-!==========
-!todo            'sfdsi            ','siflsaltbot                                 ','               ',
-!todo            'siareaacrossline ','Extract from aicetranx and aicetrany        ','               ',
-!todo            'siarean          ','aice                                        ','1e6 km2;zero2missing;masks;glbave2d',
-!todo            'siareas          ','aice                                        ','1e6 km2;zero2missing;masks;glbave2d',
-!todo            'sidmassevapsubl  ','sidmassevapsubl                             ','               ',
-!todo            'sidragtop        ','sidragtop, CHECK THIS                       ','               ',
-!todo            'siextentn        ','aice                                        ','1e6 km2;zero2missing;masks;glbave2d',
-!todo            'siextents        ','aice                                        ','1e6 km2;zero2missing;masks;glbave2d',
-!todo            'siflcondbot      ','siflcondbot                                 ','               ',
-!todo            'siflcondtop      ','siflcondtop                                 ','               ',
-!todo            'sifllatstop      ','sifllatstop                                 ','               ',
-!todo            'sifllwdtop       ','sifllwdtop                                  ','               ',
-!todo            'sifllwutop       ','sifllwutop                                  ','               ',
-!todo            'siflsenstop      ','siflsenstop                                 ','               ',
-!todo            'siflsensupbot    ','siflsensupbot                               ','               ',
-!todo            'siflswdbot       ','siflswdbot                                  ','               ',
-!todo            'siflswdtop       ','siflswdtop                                  ','               ',
-!todo            'siflswutop       ','siflswutop                                  ','               ',
-!todo            'siitdconc        ','aicen                                       ','               ',
-!todo            'siitdsnconc      ','snowfracn                                   ','               ',
-!todo            'siitdsnthick     ','siitdsnthick                                ','               ',
-!todo            'siitdthick       ','siitdthick                                  ','               ',
-!todo            'simassacrossline ','Extract from simasstranx and simasstrany    ','               ',
-!todo            'simpconc         ','apeff_ai/aice                               ','               ',
-!todo            'simpmass         ','Extract from apond_ai?                      ','               ',
-!todo            'sirdgconc        ','ardg/aice                                   ','               ',
-!todo            'sisaltmass       ','calculate based on simass and sisali        ','               ',
-!todo            'sisnconc         ','snowfrac/aice                               ','               ',
-!todo            'sisnmass         ','fs*hs                                       ','zero2missing   ',
-!todo            'sistrxdtop       ','sistrxdtop                                  ','               ',
-!todo            'sistrxubot       ','sistrxubot                                  ','               ',
-!todo            'sistrydtop       ','sistrydtop                                  ','               ',
-!todo            'sistryubot       ','sistryubot                                  ','               ',
-!todo            'sivol            ','aice*hi                                     ','zero2missing   ',
-!todo            'sivoln           ','Extract from hi                             ','               ',
-!todo            'sivoln           ','aice*hi                                     ','1e3 km3;zero2missing;xparea;masks;glbave2d',
-!todo            'sivols           ','Extract from hi                             ','               ',
-!todo            'sivols           ','aice*hi                                     ','1e3 km3;zero2missing;xparea;maskn;glbave2d',
-!todo            'sndmassdyn       ','Extract from sndmasstranx and sndmasstrany  ','               ',
-!todo            'snmassacrossline ','Extract from sndmasstranx and sndmasstrany  ','               ',
+!====todo list====
 /
 
 &table_amon
@@ -484,11 +353,7 @@
                  'vas              ','VAS                  ','          ',
                  'wap              ','OMEGA                ','          ',
                  'zg               ','Z3                   ','          ', 
-!==========
-!todo            'sfcWind          ','U10                  ','          ',
-!todo            'ch4global        ','ch4vmr               ','unitless  ',
-!todo            'co2              ','CO2                  ','co2units  ',
-!todo            'n2oglobal        ','n2ovmr               ','unitless  ',
+!====todo list====
 /
 
 &table_aero
@@ -497,11 +362,7 @@
  raero         = 1000000, 
  vaero         = 
                  'abs550aer    ','ABS550AL                  ','unitless;dayfoc',
-                 'airmass      ','AIRMASS                   ','          ',      
                  'bldep        ','PBLH                      ','          ',      
-                 'ccn          ','CCN_B/FCTL_B              ','          ',      
-                 'cdnc         ','CDNC                      ','cldfoc;cm-3      ',
-                 'chegpso4     ','GS_H2SO4                  ','          ',       
                  'chepsoa      ','GS_SOA_LV+GS_SOA_SV       ','          ',
                  'co2          ','CO2                       ','          ',      
                  'dms          ','DMS                       ','          ',      
@@ -565,61 +426,9 @@
                  'wetso4       ','WET_SO4*3                 ','          ',
                  'wetss        ','WET_SS                    ','          ',      
                  'zg           ','Z3                        ','          ',      
-!==========
-!todo            'ccn          ','CCN_B/FCTL_B     ','               ',
-!todo            'cdnc         ','AWNC/FREQL       ','          ',      
-!todo            'cdnc         ','AWNC/FREQL       ','          ',      
-!todo            'cltc         ','CONCLD*100       ','          ',      
-!todo            'cltc         ','CONCLD*100    ','          ',      
-!todo            'dryso4       ','SO4_A1DDF+SO4_A2DDF+SO4_ACDDF+SO4_NADDF+SO4_PRDDF+SO4_A1_OCWDDF+SO4_A2_OCWDDF+SO4_AC_OCWDDF+SO4_NA_OCWDDF+SO4_PR_OCWDDF    ','          ',      
-!todo            'emibc        ',' SFBC_A+SFBC_AC+SFBC_AI+SFBC_AX+SFBC_N+SFBC_NI+BC_AX_CMXF+BC_NI_CMXF+BC_N_CMXF       ','          ',      
-!todo            'emidust      ','SFDST_A2+SF_DST_A3    ','          ',      
-!todo            'od550csaer   ','CDOD550 ','unitless;dayfoc;cldfree    ',      
-!todo            'rlutaf       ','FLNT_DRF         ','                   ',      
-!todo            'rlutcsaf     ','FLNTCDRF         ','                   ',      
-!todo            'rsutaf       ','FSNT_DRF         ','                   ',      
-!todo            'rsutcsaf     ','FSNTCDRF         ','                   ',      
-!todo            'wetbc        ','BC_ACSFWET+BC_AISFWET+BC_ASFWET+BC_AXSFWET+BC_NISFWET+BC_NSFWET+BC_AC_OCWSFWET+BC_AI_OCWSFWET+BC_A_OCWSFWET+BC_NI_OCWSFWET+BC_N_OCWSFWET','',
-!todo            'wetoa        ','OM_ACSFWET+OM_AISFWET+OM_NISFWET+OM_AC_OCWSFWET+OM_AI_OCWSFWET+OM_NI_OCWSFWET','',
-/
-&table_CFmon
- dcfmon        = .true.
- tcfmon        = 'CMIP6_CFmon.json',
- rcfmon        = 1000000, 
- vcfmon        = 
-                 'hur          ','RELHUM      ','          ',
-                 'hus          ','Q           ','          ',
-                 'ta           ','T           ','          ',
+!====todo list====
 /
 
-&table_Eday
- dEday        = .true.
- tEday        = 'CMIP6_Eday.json'
- vEday        =
-                 'mrsfl        ','SOILICE             ','          ',
-                 'mrsll        ','SOILLIQ             ','          ',
-                 'mrsol        ','SOILLIQ+SOILICE     ','          ',
-                 'clt          ','CLDTOT              ','          ',
-                 'hfls         ','LHFLX               ','          ',
-                 'hfss         ','SHFLX               ','          ',
-                 'hus          ','Q                   ','          ',
-                 'prra         ','PRECT-PRECSC-PRECSL ','          ',
-                 'prrc         ','PRECC-PRECSC        ','          ',
-                 'prw          ','Q                   ','          ',
-                 'rsdsdiff     ','SOLLD+SOLSD         ','          ',
-                 'ta           ','T                   ','          ',
-                 'ta500        ','T500                ','          ',
-                 'ta850        ','T850                ','          ',
-                 'tauu         ','TAUX                ','          ',
-                 'tauv         ','TAUY                ','          ',
-                 'ts           ','TS                  ','          ',
-                 'wap          ','OMEGA               ','          ',
-                 'mrsfl        ','SOILICE             ','          ',
-                 'mrsll        ','SOILLIQ             ','          ',
-                 'mrsol        ','SOILLIQ+SOILICE     ','          ',
-                 'mlotst       ','mlts                ','          ',
-                 't20d         ','t20d                ','          ',
-/
 
 &table_Emon
  dEmon        = .true.
@@ -653,78 +462,11 @@
                  'sconcdust    ','DUST                                  ','          ',
                  'sconcso4     ','SO4                                   ','          ',
                  'sconcss      ','SS                                    ','          ',
-                 'ta27         ','T                                     ','          ',
                  'ua           ','U                                     ','          ',
                  'va           ','V                                     ','          ',
                  'vegHeight    ','HTOP                                  ','         ',
                  'wap          ','OMEGA                                 ','          ',
-                 'zg           ','Z3                                    ','          ',
-!==========
-!todo            'conccn                ','CCN_B/FCTL_B                                 ','cm-3      '
-!todo            'cLand                 ','TOTECOSYSC                                   ','         ',
-!todo            'cMisc                 ','CPOOL                                        ','         ',
-!todo            'cSoil                 ','TOTSOMC                                      ','         ',
-!todo            'cSoilAbove1m          ','TOTSOMC_1m                                   ','         ',
-!todo            'cSoilLevels           ','SOIL1C_vr+SOIL2C_vr+SOIL3C_vr+SOIL4C_vr      ','         ',
-!todo            'cSoilPools            ','SOIL1C,SOIL2C,SOIL3C,SOIL4C                  ','         ',
-!todo            'cStem                 ','LIVESTEMC+DEADSTEMC                          ','         ',
-!todo            'cropFracC3            ','PCT_LANDUNIT(1,:,:), PCT_CFT                 ','         ',
-!todo            'cropFracC4            ','PCT_LANDUNIT(1,:,:), PCT_CFT                 ','         ',
-!todo            'fBNF                  ','NFIX_TO_SMINN                                ','         ',
-!todo            'fDeforestToProduct    ','DWT_WOODPRODC_GAIN                           ','         ',
-!todo            'fFireNat              ','COL_FIRE_CLOSS                               ','         ',
-!todo            'fHarvestToProduct     ','WOOD_HARVESTC                                ','         ',
-!todo            'fLitterFire           ','LITFIRE                                      ','         ',
-!todo            'fLuc                  ','LAND_USE_FLUX                                ','         ',
-!todo            'fLulccAtmLut          ','DWT_CONV_CFLUX                               ','         ',
-!todo            'fLulccProductLut      ','DWT_WOODPRODC_GAIN+DWT_CROPPROD1C_GAIN       ','         ',
-!todo            'fN2O                  ','F_N2O_DENIT+F_N2O_NIT                        ','         ',
-!todo            'fNOx                  ','SMIN_NO3_LEACHED+SMIN_NO3_RUNOFF             ','         ',
-!todo            'fNProduct             ','DWT_WOODPRODN_GAIN+DWT_CROPPROD1N_GAIN       ','         ',
-!todo            'fNVegLitter           ','LEAFN_TO_LITTER+FROOTN_TO_LITTER             ','         ',
-!todo            'fNdep                 ','NDEP_TO_SMINN                                ','         ',
-!todo            'fNfert                ','FERT_TO_SMINN                                ','         ',
-!todo            'fNgas                 ','DENIT+F_N2O_NIT+COL_FIRE_NLOSS               ','         ',
-!todo            'fNgasFire             ','COL_FIRE_NLOSS                               ','         ',
-!todo            'fNgasNonFire          ','DENIT+F_N2O_NIT                              ','         ',
-!todo            'fNleach               ','SMIN_NO3_LEACHED+ SMIN_NO3_RUNOFF            ','         ',
-!todo            'fNloss                ','DENIT+ F_N2O_NIT+ SMIN_NO3_LEACHED+SMIN_NO3_RUNOFF            ','         ',
-!todo            'fNnetmin              ','NET_NMIN                                     ','         ',
-!todo            'fNup                  ','SMINN_TO_PLANT                               ','         ',
-!todo            'fVegLitterMortality   ','M_LEAFC_TO_LITTER+M_FROOTC_TO_LITTER+M_LIVESTEMC_TO_LITTER+M_DEADSTEMC_TO_LITTER+M_LIVECROOTC_TO_LITTER+M_DEADCROOTC_TO_LITTER                                ','         ',
-!todo            'fVegLitterSenescence  ','LITFALL                                      ','         ',
-!todo            'fracLut               ','PCT_LANDUNIT                                 ','         ',
-!todo            'grassFracC3           ','PCT_LANDUNIT(0, :, :)*PCT_NAT_PFT(12:13, : ,:)                                          ','         ',
-!todo            'grassFracC4           ','PCT_LANDUNIT(0, :, :)*PCT_NAT_PFT(14, : ,:)                                             ','         ',
-!todo            'mrroIs                ','QRUNOFF_ICE                                  ','         ',
-!todo            'mrroLi                ','QRUNOFF_ICE                                  ','         ',
-!todo            'mrroLi                ','QRUNOFF_ICE                                  ','         ',
-!todo            'mrtws                 ','TWS                                          ','         ',
-!todo            'nLand                 ','TOTECOSYSN                                   ','         ',
-!todo            'nLeaf                 ','LEAFN                                        ','         ',
-!todo            'nLitter               ','TOTLITN                                      ','         ',
-!todo            'nMineral              ','SMIN_NO3+SMIN_NH4                            ','         ',
-!todo            'nMineralNH4           ','SMIN_NH4                                     ','         ',
-!todo            'nMineralNO3           ','SMIN_NO3                                     ','         ',
-!todo            'nRoot                 ','FROOTN+LIVECROOTN+DEADCROOTN                 ','         ',
-!todo            'nSoil                 ','SOIL1N+SOIL2N+SOIL3N                         ','         ',
-!todo            'nStem                 ','LIVESTEMN+DEADSTEMN                          ','         ',
-!todo            'nVeg                  ','TOTVEGN                                      ','         ',
-!todo            'opottempmint          ','temp,dp                                      ','dpint    ',
-!todo            'snc                   ','FSNO                                         ','         ',
-!todo            'snc                   ','FSNO                                         ','         ',
-!todo            'somint                ','saln,dp                                      ','dpint    ',
-!todo            'thetaot               ','temp,dp                                      ','dpavg    ',
-!todo            'thetaot2000           ','temp,dp                                      ','dpavg2000',
-!todo            'thetaot300            ','temp,dp                                      ','dpavg300 ',
-!todo            'thetaot700            ','temp,dp                                      ','dpavg700 ',
-!todo            'treeFracBdlDcd        ','PCT_LANDUNIT(0, :, :)*PCT_NAT_PFT(6:8,: ,:)  ','         ',
-!todo            'treeFracBdlEvg        ','PCT_LANDUNIT(0, :, :)*PCT_NAT_PFT(4:5,: ,:)  ','         ',
-!todo            'treeFracNdlDcd        ','PCT_LANDUNIT(0, :, :)*PCT_NAT_PFT(3,: ,:)    ','         ',
-!todo            'treeFracNdlEvg        ','PCT_LANDUNIT(0, :, :)*PCT_NAT_PFT(1:2,: ,:)  ','         ',
-!todo            'vegFrac               ','PCT_LANDUNIT(0, :, :)*PCT_NAT_PFT(1:14, : ,:)+PCT_LANDUNIT(1, :, :)                     ','         ',
-!todo            'wetlandCH4            ','CH4_SURF_AERE_SAT+CH4_SURF_DIFF_SAT+CH4_SURF_EBUL_SAT                                   ','         ',
-!todo            'wetlandFrac           ','FINUNDATED                                   ','         ',
+!====todo list====
 /
 
 &table_lmon
@@ -764,18 +506,7 @@
                  'rh           ','HR                    ','kg m-2 s-1;positiveup',
                  'tran         ','QVEGT                 ','positiveup',
                  'tsl          ','TSOI                  ','missingval',
-!==========
-!todo            'baresoilFrac     ','PCT_LANDUNIT(0, :, :)*PCT_NAT_PFT(0, : ,:)                              ','         ',
-!todo            'burntFractionAll ','FAREA_BURNED                                                                ','         ',
-!todo            'c3PftFrac        ','PCT_LANDUNIT(0, :, :)*PCT_NAT_PFT(1:13, : ,:)                       ','         ',
-!todo            'c4PftFrac        ','PCT_LANDUNIT(0, :, :)*PCT_NAT_PFT(14, : ,:), PCT_CFT                ','         ',
-!todo            'cropFrac         ','PCT_LANDUNIT(1, :, :), PCT_CFT                                      ','         ',
-!todo            'fLitterSoil      ','LITR1C_TO_SOIL1C+LITR2C_TO_SOIL1C+LITR2C_TO_SOIL2C+LITR3C_TO_SOIL2C+LITR3C_TO_SOIL3C             ','         ',
-!todo            'grassFrac        ','PCT_LANDUNIT(0, :, :)*PCT_NAT_PFT(12:14, : ,:)                      ','         ',
-!todo            'landCoverFrac    ','PCT_LANDUNIT                                                        ','         ',
-!todo            'residualFrac     ','100-PCT_LANDUNIT(0:1, :, :)                                         ','         ',
-!todo            'shrubFrac        ','PCT_LANDUNIT(0, :, :)*PCT_NAT_PFT(9:11, : ,:)                       ','         ',
-!todo            'treeFrac         ','PCT_LANDUNIT(0, :, :)*PCT_NAT_PFT(1:8, : ,:)                        ','         ',
+!====todo list====
 /
 
 
@@ -796,7 +527,7 @@
  tday          = 'CMIP6_day.json', 
  rday          = 1000000, 
  vday          = 
-                 'clt       ','CLDTOT*100        ','          ',
+                 'clt       ','CLDTOT*100        ','percent   ',
                  'hfls      ','LHFLX             ','positiveup',
                  'hfss      ','SHFLX             ','positiveup',
                  'hur       ','RELHUM            ','percent;hurcomment',
@@ -826,9 +557,7 @@
                  'vas       ','VAS               ','          ',
                  'wap       ','OMEGA             ','          ',
                  'zg        ','Z3                ','          ', 
-!==========                    
-!todo            'uas       ','U                 ','blayer    ',
-!todo            'vas       ','V                 ','blayer    ',
+!====todo list====                    
 /
 
 &table_SIday
@@ -837,14 +566,7 @@
  rSIday        = 1000000, 
  vSIday        = 
                  'sithick     ','sithick_d     ','            ',
-!==========
-!todo            'siconc      ','aice_d        ','            ',
-!todo            'sisnthick   ','sisnthick_d   ','            ',
-!todo            'sispeed     ','sispeed_d     ','            ',
-!todo            'sitemptop   ','sitemptop_d   ','            ',
-!todo            'sitimefrac  ','ice_present_d ','            ',
-!todo            'siu         ','siu_d         ','zero2missing',
-!todo            'siv         ','siv_d         ','zero2missing',
+!====todo list====
 /
 
 &table_Oday
@@ -857,66 +579,6 @@
                  'sossq       ','ssssq      ','          ',
                  'tos         ','sst        ','          ',
                  'tossq       ','sstsq      ','          ',
+!====todo list====
 /
 
-&table_6hrlev
- d6hrlev       = .true.
- t6hrlev       = 'CMIP6_6hrLev.json', 
- r6hrlev       = 1000000, 
- v6hrlev       = 
-!todo            'hus         ','Q             ','          ',
-!todo            'ps          ','PS            ','          ',
-!todo            'ta          ','T             ','          ', 
-!todo            'ua          ','U             ','          ',
-!todo            'va          ','V             ','          ',
-/
-
-&table_6hrplev
- d6hrplev      = .true.
- t6hrplev      = 'CMIP6_6hrPlev.json', 
- r6hrplev      = 1000000, 
- v6hrplev      = 
-!todo            'hurs        ','RHREFHT       ','percent   ',
-!todo            'hus4        ','Q             ','          ',
-!todo            'psl         ','PSL           ','          ',
-!todo            'sfcWind     ','U10           ','          ',
-!todo            'tas         ','TREFHT        ','          ',
-!todo            'uas         ','UAS           ','          ',
-!todo            'vas         ','VAS           ','          ',
-!todo            'wap4        ','OMEGA         ','          ',
-!todo            'zg1000      ','Z1000         ','          ',
-/
-
-&table_3hr 
- d3hr          = .true.
- t3hr          = 'CMIP6_3hr.json',
- r3hr          = 1000000, 
- v3hr          = 
-!todo            'clt       ','CLDTOT            ','unitless  ',
-!todo            'hfls      ','LHFLX             ','positiveup',
-!todo            'hfss      ','SHFLX             ','positiveup',
-!todo            'mrro      ','QRUNOFF+QSNWCPICE ','          '
-!todo            'pr        ','PRECT             ','kg m-2 s-1',
-!todo            'prc       ','PRECC             ','kg m-2 s-1',
-!todo            'prsn      ','PRECSC+PRECSL     ','kg m-2 s-1',
-!todo            'rlds      ','FLDS              ','positivedo',
-!todo            'rldscs    ','FLDSC             ','positivedo',
-!todo            'rlus      ','FLDS+FLNS         ','positiveup',
-!todo            'rsds      ','FSDS              ','positivedo',
-!todo            'rsdscs    ','FSDSC             ','positivedo',
-!todo            'rsdsdiff  ','SOLLD+SOLSD       ','positivedo',
-!todo            'rsus      ','FSDS-FSNS         ','positiveup',
-!todo            'rsuscs    ','FSDSC-FSNSC       ','positiveup',
-/
-
-&table_3hri
- d3hri         = .true.
- t3hri         = 'CMIP6_3hr.json',
- r3hri         = 1000000, 
- v3hri         = 
-!todo            'huss      ','QREFHT        ','          ',
-!todo            'mrsos     ','SOILWATER_10CM','          '
-!todo            'ps        ','PS            ','          ',
-!todo            'tas       ','TREFHT        ','          ',
-!todo            'tslsi     ','TS            ','          ',  
-/
