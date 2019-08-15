@@ -454,10 +454,10 @@ c
       use netcdf
       implicit none
 c 
-      character*500 :: idir,cnam,ftag,fpre,fnam
+      character*500 :: idir,cnam,ftag,fpre,fnam,str1,str2
       integer :: y1,m1,y2,m2,yref,mref,dref,yr,irec
       integer,save :: y1old=0,m1old=0,y2old=0,m2old=0
-      integer :: year,month
+      integer :: year,month,idx,yyyy
       real*8 :: tval,tbnd(2),mbnd(2)
       logical :: lreset
 c
@@ -512,6 +512,19 @@ c --- - pick out files that match fpre
           irecold=0
           cycle
         endif
+
+c --- - skip files beyond year1 - yearn (with one-year halo)
+        idx  = scan(fnam,".",back=.true.)
+        str1 = fnam(1:idx-1)
+        idx  = scan(str1,".",back=.true.)
+        str2 = str1(idx+1:idx+4)
+        read(str2,"(i4)") yyyy
+        if (yyyy.lt.y1-1 .or. yyyy.gt.y2+1) then
+          nskip=nskip+1
+          irecold=0
+          cycle
+        endif
+
 c --- - read time information from files 
 cdiag   IF (verbose) WRITE(*,*) 'Scanning file ',TRIM(fnam)
         call handle_ncerror(nf90_open(trim(fnam),nf90_nowrite,ncid))
