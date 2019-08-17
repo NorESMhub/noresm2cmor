@@ -1,0 +1,34 @@
+&experiment
+ casename      = 'N1PCT_f19_tn14_20190626',
+ osubdir       = 'NorESM2-LM/1pctCO2/v20190815'
+ experiment_id = '1pctCO2',
+ parent_experiment_id  = 'piControl',
+ parent_experiment_rip = 'r1i1p1',
+ parent_time_units = 'days since 0421-01-01',
+ branch_method = 'Hybrid-restart from year 1600-01-01 of piControl',
+ history       = ' ',
+ comment       = ' ',
+ forcing       = 'N/A',
+ realization   = 1,
+ initialization_method = 1, 
+ physics_version = 1,
+ forcing_index = 1, 
+ branch_time   = 0.,
+ year1         = 41,
+ yearn         = 50,
+ month1        = 1,
+ monthn        = 12,
+ exprefyear    = 1, 
+ activity_id   = 'CMIP', 
+ parent_activity_id = 'CMIP', 
+ parent_variant_label = 'r1i1p1f1',
+ parent_mip_era = 'CMIP6',
+ mip_era       = 'CMIP6', 
+ sub_experiment = 'none',
+ parent_sub_experiment = 'none'
+ branch_time_in_child   = 0.0D0,
+ branch_time_in_parent  = 430335.0D0,
+ tracking_prefix   = 'hdl:21.14100'
+ newcolumnorder = .true.
+ scanallfiles = .false.
+/
