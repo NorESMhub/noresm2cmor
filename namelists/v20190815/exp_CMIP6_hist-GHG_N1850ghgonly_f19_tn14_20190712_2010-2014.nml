@@ -1,7 +1,7 @@
 &experiment
- casename      = 'NHISTpintcf_f19_tn14_20190720',
- osubdir       = 'NorESM2-LM/hist-piNTCF/v20190815'
- experiment_id = 'hist-piNTCF',
+ casename      = 'N1850ghgonly_f19_tn14_20190712',
+ osubdir       = 'NorESM2-LM/hist-GHG/v20190815'
+ experiment_id = 'hist-GHG',
  parent_experiment_id  = 'piControl',
  parent_experiment_rip = 'r1i1p1',
  parent_time_units = 'days since 0421-01-01',
@@ -14,12 +14,12 @@
  physics_version = 1,
  forcing_index = 1, 
  branch_time   = 0.,
- year1         = 1930,
- yearn         = 1939,
+ year1         = 2010,
+ yearn         = 2014,
  month1        = 1,
  monthn        = 12,
  exprefyear    = 1, 
- activity_id   = 'AerChemMIP', 
+ activity_id   = 'CMIP', 
  parent_activity_id = 'CMIP', 
  parent_variant_label = 'r1i1p1f1',
  parent_mip_era = 'CMIP6',

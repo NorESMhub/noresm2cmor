@@ -1,7 +1,7 @@
 &experiment
- casename      = 'NHISTpintcf_f19_tn14_20190720',
- osubdir       = 'NorESM2-LM/hist-piNTCF/v20190815'
- experiment_id = 'hist-piNTCF',
+ casename      = 'NHISTpiaer_f19_tn14_20190721',
+ osubdir       = 'NorESM2-LM/hist-piAer/v20190815'
+ experiment_id = 'hist-piAer',
  parent_experiment_id  = 'piControl',
  parent_experiment_rip = 'r1i1p1',
  parent_time_units = 'days since 0421-01-01',
@@ -14,8 +14,8 @@
  physics_version = 1,
  forcing_index = 1, 
  branch_time   = 0.,
- year1         = 1930,
- yearn         = 1939,
+ year1         = 2000,
+ yearn         = 2009,
  month1        = 1,
  monthn        = 12,
  exprefyear    = 1, 
