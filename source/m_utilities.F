@@ -528,7 +528,7 @@ c --- - skip files beyond year1 - yearn (with one-year halo)
         endif
 
 c --- - read time information from files 
-        IF (verbose) WRITE(*,*) 'Scanning file ',TRIM(fnam)
+c       IF (verbose) WRITE(*,*) 'Scanning file ',TRIM(fnam)
         call handle_ncerror(nf90_open(trim(fnam),nf90_nowrite,ncid))
 c
         call handle_ncerror(nf90_inquire(ncid,

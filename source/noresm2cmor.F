@@ -54,5 +54,9 @@ c --- Finalise mpi
       call MPI_FINALIZE(mpierror) 
 c
 #endif 
-      WRITE(*,*) 'ALL JOBS DONE'   
+      WRITE(*,*)
+      WRITE(*,*) '===================='   
+      WRITE(*,*) '   ALL JOBS DONE'   
+      WRITE(*,*) '===================='   
+      WRITE(*,*)
       END PROGRAM main
