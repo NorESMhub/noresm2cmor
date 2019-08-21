@@ -3,7 +3,7 @@ c
       USE netcdf
       USE m_namelists, only: itag,verbose,ibasedir,slenmax,lenmax,
      .  casename,fnm,year1,month1,yearn,monthn,exprefyear,rec,tval,
-     .  tbnd,mbnd,year,month,forcefilescan,funit,scanallfiles
+     .  tbnd,mbnd,year,month,forcefilescan,funit,scanallfiles,membertag
 c
       IMPLICIT NONE
 c 
@@ -438,7 +438,7 @@ c     write(*,*) ibasedir,casename,itag
      .    mbnd,year,month)
       ENDIF
       IF(LEN_TRIM(fnm).eq.0) THEN 
-        IF (.FALSE.) WRITE(*,*) 'WARNING: no file found for ' 
+        IF (verbose) WRITE(*,*) 'WARNING: no file found for ' 
      .//'case dir|tag|year1|month1|yearn|monthn: ',
      .  TRIM(ibasedir)//'/'//TRIM(casename),'|',TRIM(itag),'|',year1,'|'
      .  ,month1,'|',yearn,'|',monthn     
@@ -468,7 +468,15 @@ c
       logical, save :: ltimebnds,ldone
 c
 c --- check whether to start file list read from beginning or to resume 
-      fpre=trim(cnam)//'.'//trim(ftag)//'.'    
+      idx  = index(ftag,'.')
+      str1 = ftag(1:idx-1)
+      str2 = ftag(idx+1:)
+      if (len_trim(membertag).gt.0) then
+            fpre=trim(cnam)//'.'//trim(str1)//'_'//trim(membertag)
+     .           //'.'//trim(str2)//'.'
+      else
+            fpre=trim(cnam)//'.'//trim(ftag)//'.'    
+      endif
       if (y1old.ne.y1.or.y2old.ne.y2.or.m1old.ne.m1
      .     .or.m2old.ne.m2.or.index(fpreold,trim(fpre))
      .     .le.0.or.tbndold(2).le.-999998..or.lreset) then
@@ -491,7 +499,8 @@ c --- check whether to start file list read from beginning or to resume
       endif
 c
 c --- loop over files 
-      open(funit,FILE=trim('filelist_'//cnam),FORM='formatted')
+      open(funit,FILE=trim('filelist_'//cnam)//trim(membertag),
+     .                 FORM='formatted')
 c     skip all files that have already been scanned       
       do n=1,nskip
         read(funit,'(a500)',iostat=fstat) fnam

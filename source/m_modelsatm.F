@@ -74,7 +74,10 @@ c
 c --- Read grid information from input files
       itag=tagamon
       CALL scan_files(reset=.TRUE.)
-      IF (LEN_TRIM(fnm).EQ.0) RETURN 
+      IF (LEN_TRIM(fnm).EQ.0) then
+        WRITE(*,*) 'ERROR: fnm is empty'
+        RETURN 
+      endif
       CALL read_gridinfo_ifile
 c
 c --- Initialise pressure level dimension 
@@ -1113,7 +1116,7 @@ c
         status=nf90_get_var(ncid,rhid,slon)
         CALL handle_ncerror(status)
       ELSE 
-        slon(i)=0.5*(lon(1)+lon(idm)-360)
+        slon(1)=0.5*(lon(1)+lon(idm)-360)
         DO i=2,idm
           slon(i)=0.5*(lon(i)+lon(i-1))
         ENDDO

@@ -1,7 +1,7 @@
       PROGRAM main 
 c
       USE m_namelists, ONLY: verbose, read_namelists, print_namelists,
-     .  ibasedir, casename, forcefilescan  
+     .  ibasedir, casename, forcefilescan,membertag
       USE m_modelsatm, ONLY: atm2cmor
       USE m_modelslnd, ONLY: lnd2cmor
       USE m_modelsice, ONLY: ice2cmor
@@ -27,16 +27,24 @@ c --- Create file list if it does not exist
       CALL MPI_COMM_RANK(MPI_COMM_WORLD, mpirank, mpierror)
       IF (mpirank.EQ.0) THEN 
 #endif 
-      INQUIRE(FILE=TRIM('filelist_'//casename),EXIST=fileexists)
+      INQUIRE(FILE='filelist_'//TRIM(casename)//TRIM(membertag),
+     .       EXIST=fileexists)
       IF (.NOT.fileexists.OR.forcefilescan) THEN
         WRITE(*,*) 'get_file_info: create new file list '
-     .    //TRIM('filelist_'//casename)
-        CALL SYSTEM('find '//trim(ibasedir)//'/'//trim(casename)//
-     .    ' -path "*/hist/*" -name "*.nc"'
-     .    //' | sort > '//TRIM('filelist_'//casename))
+     .    //TRIM('filelist_'//casename)//TRIM(membertag)
+        if (len_trim(membertag).gt.0) then
+            CALL SYSTEM('find '//trim(ibasedir)//'/'//trim(casename)
+     .          //' -path "*/hist/*" -name "*.*_'//trim(membertag)
+     .          //'.h*.nc" | sort > '//TRIM('filelist_'//casename)
+     .          //trim(membertag))
+        else
+            CALL SYSTEM('find '//trim(ibasedir)//'/'//trim(casename)
+     .          //' -path "*/hist/*" -name "*.nc"'
+     .          //' | sort > '//TRIM('filelist_'//casename))
+        end if
       ELSE
-        WRITE(*,*) 'get_file_info: read existing file list '   
-     .    //TRIM('filelist_'//casename)
+        WRITE(*,*) 'get_file_info: read existing file list '//
+     .      TRIM('filelist_'//casename)//trim(membertag)
       ENDIF
 #ifdef MPI
       ENDIF 

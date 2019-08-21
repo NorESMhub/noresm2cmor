@@ -94,7 +94,7 @@ c
 c --- Experiment namelist
       CHARACTER(LEN=slenmax), SAVE :: 
      .  casename,experiment_id,parent_experiment_id,
-     .  parent_experiment_rip,osubdir
+     .  parent_experiment_rip,osubdir,membertag
       CHARACTER(LEN=slenmax), DIMENSION(smax), SAVE :: 
      .  history,comment,forcing
       CHARACTER(LEN=(slenmax+1)*smax), SAVE :: 
@@ -208,7 +208,8 @@ c --- Experiment namelist
      .  add_fill_day,! hidden
      .  newcolumnorder,! hidden
      .  osubdir,! hidden
-     .  scanallfiles ! hidden
+     .  scanallfiles, ! hidden
+     .  membertag ! hidden
 c 
 c --- Tables 
       LOGICAL, SAVE :: 
@@ -438,6 +439,7 @@ c
       parent_experiment_id = ' ' 
       parent_experiment_rip = ' ' 
       osubdir     = ' ' 
+      membertag   = ' ' 
 c
       dfx           = .FALSE.
       doyr          = .FALSE. 
