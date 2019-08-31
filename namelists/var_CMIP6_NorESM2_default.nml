@@ -26,7 +26,7 @@
                  'basin         ','pmask             ','basin;unitless;zero2missing  ',
                  'deptho        ','pdepth            ','zero2missing                 ',
                  'sftof         ','pmask             ','unitless                     ',
-                 'volcello      ','pdepth            ','volcello                     ',
+                 'parea,volcello','pdepth            ','volcello                     ',
 /
 
 &table_oyr

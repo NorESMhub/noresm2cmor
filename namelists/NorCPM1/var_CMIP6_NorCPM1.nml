@@ -427,7 +427,7 @@
 /
 
 &table_day
- dday          = .true.
+ dday          = .false.
  tday          = 'CMIP6_day.json', 
  rday          = 1000000, 
  vday          = 
@@ -465,7 +465,7 @@
 /
 
 &table_SIday
- dSIday        = .true.
+ dSIday        = .false.
  tSIday        = 'CMIP6_SIday.json', 
  rSIday        = 1000000, 
  vSIday        = 
@@ -477,7 +477,7 @@
 /
 
 &table_Oday
- dOday         = .true.
+ dOday         = .false.
  tOday         = 'CMIP6_Oday.json', 
  rOday         = 1000000, 
  vOday         = 
@@ -486,7 +486,7 @@
 /
 
 &table_6hrlev
- d6hrlev       = .true.
+ d6hrlev       = .false.
  t6hrlev       = 'CMIP6_6hrLev.json', 
  r6hrlev       = 1000000, 
  v6hrlev       = 
@@ -498,7 +498,7 @@
 /
 
 &table_6hrplev
- d6hrplev      = .true.
+ d6hrplev      = .false.
  t6hrplev      = 'CMIP6_6hrPlev.json', 
  r6hrplev      = 1000000, 
  v6hrplev      = 
@@ -516,7 +516,7 @@
 /
 
 &table_3hr 
- d3hr          = .true.
+ d3hr          = .false.
  t3hr          = 'CMIP6_3hr.json',
  r3hr          = 1000000, 
  v3hr          = 
@@ -540,7 +540,7 @@
 /
 
 &table_3hri
- d3hri         = .true.
+ d3hri         = .false.
  t3hri         = 'CMIP6_3hr.json',
  r3hri         = 1000000, 
  v3hri         = 

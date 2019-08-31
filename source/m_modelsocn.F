@@ -1060,7 +1060,7 @@ c --- - Compute fixed cell volume of interpolated grid
                 ELSE
                   ptop=MIN(depth_bnds(1,k),fld(i,j,1))
                   pbot=MIN(depth_bnds(2,k),fld(i,j,1))
-                  fld(i,j,k)=pbot-ptop
+                  fld(i,j,k)=(pbot-ptop)*fld2(i,j,1)
                 ENDIF
               ENDDO
             ENDDO
@@ -2148,6 +2148,10 @@ c
      .  fac1,fac2,fac3,fac4,fac5,fac6)
       fld=0.
       CALL add_fixed(ivnm1,fac1,ncid)
+      IF (INDEX(special,'volcello').GT.0) THEN
+        fld2=fld
+        fld=0. 
+      ENDIF 
       CALL add_fixed(ivnm2,fac2,ncid)
       CALL add_fixed(ivnm3,fac3,ncid)
       CALL add_fixed(ivnm4,fac4,ncid)
