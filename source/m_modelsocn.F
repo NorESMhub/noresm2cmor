@@ -451,6 +451,104 @@ c --- - Close output file if still open
 c
       ENDDO
 c
+c 
+c --- Process table Emon
+      WRITE(*,*) 'Process table Emon'
+      fnm=pEmon
+      table=tEmon
+      DO n=1,nEmon
+        IF (skip_variable(n,nEmon,dEmon)) CYCLE
+c
+c --- - Map namelist variables 
+        ovnm=vEmon(ovnmpos,n)
+        ivnm=vEmon(ivnmpos,n)
+        special=vEmon(3,n)
+        vunits=' '
+        vpositive=' '
+        vcomment=' '
+c
+c --- - Check if vertical coordinate required        
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+c
+c --- - Check if we should skip variable 
+        WRITE(*,*) TRIM(ovnm),TRIM(zcoord),do_3d,do_xd
+        IF (.NOT.do_3d.AND.do_xd) THEN
+          IF (zcoord(1:6).EQ.'olevel'.AND.ovnm(1:5).NE.'mmflx'
+     .      .AND.ovnm(1:8).NE.'ficeberg'.AND.
+     .      ovnm(1:11).NE.'hfsithermds') CYCLE
+        ELSEIF (do_3d.AND..NOT.do_xd) THEN
+          IF (zcoord(1:6).NE.'olevel'.OR.ovnm(1:5).EQ.'mmflx'
+     .      .OR.ovnm(1:8).EQ.'ficeberg'.OR.
+     .      ovnm(1:11).EQ.'hfsithermds') CYCLE
+        ELSEIF (.NOT.do_3d.AND..NOT.do_xd) THEN
+          CYCLE
+        ENDIF
+c 
+c --- - Choose history file 
+        IF (INDEX(special,'day2mon').GT.0) THEN
+          itag=tagoday
+        ELSE
+          itag=tagomon
+        ENDIF
+c
+c --- - Check if input variable is present  
+        IF (LEN_TRIM(pEmon).eq.0) CALL scan_files(reset=.TRUE.)
+        IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+c
+c --- - Prepare output file 
+        CALL special_pre
+c
+c --- - Loop over input files 
+        m=0
+        DO
+          m=m+1
+c
+c --- --- Open output file
+          IF (MOD(m-1,rEmon).EQ.0) CALL open_ofile
+c 
+c --- --- Read variable into buffer (average if necessary)
+          rec=0
+          nrec=0
+          fldacc=0.
+          last=.FALSE.
+          DO
+            IF (LEN_TRIM(pEmon).eq.0) CALL scan_files(reset=.FALSE.)
+            IF (rec.EQ.0) then
+              last=.TRUE.
+              EXIT
+            ENDIF
+            nrec=nrec+1
+cdiag       write(*,*) 'DEBUG: ',trim(fnm),rec,nrec,tbnd,mbnd,year,month
+            CALL read_tslice(rec,badrec,fnm)
+            fldacc=fldacc+fld
+            IF (INDEX(special,'day2mon').GT.0) THEN
+              IF (tbnd(2)+0.5.GE.mbnd(2)) EXIT
+            ELSE
+              EXIT
+            ENDIF
+          ENDDO
+          IF (last) EXIT
+          fld=fldacc/FLOAT(nrec)
+          tbnds(:,1)=mbnd
+          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+c 
+c --- --- Post processing 
+          CALL special_post
+c
+c --- --- Write time slice to output file 
+          CALL write_tslice
+c
+c --- --- Close output file if max rec has been reached 
+          IF (MOD(m,rEmon).EQ.0) CALL close_ofile
+c
+c --- - End loop over files and records
+        ENDDO
+c
+c --- - Close output file if still open 
+        IF (MOD(m,rEmon).GT.0) CALL close_ofile
+c
+      ENDDO
+c
 c
 c --- Process table omon (bgc)
       WRITE(*,*) 'Process table omon (bgc)'

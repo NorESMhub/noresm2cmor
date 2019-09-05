@@ -370,6 +370,7 @@
                  'DWT_CLOSS     ','fLuc      ','kg m-2 s-1;positiveup',
                  'LIVESTEMC+DEADSTEMC','cWood','kg m-2    ',
                  'NEP           ','nep       ','kg m-2 s-1;positivedo',
+                 'd20           ','t20d      ','          ',
 /
 
 &table_lmon
