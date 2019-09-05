@@ -335,15 +335,6 @@ c --- --- Post processing
           ENDIF
           CALL special_post
 c
-c --- --- Post processing 
-          IF (zcoord(1:4).EQ.'plev'.AND.
-     .      INDEX(special,'catplev').LT.1) THEN
-            CALL interp_z
-          ELSE
-            ofld=ifld
-          ENDIF
-          CALL special_post
-c
 c --- --- Write time slice to output file 
           CALL write_tslice
 c
