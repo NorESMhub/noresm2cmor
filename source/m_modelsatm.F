@@ -335,28 +335,6 @@ c --- --- Post processing
           ENDIF
           CALL special_post
 c
-c --- --- Read variable into buffer (average if necessary)
-          rec=0
-          nrec=0
-          ifldacc=0.
-          LAST=.FALSE.
-          DO
-            IF (LEN_TRIM(pEmon).eq.0) CALL scan_files
-            IF (rec.EQ.0) THEN
-              last=.TRUE.
-              EXIT
-            ENDIF
-            nrec=nrec+1
-cdiag      write(*,*) 'DEBUG: ',trim(fnm),rec,nrec,tbnd,mbnd,year,month
-            CALL read_tslice(rec,badrec,fnm)
-            ifldacc=ifldacc+ifld
-            IF (tbnd(2).EQ.mbnd(2)) EXIT
-          ENDDO
-          IF (last) EXIT
-          ifld=ifldacc/FLOAT(nrec)
-          tbnds(:,1)=mbnd
-          tval=0.5*(tbnds(1,1)+tbnds(2,1))
-c 
 c --- --- Post processing 
           IF (zcoord(1:4).EQ.'plev'.AND.
      .      INDEX(special,'catplev').LT.1) THEN

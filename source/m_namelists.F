@@ -94,7 +94,7 @@ c
 c --- Experiment namelist
       CHARACTER(LEN=slenmax), SAVE :: 
      .  casename,experiment_id,parent_experiment_id,
-     .  parent_experiment_rip,osubdir,membertag
+     .  parent_experiment_rip,isubdir,osubdir,membertag
       CHARACTER(LEN=slenmax), DIMENSION(smax), SAVE :: 
      .  history,comment,forcing
       CHARACTER(LEN=(slenmax+1)*smax), SAVE :: 
@@ -207,6 +207,7 @@ c --- Experiment namelist
      .  readdummy, ! hidden
      .  add_fill_day,! hidden
      .  newcolumnorder,! hidden
+     .  isubdir,! hidden
      .  osubdir,! hidden
      .  scanallfiles, ! hidden
      .  membertag ! hidden
@@ -438,6 +439,7 @@ c
       branch_time   = 0.0 
       parent_experiment_id = ' ' 
       parent_experiment_rip = ' ' 
+      isubdir     = ' ' 
       osubdir     = ' ' 
       membertag   = ' ' 
 c
@@ -1103,6 +1105,10 @@ c --- Map column order of variable definitions
         ovnmpos=1
       ENDIF  
 c 
+c --- Extend input path if necessary 
+      IF (LEN_TRIM(isubdir).GT.0)
+     .  ibasedir=TRIM(ibasedir)//'/'//TRIM(isubdir)
+
 c --- Modify output path and create output folder 
       obasedir=TRIM(obasedir)//'/'//TRIM(osubdir) 
       call SYSTEM('mkdir -p '//TRIM(obasedir))
