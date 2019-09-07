@@ -316,8 +316,8 @@
  vaero         = 
 !! not requested 'BC            ','sconcbc   ','          ',
 !! not requested 'POM           ','sconcpoa  ','          ',
-                 'TAUE550       ','od550aer  ','unitless;dayfoc',
-                 'TAUA550       ','abs550aer ','unitless;dayfoc',
+!!               'TAUE550       ','od550aer  ','unitless;dayfoc',
+!!               'TAUA550       ','abs550aer ','unitless;dayfoc',
                  'EMI_POM       ','emioa     ','          ',
                  'EMI_BC        ','emibc     ','          ',
                  'EMI_SS        ','emiss     ','          ',

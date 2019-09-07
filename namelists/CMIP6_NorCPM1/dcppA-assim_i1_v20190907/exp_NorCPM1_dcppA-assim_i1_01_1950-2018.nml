@@ -1,0 +1,35 @@
+&experiment
+ casename      = 'norcpm-cmip6_analysis_19500115_mem01',
+ isubdir       = 'NorCPM/norcpm-cmip6_analysis_19500115' 
+ osubdir       = 'NorCPM1/dcppA-assim/v20190907' 
+ experiment_id = 'dcppA-assim',
+ parent_experiment_id  = 'historical',
+ parent_experiment_rip = 'r1i1p1',
+ parent_time_units = 'days since 0001-01-01',
+ branch_method = 'Spin-up documentation',
+ history       = ' ',
+ comment       = ' ',
+ forcing       = 'N/A',
+ realization   = 1,
+ initialization_method = 1, 
+ physics_version = 1,
+ forcing_index = 1, 
+ branch_time   = 0.,
+ year1         = 1950,
+ yearn         = 1950,
+ month1        = 1,
+ monthn        = 12,
+ exprefyear    = 1, 
+ activity_id   = 'DCPP', 
+ parent_activity_id = 'CMIP', 
+ parent_variant_label = 'r1i1p1f1',
+ parent_mip_era = 'CMIP6',
+ mip_era       = 'CMIP6', 
+ sub_experiment = 'none',
+ parent_sub_experiment = 'none'
+ branch_time_in_child   = 9999.,
+ branch_time_in_parent  = 0.,
+ parent_time_units  = 'days since 0001-01-01', 
+ tracking_prefix   = 'hdl:21.14100',
+ newcolumnorder = .false.
+/

@@ -23,17 +23,22 @@ do
 					then 
 						continue
 					fi
-					MAPFILE="$NIRDROOT/$MIP/$INS/$MOD/$EXP/${RIP}.map"
+					MAPFILE="$NIRDROOT/$MIP/$INS/$MOD/$EXP/.${RIP}.map"
 					echo "$MAPFILE"
                                         if [ -e "$MAPFILE" ] 
-                                        then 
-                                          echo "$MAPFILE exists; skipping..." 
-						continue
-					else      
-                                          echo "create new $MAPFILE"  
+                                        then
+						if [ $REPLACE_EXISTING ] 
+						then
+							echo "backing up existing map to ${MAPFILE}_`date -r $MAPFILE +%Y%m%d`"
+							mv $MAPFILE ${MAPFILE}_`date -r $MAPFILE +%Y%m%d`
+						else 
+							echo "skipping existing $MAPFILE (define REPLACE_EXISTING=1 to force replacement)" 
+							continue
+						fi
                                         fi 
+                                        echo "create new $MAPFILE"  
 					rm -f "$MAPFILE"
-					for ITEM in `sed 's/\ \ /%/g' "$NIRDROOT/$MIP/$INS/$MOD/$EXP/${RIP}.sha256sum"`
+					for ITEM in `sed 's/\ \ /%/g' "$NIRDROOT/$MIP/$INS/$MOD/$EXP/.${RIP}.sha256sum"`
 					do
 						SHASUM=`echo $ITEM | cut -d"%" -f1`
                                                 RELPATH=`echo $ITEM | cut -d"%" -f2`

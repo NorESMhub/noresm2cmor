@@ -394,7 +394,7 @@ c --- - Choose history file
         END SELECT
 c
 c --- - Check if input variable is present  
-        IF (LEN_TRIM(paero).eq.0) CALL  scan_files(reset=.TRUE.)
+        IF (LEN_TRIM(paero).eq.0) CALL scan_files(reset=.TRUE.)
         IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
 c
 c --- - Prepare output file 
@@ -414,7 +414,7 @@ c --- --- Read variable into buffer (average if necessary)
           ifldacc=0.
           LAST=.FALSE.
           DO
-            IF (LEN_TRIM(pamon).eq.0) CALL scan_files 
+            IF (LEN_TRIM(paero).eq.0) CALL scan_files 
             IF (rec.EQ.0) THEN
               last=.TRUE.
               EXIT

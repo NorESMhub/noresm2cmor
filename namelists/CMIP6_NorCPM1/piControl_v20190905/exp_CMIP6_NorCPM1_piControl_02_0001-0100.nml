@@ -1,5 +1,5 @@
 &experiment
- casename      = 'noresm1-cmip6_preindustrial_00010101_mem01',
+ casename      = 'noresm1-cmip6_preindustrial_00010101_mem02',
  isubdir       = 'NorESM1-CMIP6/noresm1-cmip6_preindustrial_00010101' 
  osubdir       = 'NorCPM1/piControl/v20190905' 
  experiment_id = 'piControl',
@@ -10,13 +10,13 @@
  history       = ' ',
  comment       = ' ',
  forcing       = 'N/A',
- realization   = 1,
+ realization   = 02,
  initialization_method = 1, 
  physics_version = 1,
  forcing_index = 1, 
  branch_time   = 0.,
  year1         = 1,
- yearn         = 1,
+ yearn         = 100,
  month1        = 1,
  monthn        = 12,
  exprefyear    = 1, 
@@ -27,7 +27,7 @@
  mip_era       = 'CMIP6', 
  sub_experiment = 'none',
  parent_sub_experiment = 'none'
- branch_time_in_child   = 0.,
+ branch_time_in_child   = 91251.,
  branch_time_in_parent  = 0.,
  parent_time_units  = 'days since 0001-01-01', 
  tracking_prefix   = 'hdl:21.14100',
