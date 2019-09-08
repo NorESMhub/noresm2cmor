@@ -1441,29 +1441,40 @@ c
       CHARACTER(LEN=(slen+1)*sdm) :: strout 
       LOGICAL :: lb
 c
-      INTEGER :: n,count 
+      INTEGER :: n,pos  
 c
       strout=' ' 
-      count=0 
+      pos=0 
       DO n=1,sdm 
         IF (LEN_TRIM(strin(n)).GT.0) THEN 
-          IF (count.NE.0) THEN           
-            count=count+1 
+          IF (pos.NE.0) THEN           
+            pos=pos+1 
             IF (lb) THEN
-              strout(count:count)=achar(10)
+              strout(pos:pos)=achar(10)
             ELSE
-              strout(count:count)=' '
+              strout(pos:pos)=' '
             ENDIF
           ENDIF 
-          strout(count+1:count+LEN_TRIM(strin(n)))=TRIM(strin(n))
-          count=count+LEN_TRIM(strin(n))
+          strout(pos+1:pos+LEN_TRIM(strin(n)))=TRIM(strin(n))
+          pos=pos+LEN_TRIM(strin(n))
         ENDIF 
       ENDDO           
+      pos=1 
+      DO 
+        IF (INDEX(strout(pos:),'\n').GT.0) THEN
+          pos=pos+INDEX(strout(pos:),'\n')
+          strout(pos-1:pos)=' '//achar(10) 
+          pos=pos+2
+          IF (pos.GE.LEN(strout)) EXIT 
+        ELSE
+          EXIT
+        ENDIF
+      ENDDO  
 c
       END SUBROUTINE merge_strarr 
 
 
-      
+
       FUNCTION get_free_unit() RESULT(free_unit)
 c
       IMPLICIT NONE
