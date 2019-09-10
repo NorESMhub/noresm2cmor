@@ -1556,7 +1556,7 @@ c --- new for cmor3
      .  //'<institution_id><source_id><experiment_id><variant_label>'
      .  //'<table><variable_id><grid_label><version>')
       CALL json%add(p,'output_file_template','<variable_id><table>'
-     .  //'<experiment_id><source_id><variant_label><grid_label>')
+     .  //'<source_id><experiment_id><variant_label><grid_label>')
       CALL json%add(p,'license',
      . "CMIP6 model data produced by NCC is licensed under a Creative "
      .//"Commons Attribution ShareAlike 4.0 International License "
