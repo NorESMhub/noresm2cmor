@@ -3,7 +3,7 @@
 DRYRUN=0
 REPLACE=1 
 
-for ITEM in `find /projects/NS9034K/CMIP6 -name "*.nc" | sort | sed -e '/cmorout/d' -e '/latest/d'`
+for ITEM in `find /projects/NS9034K/CMIP6 -name "*.nc" | sort | sed -e '/cmorout/d' -e '/latest/d' -e '/.test/d'`
 do 
 	DIRNAME=`dirname $ITEM`
 	DIRNAME2=`dirname $DIRNAME`

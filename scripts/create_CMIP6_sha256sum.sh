@@ -1,9 +1,15 @@
 #!/bin/bash
 set -e
 
+Version=v20190909
+
+# CAUTIOUS: if overwrite the sha256sum file? default is false
+OverWrite=FALSE
+#OverWrite=TRUE
+
 #tree -f -L 4 /projects/NS9034K/CMIP6/ESGF
 
-#folders+=(/projects/NS9034K/CMIP6/AerChemMIP/NCC/NorESM2-LM/hist-piAer)
+folders+=(/projects/NS9034K/CMIP6/AerChemMIP/NCC/NorESM2-LM/hist-piAer)
 folders+=(/projects/NS9034K/CMIP6/AerChemMIP/NCC/NorESM2-LM/hist-piNTCF)
 folders+=(/projects/NS9034K/CMIP6/AerChemMIP/NCC/NorESM2-LM/piClim-BC)
 folders+=(/projects/NS9034K/CMIP6/AerChemMIP/NCC/NorESM2-LM/piClim-OC)
@@ -16,8 +22,8 @@ folders+=(/projects/NS9034K/CMIP6/DAMIP/NCC/NorESM2-LM/hist-GHG)
 folders+=(/projects/NS9034K/CMIP6/RFMIP/NCC/NorESM2-LM/piClim-4xCO2)
 folders+=(/projects/NS9034K/CMIP6/RFMIP/NCC/NorESM2-LM/piClim-ghg)
 folders+=(/projects/NS9034K/CMIP6/RFMIP/NCC/NorESM2-LM/piClim-lu)
-folders+=(/projects/NS9034K/CMIP6/RFMIP\ AerChemMIP/NCC/NorESM2-LM/piClim-aer)
-folders+=(/projects/NS9034K/CMIP6/RFMIP\ AerChemMIP/NCC/NorESM2-LM/piClim-control)
+folders+=(/projects/NS9034K/CMIP6/RFMIP/NCC/NorESM2-LM/piClim-aer)
+folders+=(/projects/NS9034K/CMIP6/RFMIP/NCC/NorESM2-LM/piClim-control)
 
 pid=$$
 for (( i = 0; i < ${#folders[*]}; i++ )); do
@@ -27,12 +33,15 @@ for (( i = 0; i < ${#folders[*]}; i++ )); do
     for (( j = 0; j < ${#reals[*]}; j++ )); do
         real=${reals[j]}
         echo "Process $folder/$real"
-        find $real -name *.nc -print >/tmp/flist.txt.$pid
-        rm -f ./${real}.sha256sum
+        if [ "$OverWrite" == "TRUE" ]
+        then
+            rm -f ./.${real}.sha256sum
+        fi
         k=1
+        find $real/*/*/*/$Version -name *.nc -print >/tmp/flist.txt.$pid
         while read -r fname
         do
-            sha256sum $fname &>>${real}.sha256sum &
+            sha256sum $fname &>>.${real}.sha256sum &
             while [ $k -gt 15 ]; do
                 wait
                 let k=1
