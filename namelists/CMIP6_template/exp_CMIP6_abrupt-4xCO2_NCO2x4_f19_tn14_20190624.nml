@@ -1,11 +1,11 @@
 &experiment
- casename      = 'NF1850norbc_ghg2014_f19_20190727',
- osubdir       = 'NorESM2-LM/piClim-ghg/v20190815' 
- experiment_id = 'piClim-ghg',
+ casename      = 'NCO2x4_f19_tn14_20190624',
+ osubdir       = 'NorESM2-LM/abrupt-4xCO2/vyyyymmdd' 
+ experiment_id = 'abrupt-4xCO2',
  parent_experiment_id  = 'piControl',
  parent_experiment_rip = 'r1i1p1',
  parent_time_units = 'days since 0421-01-01',
- branch_method = 'Hybrid-restart from year 1751-01-01 of piControl',
+ branch_method = 'Hybrid-restart from year 1600-01-01 of piControl',
  history       = ' ',
  comment       = ' ',
  forcing       = 'N/A',
@@ -27,7 +27,7 @@
  sub_experiment = 'none',
  parent_sub_experiment = 'none'
  branch_time_in_child   = 0.0D0,
- branch_time_in_parent  = 485450.0D0,
+ branch_time_in_parent  = 430335.0D0,
  tracking_prefix   = 'hdl:21.14100'
  newcolumnorder = .true.
  scanallfiles = .false.

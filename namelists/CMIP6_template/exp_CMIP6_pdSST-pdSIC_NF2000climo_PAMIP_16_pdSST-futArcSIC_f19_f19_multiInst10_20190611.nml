@@ -1,11 +1,11 @@
 &experiment
- casename      = 'N1PCT_f19_tn14_20190626',
- osubdir       = 'NorESM2-LM/1pctCO2/v20190815'
- experiment_id = '1pctCO2',
- parent_experiment_id  = 'piControl',
+ casename      = 'NF2000climo_PAMIP_16_pdSST-futArcSIC_f19_f19_multiInst10_20190611',
+ osubdir       = 'NorESM2-LM/pdSST-pdSIC/vyyyymmdd'
+ experiment_id = 'pdSST-pdSIC',
+ parent_experiment_id  = 'amip',
  parent_experiment_rip = 'r1i1p1',
- parent_time_units = 'days since 0421-01-01',
- branch_method = 'Hybrid-restart from year 1600-01-01 of piControl',
+ parent_time_units = 'days since 1975-01-01 00:00:00',
+ branch_method = 'Hybrid-restart from year 2000-04-01 of amip',
  history       = ' ',
  comment       = ' ',
  forcing       = 'N/A',
@@ -15,11 +15,11 @@
  forcing_index = 1, 
  branch_time   = 0.,
  year1         = 1,
- yearn         = 10,
+ yearn         = 1,
  month1        = 1,
  monthn        = 12,
  exprefyear    = 1, 
- activity_id   = 'CMIP', 
+ activity_id   = 'PAMIP', 
  parent_activity_id = 'CMIP', 
  parent_variant_label = 'r1i1p1f1',
  parent_mip_era = 'CMIP6',
@@ -27,8 +27,9 @@
  sub_experiment = 'none',
  parent_sub_experiment = 'none'
  branch_time_in_child   = 0.0D0,
- branch_time_in_parent  = 430335.0D0,
- tracking_prefix   = 'hdl:21.14100'
- newcolumnorder = .true.
- scanallfiles = .false.
+ branch_time_in_parent  = 9215.0D0,
+ tracking_prefix   = 'hdl:21.14100',
+ newcolumnorder = .true.,
+ scanallfiles   = .false.,
+ membertag      = 0001
 /

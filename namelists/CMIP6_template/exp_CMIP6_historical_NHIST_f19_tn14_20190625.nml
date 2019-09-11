@@ -1,7 +1,7 @@
 &experiment
- casename      = 'NCO2x4_f19_tn14_20190705',
- osubdir       = 'NorESM2-LM/abrupt-4xCO2/v20190815' 
- experiment_id = 'abrupt-4xCO2',
+ casename      = 'NHIST_f19_tn14_20190625',
+ osubdir       = 'NorESM2-LM/historical/vyyyymmdd'
+ experiment_id = 'historical',
  parent_experiment_id  = 'piControl',
  parent_experiment_rip = 'r1i1p1',
  parent_time_units = 'days since 0421-01-01',
@@ -14,8 +14,8 @@
  physics_version = 1,
  forcing_index = 1, 
  branch_time   = 0.,
- year1         = 121,
- yearn         = 130,
+ year1         = 1850,
+ yearn         = 1859,
  month1        = 1,
  monthn        = 12,
  exprefyear    = 1, 

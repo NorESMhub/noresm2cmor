@@ -1,7 +1,7 @@
 &experiment
- casename      = 'NF1850norbc_oc2014_f19_20190727',
- osubdir       = 'NorESM2-LM/piClim-OC/v20190815' 
- experiment_id = 'piClim-OC',
+ casename      = 'NF1850norbc_4xco2_f19_20190727',
+ osubdir       = 'NorESM2-LM/piClim-4xCO2/vyyyymmdd' 
+ experiment_id = 'piClim-4xCO2',
  parent_experiment_id  = 'piControl',
  parent_experiment_rip = 'r1i1p1',
  parent_time_units = 'days since 0421-01-01',

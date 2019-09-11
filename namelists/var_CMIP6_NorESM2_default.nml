@@ -457,7 +457,6 @@
                  'nep          ','NEP                                   ','kg m-2 s-1;positivedo',
                  'ps           ','PS                                    ','          ',
                  'reffclws     ','REFFL                                 ','cldfoc;micrometer',
-                 'rsdsdiff     ','SOLLD+SOLSD                           ','positivedo',
                  'rsdsdiff     ','SWCF                                  ','positivedo',
                  'sconcdust    ','DUST                                  ','          ',
                  'sconcso4     ','SO4                                   ','          ',

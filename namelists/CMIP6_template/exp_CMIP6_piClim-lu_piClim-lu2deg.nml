@@ -1,7 +1,7 @@
 &experiment
- casename      = 'NHIST_f19_tn14_20190710',
- osubdir       = 'NorESM2-LM/historical/v20190815' 
- experiment_id = 'historical',
+ casename      = 'piClim-lu2deg',
+ osubdir       = 'NorESM2-LM/piClim-lu/vyyyymmdd'
+ experiment_id = 'piClim-lu',
  parent_experiment_id  = 'piControl',
  parent_experiment_rip = 'r1i1p1',
  parent_time_units = 'days since 0421-01-01',
@@ -14,12 +14,12 @@
  physics_version = 1,
  forcing_index = 1, 
  branch_time   = 0.,
- year1         = 1950,
- yearn         = 1959,
+ year1         = 1,
+ yearn         = 10,
  month1        = 1,
  monthn        = 12,
  exprefyear    = 1, 
- activity_id   = 'CMIP', 
+ activity_id   = 'RFMIP', 
  parent_activity_id = 'CMIP', 
  parent_variant_label = 'r1i1p1f1',
  parent_mip_era = 'CMIP6',

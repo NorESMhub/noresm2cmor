@@ -1,7 +1,7 @@
 &experiment
- casename      = 'NHIST_f19_tn14_20190625',
- osubdir       = 'NorESM2-LM/historical/v20190815'
- experiment_id = 'historical',
+ casename      = 'N1850ghgonly_f19_tn14_20190712',
+ osubdir       = 'NorESM2-LM/hist-GHG/vyyyymmdd'
+ experiment_id = 'hist-GHG',
  parent_experiment_id  = 'piControl',
  parent_experiment_rip = 'r1i1p1',
  parent_time_units = 'days since 0421-01-01',

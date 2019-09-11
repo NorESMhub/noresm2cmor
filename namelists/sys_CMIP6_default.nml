@@ -1,6 +1,6 @@
 &sys
  ibasedir      = '../data/cmorin',
- obasedir      = '/projects/NS9034K/CMIP6/cmorout',
+ obasedir      = '/projects/NS9034K/CMIP6/.cmorout',
  griddata      = '../data/griddata',
  tabledir      = '../tables'
  createsubdirs = .false.,

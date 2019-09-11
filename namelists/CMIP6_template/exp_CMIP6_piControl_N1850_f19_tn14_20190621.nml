@@ -1,6 +1,6 @@
 &experiment
  casename      = 'N1850_f19_tn14_20190621',
- osubdir       = 'NorESM2-LM/piControl/v20190815' 
+ osubdir       = 'NorESM2-LM/piControl/vyyyymmdd' 
  experiment_id = 'piControl',
  parent_experiment_id  = 'piControl-spinup',
  parent_experiment_rip = 'r1i1p1',
