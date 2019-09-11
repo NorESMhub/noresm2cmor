@@ -1,0 +1,25 @@
+! d* - do table true/
+! t* - path to table file (guessed if omitted) 
+! p* - alternative path to data file (path created if omitted)
+! r* - ?
+! v* - list of varibles: <NorESM name>,<cmor name>,<special operation>
+
+&table_grids
+ tgrids        = 'CMIP6_grids.json'
+/
+ 
+&table_Emon
+ dEmon        = .true.
+ tEmon        = 'CMIP6_Emon.json'
+ vEmon        =
+                 'hus          ','Q                                     ','unitless  ',
+!                'loadbc       ','BC_A+BC_AC+BC_AI+BC_AX+BC_N+BC_NI     ','calcload  ',
+                 'loaddust     ','DST_A2+DST_A3                         ','calcload  ',
+!                'loadpoa      ','OM_AC+OM_AI+OM_NI                     ','calcload  ',
+                 'loadss       ','SS_A1+SS_A2+SS_A3                     ','calcload  ',
+                 'ps           ','PS                                    ','          ',
+                 'rsdsdiff     ','SWCF                                  ','positivedo',
+                 'ua           ','U                                     ','          ',
+                 'va           ','V                                     ','          ',
+                 'wap          ','OMEGA                                 ','          ',
+/
