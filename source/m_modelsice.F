@@ -920,11 +920,11 @@ c --- Call CMOR setup
       IF (verbose) THEN
         IF (createsubdirs) THEN  
           error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE_4,set_verbosity=CMOR_NORMAL, 
+     .      netcdf_file_action=CMOR_REPLACE_4,set_verbosity=CMOR_NORMAL,
      .      create_subdirectories=1)
         ELSE
           error_flag=cmor_setup(inpath=TRIM(ibasedir),
-     .      netcdf_file_action=CMOR_REPLACE_4,set_verbosity=CMOR_NORMAL, 
+     .      netcdf_file_action=CMOR_REPLACE_4,set_verbosity=CMOR_NORMAL,
      .      create_subdirectories=0)
         ENDIF
       ELSE

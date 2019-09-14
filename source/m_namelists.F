@@ -306,7 +306,7 @@ c --- Tables
 c
 c --- Misc 
       INTEGER :: istatus,funit 
-      CHARACTER(LEN=slenmax), SAVE :: fnm,itag,nmlfp ! input file name and tag 
+      CHARACTER(LEN=slenmax), SAVE :: fnm,itag,nmlfp,vsingle=' ' ! input file name and tag 
       CHARACTER(LEN=slenmax), SAVE :: nmlfpsys,nmlfpmod,nmlfpexp, 
      .  nmlfpvar  ! namelist file paths 
 c
@@ -329,7 +329,7 @@ c --- -----------------------------------------------------------------
 c
       IMPLICIT NONE 
 c
-      INTEGER :: n
+      INTEGER :: n,pi,po
       LOGICAL :: fexist 
 c
 c --- Initialise namelist variables
@@ -682,13 +682,16 @@ c
 #endif 
 c
 c --- Read namelists 
-      IF (iargc().NE.1.AND.iargc().NE.4) THEN 
-        WRITE(*,*) 'Usage: noresm2cmor <path to master namelist file>'  
+      IF (iargc().NE.1.AND.iargc().NE.2.AND.iargc().NE.4
+     .    .AND.iargc().NE.5) THEN 
+        WRITE(*,*) 'Usage: noresm2cmor <path to master namelist file>'
+     .           //' [<cmor variable to process>]'  
         WRITE(*,*) '       or                                       '  
         WRITE(*,*) '       noresm2cmor <system nml-file> <model nml'//
-     .    '-file> <exp nml-file> <variable nml-file>'  
+     .             '-file> <exp nml-file> <variable nml-file>'  
+     .           //' [<cmor variable to process>]'  
         STOP  
-      ELSEIF (iargc().EQ.1) THEN
+      ELSEIF (iargc().EQ.1.OR.iargc().EQ.2) THEN
         nmlfp=' ' 
         CALL getarg(1,nmlfp)
         INQUIRE(FILE=TRIM(nmlfp),EXIST=fexist)
@@ -700,7 +703,10 @@ c --- Read namelists
         nmlfpmod=nmlfp
         nmlfpexp=nmlfp
         nmlfpvar=nmlfp
-      ELSEIF (iargc().EQ.4) THEN
+        IF (iargc().EQ.2) THEN 
+          CALL getarg(2,vsingle) 
+        ENDIF  
+      ELSEIF (iargc().EQ.4.OR.iargc().EQ.5) THEN
         nmlfpsys=' ' 
         CALL getarg(1,nmlfpsys)
         INQUIRE(FILE=TRIM(nmlfpsys),EXIST=fexist)
@@ -729,6 +735,9 @@ c --- Read namelists
           WRITE(*,*) 'cannot find namelist file'//TRIM(nmlfpvar) 
           STOP
         ENDIF
+        IF (iargc().EQ.5) THEN 
+          CALL getarg(5,vsingle) 
+        ENDIF  
       ENDIF
 c        
       funit=get_free_unit()
@@ -943,6 +952,12 @@ c
 c
       CLOSE(funit)
 c
+c --- Map column order of variable definitions
+      IF (newcolumnorder) THEN
+        ivnmpos=2
+        ovnmpos=1
+      ENDIF
+c 
 c --- Merge global string arrays
       CALL merge_strarr(slenmax,smax,source,source1,linebreaks)  
       CALL merge_strarr(slenmax,smax,history,history1,linebreaks)  
@@ -985,6 +1000,29 @@ c --- Count number of table entries
         IF (LEN_TRIM(v3hr(1,n)).ne.0) n3hr=n3hr+1 
         IF (LEN_TRIM(v3hri(1,n)).ne.0) n3hri=n3hri+1 
       ENDDO 
+      IF (LEN_TRIM(vsingle).NE.0) THEN  
+        pi=ivnmpos
+        po=ovnmpos
+        DO n=1,rowmax 
+          IF (TRIM(vsingle).NE.TRIM(vfx(po,n))) vfx(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(voyr(po,n))) voyr(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(voyrbgc(po,n))) voyrbgc(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vomon(po,n))) vomon(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vomonbgc(po,n))) 
+     .      vomonbgc(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(voimon(po,n))) voimon(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vamon(po,n))) vamon(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vaero(po,n))) vaero(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vlmon(po,n))) vlmon(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vlimon(po,n))) vlimon(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vday(po,n))) vday(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(v6hrlev(po,n))) v6hrlev(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(v6hrplev(po,n))) 
+     .      v6hrplev(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(v3hr(po,n))) v3hr(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(v3hri(po,n))) v3hri(pi,n)='SKIP'
+        ENDDO 
+      ENDIF 
 #ifdef CMOR3
       nofx          = 0
       n6hrPlevPt    = 0
@@ -1040,6 +1078,43 @@ c --- Count number of table entries
         IF (LEN_TRIM(vCOfx(1,n)).ne.0) nCOfx=nCOfx+1 
         IF (LEN_TRIM(vSIday(1,n)).ne.0) nSIday=nSIday+1 
       ENDDO 
+      IF (LEN_TRIM(vsingle).NE.0) THEN       
+        pi=ivnmpos
+        po=ovnmpos
+        DO n=1,rowmax
+          IF (TRIM(vsingle).NE.TRIM(vofx(po,n))) vofx(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(v6hrPlevPt(po,n))) 
+     .      v6hrPlevPt(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vAERday(po,n))) vAERday(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vAERhr(po,n))) vAERhr(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vAERmonZ(po,n))) 
+     .      vAERmonZ(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vCF3hr(po,n))) vCF3hr(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vCFday(po,n))) vCFday(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vCFmon(po,n))) vCFmon(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vCFsubhr(po,n))) 
+     .      vCFsubhr(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vE1hrClimMon(po,n))) 
+     .      vE1hrClimMon(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vE1hr(po,n))) vE1hr(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vE3hr(po,n))) vE3hr(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vCE3hrPt(po,n))) 
+     .      vCE3hrPt(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vE6hrZ(po,n))) vE6hrZ(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vEday(po,n))) vEday(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vEdayZ(po,n))) vEdayZ(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vEfx(po,n))) vEfx(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vEmon(po,n))) vEmon(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vEmonZ(po,n))) vEmonZ(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vEsubhr(po,n))) vEsubhr(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vEyr(po,n))) vEyr(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vOclim(po,n))) vOclim(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vOday(po,n))) vOday(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vOdec(po,n))) vOdec(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vCOfx(po,n))) vCOfx(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vSIday(po,n))) vSIday(pi,n)='SKIP'
+        ENDDO
+      ENDIF 
 #endif
 c     
 c --- Skip deselected namelists 
@@ -1099,12 +1174,6 @@ c --- parent_experiment_rip
       ENDIF
 #endif 
 c
-c --- Map column order of variable definitions
-      IF (newcolumnorder) THEN 
-        ivnmpos=2 
-        ovnmpos=1
-      ENDIF  
-c 
 c --- Extend input path if necessary 
       IF (LEN_TRIM(isubdir).GT.0)
      .  ibasedir=TRIM(ibasedir)//'/'//TRIM(isubdir)
@@ -1503,10 +1572,6 @@ c
       TYPE(json_core) :: json 
       TYPE(json_value), POINTER :: p 
 c
-#ifdef MPI
-      CALL MPI_COMM_RANK(MPI_COMM_WORLD, mpirank, mpierror)
-      IF (mpirank.EQ.0) THEN
-#endif 
       CALL json%initialize()
       CALL json%create_object(p,'') 
 c --- mapped from cmor2     
@@ -1553,10 +1618,10 @@ c --- new for cmor3
       CALL json%add(p,'parent_time_units',TRIM(parent_time_units)) 
       CALL json%add(p,'tracking_prefix',TRIM(tracking_prefix)) 
       CALL json%add(p,'output_path_template','<activity_id>'
-     .  //'<institution_id><source_id><experiment_id><variant_label>'
+     .  //'<institution_id><source_id><experiment_id><_member_id>'
      .  //'<table><variable_id><grid_label><version>')
       CALL json%add(p,'output_file_template','<variable_id><table>'
-     .  //'<source_id><experiment_id><variant_label><grid_label>')
+     .  //'<source_id><experiment_id><_member_id><grid_label>')
       CALL json%add(p,'license',
      . "CMIP6 model data produced by NCC is licensed under a Creative "
      .//"Commons Attribution ShareAlike 4.0 International License "
@@ -1579,9 +1644,6 @@ c
      .//'.json')  
       call json%destroy(p)            !cleanup
 c
-#ifdef MPI
-      ENDIF
-#endif 
       END SUBROUTINE write_namelist_json 
 #endif 
 

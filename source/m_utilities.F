@@ -202,12 +202,19 @@ c
 c
       INTEGER :: ncid,rhid,status,ind
 c 
-      status=nf90_open(TRIM(fnm),nf90_nowrite,ncid)
-      IF (status.NE.nf90_noerr) THEN
+      var_in_file=.FALSE.
+      IF (LEN_TRIM(fnm).GT.0) THEN 
+        status=nf90_open(TRIM(fnm),nf90_nowrite,ncid)
+        IF (status.NE.nf90_noerr) THEN
+          IF (verbose) WRITE(*,*) 
+     .      'WARNING: no file found for tag=',TRIM(itag),
+     .      '. Will skip respective output group.' 
+          RETURN 
+        ENDIF 
+      ELSE 
         IF (verbose) WRITE(*,*) 
      .    'WARNING: no file found for tag=',TRIM(itag),
      .    '. Will skip respective output group.' 
-        var_in_file=.FALSE.
         RETURN 
       ENDIF  
 c

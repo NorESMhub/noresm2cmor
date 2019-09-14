@@ -141,6 +141,6 @@ Compile with
 CMORize (e.g. using 8 tasks) with 
  cd ../bin 
  export I_MPI_WAIT_MODE=1
- mpirun -n 8 noresm2cmor_mpi <path to namelist> 
- mpirun -n 8 noresm2cmor3_mpi <path to namelist> 
+ mpirun -n 8 ./noresm2cmor_mpi <path to namelist> 
+ mpirun -n 8 ./noresm2cmor3_mpi <path to namelist> 
 

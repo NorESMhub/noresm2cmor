@@ -318,7 +318,7 @@ c --- --- Read variable into buffer (average if necessary)
               EXIT
             ENDIF
             nrec=nrec+1
-            write(*,*) 'DEBUG: ',trim(fnm),rec,nrec,tbnd,mbnd,year,month
+cdiag       write(*,*) 'DEBUG: ',trim(fnm),rec,nrec,tbnd,mbnd,year,month
             CALL read_tslice(rec,badrec,fnm)
             fldacc=fldacc+fld
             IF (INDEX(special,'mon2yr').GT.0) THEN
