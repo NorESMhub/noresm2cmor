@@ -13,7 +13,7 @@ source activate /projects/NS9560K/cmor/PrePARE
 export CMIP6_CMOR_TABLES=/projects/NS9560K/cmor/noresm2cmor/tables
 
 
-REPORT=${IPATH}.QCreport 
+REPORT=`dirname $IPATH`/`basename $IPATH`.QCreport 
 echo "QC report written to $REPORT" 
 PrePARE $IPATH > $REPORT
 echo COMPLETE 
