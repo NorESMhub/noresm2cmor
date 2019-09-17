@@ -5,7 +5,6 @@
  institute_id  = 'NCC',
  references    = ' ',
  contact       = 'Please send any requests or bug reports to noresm-ncc@met.no.',
- source_type   = 'AOGCM',
  atmgrid       = 'finite-volume grid with 1.9x2.5 degree lat/lon resolution',
  atmgrid_label = 'gn', 
  atmgrid_resolution = '250 km',

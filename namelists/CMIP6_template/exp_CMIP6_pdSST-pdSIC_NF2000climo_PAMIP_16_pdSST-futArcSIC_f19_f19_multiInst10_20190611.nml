@@ -32,5 +32,5 @@
  newcolumnorder = .true.,
  scanallfiles   = .false.,
  membertag      = 0001,
- source_type   = 'AGCM'
+ source_type   = 'AGCM AER'
 /
