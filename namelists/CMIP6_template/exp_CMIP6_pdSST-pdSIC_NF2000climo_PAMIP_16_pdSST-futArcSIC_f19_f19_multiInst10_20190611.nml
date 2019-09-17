@@ -31,5 +31,6 @@
  tracking_prefix   = 'hdl:21.14100',
  newcolumnorder = .true.,
  scanallfiles   = .false.,
- membertag      = 0001
+ membertag      = 0001,
+ source_type   = 'AGCM'
 /

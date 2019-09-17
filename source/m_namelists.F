@@ -42,7 +42,7 @@ c --- Model namelist
       LOGICAL, SAVE :: linebreaks
 #ifdef CMOR3
       CHARACTER(LEN=slenmax), SAVE :: 
-     .  source_type,parent_source_id,coordtable,
+     .  parent_source_id,coordtable,
      .  atmgrid,atmgrid_label,atmgrid_resolution,
      .  ocngrid,ocngrid_label,ocngrid_resolution,
      .  icegrid,icegrid_label,icegrid_resolution,
@@ -50,7 +50,6 @@ c --- Model namelist
 #endif 
       NAMELIST /model/
 #ifdef CMOR3
-     .  source_type, 
      .  parent_source_id, 
      .  atmgrid,atmgrid_label,atmgrid_resolution,
      .  ocngrid,ocngrid_label,ocngrid_resolution,
@@ -116,7 +115,8 @@ c --- Experiment namelist
       CHARACTER(LEN=slenmax), SAVE ::
      .  activity_id,parent_variant_label,parent_mip_era,mip_era,
      .  sub_experiment,parent_sub_experiment,parent_activity_id, 
-     .  branch_method,parent_time_units,tracking_prefix,variant_label
+     .  branch_method,parent_time_units,tracking_prefix,variant_label,
+     .  source_type
       REAL(KIND=8), SAVE :: branch_time_in_child,branch_time_in_parent
       INTEGER, SAVE :: forcing_index
 #endif 
@@ -138,6 +138,7 @@ c --- Experiment namelist
      .  physics_version, 
      .  initialization_method, 
      .  forcing_index,
+     .  source_type,
 #endif 
      .  casename, 
      .  experiment_id,    
