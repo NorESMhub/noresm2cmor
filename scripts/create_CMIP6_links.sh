@@ -5,24 +5,24 @@ pid=$$
 ROOT=/projects/NS9034K/CMIP6
 cd $ROOT
 
-VER=v20190815
-#VER=v20190909
+#VER=v20190815
+VER=v20190909
 
-#folders+=(.cmorout/NorESM2-LM/1pctCO2/${VER})
-#folders+=(.cmorout/NorESM2-LM/abrupt-4xCO2/${VER})
-#folders+=(.cmorout/NorESM2-LM/hist-GHG/${VER})
-#folders+=(.cmorout/NorESM2-LM/historical/${VER})
-#folders+=(.cmorout/NorESM2-LM/hist-piAer/${VER})
-#folders+=(.cmorout/NorESM2-LM/hist-piNTCF/${VER})
+folders+=(.cmorout/NorESM2-LM/1pctCO2/${VER})
+folders+=(.cmorout/NorESM2-LM/abrupt-4xCO2/${VER})
+folders+=(.cmorout/NorESM2-LM/hist-GHG/${VER})
+folders+=(.cmorout/NorESM2-LM/historical/${VER})
+folders+=(.cmorout/NorESM2-LM/hist-piAer/${VER})
+folders+=(.cmorout/NorESM2-LM/hist-piNTCF/${VER})
 folders+=(.cmorout/NorESM2-LM/piClim-4xCO2/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-aer/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-BC/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-control/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-ghg/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-lu/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-OC/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-SO2/${VER})
-#folders+=(.cmorout/NorESM2-LM/piControl/${VER})
+folders+=(.cmorout/NorESM2-LM/piClim-aer/${VER})
+folders+=(.cmorout/NorESM2-LM/piClim-BC/${VER})
+folders+=(.cmorout/NorESM2-LM/piClim-control/${VER})
+folders+=(.cmorout/NorESM2-LM/piClim-ghg/${VER})
+folders+=(.cmorout/NorESM2-LM/piClim-lu/${VER})
+folders+=(.cmorout/NorESM2-LM/piClim-OC/${VER})
+folders+=(.cmorout/NorESM2-LM/piClim-SO2/${VER})
+folders+=(.cmorout/NorESM2-LM/piControl/${VER})
 
 insitute=NCC
 for (( i = 0; i < ${#folders[*]}; i++ )); do

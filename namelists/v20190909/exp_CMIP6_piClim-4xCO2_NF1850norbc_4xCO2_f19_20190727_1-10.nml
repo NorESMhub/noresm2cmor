@@ -1,6 +1,6 @@
 &experiment
  casename      = 'NF1850norbc_4xco2_f19_20190727',
- osubdir       = 'NorESM2-LM/piClim-4xco2/v20190909' 
+ osubdir       = 'NorESM2-LM/piClim-4xCO2/v20190909' 
  experiment_id = 'piClim-4xCO2',
  parent_experiment_id  = 'piControl',
  parent_experiment_rip = 'r1i1p1',
@@ -28,7 +28,8 @@
  parent_sub_experiment = 'none'
  branch_time_in_child   = 0.0D0,
  branch_time_in_parent  = 485450.0D0,
- tracking_prefix   = 'hdl:21.14100'
- newcolumnorder = .true.
- scanallfiles = .false.
+ tracking_prefix   = 'hdl:21.14100',
+ newcolumnorder = .true.,
+ scanallfiles = .false.,
+ source_type   = 'AGCM AER'
 /

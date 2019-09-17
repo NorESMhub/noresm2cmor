@@ -28,7 +28,8 @@
  parent_sub_experiment = 'none'
  branch_time_in_child   = 0.0D0,
  branch_time_in_parent  = 430335.0D0,
- tracking_prefix   = 'hdl:21.14100'
- newcolumnorder = .true.
- scanallfiles = .false.
+ tracking_prefix   = 'hdl:21.14100',
+ newcolumnorder = .true.,
+ scanallfiles = .false.,
+ source_type   = 'AOGCM AER BGC'
 /

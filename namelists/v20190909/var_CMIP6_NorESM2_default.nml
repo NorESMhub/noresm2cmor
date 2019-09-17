@@ -13,9 +13,7 @@
  tEmon        = 'CMIP6_Emon.json'
  vEmon        =
                  'hus          ','Q                                     ','unitless  ',
-!                'loadbc       ','BC_A+BC_AC+BC_AI+BC_AX+BC_N+BC_NI     ','calcload  ',
                  'loaddust     ','DST_A2+DST_A3                         ','calcload  ',
-!                'loadpoa      ','OM_AC+OM_AI+OM_NI                     ','calcload  ',
                  'loadss       ','SS_A1+SS_A2+SS_A3                     ','calcload  ',
                  'ps           ','PS                                    ','          ',
                  'rsdsdiff     ','SWCF                                  ','positivedo',
