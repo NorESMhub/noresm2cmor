@@ -11,7 +11,7 @@ c --- MPI
 #endif 
 c --- Namelist limits 
       INTEGER, PARAMETER :: rowmax=100,colmax=3,lenmax=80 
-      INTEGER, PARAMETER :: slenmax=500,smax=10  
+      INTEGER, PARAMETER :: slenmax=500,slenmax2x=1024,smax=10  
 c
 c --- System namelist
       CHARACTER(LEN=slenmax), SAVE :: ibasedir,obasedir,tabledir,
@@ -29,7 +29,7 @@ c
 c --- Model namelist 
       CHARACTER(LEN=slenmax), SAVE :: 
      .  model_id,institute_id 
-      CHARACTER(LEN=slenmax), DIMENSION(smax), SAVE :: 
+      CHARACTER(LEN=slenmax2x), DIMENSION(smax), SAVE :: 
      .  institution,source,references,contact
       CHARACTER(LEN=(slenmax+1)*smax), SAVE :: 
      .  institution1,source1,references1,contact1
