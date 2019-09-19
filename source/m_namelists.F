@@ -1580,7 +1580,7 @@ c --- mapped from cmor2
       CALL json%add(p,'experiment_id',TRIM(experiment_id)) 
       CALL json%add(p,'institution_id',TRIM(institute_id)) 
       CALL json%add(p,'institution',TRIM(institution1))
-      CALL json%add(p,'source_id',TRIM(source1))
+      CALL json%add(p,'source_id',TRIM(model_id))
       CALL json%add(p,'source',TRIM(source1))
       CALL json%add(p,'calendar',TRIM(calendar))
       CALL json%add(p,'realization_index',realization)
