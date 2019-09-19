@@ -1,10 +1,12 @@
 #!/bin/bash
-set -e
+#set -e
 
-Version=v20190909
+#Version=v20190815
+#Version=v20190909
+Version=v20190917
 
 # CAUTIOUS: if overwrite the sha256sum file? default is false
-OverWrite=FALSE
+#OverWrite=FALSE
 #OverWrite=TRUE
 
 #tree -f -L 4 /projects/NS9034K/CMIP6/ESGF
@@ -33,12 +35,12 @@ for (( i = 0; i < ${#folders[*]}; i++ )); do
     for (( j = 0; j < ${#reals[*]}; j++ )); do
         real=${reals[j]}
         echo "Process $folder/$real"
-        if [ "$OverWrite" == "TRUE" ]
+        if [ ! -z $OverWrite ] && [ "$OverWrite" == "TRUE" ]
         then
             rm -f ./.${real}.sha256sum
         fi
         k=1
-        find $real/*/*/*/$Version -name *.nc -print >/tmp/flist.txt.$pid
+        find $real/*/*/*/$Version -name *.nc -print 2>/dev/null 1>/tmp/flist.txt.$pid
         while read -r fname
         do
             sha256sum $fname &>>.${real}.sha256sum &

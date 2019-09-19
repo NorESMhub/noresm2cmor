@@ -1,12 +1,13 @@
 #!/bin/bash
-set -e
+#set -e
 pid=$$
 
 ROOT=/projects/NS9034K/CMIP6
 cd $ROOT
 
 #VER=v20190815
-VER=v20190909
+#VER=v20190909
+VER=v20190917
 
 folders+=(.cmorout/NorESM2-LM/1pctCO2/${VER})
 folders+=(.cmorout/NorESM2-LM/abrupt-4xCO2/${VER})
@@ -28,9 +29,12 @@ insitute=NCC
 for (( i = 0; i < ${#folders[*]}; i++ )); do
     folder=${folders[i]}
     echo "$folder"
-    pwd
 
-    find $folder -name *.nc -print >/tmp/flist.txt.$pid
+    find $folder -name *.nc -print 1>/tmp/flist.txt.$pid
+    if [ $? -ne 0 ]
+    then
+        continue
+    fi
     fname1=$(head -1 /tmp/flist.txt.$pid) 
     version=$(echo $folder | awk -F/ '{print $(NF) }')
     activity=$(cdo -s showattribute,activity_id $fname1 |grep 'activity_id' |cut -d'"' -f2)
