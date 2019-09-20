@@ -11,7 +11,7 @@ c --- MPI
 #endif 
 c --- Namelist limits 
       INTEGER, PARAMETER :: rowmax=100,colmax=3,lenmax=80 
-      INTEGER, PARAMETER :: slenmax=500,slenmax2x=1024,smax=10  
+      INTEGER, PARAMETER :: slenmax=1024,smax=10  
 c
 c --- System namelist
       CHARACTER(LEN=slenmax), SAVE :: ibasedir,obasedir,tabledir,
@@ -29,7 +29,7 @@ c
 c --- Model namelist 
       CHARACTER(LEN=slenmax), SAVE :: 
      .  model_id,institute_id 
-      CHARACTER(LEN=slenmax2x), DIMENSION(smax), SAVE :: 
+      CHARACTER(LEN=slenmax), DIMENSION(smax), SAVE :: 
      .  institution,source,references,contact
       CHARACTER(LEN=(slenmax+1)*smax), SAVE :: 
      .  institution1,source1,references1,contact1
@@ -42,7 +42,7 @@ c --- Model namelist
       LOGICAL, SAVE :: linebreaks
 #ifdef CMOR3
       CHARACTER(LEN=slenmax), SAVE :: 
-     .  parent_source_id,coordtable,
+     .  parent_source_id,coordtable,namelist_file_json,
      .  atmgrid,atmgrid_label,atmgrid_resolution,
      .  ocngrid,ocngrid_label,ocngrid_resolution,
      .  icegrid,icegrid_label,icegrid_resolution,
@@ -1570,6 +1570,7 @@ c
       IMPLICIT NONE
 c 
       CHARACTER(len=*) :: grid,grid_label,grid_resolution,varname
+      CHARACTER(len=6) :: yyyymm1,yyyymm2 
       TYPE(json_core) :: json 
       TYPE(json_value), POINTER :: p 
 c
@@ -1640,10 +1641,14 @@ c --- new for cmor3
      .//"supply of the information (including any liability arising " 
      .//"in negligence) are excluded to the fullest extent permitted " 
      .//"by law.") 
-c
-      call json%print(p,'namelist_'//TRIM(casename)//'_'//TRIM(varname)
-     .//'.json')  
-      call json%destroy(p)            !cleanup
+c 
+      WRITE(yyyymm1,'(I4.4,I2.2)') year1,month1
+      WRITE(yyyymm2,'(I4.4,I2.2)') yearn,monthn
+      namelist_file_json='/tmp/namelist_'//TRIM(casename)//'_'//
+     .  TRIM(varname)//'_'//yyyymm1//'-'//yyyymm2//'.json'  
+      CALL json%print(p,namelist_file_json)
+      CALL json%destroy(p)            !cleanup
+      CALL SYSTEM('ls -l /tmp/')
 c
       END SUBROUTINE write_namelist_json 
 #endif 

@@ -9,6 +9,7 @@
  branch_method = 'perturbations to atmospheric fields were applied at the branch time',
  history       = ' ',
  comment       = ' ',
+ source_type   = 'AOGCM',
  forcing       = 'N/A',
  realization   = 1,
  initialization_method = 1, 

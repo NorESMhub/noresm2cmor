@@ -1,6 +1,5 @@
 &model
  model_id      = 'NorCPM1',
- source        = 'NorCPM1',
  institution   = 'NorESM Climate modeling Consortium',
  institute_id  = 'NCC',
  references    = 'Bethke et al. (in prep), ',
@@ -14,7 +13,6 @@
                  'profiles into isopycnal ocean models with ensemble data ',
                  'assimilation. Ocean Modelling, 114, DOI: 10.1016/j.ocemod.2017.04.007',
  contact       = 'Please send any requests or bug reports to norcpm@uib.no',
- source_type   = 'AOGCM',
  atmgrid       = 'finite-volume grid with 1.9x2.5 degree lat/lon resolution',
  atmgrid_label = 'gn',
  atmgrid_resolution = '250 km',
@@ -44,7 +42,7 @@
  taglday       = 'clm2.h1',
  tagl3hr       = 'clm2.h2',
  tagl3hri      = 'clm2.h3',
- rhotablesuff  = 'OnRho'
+ rhotablesuff  = 'OnRho',
  atmgridfile   = 'grid_atm_1.9x2.5_gx1v6.nc',
  ocngridfile   = 'grid_gx1v6.nc',
  ocninitfile   = 'inicon_gx1v6.nc',

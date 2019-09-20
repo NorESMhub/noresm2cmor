@@ -10,6 +10,7 @@
  history       = ' ',
  comment       = 'i1 stands for anomaly assimilation of T/S profile observations into ocean',
                  'component using 1980-2010 as climatological period (see Bethke et al. for details)',
+ source_type   = 'AOGCM',
  forcing       = 'N/A',
  realization   = 1,
  initialization_method = 1, 

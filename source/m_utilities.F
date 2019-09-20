@@ -461,14 +461,14 @@ c
       use netcdf
       implicit none
 c 
-      character*500 :: idir,cnam,ftag,fpre,fnam,str1,str2
+      character*1024 :: idir,cnam,ftag,fpre,fnam,str1,str2
       integer :: y1,m1,y2,m2,yref,mref,dref,yr,irec
       integer,save :: y1old=0,m1old=0,y2old=0,m2old=0
       integer :: year,month,idx,yyyy
       real*8 :: tval,tbnd(2),mbnd(2)
       logical :: lreset
 c
-      character*500, save :: fpreold='xxx',units,calendar
+      character*1024, save :: fpreold='xxx',units,calendar
       integer, save :: fstat,n,nrec,unlimdimid,ncid,rhid,rhid2,
      .           status,sstartend(2,10),nskip,irecold,toff,ndays
       real*8,save :: dnumlo,dnumhi, tbndold(2)=(/-999999.,-999999./)
@@ -510,13 +510,13 @@ c --- loop over files
      .                 FORM='formatted')
 c     skip all files that have already been scanned       
       do n=1,nskip
-        read(funit,'(a500)',iostat=fstat) fnam
+        read(funit,'(a1024)',iostat=fstat) fnam
         if (fstat.ne.0) stop 'unexpected end of list file'
       enddo
 c     continue with files that have not yet been scanned 
       ldone=.false.
       do
-        read(funit,'(a500)',iostat=fstat) fnam
+        read(funit,'(a1024)',iostat=fstat) fnam
         if (fstat.ne.0) then
           fnam=' '
           irec=0

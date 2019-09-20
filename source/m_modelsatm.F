@@ -57,6 +57,8 @@ c --- -----------------------------------------------------------------
 
       SUBROUTINE atm2cmor 
 c
+c --- -----------------------------------------------------------------
+c
       IMPLICIT NONE
 c
       LOGICAL :: badrec,last,skipini
@@ -1434,8 +1436,8 @@ c --- Define output dataset
         CALL write_namelist_json(atmgrid,atmgrid_label,
      .    atmgrid_resolution,ovnm)
       ENDIF
-      error_flag=cmor_dataset_json('namelist_'//TRIM(casename)//'_'//
-     .  TRIM(ovnm)//'.json')
+      error_flag=cmor_dataset_json(namelist_file_json)
+      CALL SYSTEM('rm '//TRIM(namelist_file_json))
 #else
       error_flag=cmor_dataset(
      .  outpath         = obasedir,

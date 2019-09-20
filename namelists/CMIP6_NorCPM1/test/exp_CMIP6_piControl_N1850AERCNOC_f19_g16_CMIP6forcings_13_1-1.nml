@@ -8,6 +8,7 @@
  branch_method = 'Spin-up documentation',
  history       = ' ',
  comment       = ' ',
+ source_type   = 'AOGCM',
  forcing       = 'N/A',
  realization   = 1,
  initialization_method = 1, 
