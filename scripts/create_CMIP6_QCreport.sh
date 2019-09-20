@@ -21,7 +21,7 @@ then
   PrePARE $1 > $REPORT
 elif [ "$1" == "--all-skip-existing" ] || [ "$1" == "--all-replace-existing" ]
 then
-  BASEDIR=/projects/NS9034K/CMIP6/.cmorout/NorESM2-LM
+  BASEDIR=/projects/NS9034K/CMIP6/.cmorout
   for MOD in `ls $BASEDIR`
   do 
     if [ ! -d $BASEDIR/$MOD ] ; then continue ; fi 
