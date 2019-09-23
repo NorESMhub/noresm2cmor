@@ -674,6 +674,15 @@ c
       status=nf90_get_var(ncid,rhid,uvlat)
       CALL handle_ncerror(status)
       status=nf90_inq_varid(ncid,'ANGLE',rhid) 
+
+      DO j=1,jdm
+        DO i=1,idm
+          IF (tlat(i,j).GT.1e20) tlat(i,j)= 1e20
+          IF (tlon(i,j).GT.1e20) tlon(i,j)= 1e20
+          IF (uvlat(i,j).GT.1e20) uvlat(i,j)= 1e20
+          IF (uvlon(i,j).GT.1e20) uvlon(i,j)= 1e20
+        ENDDO
+      ENDDO
       IF (status.EQ.NF90_NOERR) THEN 
         status=nf90_get_var(ncid,rhid,angle)
         CALL handle_ncerror(status)
