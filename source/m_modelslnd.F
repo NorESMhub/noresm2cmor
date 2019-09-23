@@ -997,7 +997,8 @@ c
 c --- Derive physics_version and initialization_method from
 c --- parent_experiment_rip
       IF (TRIM(parent_experiment_rip).NE.'r1i1p1'.AND.
-     .    TRIM(parent_experiment_rip).NE.'N/A') THEN
+     .    TRIM(parent_experiment_rip).NE.'N/A' .AND.
+     .    TRIM(parent_experiment_rip).NE.'no parent' ) THEN
         READ(parent_experiment_rip(INDEX(parent_experiment_rip,'i')+1:
      .    INDEX(parent_experiment_rip,'p')-1),*) initialization_method
         READ(parent_experiment_rip(INDEX(parent_experiment_rip,'p')+1:),
