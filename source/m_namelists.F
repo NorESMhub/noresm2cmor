@@ -2,13 +2,6 @@
 c
       IMPLICIT NONE 
 c
-c --- MPI 
-#ifdef CMOR3 
-#ifdef MPI
-      INCLUDE 'mpif.h'
-      INTEGER :: mpierror,mpirank
-#endif 
-#endif 
 c --- Namelist limits 
       INTEGER, PARAMETER :: rowmax=100,colmax=3,lenmax=80 
       INTEGER, PARAMETER :: slenmax=1024,smax=10  
@@ -1569,12 +1562,16 @@ c
       USE json_module
 c
       IMPLICIT NONE
+c
+#ifdef MPI 
+      INCLUDE 'mpif.h'
+      INTEGER :: mpirank,mpisize,mpierror
+#endif 
 c 
       CHARACTER(len=*) :: grid,grid_label,grid_resolution,varname
-      CHARACTER(len=6) :: yyyymm1,yyyymm2 
+      CHARACTER :: yyyymm1*6,yyyymm2*6,c2*2 
       TYPE(json_core) :: json 
       TYPE(json_value), POINTER :: p 
-c
       CALL json%initialize()
       CALL json%create_object(p,'') 
 c --- mapped from cmor2     
@@ -1645,11 +1642,19 @@ c --- new for cmor3
 c 
       WRITE(yyyymm1,'(I4.4,I2.2)') year1,month1
       WRITE(yyyymm2,'(I4.4,I2.2)') yearn,monthn
-      namelist_file_json='/tmp/namelist_'//TRIM(casename)//'_'//
-     .  TRIM(varname)//'_'//yyyymm1//'-'//yyyymm2//'.json'  
+#ifdef MPI 
+      CALL MPI_COMM_RANK(MPI_COMM_WORLD, mpirank, mpierror)
+      WRITE(c2,'(I2.2)') mpirank
+#else 
+      c2='00'
+#endif 
+c
+      namelist_file_json='namelist_'//TRIM(casename)//'_'//
+     .  TRIM(varname)//'_'//yyyymm1//'-'//yyyymm2//'_'//c2//'.json'  
       CALL json%print(p,namelist_file_json)
       CALL json%destroy(p)            !cleanup
-c      CALL SYSTEM('ls -l /tmp/')
+      WRITE(*,*) 'json-namelist file: ',TRIM(namelist_file_json)
+      CALL SYSTEM('cat '//TRIM(namelist_file_json))
 c
       END SUBROUTINE write_namelist_json 
 #endif 
