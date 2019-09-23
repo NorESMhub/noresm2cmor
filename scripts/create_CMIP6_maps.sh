@@ -4,22 +4,42 @@ PROJECT=CMIP6
 ESGFROOT=/esg/data/cmor/$PROJECT
 NIRDROOT=/projects/NS9034K/$PROJECT
 
-for MIPTMP in `ls $NIRDROOT | sed 's/ /#/g'`
+for MIP in `ls $NIRDROOT`
 do 
-        MIP="`echo $MIPTMP | sed 's/#/ /g'`"  
-	if [ "$MIP" == "cmorout" -o "$MIP" == "test" ] 
-	then
+	if [ $MIP1 ] && [ ! "$MIP1" == "$MIP" ] 
+	then 
 		continue
 	fi
+
 	for INS in `ls "$NIRDROOT/$MIP"`
 	do
+		if [ $INS1 ] && [ ! "$INS1" == "$INS" ] 
+		then 
+			continue
+		fi
+
 		for MOD in `ls "$NIRDROOT/$MIP/$INS"`
 		do
+			if [ $MOD1 ] && [ ! "$MOD1" == "$MOD" ] 
+			then 
+				continue
+			fi
+
 			for EXP in `ls "$NIRDROOT/$MIP/$INS/$MOD"`
 			do
+				if [ $EXP1 ] && [ ! "$EXP1" == "$EXP" ] 
+				then 
+					continue
+				fi
+
 				for RIP in `ls "$NIRDROOT/$MIP/$INS/$MOD/$EXP"`
 				do
-					if [ ! -d "$NIRDROOT/$MIP/$INS/$MOD/$EXP/${RIP}" -o ! -e "$NIRDROOT/$MIP/$INS/$MOD/$EXP/${RIP}.sha256sum" ]
+					if [ $RIP1 ] && [ ! "$RIP1" == "$RIP" ] 
+					then 
+						continue
+					fi
+
+					if [ ! -d "$NIRDROOT/$MIP/$INS/$MOD/$EXP/${RIP}" -o ! -e "$NIRDROOT/$MIP/$INS/$MOD/$EXP/.${RIP}.sha256sum" ]
 					then 
 						continue
 					fi
