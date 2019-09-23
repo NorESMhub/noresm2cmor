@@ -6,9 +6,9 @@ then
     printf "Usage:\n"
     printf "create_CMIP6_sha256sum.sh -e [path_to_experiment] -v [data_version] -O [TRUE]\n"
     printf "\t Command line options:\n"
-    printf "\t -e, --exp=path_to_experiment                 :specify path to the data [optional];\n"
-    printf "\t -v, --version=vyyyymmdd                      :speicify variable version [optional];\n"
-    printf "\t -O, --overwrite=TRUE                         :specify if overwrite existed sha256sum file [optional];\n"
+    printf "\t -e, --exp=path_to_experiment     :specify path to the data [optional];\n"
+    printf "\t -v, --version=vyyyymmdd          :speicify variable version [optional];\n"
+    printf "\t -O, --overwrite=TRUE             :specify if overwrite existed sha256sum file [optional];\n"
     exit 1
 else
     while test $# -gt 0; do

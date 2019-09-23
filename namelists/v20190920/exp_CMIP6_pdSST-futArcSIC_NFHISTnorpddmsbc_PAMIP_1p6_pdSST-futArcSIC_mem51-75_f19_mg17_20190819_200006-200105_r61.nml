@@ -1,7 +1,7 @@
 &experiment
- casename      = 'NF2000climo_PAMIP_16_pdSST-futArcSIC_f19_f19_multiInst10_20190611',
- osubdir       = 'NorESM2-LM/pdSST-pdSIC/vyyyymmdd'
- experiment_id = 'pdSST-pdSIC',
+ casename      = 'NFHISTnorpddmsbc_PAMIP_1p6_pdSST-futArcSIC_mem51-75_f19_mg17_20190819',
+ osubdir       = 'NorESM2-LM/pdSST-futArcSIC/v20190920'
+ experiment_id = 'pdSST-futArcSIC',
  parent_experiment_id  = 'amip',
  parent_experiment_rip = 'r1i1p1',
  parent_time_units = 'days since 1975-01-01 00:00:00',
@@ -9,15 +9,15 @@
  history       = ' ',
  comment       = ' ',
  forcing       = 'N/A',
- realization   = 1,
+ realization   = 61,
  initialization_method = 1, 
  physics_version = 1,
  forcing_index = 1, 
  branch_time   = 0.,
- year1         = 1,
- yearn         = 1,
- month1        = 1,
- monthn        = 12,
+ year1         = 2000,
+ yearn         = 2001,
+ month1        = 6,
+ monthn        = 5,
  exprefyear    = 1, 
  activity_id   = 'PAMIP', 
  parent_activity_id = 'CMIP', 
@@ -31,6 +31,6 @@
  tracking_prefix   = 'hdl:21.14100',
  newcolumnorder = .true.,
  scanallfiles   = .false.,
- membertag      = 0001,
+ membertag      = 0011
  source_type   = 'AGCM AER'
 /
