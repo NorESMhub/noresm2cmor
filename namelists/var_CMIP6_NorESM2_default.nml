@@ -227,10 +227,10 @@
  roimon        = 100000,
  toimon        = 'CMIP6_SImon.json', 
  voimon        = 
-                 'siage            ','iage          ','          ',
+!                'siage            ','iage          ','          ',
                  'siage            ','siage         ','               ',
                  'sicompstren      ','sicompstren   ','               ',
-                 'sicompstren      ','strength      ','zero2missing;tavecomment',
+!                'sicompstren      ','strength      ','zero2missing;tavecomment',
                  'siconc           ','aice          ','          ',
                  'sidconcdyn       ','sidconcdyn    ','               ',
                  'sidconcth        ','sidconcth     ','               ',
@@ -579,3 +579,36 @@
 !====todo list====
 /
 
+&table_3hr 
+ d3hr          = .true.
+ t3hr          = 'CMIP6_3hr.json',
+ r3hr          = 1000000, 
+ v3hr          = 
+                 'huss      ','QREFHT            ','          ',
+                 'mrro      ','QRUNOFF           ','          ',
+                 'mrsos     ','SOILWATER_10CM    ','          ',
+                 'ps        ','PS                ','          ',
+                 'tas       ','TREFHT            ','          ',
+                 'tslsi     ','TSA               ','          ',
+/
+
+&table_3hri
+ d3hri         = .true.
+ t3hri         = 'CMIP6_3hr.json',
+ r3hri         = 1000000, 
+ v3hri         = 
+                 'clt       ','CLDTOT            ','unitless  ',
+                 'hfls      ','LHFLX             ','positiveup',
+                 'hfss      ','SHFLX             ','positiveup',
+                 'pr        ','PRECT             ','kg m-2 s-1',
+                 'prc       ','PRECC             ','kg m-2 s-1',
+                 'prsn      ','PRECSC+PRECSL     ','kg m-2 s-1',
+                 'rlds      ','FLDS              ','positivedo',
+                 'rldscs    ','FLDSC             ','positivedo',
+                 'rlus      ','FLDS+FLNS         ','positiveup',
+                 'rsds      ','FSDS              ','positivedo',
+                 'rsdscs    ','FSDSC             ','positivedo',
+                 'rsdsdiff  ','SOLLD+SOLSD       ','positivedo',
+                 'rsus      ','FSDS-FSNS         ','positiveup',
+                 'rsuscs    ','FSDSC-FSNSC       ','positiveup',
+/
