@@ -579,6 +579,15 @@
 !====todo list====
 /
 
+&table_Odaybgc
+ dOdaybgc      = .true.
+ tOdaybgc      = 'CMIP6_Oday.json', 
+ rOdaybgc      = 1000000, 
+ vOdaybgc      = 
+                 'chlos       ','srfphyc       ','mol P m-3 -> kg Chl m-3',
+                 'phycos      ','srfphyc       ','mol m-3     ',
+/
+
 &table_3hr 
  d3hr          = .true.
  t3hr          = 'CMIP6_3hr.json',

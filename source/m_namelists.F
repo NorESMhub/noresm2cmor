@@ -103,8 +103,8 @@ c --- Experiment namelist
       LOGICAL, SAVE :: do_ofx,do_6hrPlevPt,do_AERday,do_AERhr,
      .  do_AERmonZ,do_CF3hr,do_CFday,do_CFmon,do_CFsubhr,do_E1hrClimMon,
      .  do_E1hr,do_E3hr,do_CE3hrPt,do_E6hrZ,do_Eday,do_EdayZ,do_Efx,
-     .  do_Emon,do_EmonZ,do_Esubhr,do_Eyr,do_Oclim,do_Oday,do_Odec,
-     .  do_COfx,do_SIday
+     .  do_Emon,do_EmonZ,do_Esubhr,do_Eyr,do_Oclim,do_Oday,do_Odaybgc,
+     .  do_Odec,do_COfx,do_SIday
       CHARACTER(LEN=slenmax), SAVE ::
      .  activity_id,parent_variant_label,parent_mip_era,mip_era,
      .  sub_experiment,parent_sub_experiment,parent_activity_id, 
@@ -192,6 +192,7 @@ c --- Experiment namelist
      .  do_Eyr, ! hidden
      .  do_Oclim, ! hidden
      .  do_Oday, ! hidden
+     .  do_Odaybgc, ! hidden
      .  do_Odec, ! hidden
      .  do_COfx, ! hidden
      .  do_SIday, ! hidden
@@ -247,27 +248,33 @@ c --- Tables
       LOGICAL, SAVE :: 
      .  dofx,d6hrPlevPt,dAERday,dAERhr,dAERmonZ,dCF3hr,dCFday,dCFmon,
      .  dCFsubhr,dE1hrClimMon,dE1hr,dE3hr,dCE3hrPt,dE6hrZ,dEday,dEdayZ,
-     .  dEfx,dEmon,dEmonZ,dEsubhr,dEyr,dOclim,dOday,dOdec,dCOfx,dSIday
+     .  dEfx,dEmon,dEmonZ,dEsubhr,dEyr,dOclim,dOday,dOdaybgc,dOdec,
+     .  dCOfx,dSIday
       CHARACTER(len=lenmax),DIMENSION(colmax,rowmax), SAVE :: 
      .  vofx,v6hrPlevPt,vAERday,vAERhr,vAERmonZ,vCF3hr,vCFday,vCFmon,
      .  vCFsubhr,vE1hrClimMon,vE1hr,vE3hr,vCE3hrPt,vE6hrZ,vEday,vEdayZ,
-     .  vEfx,vEmon,vEmonZ,vEsubhr,vEyr,vOclim,vOday,vOdec,vCOfx,vSIday
+     .  vEfx,vEmon,vEmonZ,vEsubhr,vEyr,vOclim,vOday,vOdaybgc,vOdec,
+     .  vCOfx,vSIday
       CHARACTER(len=slenmax), SAVE ::
      .  pofx,p6hrPlevPt,pAERday,pAERhr,pAERmonZ,pCF3hr,pCFday,pCFmon,
      .  pCFsubhr,pE1hrClimMon,pE1hr,pE3hr,pCE3hrPt,pE6hrZ,pEday,pEdayZ,
-     .  pEfx,pEmon,pEmonZ,pEsubhr,pEyr,pOclim,pOday,pOdec,pCOfx,pSIday
+     .  pEfx,pEmon,pEmonZ,pEsubhr,pEyr,pOclim,pOday,pOdaybgc,pOdec,
+     .  pCOfx,pSIday
       CHARACTER(len=slenmax), SAVE ::
      .  tofx,t6hrPlevPt,tAERday,tAERhr,tAERmonZ,tCF3hr,tCFday,tCFmon,
      .  tCFsubhr,tE1hrClimMon,tE1hr,tE3hr,tCE3hrPt,tE6hrZ,tEday,tEdayZ,
-     .  tEfx,tEmon,tEmonZ,tEsubhr,tEyr,tOclim,tOday,tOdec,tCOfx,tSIday
+     .  tEfx,tEmon,tEmonZ,tEsubhr,tEyr,tOclim,tOday,tOdaybgc,tOdec,
+     .  tCOfx,tSIday
       INTEGER, SAVE ::
      .  nofx,n6hrPlevPt,nAERday,nAERhr,nAERmonZ,nCF3hr,nCFday,nCFmon,
      .  nCFsubhr,nE1hrClimMon,nE1hr,nE3hr,nCE3hrPt,nE6hrZ,nEday,nEdayZ,
-     .  nEfx,nEmon,nEmonZ,nEsubhr,nEyr,nOclim,nOday,nOdec,nCOfx,nSIday
+     .  nEfx,nEmon,nEmonZ,nEsubhr,nEyr,nOclim,nOday,nOdaybgc,nOdec,
+     .  nCOfx,nSIday
       INTEGER, SAVE ::
      .  rofx,r6hrPlevPt,rAERday,rAERhr,rAERmonZ,rCF3hr,rCFday,rCFmon,
      .  rCFsubhr,rE1hrClimMon,rE1hr,rE3hr,rCE3hrPt,rE6hrZ,rEday,rEdayZ,
-     .  rEfx,rEmon,rEmonZ,rEsubhr,rEyr,rOclim,rOday,rOdec,rCOfx,rSIday
+     .  rEfx,rEmon,rEmonZ,rEsubhr,rEyr,rOclim,rOday,rOdaybgc,rOdec,
+     .  rCOfx,rSIday
       NAMELIST /table_ofx/       dofx,pofx,tofx,vofx
       NAMELIST /table_6hrPlevPt/ d6hrPlevPt,p6hrPlevPt,t6hrPlevPt,
      .                           v6hrPlevPt
@@ -293,6 +300,8 @@ c --- Tables
       NAMELIST /table_Eyr/       dEyr,pEyr,tEyr,vEyr
       NAMELIST /table_Oclim/     dOclim,pOclim,tOclim,vOclim
       NAMELIST /table_Oday/      dOday,pOday,tOday,rOday,vOday
+      NAMELIST /table_Odaybgc/   dOdaybgc,pOdaybgc,tOdaybgc,rOdaybgc,
+     .                           vOdaybgc
       NAMELIST /table_Odec/      dOdec,pOdec,tOdec,vOdec
       NAMELIST /table_COfx/      dCOfx,pCOfx,tCOfx,vCOfx
       NAMELIST /table_SIday/     dSIday,pSIday,tSIday,rSIday,vSIday
@@ -407,6 +416,7 @@ c --- Initialise namelist variables
       do_Eyr        = .TRUE.
       do_Oclim      = .TRUE.
       do_Oday       = .TRUE.
+      do_Odaybgc    = .TRUE.
       do_Odec       = .TRUE.
       do_COfx       = .TRUE.
       do_SIday      = .TRUE.
@@ -476,6 +486,7 @@ c
       dEyr          = .FALSE.
       dOclim        = .FALSE.
       dOday         = .FALSE.
+      dOdaybgc      = .FALSE.
       dOdec         = .FALSE.
       dCOfx         = .FALSE.
       dSIday        = .FALSE.
@@ -520,6 +531,7 @@ c
       vEyr          = ' ' 
       vOclim        = ' ' 
       vOday         = ' ' 
+      vOdaybgc      = ' ' 
       vOdec         = ' ' 
       vCOfx         = ' ' 
       vSIday        = ' ' 
@@ -564,6 +576,7 @@ c
       pEyr          = ' ' 
       pOclim        = ' ' 
       pOday         = ' ' 
+      pOdaybgc      = ' '
       pOdec         = ' ' 
       pCOfx         = ' ' 
       pSIday        = ' ' 
@@ -607,6 +620,7 @@ c
       rEyr          = 1000000  
       rOclim        = 1000000  
       rOday         = 1000000  
+      rOdaybgc      = 1000000  
       rOdec         = 1000000  
       rCOfx         = 1000000  
       rSIday        = 1000000  
@@ -670,6 +684,7 @@ c
       tEyr          = 'CMIP6_Eyr.json'
       tOclim        = 'CMIP6_Oclim.json'
       tOday         = 'CMIP6_Oday.json'
+      tOdaybgc      = 'CMIP6_Oday.json'
       tOdec         = 'CMIP6_Odec.json'
       tCOfx         = 'CMIP6_COfx.json'
       tSIday        = 'CMIP6_SIday.json'
@@ -929,6 +944,10 @@ c
       REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Oday not in namelist file. Skipping table...'
+      READ(funit,nml=table_Odaybgc,IOSTAT=istatus)
+      REWIND(funit)
+      IF (istatus.NE.0) WRITE(*,*) 
+     .  'WARNING: Table Odaybgc not in namelist file. Skipping table...'
       READ(funit,nml=table_Odec,IOSTAT=istatus)
       REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
@@ -1041,6 +1060,7 @@ c --- Count number of table entries
       nEyr          = 0
       nOclim        = 0
       nOday         = 0
+      nOdaybgc      = 0
       nOdec         = 0
       nCOfx         = 0
       nSIday        = 0
@@ -1068,6 +1088,7 @@ c --- Count number of table entries
         IF (LEN_TRIM(vEyr(1,n)).ne.0) nEyr=nEyr+1 
         IF (LEN_TRIM(vOclim(1,n)).ne.0) nOclim=nOclim+1 
         IF (LEN_TRIM(vOday(1,n)).ne.0) nOday=nOday+1 
+        IF (LEN_TRIM(vOdaybgc(1,n)).ne.0) nOdaybgc=nOdaybgc+1 
         IF (LEN_TRIM(vOdec(1,n)).ne.0) nOdec=nOdec+1 
         IF (LEN_TRIM(vCOfx(1,n)).ne.0) nCOfx=nCOfx+1 
         IF (LEN_TRIM(vSIday(1,n)).ne.0) nSIday=nSIday+1 
@@ -1104,6 +1125,8 @@ c --- Count number of table entries
           IF (TRIM(vsingle).NE.TRIM(vEyr(po,n))) vEyr(pi,n)='SKIP'
           IF (TRIM(vsingle).NE.TRIM(vOclim(po,n))) vOclim(pi,n)='SKIP'
           IF (TRIM(vsingle).NE.TRIM(vOday(po,n))) vOday(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vOdaybgc(po,n))) 
+     .                                            vOdaybgc(pi,n)='SKIP'
           IF (TRIM(vsingle).NE.TRIM(vOdec(po,n))) vOdec(pi,n)='SKIP'
           IF (TRIM(vsingle).NE.TRIM(vCOfx(po,n))) vCOfx(pi,n)='SKIP'
           IF (TRIM(vsingle).NE.TRIM(vSIday(po,n))) vSIday(pi,n)='SKIP'
@@ -1151,6 +1174,7 @@ c --- Skip deselected namelists
       if (.not.do_Eyr)         nEyr=0   
       if (.not.do_Oclim)       nOclim=0   
       if (.not.do_Oday)        nOday=0   
+      if (.not.do_Odaybgc)     nOdaybgc=0   
       if (.not.do_Odec)        nOdec=0   
       if (.not.do_COfx)        nCOfx=0   
       if (.not.do_SIday)       nSIday=0   
@@ -1472,6 +1496,12 @@ c
       WRITE(*,*) 'Table Oday:'
       DO n=1,nOday
         WRITE(*,'(1X,A20,A20,A20)') vOday(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table Odaybgc:'
+      DO n=1,nOdaybgc
+        WRITE(*,'(1X,A20,A20,A20)') vOdaybgc(:,n)
       ENDDO
 c
       WRITE(*,*) 
