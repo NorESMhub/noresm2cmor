@@ -1291,6 +1291,17 @@ c --- - Compute basin index
             ENDDO
           ENDDO
 c
+c --- - Divide a second field
+        CASE ('Dfield2')
+          DO k=1,kk
+            DO j=1,jj
+              DO i=1,ii
+                IF (fld(i,j,k).NE.1e20)
+     .            fld(i,j,k)=fld(i,j,k)/fld2(i,j,k)
+              ENDDO
+            ENDDO
+          ENDDO
+c
 c --- - Unit transformation: mol cfcXX m-3 -> mol cfcXX kg-1
         CASE ('cfcunits')
           DO k=1,kk
@@ -1358,6 +1369,27 @@ c --- - Multiple parea
               ENDDO  
             ENDDO 
           ENDDO
+
+c --- - Iron to phosphorous ratio in organic matter
+        CASE ('fe2ph')
+          DO k=1,kk
+            DO j=1,jj 
+              DO i=1,ii    
+                fld(i,j,k)=fld(i,j,k)*5.*122*1.e-6
+              ENDDO  
+            ENDDO 
+          ENDDO
+
+c --- - Extract the surface layer from 3D levels
+        CASE ('lvl2srf')
+          DO k=1,kk
+            DO j=1,jj 
+              DO i=1,ii    
+                fld(i,j,k)=fld(i,j,1)
+              ENDDO  
+            ENDDO 
+          ENDDO
+
 c
         END SELECT
 c
@@ -2420,7 +2452,8 @@ c
       CALL resolve_vnm(slenmax,ivnm,ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6,
      .  fac1,fac2,fac3,fac4,fac5,fac6)
       IF (INDEX(special,'2rho').GT.0.OR.INDEX(special,'2zoss').GT.0.OR.
-     . INDEX(special,'strmf').GT.0.OR.INDEX(special,'Xfield2').GT.0)THEN
+     . INDEX(special,'strmf').GT.0.OR.INDEX(special,'Xfield2').GT.0.OR.
+     . INDEX(special,'Dfields2').GT.0 ) THEN
         fld=0.
         CALL add_tslice(ivnm2,fac2,rec1,fid)
         fld2=fld
