@@ -1,7 +1,8 @@
 #!/bin/sh -e
 
-NMEM=30
-NINS=10
+MEM1=$1
+MEMN=$2
+NINS=$3
 PERIODS='1850-2014 2015-2018 2019-2030' 
 NMLDIR=`dirname \`readlink -f $0\``
 PREFIX=`basename $NMLDIR` 
@@ -10,7 +11,7 @@ RUNDIR=$NMLDIR/../../../bin
 export I_MPI_WAIT_MODE=1
 
 cd $RUNDIR
-for MEM in `seq -w 01 $NMEM`
+for MEM in `seq -w $MEM1 $MEMN`
 do 
   for PERIOD in `echo $PERIODS`
   do 

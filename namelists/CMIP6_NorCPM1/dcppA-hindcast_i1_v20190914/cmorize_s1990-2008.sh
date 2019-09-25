@@ -15,7 +15,7 @@ for SYEAR in $SYEARS
 do 
   for MEM in `seq -w 01 $NMEM`
   do 
-    if [ $SYEAR -eq 2000 ] && [ $MEM -gt 8 ] 
+    if [ $SYEAR -eq 2000 ] && [ $MEM -lt 8 ] 
     then 
       continue 
     fi 

@@ -7,8 +7,9 @@ cd $ROOT
 
 VER=v20190914
 
-folders+=(.cmorout/NorESM1/dcppA-assim/${VER})
-folders+=(.cmorout/NorESM1/piControl/${VER})
+#folders+=(.cmorout/NorCPM1/dcppA-assim/${VER})
+#folders+=(.cmorout/NorCPM1/piControl/${VER})
+folders+=(.cmorout/NorCPM1/historical/${VER})
 
 insitute=NCC
 for (( i = 0; i < ${#folders[*]}; i++ )); do
