@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-## Mandatory information:
+### Mandatory information:
 
 **Full path to the case(s) of the experiment on NIRD**
 e.g., /projects/projects/NS9560K/noresm/cases
@@ -22,7 +22,7 @@ e.g.,
 NHIST_f19_tn14_20190625, 1850-1948
 NHIST_f19_tn14_20190710,  1950-2014
 
-## Optional information
+### Optional information
 (additional information, if the experiment is branched/hybrid restart from previous parent experiment)
 
 **parent_experiment_id**

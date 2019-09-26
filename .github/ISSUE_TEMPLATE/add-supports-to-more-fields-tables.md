@@ -1,5 +1,5 @@
 ---
-name: Feature request
+name: Add supports to more fields/tables
 about: Add support to more fields or function enhancement
 title: Add fields for CMIP6_xx table (incremental)
 labels: enhancement
