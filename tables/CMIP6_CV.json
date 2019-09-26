@@ -33,13 +33,13 @@
             "variant_label"
         ],
         "version_metadata":{
-            "CV_collection_modified":"Thu Sep  5 17:17:41 2019 -0700",
-            "CV_collection_version":"6.2.37.5",
+            "CV_collection_modified":"Wed Sep 25 16:30:20 2019 -0700",
+            "CV_collection_version":"6.2.38.5",
             "author":"Paul J. Durack <durack1@llnl.gov>",
-            "experiment_id_CV_modified":"Thu Aug 22 15:21:58 2019 -0700",
-            "experiment_id_CV_note":"Revise experiment_id ssp370SST",
+            "experiment_id_CV_modified":"Fri Sep 13 08:39:20 2019 -0700",
+            "experiment_id_CV_note":"Revise experiment_id entries hist-spAer-aer and hist-spAer-all",
             "institution_id":"PCMDI",
-            "previous_commit":"2a00db52be45f55e5b17745c0e78da9bd8d31889",
+            "previous_commit":"9d44353ab459f297183c72f754a08edc3fa0e929",
             "specs_doc":"v6.2.7 (10th September 2018; https://goo.gl/v1drZl)"
         },
         "activity_id":{
@@ -383,6 +383,20 @@
                 ],
                 "source_id":"CAS-ESM1-0",
                 "source":"CAS-ESM 1.0 (2015): \naerosol: IAP AACM\natmos: IAP AGCM4.1 (Finite difference dynamical core; 256 x 128 longitude/latitude; 30 levels; top level 2.2 hPa)\natmosChem: IAP AACM\nland: CoLM\nlandIce: none\nocean: LICOM2.0 (LICOM2.0, primarily 1deg; 362 x 196 longitude/latitude; 30 levels; top grid cell 0-10 m)\nocnBgchem: IAP OBGCM\nseaIce: CICE4"
+            },
+            "CESM1-1-CAM5-CMIP5":{
+                "activity_participation":[
+                    "CMIP",
+                    "DCPP"
+                ],
+                "cohort":[
+                    "Registered"
+                ],
+                "institution_id":[
+                    "NCAR"
+                ],
+                "source_id":"CESM1-1-CAM5-CMIP5",
+                "source":"CESM1-1-CAM5-CMIP5 (2011): \naerosol: MAM3 (same grid as atmos)\natmos: CAM5.2 (0.9x1.25 finite volume grid; 288 x 192 longitude/latitude; 32 levels; top level 2.25 mb)\natmosChem: MAM3 (same grid as atmos)\nland: CLM4 (same grid as atmos)\nlandIce: none\nocean: POP2 (320x384 longitude/latitude; 60 levels; top grid cell 0-10 m)\nocnBgchem: BEC (same grid as ocean)\nseaIce: CICE4 (same grid as ocean)"
             },
             "CESM2":{
                 "activity_participation":[
@@ -740,6 +754,34 @@
                 "source_id":"E3SM-1-0",
                 "source":"E3SM 1.0 (2018): \naerosol: MAM4 with resuspension, marine organics, and secondary organics (same grid as atmos)\natmos: EAM (v1.0, cubed sphere spectral-element grid; 5400 elements with p=3; 1 deg average grid spacing; 90 x 90 x 6 longitude/latitude/cubeface; 72 levels; top level 0.1 hPa)\natmosChem: Troposphere specified oxidants for aerosols. Stratosphere linearized interactive ozone (LINOZ v2) (same grid as atmos)\nland: ELM (v1.0, cubed sphere spectral-element grid; 5400 elements with p=3; 1 deg average grid spacing; 90 x 90 x 6 longitude/latitude/cubeface; satellite phenology mode), MOSART (v1.0, 0.5 degree latitude/longitude grid)\nlandIce: none\nocean: MPAS-Ocean (v6.0, oEC60to30 unstructured SVTs mesh with 235160 cells and 714274 edges, variable resolution 60 km to 30 km; 60 levels; top grid cell 0-10 m)\nocnBgchem: none\nseaIce: MPAS-Seaice (v6.0, same grid as ocean)"
             },
+            "E3SM-1-1":{
+                "activity_participation":[
+                    "C4MIP",
+                    "CMIP"
+                ],
+                "cohort":[
+                    "Registered"
+                ],
+                "institution_id":[
+                    "E3SM-Project"
+                ],
+                "source_id":"E3SM-1-1",
+                "source":"E3SM 1.1 (2019): \naerosol: MAM4 with resuspension, marine organics, and secondary organics (same grid as atmos)\natmos: EAM (v1.1, cubed sphere spectral-element grid; 5400 elements with p=3; 1 deg average grid spacing; 90 x 90 x 6 longitude/latitude/cubeface; 72 levels; top level 0.1 hPa)\natmosChem: Troposphere specified oxidants for aerosols. Stratosphere linearized interactive ozone (LINOZ v2) (same grid as atmos)\nland: ELM (v1.1, same grid as atmos; active biogeochemistry using the Converging Trophic Cascade plant and soil carbon and nutrient mechanisms to represent carbon, nitrogen and phosphorus cycles), MOSART (v1.1, 0.5 degree latitude/longitude grid)\nlandIce: none\nocean: MPAS-Ocean (v6.0, oEC60to30 unstructured SVTs mesh with 235160 cells and 714274 edges, variable resolution 60 km to 30 km; 60 levels; top grid cell 0-10 m)\nocnBgchem: BEC (Biogeochemical Elemental Cycling model, NPZD-type with C/N/P/Fe/Si/O; same grid as ocean)\nseaIce: MPAS-Seaice (v6.0; same grid as ocean)"
+            },
+            "E3SM-1-1-ECA":{
+                "activity_participation":[
+                    "C4MIP",
+                    "CMIP"
+                ],
+                "cohort":[
+                    "Registered"
+                ],
+                "institution_id":[
+                    "E3SM-Project"
+                ],
+                "source_id":"E3SM-1-1-ECA",
+                "source":"E3SM 1.1 ECA (2019): \naerosol: MAM4 with resuspension, marine organics, and secondary organics (same grid as atmos)\natmos: EAM (v1.1, cubed sphere spectral-element grid; 5400 elements with p=3; 1 deg average grid spacing; 90 x 90 x 6 longitude/latitude/cubeface; 72 levels; top level 0.1 hPa)\natmosChem: Troposphere specified oxidants for aerosols. Stratosphere linearized interactive ozone (LINOZ v2) (same grid as atmos)\nland: ELM (v1.1, same as atmos; active biogeochemistry using the Equilibrium Chemistry Approximation to represent plant and soil carbon and nutrient mechanisms especially carbon, nitrogen and phosphorus limitation), MOSART (v1.1, 0.5 degree latitude/longitude grid)\nlandIce: none\nocean: MPAS-Ocean (v6.0, oEC60to30 unstructured SVTs mesh with 235160 cells and 714274 edges, variable resolution 60 km to 30 km; 60 levels; top grid cell 0-10 m)\nocnBgchem: none\nseaIce: MPAS-Seaice (v6.0; same grid as ocean)"
+            },
             "EC-Earth3":{
                 "activity_participation":[
                     "CMIP",
@@ -999,6 +1041,7 @@
                     "DCPP",
                     "GMMIP",
                     "OMIP",
+                    "PAMIP",
                     "SIMIP",
                     "ScenarioMIP"
                 ],
@@ -1866,6 +1909,20 @@
                 ],
                 "source_id":"NorCPM1",
                 "source":"NorCPM1 (2019): \naerosol: OsloAero4.1 (same grid as atmos)\natmos: CAM-OSLO4.1 (2 degree resolution; 144 x 96 longitude/latitude; 26 levels; top level ~2 hPa)\natmosChem: OsloChemSimp4.1 (same grid as atmos)\nland: CLM4 (same grid as atmos)\nlandIce: none\nocean: MICOM1.1 (1 degree resolution; 320 x 384 longitude/latitude; 53 levels; top grid cell 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC5.1 (same grid as ocean)\nseaIce: CICE4 (same grid as ocean)"
+            },
+            "NorESM1-F":{
+                "activity_participation":[
+                    "CMIP",
+                    "PMIP"
+                ],
+                "cohort":[
+                    "Registered"
+                ],
+                "institution_id":[
+                    "NCC"
+                ],
+                "source_id":"NorESM1-F",
+                "source":"NorESM1-F (2018): \naerosol: none\natmos: CAM4 (2 degree resolution; 144 x 96; 32 levels; top level 3 mb)\natmosChem: none\nland: CLM4\nlandIce: CISM\nocean: MICOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC5.1\nseaIce: CICE4"
             },
             "NorESM2-HH":{
                 "activity_participation":[
@@ -5675,7 +5732,8 @@
                     "RFMIP"
                 ],
                 "additional_allowed_model_components":[
-                    ""
+                    "CHEM",
+                    "BGC"
                 ],
                 "experiment":"historical simulation with specified anthropogenic aerosols, no other forcings",
                 "experiment_id":"hist-spAer-aer",
@@ -5697,7 +5755,8 @@
                     "RFMIP"
                 ],
                 "additional_allowed_model_components":[
-                    ""
+                    "CHEM",
+                    "BGC"
                 ],
                 "experiment":"historical simulation with specified anthropogenic aerosols",
                 "experiment_id":"hist-spAer-all",
