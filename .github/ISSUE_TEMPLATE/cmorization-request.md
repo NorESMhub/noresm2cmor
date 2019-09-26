@@ -17,10 +17,16 @@ e.g., /projects/projects/NS2345K/noresm/cases
 **experiment_id**
 e.g., historical
 
+**model_id**
+e.g.,
+NorESM2-LM
+NorESM2-MM
+NorESM1-F
+
 **CASENAME(s) and years to be CMORized**
 e.g., 
 NHIST_f19_tn14_20190625, 1850-1948
-NHIST_f19_tn14_20190710,  1950-2014
+NHIST_f19_tn14_20190710, 1950-2014
 
 ### Optional information
 (additional information, if the experiment is branched/hybrid restart from previous parent experiment; you may find more information relevant to the experiment_id here: https://github.com/NorwegianClimateCentre/noresm2cmor/blob/master/tables/CMIP6_CV.json)
@@ -34,6 +40,7 @@ etc.,...
 
 **parent_experiment_rip**
 e.g., r1i1p1
+'no parent'
 
 **parent_time_units**
 e.g.,
