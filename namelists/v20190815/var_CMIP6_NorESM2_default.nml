@@ -26,7 +26,7 @@
                  'basin         ','pmask             ','basin;unitless;zero2missing  ',
                  'deptho        ','pdepth            ','zero2missing                 ',
                  'sftof         ','pmask             ','unitless                     ',
-                 'volcello      ','pdepth            ','volcello                     ',
+                 'volcello      ','parea,pdepth      ','volcello                     ',
 /
 
 &table_oyr
@@ -445,9 +445,7 @@
                  'ec550aer     ','BAK                                   ','dayfoc    ',
                  'fLuc         ','DWT_CLOSS                             ','kg m-2 s-1;positiveup',
                  'hus          ','Q                                     ','unitless  ',
-                 'loadbc       ','BC_A+BC_AC+BC_AI+BC_AX+BC_N+BC_NI     ','calcload  ',
                  'loaddust     ','DST_A2+DST_A3                         ','calcload  ',
-                 'loadpoa      ','OM_AC+OM_AI+OM_NI                     ','calcload  ',
                  'loadso4      ','SO4_A1*3+SO4_A2*3+SO4_AC*3+SO4_N*3+SO4_NA*3+SO4_PR*3','calcload',
                  'loadss       ','SS_A1+SS_A2+SS_A3                     ','calcload  ',
                  'mrlso        ','TOTSOILLIQ                            ','         ',
@@ -457,7 +455,6 @@
                  'nep          ','NEP                                   ','kg m-2 s-1;positivedo',
                  'ps           ','PS                                    ','          ',
                  'reffclws     ','REFFL                                 ','cldfoc;micrometer',
-                 'rsdsdiff     ','SOLLD+SOLSD                           ','positivedo',
                  'rsdsdiff     ','SWCF                                  ','positivedo',
                  'sconcdust    ','DUST                                  ','          ',
                  'sconcso4     ','SO4                                   ','          ',
