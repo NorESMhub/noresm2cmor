@@ -1008,7 +1008,7 @@ c --- - Compute fixed cell volume of interpolated grid
           vunits='m3'
 
 c --- - Convert units from [mol P/m3] to [kg Chl/m3] using [60 gC/gChl]
-        CASE ('mol P m-3 -> kg Chl m-3')
+        CASE ('kg m-3')
           vunits='kg m-3'
 c
 c --- - Convert units from [m3] to [1e3 km3]
@@ -1386,6 +1386,36 @@ c --- - Extract the surface layer from 3D levels
             DO j=1,jj 
               DO i=1,ii    
                 fld(i,j,k)=fld(i,j,1)
+              ENDDO  
+            ENDDO 
+          ENDDO
+
+c --- - Carbon to iron 
+        CASE ('c2fe')
+          DO k=1,kk
+            DO j=1,jj 
+              DO i=1,ii    
+                fld(i,j,k)=fld(i,j,k)*5.*1.e-6
+              ENDDO  
+            ENDDO 
+          ENDDO
+
+c --- - epc100 to epn100
+        CASE ('epc100toepn100')
+          DO k=1,kk
+            DO j=1,jj 
+              DO i=1,ii    
+                fld(i,j,k)=fld(i,j,k)/122.*16.
+              ENDDO  
+            ENDDO 
+          ENDDO
+
+c --- - epc100 to epp100
+        CASE ('epc100toepp100')
+          DO k=1,kk
+            DO j=1,jj 
+              DO i=1,ii    
+                fld(i,j,k)=fld(i,j,k)/122.
               ENDDO  
             ENDDO 
           ENDDO
@@ -2208,7 +2238,8 @@ c --- Define output variable
       ELSE
         IF ((TRIM(vtype).EQ.'2d'.AND..NOT.(TRIM(zcoord).EQ.'olevel'.OR.
      .    INDEX(special,'glbave').GT.0.OR.INDEX(special,'2zos').GT.0.
-     .  )).OR.lsumz.AND..NOT.INDEX(special,'glbave').GT.0) THEN 
+     .  )).OR.lsumz.AND..NOT.INDEX(special,'glbave').GT.0.OR.
+     .    INDEX(special,'lvl2srf')) THEN 
           varid=cmor_variable(
      .      table          = TRIM(tablepath),
      .      table_entry    = TRIM(ovnm),

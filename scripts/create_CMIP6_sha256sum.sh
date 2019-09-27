@@ -85,8 +85,12 @@ then
     #folders+=(/projects/NS9034K/CMIP6/RFMIP/NCC/NorESM2-LM/piClim-lu)
     #folders+=(/projects/NS9034K/CMIP6/RFMIP/NCC/NorESM2-LM/piClim-aer)
     #folders+=(/projects/NS9034K/CMIP6/RFMIP/NCC/NorESM2-LM/piClim-control)
-    folders+=(/projects/NS9034K/CMIP6/PAMIP/NCC/NorESM2-LM/pdSST-pdSIC)
-    folders+=(/projects/NS9034K/CMIP6/PAMIP/NCC/NorESM2-LM/pdSST-futArcSIC)
+    #folders+=(/projects/NS9034K/CMIP6/PAMIP/NCC/NorESM2-LM/pdSST-pdSIC)
+    #folders+=(/projects/NS9034K/CMIP6/PAMIP/NCC/NorESM2-LM/pdSST-futArcSIC)
+    #folders+=(/projects/NS9034K/CMIP6/OMIP/NCC/NorESM2-LM/omip1)
+    #folders+=(/projects/NS9034K/CMIP6/OMIP/NCC/NorESM2-LM/omip2)
+    #folders+=(/projects/NS9034K/CMIP6/RFMIP/NCC/NorESM2-LM/piClim-spAer-aer)
+    folders+=(/projects/NS9034K/CMIP6/CMIP/NCC/NorESM2-LM/esm-hist)
 fi
 if [ -z "$version" ]
 then
@@ -118,6 +122,12 @@ for (( i = 0; i < ${#folders[*]}; i++ )); do
         fi
         while read -r fname
         do
+            name=$(basename $fname)
+            grep "${Version}\/${bname}" .${real}.sha256sum >/dev/null 2>&1
+            if [ $? -eq 0 ]
+            then
+                sed -i "/${Version}\/${bname}/d" .${real}.sha256sum
+            fi
             sha256sum $fname &>>.${real}.sha256sum &
             while [ $k -gt 15 ]; do
                 wait

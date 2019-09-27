@@ -26,7 +26,9 @@ VER=v20190920
 #folders+=(.cmorout/NorESM2-LM/piClim-SO2/${VER})
 #folders+=(.cmorout/NorESM2-LM/piControl/${VER})
 #folders+=(.cmorout/NorESM2-LM/pdSST-pdSIC/${VER})
-folders+=(.cmorout/NorESM2-LM/pdSST-futArcSIC/${VER})
+#folders+=(.cmorout/NorESM2-LM/pdSST-futArcSIC/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-spAer-aer/${VER})
+folders+=(.cmorout/NorESM2-LM/esm-hist/${VER})
 
 insitute=NCC
 for (( i = 0; i < ${#folders[*]}; i++ )); do
@@ -72,4 +74,5 @@ for (( i = 0; i < ${#folders[*]}; i++ )); do
         let k+=1
     done </tmp/flist.txt.$pid
 done
+echo "--------"
 echo "ALL DONE"
