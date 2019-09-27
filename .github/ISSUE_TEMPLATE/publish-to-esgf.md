@@ -7,22 +7,24 @@ assignees: ''
 
 ---
 
-Including these below
+Experiment(s) ready to be published to ESGF:
 ---
 
-**activity_id:**
-
+**data path**
 e.g.,
-- /tos-project1/NS9034K/CMIP6/AerChemMIP
-- /tos-project1/NS9034K/CMIP6/CMIP
+/projects/NS9034K/CMIP6/CMIP/NCC/NorESM2-LM/historical/r1i1p1f1
+
+**activity_id:**
+e.g.,
+- CMIP
 
 **experiment_id**
-
-- 1pctCO2
-- abrupt-4xCO2
+- historical
 
 **Versions**
-
+e.g.,
 - v20190815
-- v20190909
-- v20190917
+
+**other information**
+- PrePARE quality-check, passed
+- sha256sum, calculated
