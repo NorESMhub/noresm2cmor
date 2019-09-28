@@ -58,7 +58,7 @@ do
                                         fi 
                                         echo "create new $MAPFILE"  
 					rm -f "$MAPFILE"
-					for ITEM in `sed 's/\ \ /%/g' "$NIRDROOT/$MIP/$INS/$MOD/$EXP/.${RIP}.sha256sum"`
+					for ITEM in `sed 's/\ \ /%/g' "$NIRDROOT/$MIP/$INS/$MOD/$EXP/.${RIP}.sha256sum" | sort -u`
 					do
 						SHASUM=`echo $ITEM | cut -d"%" -f1`
                                                 RELPATH=`echo $ITEM | cut -d"%" -f2`

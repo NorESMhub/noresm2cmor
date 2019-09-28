@@ -44,8 +44,17 @@ for (( i = 0; i < ${#folders[*]}; i++ )); do
         then
             mkdir -p "$subfolder"
         fi
-        ln -sf ../../../../../../../../../$fname "$subfolder/${bname}.nc"
-        ln -sfT "$version"  "$latest"
+        if [ ! -e $subfolder/${bname}.nc ] 
+        then  
+          echo processing $fname 
+          ln -sf ../../../../../../../../../$fname "$subfolder/${bname}.nc"
+        else 
+          echo skipping $fname 
+        fi 
+        if [ ! -e $latest ] 
+        then
+          ln -sfT "$version"  "$latest"
+        fi 
     done </tmp/flist.txt.$pid
 done
 echo "ALL DONE"
