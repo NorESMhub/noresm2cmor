@@ -2,8 +2,8 @@
 name: CMORization request
 about: Create one CMORize request Issue for each single experiment_id
 title: "[CMORization request] experiment_id (NOT casename)"
-labels: task
-assignees: ''
+labels: CMORize
+assignees: YanchunHe
 
 ---
 

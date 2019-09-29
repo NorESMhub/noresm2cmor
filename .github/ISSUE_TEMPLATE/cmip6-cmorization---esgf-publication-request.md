@@ -3,7 +3,7 @@ name: CMIP6 CMORization & ESGF-publication request
 about: Create one CMORization & ESGF-publication request issue for each single CMIP6
   experiment
 title: "[CMIP6 CMOR-ization & ESGF-publication] model name - CMIP6 experiment name"
-labels: CMORize&publish
+labels: CMORize
 assignees: YanchunHe
 
 ---
