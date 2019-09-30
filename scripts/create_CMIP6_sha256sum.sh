@@ -55,7 +55,7 @@ else
                 shift
                 ;;
             --overwrite=* )
-                version=($(echo $1|sed -e 's/^[^=]*=//g'|sed 's/,/ /g'))
+                OverWrite=($(echo $1|sed -e 's/^[^=]*=//g'|sed 's/,/ /g'))
                 shift
                 ;;
             * )
@@ -90,7 +90,8 @@ then
     #folders+=(/projects/NS9034K/CMIP6/OMIP/NCC/NorESM2-LM/omip1)
     #folders+=(/projects/NS9034K/CMIP6/OMIP/NCC/NorESM2-LM/omip2)
     #folders+=(/projects/NS9034K/CMIP6/RFMIP/NCC/NorESM2-LM/piClim-spAer-aer)
-    folders+=(/projects/NS9034K/CMIP6/CMIP/NCC/NorESM2-LM/esm-hist)
+    #folders+=(/projects/NS9034K/CMIP6/CMIP/NCC/NorESM2-LM/esm-hist)
+    folders+=(/projects/NS9034K/CMIP6/CMIP/NCC/NorESM2-LM/esm-piControl)
 fi
 if [ -z "$version" ]
 then
@@ -99,6 +100,7 @@ then
     #Version=v20190917
     Version=v20190920
 fi
+#OverWrite=TRUE
 
 pid=$$
 for (( i = 0; i < ${#folders[*]}; i++ )); do
@@ -122,10 +124,11 @@ for (( i = 0; i < ${#folders[*]}; i++ )); do
         fi
         while read -r fname
         do
-            name=$(basename $fname)
+            bname=$(basename $fname)
             grep "${Version}\/${bname}" .${real}.sha256sum >/dev/null 2>&1
             if [ $? -eq 0 ]
             then
+                echo "replace ${Version}\/${bname}"
                 sed -i "/${Version}\/${bname}/d" .${real}.sha256sum
             fi
             sha256sum $fname &>>.${real}.sha256sum &
