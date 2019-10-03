@@ -135,7 +135,6 @@
                  'rsntds        ','swa              ','positivedo ',
                  'sf6           ','sf6              ','           ',
                  'sf6           ','sf6lvl           ','           ',
-                 'sfdsi         ','fsalt_ai         ','           ',
                  'sfdsi         ','fsalt_ai         ','kg m-2 day-1 -> kg m-2 s-1;positivedo ',
                  'so            ','saln             ','psu        ',
                  'so            ','salnlvl          ','psu        ',

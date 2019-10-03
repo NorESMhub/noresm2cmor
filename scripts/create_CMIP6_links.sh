@@ -28,7 +28,9 @@ VER=v20190920
 #folders+=(.cmorout/NorESM2-LM/pdSST-pdSIC/${VER})
 #folders+=(.cmorout/NorESM2-LM/pdSST-futArcSIC/${VER})
 #folders+=(.cmorout/NorESM2-LM/piClim-spAer-aer/${VER})
-folders+=(.cmorout/NorESM2-LM/esm-hist/${VER})
+#folders+=(.cmorout/NorESM2-LM/esm-hist/${VER})
+#folders+=(.cmorout/NorESM2-LM/esm-piControl/${VER})
+folders+=(.cmorout/NorESM1-F/lig127k/${VER})
 
 insitute=NCC
 for (( i = 0; i < ${#folders[*]}; i++ )); do
