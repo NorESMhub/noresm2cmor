@@ -1520,7 +1520,7 @@ c
 c
       WRITE(*,*) 'read region'
       status=nf90_inq_varid(ncid,'region',rhid)
-      IF (model_id.NE.'NorESM1-F'.AND.status.EQ.nf90_noerr) THEN
+      IF (status.EQ.nf90_noerr) THEN
         status=nf90_inq_dimid(ncid,'region',dimid)
         CALL handle_ncerror(status)
         status=nf90_inquire_dimension(ncid,dimid,len=rdm)
@@ -1571,7 +1571,7 @@ c
 c
       WRITE(*,*) 'read section'
       status=nf90_inq_varid(ncid,'section',rhid)
-      IF (model_id.NE.'NorESM1-F'.AND.status.EQ.nf90_noerr) THEN
+      IF (status.EQ.nf90_noerr) THEN
         status=nf90_inq_dimid(ncid,'section',dimid)
         CALL handle_ncerror(status)
         status=nf90_inquire_dimension(ncid,dimid,len=secdm)

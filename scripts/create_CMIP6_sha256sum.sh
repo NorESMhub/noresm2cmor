@@ -91,8 +91,7 @@ then
     #folders+=(/projects/NS9034K/CMIP6/OMIP/NCC/NorESM2-LM/omip2)
     #folders+=(/projects/NS9034K/CMIP6/RFMIP/NCC/NorESM2-LM/piClim-spAer-aer)
     #folders+=(/projects/NS9034K/CMIP6/CMIP/NCC/NorESM2-LM/esm-hist)
-    #folders+=(/projects/NS9034K/CMIP6/CMIP/NCC/NorESM2-LM/esm-piControl)
-    folders+=(/projects/NS9034K/CMIP6/PMIP/NCC/NorESM1-F/lig127k)
+    folders+=(/projects/NS9034K/CMIP6/CMIP/NCC/NorESM2-LM/esm-piControl)
 fi
 if [ -z "$version" ]
 then
@@ -101,7 +100,7 @@ then
     #Version=v20190917
     Version=v20190920
 fi
-OverWrite=TRUE
+#OverWrite=TRUE
 
 pid=$$
 for (( i = 0; i < ${#folders[*]}; i++ )); do
