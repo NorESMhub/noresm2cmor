@@ -1599,7 +1599,7 @@ c
 #endif 
 c 
       CHARACTER(len=*) :: grid,grid_label,grid_resolution,varname
-      CHARACTER :: yyyymm1*6,yyyymm2*6,c2*2 
+      CHARACTER :: yyyymm1*6,yyyymm2*6,c2*2,r3*3
       TYPE(json_core) :: json 
       TYPE(json_value), POINTER :: p 
       CALL json%initialize()
@@ -1672,6 +1672,7 @@ c --- new for cmor3
 c 
       WRITE(yyyymm1,'(I4.4,I2.2)') year1,month1
       WRITE(yyyymm2,'(I4.4,I2.2)') yearn,monthn
+      WRITE(r3,'(I3.3)') realization
 #ifdef MPI 
       CALL MPI_COMM_RANK(MPI_COMM_WORLD, mpirank, mpierror)
       WRITE(c2,'(I2.2)') mpirank
@@ -1680,7 +1681,8 @@ c
 #endif 
 c
       namelist_file_json='namelist_'//TRIM(casename)//'_'//
-     .  TRIM(varname)//'_'//yyyymm1//'-'//yyyymm2//'_'//c2//'.json'  
+     .  TRIM(varname)//'_'//yyyymm1//'-'//yyyymm2//'_'//r3
+     .  //'_'//c2//'.json'  
       CALL json%print(p,namelist_file_json)
       CALL json%destroy(p)            !cleanup
       WRITE(*,*) 'json-namelist file: ',TRIM(namelist_file_json)
