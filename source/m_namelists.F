@@ -275,36 +275,41 @@ c --- Tables
      .  rCFsubhr,rE1hrClimMon,rE1hr,rE3hr,rCE3hrPt,rE6hrZ,rEday,rEdayZ,
      .  rEfx,rEmon,rEmonZ,rEsubhr,rEyr,rOclim,rOday,rOdaybgc,rOdec,
      .  rCOfx,rSIday
-      NAMELIST /table_ofx/       dofx,pofx,tofx,vofx
+      NAMELIST /table_ofx/       dofx,pofx,tofx,vofx,rofx
       NAMELIST /table_6hrPlevPt/ d6hrPlevPt,p6hrPlevPt,t6hrPlevPt,
-     .                           v6hrPlevPt
-      NAMELIST /table_AERday/    dAERday,pAERday,tAERday,vAERday
-      NAMELIST /table_AERhr/     dAERhr,pAERhr,tAERhr,vAERhr
-      NAMELIST /table_AERmonZ/   dAERmonZ,pAERmonZ,tAERmonZ,vAERmonZ
-      NAMELIST /table_CF3hr/     dCF3hr,pCF3hr,tCF3hr,vCF3hr
-      NAMELIST /table_CFday/     dCFday,pCFday,tCFday,vCFday
-      NAMELIST /table_CFmon/     dCFmon,pCFmon,tCFmon,rCFmon,vCFmon
+     .                           v6hrPlevPt,r6hrPlevPt
+      NAMELIST /table_AERday/    dAERday,pAERday,tAERday,vAERday,rAERday
+      NAMELIST /table_AERhr/     dAERhr,pAERhr,tAERhr,vAERhr,rAERhr
+      NAMELIST /table_AERmonZ/   dAERmonZ,pAERmonZ,tAERmonZ,vAERmonZ,
+     .                           rAERmonZ
+      NAMELIST /table_CF3hr/     dCF3hr,pCF3hr,tCF3hr,vCF3hr,rCF3hr
+      NAMELIST /table_CFday/     dCFday,pCFday,tCFday,vCFday,rCFday
+      NAMELIST /table_CFmon/     dCFmon,pCFmon,tCFmon,rCFmon,vCFmon,
+     .                           rCFmon
       NAMELIST /table_CFsubhr/   dCFsubhr,pCFsubhr,tCFsubhr,vCFsubhr
       NAMELIST /table_E1hrClimMon/ dE1hrClimMon,pE1hrClimMon,
-     .                             tE1hrClimMon,vE1hrClimMon
-      NAMELIST /table_E1hr/      dE1hr,pE1hr,tE1hr,vE1hr
-      NAMELIST /table_E3hr/      dE3hr,pE3hr,tE3hr,vE3hr
-      NAMELIST /table_CE3hrPt/   dCE3hrPt,pCE3hrPt,tCE3hrPt,vCE3hrPt
-      NAMELIST /table_E6hrZ/     dE6hrZ,pE6hrZ,tE6hrZ,vE6hrZ
-      NAMELIST /table_Eday/      dEday,pEday,tEday,vEday
-      NAMELIST /table_EdayZ/     dEdayZ,pEdayZ,tEdayZ,vEdayZ
-      NAMELIST /table_Efx/       dEfx,pEfx,tEfx,vEfx
-      NAMELIST /table_Emon/      dEmon,pEmon,tEmon,vEmon
-      NAMELIST /table_EmonZ/     dEmonZ,pEmonZ,tEmonZ,vEmonZ
-      NAMELIST /table_Esubhr/    dEsubhr,pEsubhr,tEsubhr,vEsubhr
-      NAMELIST /table_Eyr/       dEyr,pEyr,tEyr,vEyr
-      NAMELIST /table_Oclim/     dOclim,pOclim,tOclim,vOclim
-      NAMELIST /table_Oday/      dOday,pOday,tOday,rOday,vOday
+     .                           tE1hrClimMon,vE1hrClimMon,rE1hrClimMon
+      NAMELIST /table_E1hr/      dE1hr,pE1hr,tE1hr,vE1hr,rE1hr
+      NAMELIST /table_E3hr/      dE3hr,pE3hr,tE3hr,vE3hr,rE3hr
+      NAMELIST /table_CE3hrPt/   dCE3hrPt,pCE3hrPt,tCE3hrPt,vCE3hrPt,
+     .                           rCE3hrPt
+      NAMELIST /table_E6hrZ/     dE6hrZ,pE6hrZ,tE6hrZ,vE6hrZ,rE6hrZ
+      NAMELIST /table_Eday/      dEday,pEday,tEday,vEday,rEday
+      NAMELIST /table_EdayZ/     dEdayZ,pEdayZ,tEdayZ,vEdayZ,rEdayZ
+      NAMELIST /table_Efx/       dEfx,pEfx,tEfx,vEfx,rEfx
+      NAMELIST /table_Emon/      dEmon,pEmon,tEmon,vEmon,rEmon
+      NAMELIST /table_EmonZ/     dEmonZ,pEmonZ,tEmonZ,vEmonZ,rEmonZ
+      NAMELIST /table_Esubhr/    dEsubhr,pEsubhr,tEsubhr,vEsubhr,
+     .                           rEsubhr
+      NAMELIST /table_Eyr/       dEyr,pEyr,tEyr,vEyr,rEyr
+      NAMELIST /table_Oclim/     dOclim,pOclim,tOclim,vOclim,rOclim
+      NAMELIST /table_Oday/      dOday,pOday,tOday,rOday,vOday,rOday
       NAMELIST /table_Odaybgc/   dOdaybgc,pOdaybgc,tOdaybgc,rOdaybgc,
-     .                           vOdaybgc
-      NAMELIST /table_Odec/      dOdec,pOdec,tOdec,vOdec
-      NAMELIST /table_COfx/      dCOfx,pCOfx,tCOfx,vCOfx
-      NAMELIST /table_SIday/     dSIday,pSIday,tSIday,rSIday,vSIday
+     .                           vOdaybgc,rOdaybgc
+      NAMELIST /table_Odec/      dOdec,pOdec,tOdec,vOdec,rOdec
+      NAMELIST /table_COfx/      dCOfx,pCOfx,tCOfx,vCOfx,rCOfx
+      NAMELIST /table_SIday/     dSIday,pSIday,tSIday,rSIday,vSIday,
+     .                           rSIday
 #endif
 c
 c --- Misc 
@@ -782,6 +787,7 @@ c
         STOP
       ENDIF  
 c
+      CALL SYSTEM('cat '//TRIM(nmlfpvar))
       OPEN(funit,FILE=TRIM(nmlfpvar),STATUS='old',ACTION='read',
      .  RECL=200)
       READ(funit,nml=table_grids,IOSTAT=istatus)
@@ -853,114 +859,138 @@ c
      .  'WARNING: Table 3hri not in namelist file. Skipping table...'
 #ifdef CMOR3
       READ(funit,nml=table_ofx,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Ofx not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_6hrPlevPt,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table 6hrPlevPt not in namelist file. Skip table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_AERday,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table AERday not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_AERhr,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table AERhr not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_AERmonZ,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table AERmonZ not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_CF3hr,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table CF3hr not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_CFday,IOSTAT=istatus)
-      REWIND(funit)
-      IF (istatus.NE.0) WRITE(*,*) 
-     .  'WARNING: Table CFday not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_CFmon,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table CFmon not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_CFsubhr,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table CFsubhr not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_E1hrClimMon,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table E1hrClimMon not in namelist file. Skip table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_E1hr,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table E1hr not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_E3hr,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table E3hr not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_CE3hrPt,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table CE3hrPt not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_E6hrZ,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table E6hrZ not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_Eday,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Eday not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_EdayZ,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table EdayZ not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_Efx,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Efx not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_Emon,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Emon not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_EmonZ,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table EmonZ not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_Esubhr,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Esubhr not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_Eyr,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Eyr not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_Oclim,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Oclim not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_Oday,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Oday not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_Odaybgc,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Odaybgc not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_Odec,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table Odec not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_COfx,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table COfx not in namelist file. Skipping table...'
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_SIday,IOSTAT=istatus)
-      REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table SIday not in namelist file. Skipping table...'
-
+      REWIND(funit,IOSTAT=istatus)
+      IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
 #endif
 c
       CLOSE(funit)

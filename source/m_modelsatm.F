@@ -544,6 +544,282 @@ c
       ENDDO
 c
 c
+c --- Process table AERday
+      fnm=pAERday
+      table=tAERday
+      linstant=.FALSE.
+      lreadplev=.TRUE.
+      DO n=1,nAERday
+        IF (skip_variable(n,nAERday,dAERday)) CYCLE
+c
+c --- - Map namelist variables 
+        ovnm=vAERday(ovnmpos,n)
+        ivnm=vAERday(ivnmpos,n)
+        special=vAERday(3,n)
+        vunits=' '
+        vpositive=' '
+        vcomment=' '
+c 
+c --- - Check if 2d and/or 3d fields are to be written 
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+        IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
+     .    zcoord(2:5).EQ.'levh') THEN
+          IF (.NOT.do_3d) CYCLE
+c --- --- Read pressure levels from table 
+          IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN
+            CALL read_gridinfo_plev(TRIM(zcoord))
+!            lreadplev=.FALSE.
+          ENDIF
+        ELSE
+          IF (.NOT.do_2d) CYCLE
+        ENDIF
+c 
+c --- - Choose history file 
+        itag=tagaday
+c
+c --- - Check if input variable is present  
+        IF (LEN_TRIM(pAERday).eq.0) CALL  scan_files(reset=.TRUE.)
+        IF (INDEX(special,'catplev').LT.1) THEN
+          IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+        ENDIF
+c
+c --- - Prepare output file 
+        CALL special_pre
+c
+c --- - Loop over files
+        skipini=.false.
+        m=0
+        DO
+          m=m+1
+c
+c --- --- Open output file
+          IF (MOD(m-1,rAERday).EQ.0) CALL open_ofile
+c
+c --- --- Read variable into buffer (average if necessary)
+          rec=0
+          IF (LEN_TRIM(pAERday).eq.0) CALL scan_files
+          IF (rec.EQ.0) EXIT
+cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
+          IF (tbnd(1).EQ.tbnd(2)) THEN
+            IF(verbose) WRITE(*,*) 'Skip initialisation record'
+            skipini=.true.
+            CYCLE
+          ENDIF
+          tbnds(:,1)=tbnd
+          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+c
+c --- --- Read data 
+          CALL read_tslice(rec,badrec,fnm)
+c
+c --- --- Post processing 
+          IF (zcoord(1:4).EQ.'plev'.AND.
+     .      INDEX(special,'catplev').LT.1) THEN
+            CALL interp_z
+          ELSE
+            ofld=ifld
+          ENDIF
+          CALL special_post
+c
+c --- --- Write time slice to output file 
+          CALL write_tslice
+c
+c --- --- Close output file if max rec has been reached 
+          IF (skipini.AND.MOD(m-1,rAERday).EQ.0.OR..NOT.skipini.AND.
+     .       MOD(m,rAERday).EQ.0) CALL close_ofile
+c
+c --- - End loop over files and records
+        ENDDO
+c
+c --- - Close output file if still open 
+        IF (MOD(m,rAERday).GT.0) CALL close_ofile
+c
+      ENDDO
+c
+c
+c --- Process table Eday
+      fnm=pEday
+      table=tEday
+      linstant=.FALSE.
+      lreadplev=.TRUE.
+      DO n=1,nEday
+        IF (skip_variable(n,nEday,dEday)) CYCLE
+c
+c --- - Map namelist variables 
+        ovnm=vEday(ovnmpos,n)
+        ivnm=vEday(ivnmpos,n)
+        special=vEday(3,n)
+        vunits=' '
+        vpositive=' '
+        vcomment=' '
+c 
+c --- - Check if 2d and/or 3d fields are to be written 
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+        IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
+     .    zcoord(2:5).EQ.'levh') THEN
+          IF (.NOT.do_3d) CYCLE
+c --- --- Read pressure levels from table 
+          IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN
+            CALL read_gridinfo_plev(TRIM(zcoord))
+!            lreadplev=.FALSE.
+          ENDIF
+        ELSE
+          IF (.NOT.do_2d) CYCLE
+        ENDIF
+c 
+c --- - Choose history file 
+        itag=tagaday
+c
+c --- - Check if input variable is present  
+        IF (LEN_TRIM(pEday).eq.0) CALL  scan_files(reset=.TRUE.)
+        IF (INDEX(special,'catplev').LT.1) THEN
+          IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+        ENDIF
+c
+c --- - Prepare output file 
+        CALL special_pre
+c
+c --- - Loop over files
+        skipini=.false.
+        m=0
+        DO
+          m=m+1
+c
+c --- --- Open output file
+          IF (MOD(m-1,rEday).EQ.0) CALL open_ofile
+c
+c --- --- Read variable into buffer (average if necessary)
+          rec=0
+          IF (LEN_TRIM(pEday).eq.0) CALL scan_files
+          IF (rec.EQ.0) EXIT
+cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
+          IF (tbnd(1).EQ.tbnd(2)) THEN
+            IF(verbose) WRITE(*,*) 'Skip initialisation record'
+            skipini=.true.
+            CYCLE
+          ENDIF
+          tbnds(:,1)=tbnd
+          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+c
+c --- --- Read data 
+          CALL read_tslice(rec,badrec,fnm)
+c
+c --- --- Post processing 
+          IF (zcoord(1:4).EQ.'plev'.AND.
+     .      INDEX(special,'catplev').LT.1) THEN
+            CALL interp_z
+          ELSE
+            ofld=ifld
+          ENDIF
+          CALL special_post
+c
+c --- --- Write time slice to output file 
+          CALL write_tslice
+c
+c --- --- Close output file if max rec has been reached 
+          IF (skipini.AND.MOD(m-1,rEday).EQ.0.OR..NOT.skipini.AND.
+     .       MOD(m,rEday).EQ.0) CALL close_ofile
+c
+c --- - End loop over files and records
+        ENDDO
+c
+c --- - Close output file if still open 
+        IF (MOD(m,rEday).GT.0) CALL close_ofile
+c
+      ENDDO
+c
+c
+c --- Process table CFday
+      fnm=pCFday
+      table=tCFday
+      linstant=.FALSE.
+      lreadplev=.TRUE.
+      DO n=1,nCFday
+        IF (skip_variable(n,nCFday,dCFday)) CYCLE
+c
+c --- - Map namelist variables 
+        ovnm=vCFday(ovnmpos,n)
+        ivnm=vCFday(ivnmpos,n)
+        special=vCFday(3,n)
+        vunits=' '
+        vpositive=' '
+        vcomment=' '
+c 
+c --- - Check if 2d and/or 3d fields are to be written 
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+        IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
+     .    zcoord(2:5).EQ.'levh') THEN
+          IF (.NOT.do_3d) CYCLE
+c --- --- Read pressure levels from table 
+          IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN
+            CALL read_gridinfo_plev(TRIM(zcoord))
+!            lreadplev=.FALSE.
+          ENDIF
+        ELSE
+          IF (.NOT.do_2d) CYCLE
+        ENDIF
+c 
+c --- - Choose history file 
+        itag=tagaday
+c
+c --- - Check if input variable is present  
+        IF (LEN_TRIM(pCFday).eq.0) CALL  scan_files(reset=.TRUE.)
+        IF (INDEX(special,'catplev').LT.1) THEN
+          IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+        ENDIF
+c
+c --- - Prepare output file 
+        CALL special_pre
+c
+c --- - Loop over files
+        skipini=.false.
+        m=0
+        DO
+          m=m+1
+c
+c --- --- Open output file
+          IF (MOD(m-1,rCFday).EQ.0) CALL open_ofile
+c
+c --- --- Read variable into buffer (average if necessary)
+          rec=0
+          IF (LEN_TRIM(pCFday).eq.0) CALL scan_files
+          IF (rec.EQ.0) EXIT
+cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
+          IF (tbnd(1).EQ.tbnd(2)) THEN
+            IF(verbose) WRITE(*,*) 'Skip initialisation record'
+            skipini=.true.
+            CYCLE
+          ENDIF
+          tbnds(:,1)=tbnd
+          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+c
+c --- --- Read data 
+          CALL read_tslice(rec,badrec,fnm)
+c
+c --- --- Post processing 
+          IF (zcoord(1:4).EQ.'plev'.AND.
+     .      INDEX(special,'catplev').LT.1) THEN
+            CALL interp_z
+          ELSE
+            ofld=ifld
+          ENDIF
+          CALL special_post
+c
+c --- --- Write time slice to output file 
+          CALL write_tslice
+c
+c --- --- Close output file if max rec has been reached 
+          IF (skipini.AND.MOD(m-1,rCFday).EQ.0.OR..NOT.skipini.AND.
+     .       MOD(m,rCFday).EQ.0) CALL close_ofile
+c
+c --- - End loop over files and records
+        ENDDO
+c
+c --- - Close output file if still open 
+        IF (MOD(m,rCFday).GT.0) CALL close_ofile
+c
+      ENDDO
+c
+c
 c --- Process table 6hrlev
       fnm=p6hrlev
       table=t6hrlev
