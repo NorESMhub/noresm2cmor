@@ -88,6 +88,7 @@ c --- Initialise pressure level dimension
 c
 c
 c --- Process table fx 
+      WRITE(*,*) 'Process table fx'
       fnm=pfx
       table=tfx 
       linstant=.FALSE.
@@ -139,6 +140,7 @@ c
 c
 c 
 c --- Process table amon
+      WRITE(*,*) 'Process table amon'
       fnm=pamon
       table=tamon 
       linstant=.FALSE.
@@ -246,6 +248,7 @@ c
 c 
 #ifdef CMOR3
 c --- Process table Emon
+      WRITE(*,*) 'Process table Emon'
       fnm=pEmon
       table=tEmon
       linstant=.FALSE.
@@ -353,6 +356,7 @@ c
 #endif
 c 
 c --- Process table aero
+      WRITE(*,*) 'Process table aero'
       fnm=paero
       table=taero
       linstant=.FALSE.
@@ -453,6 +457,7 @@ c
 c
 c
 c --- Process table day
+      WRITE(*,*) 'Process table day'
       fnm=pday
       table=tday
       linstant=.FALSE.
@@ -545,6 +550,7 @@ c
 c
 c
 c --- Process table AERday
+      WRITE(*,*) 'Process table AERday'
       fnm=pAERday
       table=tAERday
       linstant=.FALSE.
@@ -637,6 +643,7 @@ c
 c
 c
 c --- Process table Eday
+      WRITE(*,*) 'Process table Eday'
       fnm=pEday
       table=tEday
       linstant=.FALSE.
@@ -729,6 +736,7 @@ c
 c
 c
 c --- Process table CFday
+      WRITE(*,*) 'Process table CFday'
       fnm=pCFday
       table=tCFday
       linstant=.FALSE.
@@ -821,6 +829,7 @@ c
 c
 c
 c --- Process table 6hrlev
+      WRITE(*,*) 'Process table 6hrlev'
       fnm=p6hrlev
       table=t6hrlev
       linstant=.TRUE.
@@ -894,6 +903,7 @@ c
 c
 c
 c --- Process table 6hrplev
+      WRITE(*,*) 'Process table 6hrplev'
       fnm=p6hrplev
       table=t6hrplev
       linstant=.TRUE.
@@ -978,6 +988,7 @@ c
 c
 c
 c --- Process table 3hr 
+      WRITE(*,*) 'Process table 3hr'
       fnm=p3hr
       table=t3hr
       linstant=.FALSE.
@@ -1050,6 +1061,7 @@ c
 c
 c
 c --- Process table 3hr (instantaneous)
+      WRITE(*,*) 'Process table 3hri'
       fnm=p3hri
       table=t3hri
       linstant=.TRUE.

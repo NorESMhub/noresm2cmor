@@ -135,7 +135,6 @@
                  'rsntds        ','swa              ','positivedo ',
                  'sf6           ','sf6              ','           ',
                  'sf6           ','sf6lvl           ','           ',
-                 'sfdsi         ','fsalt_ai         ','           ',
                  'sfdsi         ','fsalt_ai         ','kg m-2 day-1 -> kg m-2 s-1;positivedo ',
                  'so            ','saln             ','psu        ',
                  'so            ','salnlvl          ','psu        ',
@@ -589,6 +588,35 @@
  vOdaybgc      = 
                  'chlos       ','srfphyc       ','kg m-3;mol P m-3 -> kg Chl m-3',
                  'phycos      ','srfphyc       ','mol m-3     ',
+/
+
+&table_AERday
+dAERday        = .true.
+tAERday        = 'CMIP6_AERday.json', 
+rAERday        = 1000000, 
+vAERday        = 
+                 'zg10        ','Z010       ','          ',
+                 'zg500       ','Z500       ','          ',
+                 'ua10        ','U010       ','          ',
+                 'va10        ','V010       ','          ',
+/
+
+&table_Eday
+dEday          = .true.
+tEday          = 'CMIP6_Eday.json',
+rEday          = 1000000,   
+vEday          =   
+                 'prhmax      ','PRECTMX    ','kg m-2 s-1',
+                 'ta500       ','T500       ','          ',
+                 'ta850       ','T850       ','          ',
+/
+
+&table_CFday
+dCFday         = .true.
+tCFday         = 'CMIP6_CFday.json',
+rCFday         = 1000000,   
+vCFday         =   
+                'wap500       ','OMEGA500   ','          ',
 /
 
 &table_3hr 
