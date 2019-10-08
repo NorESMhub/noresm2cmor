@@ -428,7 +428,7 @@
 /
 
 &table_day
- dday          = .true.
+ dday          = .false.
  tday          = 'CMIP6_day.json', 
  rday          = 1000000, 
  vday          = 
@@ -463,14 +463,14 @@
 !                'U             ','uas       ','blayer    ',
 !                'V             ','vas       ','blayer    ',
                  'U10           ','sfcWind   ','          ',
-                 'U10MXAV       ','sfcWindmax','m s-1     ',
+                 'U10MXAV       ','sfcWindmax','          ',
                  'Z3            ','zg        ','          ', 
                  'SOILWATER_10CM','mrsos     ','          ',
                  'QRUNOFF       ','mrro      ','          ',
 /
 
 &table_AERday
- dAERday       = .true.
+ dAERday       = .false.
  tAERday       = 'CMIP6_AERday.json', 
  rAERday       = 1000000, 
  vAERday       = 
@@ -485,14 +485,14 @@
  tEday         = 'CMIP6_Eday.json',
  rEday         = 1000000,   
  vEday         =   
-                 'TMQ           ','prw       ','          ',
-                 'PRECTMX       ','prhmax    ','kg m-2 s-1',
-                 'T500          ','ta500     ','          ',
-                 'T850          ','ta850     ','          ',
+                 'TMQ           ','prw       ','kg m-2',
+!                'PRECTMX       ','prhmax    ','kg m-2 s-1',
+!                'T500          ','ta500     ','          ',
+!                'T850          ','ta850     ','          ',
 /
 
 &table_CFday
- dCFday        = .true.
+ dCFday        = .false.
  tCFday        = 'CMIP6_CFday.json',
  rCFday        = 1000000,   
  vCFday        =   

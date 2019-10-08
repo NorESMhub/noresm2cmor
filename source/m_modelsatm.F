@@ -1168,6 +1168,10 @@ c --- - Fix m units
         CASE ('m')
           vunits='m'
 c
+c --- - Fix m/s units 
+        CASE ('m s-1')
+          vunits='m s-1'
+c
 c --- - Fix m-2 units 
         CASE ('m-2')
           vunits='m-2'

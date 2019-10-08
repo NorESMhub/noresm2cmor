@@ -1,0 +1,37 @@
+&experiment
+ casename      = 'noresm1-cmip6_analysis_19500115_mem01',
+ isubdir       = 'NorCPM/noresm1-cmip6_analysis_19500115'
+ osubdir       = 'NorCPM1/dcppA-assim/v20191005' 
+ experiment_id = 'dcppA-assim',
+ parent_experiment_id  = 'no parent',
+ parent_experiment_rip = 'r1i2p1',
+ parent_time_units = 'no parent',
+ branch_method = 'no parent',
+ history       = ' ',
+ comment       = 'i2 stands for anomaly assimilation of T/S profile observations into ocean and sea ice',
+                 'components using 1950-2010 as climatological period (see Bethke et al. for details)',
+ source_type   = 'AOGCM',
+ forcing       = 'N/A',
+ realization   = 1,
+ initialization_method = 2, 
+ physics_version = 1,
+ forcing_index = 1, 
+ branch_time   = 0.,
+ year1         = 1950,
+ yearn         = 2018,
+ month1        = 1,
+ monthn        = 12,
+ exprefyear    = 1, 
+ activity_id   = 'DCPP', 
+ parent_activity_id = 'no parent', 
+ parent_variant_label = 'no parent',
+ parent_mip_era = 'no parent',
+ mip_era       = 'CMIP6', 
+ sub_experiment = 'none',
+ parent_sub_experiment = 'none'
+ branch_time_in_child   = 711385.,
+ branch_time_in_parent  = 0.0,
+ parent_time_units  = 'days since 0001-01-01', 
+ tracking_prefix   = 'hdl:21.14100',
+ newcolumnorder = .false.
+/

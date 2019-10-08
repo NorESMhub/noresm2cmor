@@ -1,4 +1,4 @@
-! d* - do table false/false 
+! d* - do table true/false 
 ! t* - path to table file (guessed if omitted) 
 ! p* - alternative path to data file (path created if omitted)
 ! v* - list of varibles: <cam name>,<cmor name>,<special operation>
@@ -436,8 +436,6 @@
                  'QREFHT        ','huss      ','          ',
                  'TREFHTMN      ','tasmin    ','          ',
                  'TREFHTMX      ','tasmax    ','          ',
-                 'TREFMNAV      ','tasmin    ','          ',
-                 'TREFMXAV      ','tasmax    ','          ',
                  'TREFHT        ','tas       ','          ',
                  'PRECT         ','pr        ','kg m-2 s-1',
                  'RHREFHT       ','hurs      ','percent   ',
@@ -462,41 +460,9 @@
                  'VAS           ','vas       ','          ',
 !                'U             ','uas       ','blayer    ',
 !                'V             ','vas       ','blayer    ',
-                 'U10           ','sfcWind   ','          ',
-                 'U10MXAV       ','sfcWindmax','m s-1     ',
                  'Z3            ','zg        ','          ', 
                  'SOILWATER_10CM','mrsos     ','          ',
                  'QRUNOFF       ','mrro      ','          ',
-/
-
-&table_AERday
- dAERday       = .true.
- tAERday       = 'CMIP6_AERday.json', 
- rAERday       = 1000000, 
- vAERday       = 
-                 'Z010          ','zg10      ','          ',
-                 'Z500          ','zg500     ','          ',
-                 'U010          ','ua10      ','          ',
-                 'V010          ','va10      ','          ',
-/
-
-&table_Eday
- dEday         = .true.
- tEday         = 'CMIP6_Eday.json',
- rEday         = 1000000,   
- vEday         =   
-                 'TMQ           ','prw       ','          ',
-                 'PRECTMX       ','prhmax    ','kg m-2 s-1',
-                 'T500          ','ta500     ','          ',
-                 'T850          ','ta850     ','          ',
-/
-
-&table_CFday
- dCFday        = .true.
- tCFday        = 'CMIP6_CFday.json',
- rCFday        = 1000000,   
- vCFday        =   
-                 'OMEGA500      ','wap500    ','          ',
 /
 
 &table_SIday

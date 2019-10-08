@@ -485,7 +485,7 @@
  tEday         = 'CMIP6_Eday.json',
  rEday         = 1000000,   
  vEday         =   
-                 'TMQ           ','prw       ','          ',
+                 'TMQ           ','prw       ','kg m-2',
                  'PRECTMX       ','prhmax    ','kg m-2 s-1',
                  'T500          ','ta500     ','          ',
                  'T850          ','ta850     ','          ',
@@ -500,7 +500,7 @@
 /
 
 &table_SIday
- dSIday        = .false.
+ dSIday        = .true.
  tSIday        = 'CMIP6_SIday.json', 
  rSIday        = 1000000, 
  vSIday        = 
@@ -512,7 +512,7 @@
 /
 
 &table_Oday
- dOday         = .false.
+ dOday         = .true.
  tOday         = 'CMIP6_Oday.json', 
  rOday         = 1000000, 
  vOday         = 
