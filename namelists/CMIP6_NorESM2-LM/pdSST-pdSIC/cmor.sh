@@ -4,10 +4,10 @@ set -e
 version=v20190920
 
 #----------------
-# pdSST-piArcSIC part1
+# pdSST-pdSIC part1
 #----------------
 #CaseName=m1-25
-#expid=pdSST-piArcSIC
+#expid=pdSST-pdSIC
 #years1=(2000)
 #years2=(2001)
 #month1=6
@@ -21,10 +21,10 @@ version=v20190920
 #membs=(0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
 #----------------
-# pdSST-piArcSIC part2
+# pdSST-pdSIC part2
 #----------------
 #CaseName=m26-50
-#expid=pdSST-piArcSIC
+#expid=pdSST-pdSIC
 #years1=(2000)
 #years2=(2001)
 #month1=6
@@ -38,10 +38,10 @@ version=v20190920
 #membs=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
 #----------------
-# pdSST-piArcSIC part3
+# pdSST-pdSIC part3
 #----------------
 #CaseName=m51-75
-#expid=pdSST-piArcSIC
+#expid=pdSST-pdSIC
 #years1=(2000)
 #years2=(2001)
 #month1=6
@@ -55,21 +55,21 @@ version=v20190920
 #membs=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
 #----------------
-# pdSST-piArcSIC part4
+# pdSST-pdSIC part4
 #----------------
 CaseName=m76-100
-#expid=pdSST-piArcSIC
-#years1=(2000)
-#years2=(2001)
-#month1=6
-#month2=5
+expid=pdSST-pdSIC
+years1=(2000)
+years2=(2001)
+month1=6
+month2=5
 
 #login2
 #reals=(  76   77   78   79   80   81   82   83   84   85   86   87)
 #membs=(0001 0002 0003 0004 0005 0006 0007 0008 0009 0010 0011 0012)
 # login3
-#reals=(  88   89   90   91   92   93   94   95   96   97   98   99  100)
-#membs=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
+reals=(  88   89   90   91   92   93   94   95   96   97   98   99  100)
+membs=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
 # ==========================================================
 if [ ! -d ~/noresm2cmor/namelists/CMIP6_NorESM2-LM/${expid}/${version} ]
