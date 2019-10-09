@@ -1098,6 +1098,20 @@ c --- - Compute vertical sum
               ENDDO  
             ENDDO 
           ENDDO
+
+c --- - Compute local minima
+        CASE ('locmin')
+          DO j=1,jj 
+            DO i=1,ii    
+              DO k=2,kk
+                IF (fld(i,j,1).GT.fld(i,j,k)) THEN
+                  fld(i,j,1)=fld(i,j,k)
+                ELSE
+                  CONTINUE
+                END IF
+              ENDDO  
+            ENDDO 
+          ENDDO
 c
 c --- - Multiply with global ocean area 
         CASE ('xglbarea')
@@ -1280,7 +1294,7 @@ c --- --- --- Atlantic ocean
             ENDDO
           ENDDO
 c 
-c --- - Compute basin index
+c --- - Multiple a second field
         CASE ('Xfield2')
           DO k=1,kk
             DO j=1,jj
@@ -1380,15 +1394,6 @@ c --- - Iron to phosphorous ratio in organic matter
             ENDDO 
           ENDDO
 
-c --- - Extract the surface layer from 3D levels
-        CASE ('lvl2srf')
-          DO k=1,kk
-            DO j=1,jj 
-              DO i=1,ii    
-                fld(i,j,k)=fld(i,j,1)
-              ENDDO  
-            ENDDO 
-          ENDDO
 
 c --- - Carbon to iron 
         CASE ('c2fe')
@@ -2238,8 +2243,9 @@ c --- Define output variable
       ELSE
         IF ((TRIM(vtype).EQ.'2d'.AND..NOT.(TRIM(zcoord).EQ.'olevel'.OR.
      .    INDEX(special,'glbave').GT.0.OR.INDEX(special,'2zos').GT.0.
-     .  )).OR.lsumz.AND..NOT.INDEX(special,'glbave').GT.0.OR.
-     .    INDEX(special,'lvl2srf')) THEN 
+     .  )).OR.lsumz.AND..NOT.INDEX(special,'glbave').GT.0
+     .    .OR.INDEX(special,'lvl2srf').GT.0
+     .    .OR.INDEX(special,'locmin').GT.0) THEN 
           varid=cmor_variable(
      .      table          = TRIM(tablepath),
      .      table_entry    = TRIM(ovnm),
@@ -2765,7 +2771,9 @@ c --- Store variable
      .      time_vals      = tval)
         ELSE
           IF ((lsumz.OR.INDEX(special,'level1').GT.0).AND.
-     .      .NOT.INDEX(special,'glbave').GT.0) THEN
+     .      .NOT.INDEX(special,'glbave').GT.0
+     .      .OR.INDEX(special,'lvl2srf').GT.0
+     .      .OR.INDEX(special,'locmin').GT.0 ) THEN
             error_flag=cmor_write(
      .        var_id         = varid,
      .        data           = fld(:,:,1),
