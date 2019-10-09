@@ -1,22 +1,25 @@
 #!/bin/bash
 set -e
 
-version=v20190920
+#version=v20190920
+version=v20191009
 
 #----------------
 # pdSST-pdSIC part1
 #----------------
-#CaseName=m1-25
-#expid=pdSST-pdSIC
-#years1=(2000)
-#years2=(2001)
-#month1=6
-#month2=5
+CaseName=m1-25
+expid=pdSST-pdSIC
+years1=(2000)
+years2=(2001)
+month1=6
+month2=5
+
 
 # login0
-#reals=(   1    2    3    4    5    6    7    8    9   10   11   12   13)
-#membs=(0001 0002 0003 0004 0005 0006 0007 0008 0009 0010 0011 0012 0013)
+reals=(   1    2    3    4    5    6    7    8    9   10   11   12   13)
+membs=(0001 0002 0003 0004 0005 0006 0007 0008 0009 0010 0011 0012 0013)
 # login1
+#sleep 10m
 #reals=(  14   15   16   17   18   19   20   21   22   23   24   25)
 #membs=(0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
@@ -34,6 +37,7 @@ version=v20190920
 #reals=(  26   27   28   29   30   31   32   33   34   35   36   37)
 #membs=(0001 0002 0003 0004 0005 0006 0007 0008 0009 0010 0011 0012)
 # login1
+#sleep 10m
 #reals=(  38   39   40   41   42   43   44   45   46   47   48   49   50)
 #membs=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
@@ -51,25 +55,27 @@ version=v20190920
 #reals=(  51   52   53   54   55   56   57   58   59   60   61   62)
 #membs=(0001 0002 0003 0004 0005 0006 0007 0008 0009 0010 0011 0012)
 # login3
+#sleep 10m
 #reals=(  63   64   65   66   67   68   69   70   71   72   73   74   75)
 #membs=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
 #----------------
 # pdSST-pdSIC part4
 #----------------
-CaseName=m76-100
-expid=pdSST-pdSIC
-years1=(2000)
-years2=(2001)
-month1=6
-month2=5
+#CaseName=m76-100
+#expid=pdSST-pdSIC
+#years1=(2000)
+#years2=(2001)
+#month1=6
+#month2=5
 
 #login2
 #reals=(  76   77   78   79   80   81   82   83   84   85   86   87)
 #membs=(0001 0002 0003 0004 0005 0006 0007 0008 0009 0010 0011 0012)
 # login3
-reals=(  88   89   90   91   92   93   94   95   96   97   98   99  100)
-membs=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
+#sleep 10m
+#reals=(  88   89   90   91   92   93   94   95   96   97   98   99  100)
+#membs=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
 # ==========================================================
 if [ ! -d ~/noresm2cmor/namelists/CMIP6_NorESM2-LM/${expid}/${version} ]
@@ -149,6 +155,6 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
             ../namelists/CMIP6_NorESM2-LM/${expid}/${version}/var.nml \
             1>../logs/CMIP6_NorESM2-LM/${expid}/${version}/${yyyy1}${mm1}-${yyyy2}${mm2}_r${real}.log \
             2>../logs/CMIP6_NorESM2-LM/${expid}/${version}/${yyyy1}${mm1}-${yyyy2}${mm2}_r${real}.err &
-        sleep 60s
+        sleep 30s
     done
 done

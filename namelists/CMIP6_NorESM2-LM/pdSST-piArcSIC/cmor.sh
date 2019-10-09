@@ -1,8 +1,9 @@
 #!/bin/bash
 set -e
 
-version=v20190920
-
+#version=v20190920
+version=v20191009
+sleep 10m
 #----------------
 # pdSST-piArcSIC part1
 #----------------
@@ -58,18 +59,18 @@ version=v20190920
 # pdSST-piArcSIC part4
 #----------------
 CaseName=m76-100
-#expid=pdSST-piArcSIC
-#years1=(2000)
-#years2=(2001)
-#month1=6
-#month2=5
+expid=pdSST-piArcSIC
+years1=(2000)
+years2=(2001)
+month1=6
+month2=5
 
 #login2
 #reals=(  76   77   78   79   80   81   82   83   84   85   86   87)
 #membs=(0001 0002 0003 0004 0005 0006 0007 0008 0009 0010 0011 0012)
 # login3
-#reals=(  88   89   90   91   92   93   94   95   96   97   98   99  100)
-#membs=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
+reals=(  88   89   90   91   92   93   94   95   96   97   98   99  100)
+membs=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
 # ==========================================================
 if [ ! -d ~/noresm2cmor/namelists/CMIP6_NorESM2-LM/${expid}/${version} ]
@@ -149,6 +150,6 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
             ../namelists/CMIP6_NorESM2-LM/${expid}/${version}/var.nml \
             1>../logs/CMIP6_NorESM2-LM/${expid}/${version}/${yyyy1}${mm1}-${yyyy2}${mm2}_r${real}.log \
             2>../logs/CMIP6_NorESM2-LM/${expid}/${version}/${yyyy1}${mm1}-${yyyy2}${mm2}_r${real}.err &
-        sleep 60s
+        sleep 30s
     done
 done

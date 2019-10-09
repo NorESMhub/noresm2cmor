@@ -1,0 +1,39 @@
+! d* - do table true/false
+! t* - path to table file (guessed if omitted) 
+! p* - alternative path to data file (path created if omitted)
+! r* - ?
+! v* - list of varibles: <NorESM name>,<cmor name>,<special operation>
+
+&table_grids
+ tgrids        = 'CMIP6_grids.json'
+/
+
+&table_AERday
+dAERday        = .true.
+tAERday        = 'CMIP6_AERday.json', 
+rAERday        = 1000000, 
+vAERday        = 
+                 'zg10        ','Z010       ','          ',
+                 'zg500       ','Z500       ','          ',
+                 'ua10        ','U010       ','          ',
+                 'va10        ','V010       ','          ',
+/
+
+&table_Eday
+dEday          = .true.
+tEday          = 'CMIP6_Eday.json',
+rEday          = 1000000,   
+vEday          =   
+                 'prhmax      ','PRECTMX    ','kg m-2 s-1',
+                 'ta500       ','T500       ','          ',
+                 'ta850       ','T850       ','          ',
+/
+
+&table_CFday
+dCFday         = .true.
+tCFday         = 'CMIP6_CFday.json',
+rCFday         = 1000000,   
+vCFday         =   
+                'wap500       ','OMEGA500   ','          ',
+/
+

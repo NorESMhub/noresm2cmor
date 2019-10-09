@@ -1,9 +1,7 @@
 #!/bin/bash
 set -e
 
-#version=v20190920
-version=v20191009
-sleep 30m
+version=v20190920
 #----------------
 # piSST-pdSIC part1
 #----------------
