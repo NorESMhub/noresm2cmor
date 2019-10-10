@@ -284,6 +284,7 @@
                  'talknat       ','nattalklvl       ','mol m-3              ',
                  'talknatos     ','srfnattalk       ','mol m-3              ',
                  'talkos        ','srftalk          ','mol m-3              ',
+                 'zo2min        ','o2lvl            ','locminz;pmask        ',
                  'zooc          ','zooc*122         ','mol m-3              ',
                  'zooc          ','zooclvl*122      ','mol m-3              ',
                  'zoocos        ','zooclvl*122      ','mol m-3;lvl2srf      ',

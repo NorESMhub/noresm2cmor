@@ -1014,6 +1014,10 @@ c --- - Compute fixed cell thickness
         CASE ('thkcello')
           vunits='m'
 
+c --- - Compute depth of local mimina
+        CASE ('locminz')
+          vunits='m'
+
 c --- - Convert units from [mol P/m3] to [kg Chl/m3] using [60 gC/gChl]
         CASE ('kg m-3')
           vunits='kg m-3'
@@ -1105,7 +1109,7 @@ c --- - Compute vertical sum
               ENDDO  
             ENDDO 
           ENDDO
-
+c
 c --- - Compute local minima
         CASE ('locmin')
           DO j=1,jj 
@@ -1119,6 +1123,24 @@ c --- - Compute local minima
               ENDDO  
             ENDDO 
           ENDDO
+c
+c --- - Compute local minima depth
+        CASE ('locminz')
+          fld2=fld
+          DO j=1,jj 
+            DO i=1,ii    
+              fld2(i,j,1)=depth(1)
+              DO k=2,kk
+                IF (fld(i,j,1).GT.fld(i,j,k)) THEN
+                  fld(i,j,1)=fld(i,j,k)
+                  fld2(i,j,1)=depth(k)
+                ELSE
+                  CONTINUE
+                END IF
+              ENDDO  
+            ENDDO 
+          ENDDO
+          fld=fld2
 c
 c --- - Multiply with global ocean area 
         CASE ('xglbarea')
