@@ -31,7 +31,7 @@ c --- Model namelist
      .  taga6hr,taga3hr,taga3hri,taglmon,taglday,tagl3hr,tagl3hri
       CHARACTER(LEN=slenmax), SAVE :: 
      .  secindexfile,ocngridfile,ocninitfile,ocnmertfile,rhotablesuff,
-     .  atmgridfile
+     .  atmgridfile,ocnregnfile
       LOGICAL, SAVE :: linebreaks
 #ifdef CMOR3
       CHARACTER(LEN=slenmax), SAVE :: 
@@ -81,6 +81,7 @@ c --- Model namelist
      .  ocngridfile,
      .  ocninitfile,
      .  ocnmertfile,
+     .  ocnregnfile,
      .  linebreaks  ! hidden
 c
 c --- Experiment namelist
@@ -366,6 +367,7 @@ c --- Initialise namelist variables
       ocngridfile   = ' '
       ocninitfile   = ' '
       ocnmertfile   = ' '
+      ocnregnfile   = ' '
       secindexfile  = ' '
       rhotablesuff  = 'OnRho'
 #ifdef CMOR3
@@ -1278,6 +1280,7 @@ c
       WRITE(*,*) ' ocean ini file   = ',TRIM(ocninitfile)
       WRITE(*,*) ' ocean sec file   = ',TRIM(secindexfile)
       WRITE(*,*) ' ocean moc file   = ',TRIM(ocnmertfile)
+      WRITE(*,*) ' ocean reg file   = ',TRIM(ocnregnfile)
       WRITE(*,*) ' allow line break = ',linebreaks 
 c
       WRITE(*,*) 

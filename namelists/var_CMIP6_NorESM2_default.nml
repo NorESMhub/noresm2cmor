@@ -22,11 +22,12 @@
  dofx           = .true. 
  tofx           = 'CMIP6_Ofx.json', 
  vofx           = 
-                 'areacello     ','parea             ','pmask                        ',
-                 'basin         ','pmask             ','basin;unitless;zero2missing  ',
-                 'deptho        ','pdepth            ','zero2missing                 ',
-                 'sftof         ','pmask             ','unitless                     ',
-                 'volcello      ','parea,pdepth      ','volcello                     ',
+                 'areacello     ','parea             ','pmask           ',
+                 'basin         ','region            ','                ',
+                 'deptho        ','pdepth            ','zero2missing    ',
+                 'sftof         ','pmask             ','percent         ',
+                 'thkcello      ','pdepth            ','thkcello        ',
+                 'volcello      ','parea,pdepth      ','volcello        ',
 /
 
 &table_oyr

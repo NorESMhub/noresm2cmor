@@ -149,6 +149,9 @@ c --- - Map namelist variables
         vunits=' '
         vpositive=' '
         vcomment=' '
+
+c --- - Use oceanregnfile for region
+        IF (ovnm.EQ.'basin') fnm=TRIM(griddata)//TRIM(ocnregnfile)
 c
 c --- - Check if input variable is present 
         IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
@@ -1007,6 +1010,10 @@ c --- - Compute fixed cell volume of interpolated grid
         CASE ('volcello')
           vunits='m3'
 
+c --- - Compute fixed cell thickness
+        CASE ('thkcello')
+          vunits='m'
+
 c --- - Convert units from [mol P/m3] to [kg Chl/m3] using [60 gC/gChl]
         CASE ('kg m-3')
           vunits='kg m-3'
@@ -1241,6 +1248,22 @@ c --- - Compute fixed cell volume of interpolated grid
               ENDDO
             ENDDO
           ENDDO
+c
+c --- - Compute fixed cell thickness
+        CASE ('thkcello')
+          DO j=1,jj
+            DO i=1,ii
+              DO k=ddm,1,-1
+                IF (fld(i,j,1).EQ.0.) THEN
+                  fld(i,j,k)=1e20
+                ELSE
+                  fld(i,j,k)=MIN(fld(i,j,1),depth_bnds(2,k))-
+     .                       MIN(fld(i,j,1),depth_bnds(1,k)) 
+                ENDIF
+              ENDDO
+            ENDDO
+          ENDDO
+
 c 
 c --- - Compute basin index
         CASE ('basin')
@@ -1421,6 +1444,16 @@ c --- - epc100 to epp100
             DO j=1,jj 
               DO i=1,ii    
                 fld(i,j,k)=fld(i,j,k)/122.
+              ENDDO  
+            ENDDO 
+          ENDDO
+
+c --- - percent
+        CASE ('percent')
+          DO k=1,kk
+            DO j=1,jj 
+              DO i=1,ii    
+                fld(i,j,k)=fld(i,j,k)*100.
               ENDDO  
             ENDDO 
           ENDDO
@@ -1903,7 +1936,9 @@ c
       IF (dimlens(3).EQ.kdm.AND.kdm.GT.0) THEN
         vtype='layer'
       ELSEIF (dimlens(3).EQ.ddm.AND.ddm.GT.0.OR.
-     .  INDEX(special,'volcello').GT.0) THEN
+     .  INDEX(special,'volcello').GT.0.OR.
+     .  INDEX(special,'thkcello').GT.0.OR.
+     .  INDEX(special,'masscello').GT.0) THEN
         vtype='level'
         kk=ddm
       ELSEIF (dimlens(1).EQ.idm.AND.dimlens(2).EQ.jdm.AND.ndims.LE.3)
