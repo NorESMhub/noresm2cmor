@@ -5,14 +5,15 @@ pid=$$
 ROOT=/projects/NS9034K/CMIP6
 cd $ROOT
 
-VER=v20190914
+#VER=v20190914
+VER=v20191005
 
 #folders+=(.cmorout/NorCPM1/dcppA-assim/${VER})
 #folders+=(.cmorout/NorCPM1/piControl/${VER})
-#folders+=(.cmorout/NorCPM1/historical/${VER})
-#folders+=(.cmorout/NorCPM1/dcppA-hindcast/${VER})
-folders+=(.cmorout/NorCPM1/1pctCO2/${VER})
-folders+=(.cmorout/NorCPM1/abrupt4XCO2/${VER})
+folders+=(.cmorout/NorCPM1/historical/${VER})
+folders+=(.cmorout/NorCPM1/dcppA-hindcast/${VER})
+#folders+=(.cmorout/NorCPM1/1pctCO2/${VER})
+#folders+=(.cmorout/NorCPM1/abrupt4XCO2/${VER})
 
 insitute=NCC
 for (( i = 0; i < ${#folders[*]}; i++ )); do

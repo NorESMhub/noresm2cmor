@@ -20,6 +20,7 @@ then
   for RIP in `ls $1 | cut -d_ -f5 | sort -u` 
   do 
     REPORT=`dirname $1`/`basename $1`.QCreport_$RIP
+    if [ -e $REPORT ] ; then continue ; fi
     echo "Writing QC report to $REPORT" 
     PrePARE --max-processes 14 --include-file "${RIP}" $1 > $REPORT
   done 

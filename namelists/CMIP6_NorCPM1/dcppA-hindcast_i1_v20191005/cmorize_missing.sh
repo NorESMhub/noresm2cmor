@@ -7,11 +7,6 @@ NMLDIR=`dirname \`readlink -f $0\``
 PREFIX=`basename $NMLDIR` 
 RUNDIR=$NMLDIR/../../../bin
 
-while [ `ps -u $USER | grep cmorize_missing | wc -l` -gt 1 ] 
-do 
-  sleep 60 
-done
-
 cd $RUNDIR
 INS=1
 for SYEAR in $SYEARS
