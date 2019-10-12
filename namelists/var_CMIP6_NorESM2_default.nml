@@ -305,6 +305,8 @@
                  'talknat       ','nattalklvl       ','mol m-3              ',
                  'talknatos     ','srfnattalk       ','mol m-3              ',
                  'talkos        ','srftalk          ','mol m-3              ',
+                 'zsatarag      ','omegaalvl        ','omega2z;pmask        ',
+                 'zsatcalc      ','omegaclvl        ','omega2z;pmask        ',
                  'zo2min        ','o2lvl            ','locminz;pmask        ',
                  'zooc          ','zooc*122         ','mol m-3              ',
                  'zooc          ','zooclvl*122      ','mol m-3              ',

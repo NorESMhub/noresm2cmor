@@ -1026,6 +1026,10 @@ c --- - Compute depth of local mimina
         CASE ('locminz')
           vunits='m'
 
+c --- - Compute depth of local mimina
+        CASE ('omega2z')
+          vunits='m'
+
 c --- - Convert units from [mol P/m3] to [kg Chl/m3] using [60 gC/gChl]
         CASE ('kg m-3')
           vunits='kg m-3'
@@ -1126,7 +1130,7 @@ c --- - Compute local minima
                 IF (fld(i,j,1).GT.fld(i,j,k)) THEN
                   fld(i,j,1)=fld(i,j,k)
                 ELSE
-                  CONTINUE
+                  EXIT
                 END IF
               ENDDO  
             ENDDO 
@@ -1143,12 +1147,30 @@ c --- - Compute local minima depth
                   fld(i,j,1)=fld(i,j,k)
                   fld2(i,j,1)=depth(k)
                 ELSE
-                  CONTINUE
+                  EXIT
                 END IF
               ENDDO  
             ENDDO 
           ENDDO
           fld=fld2
+c
+c --- - Compute Aragonite Saturation Depth
+        CASE ('omega2z')
+          fldtmp=1e20
+          DO j=1,jj 
+            DO i=1,ii    
+              DO k=1,kk
+                IF (fld(i,j,k).LT.1.0) THEN
+                  IF (k.EQ.1) THEN
+                    fldtmp(i,j,1)=0.0
+                  ELSE
+                    fldtmp(i,j,1)=depth(k)
+                  END IF
+                END IF
+              ENDDO  
+            ENDDO 
+          ENDDO
+          fld=fldtmp
 c
 c --- - Multiply with global ocean area 
         CASE ('xglbarea')
@@ -2344,7 +2366,8 @@ c --- Define output variable
      .    INDEX(special,'glbave').GT.0.OR.INDEX(special,'2zos').GT.0.
      .  )).OR.lsumz.AND..NOT.INDEX(special,'glbave').GT.0
      .    .OR.INDEX(special,'lvl2srf').GT.0
-     .    .OR.INDEX(special,'locmin').GT.0) THEN 
+     .    .OR.INDEX(special,'locmin').GT.0
+     .    .OR.INDEX(special,'omega2z').GT.0) THEN 
           varid=cmor_variable(
      .      table          = TRIM(tablepath),
      .      table_entry    = TRIM(ovnm),
@@ -2875,7 +2898,8 @@ c --- Store variable
           IF ((lsumz.OR.INDEX(special,'level1').GT.0).AND.
      .      .NOT.INDEX(special,'glbave').GT.0
      .      .OR.INDEX(special,'lvl2srf').GT.0
-     .      .OR.INDEX(special,'locmin').GT.0 ) THEN
+     .      .OR.INDEX(special,'locmin').GT.0
+     .      .OR.INDEX(special,'omega2z').GT.0) THEN
             error_flag=cmor_write(
      .        var_id         = varid,
      .        data           = fld(:,:,1),
