@@ -971,6 +971,10 @@ c --- - Fix m-2 units
         CASE ('m-2')
           vunits='m-2'
 c
+c --- - Fix wo units 
+        CASE ('wflx2wo')
+          vunits='m s-1'
+c
 c --- - Set units to kg 
         CASE ('kg')
           vunits='kg'
@@ -1008,6 +1012,10 @@ c --- - Compute steric sea level change from density
 c
 c --- - Compute fixed cell volume of interpolated grid
         CASE ('volcello')
+          vunits='m3'
+
+c --- - Compute fixed cell volume of interpolated grid
+        CASE ('volcellomon')
           vunits='m3'
 
 c --- - Compute fixed cell thickness
@@ -1057,17 +1065,17 @@ c
 c
 c --- - Compute depth below geoid from dz or pddpo 
         CASE ('dz2zfull')
-          fldacc(:,:,1)=sealv
-          DO k=1,kdm
-            fldacc(:,:,k)=fldacc(:,:,MAX(k-1,1))+fld(:,:,k)
+          fldacc(:,:,1)=fld(:,:,1)*0.5-sealv
+          DO k=2,kdm
+            fldacc(:,:,k)=fldacc(:,:,k-1)+(fld(:,:,k-1)+fld(:,:,k))*0.5
           ENDDO
-          fld=fldacc-0.5*fld
+          fld=fldacc
 c
 c --- - Compute depth below geoid at interfaces from dz      
         CASE ('dz2zhalf')
-          fldacc(:,:,1)=sealv
-          DO k=1,kdm
-            fldacc(:,:,k)=fldacc(:,:,MAX(k-1,1))+fld(:,:,k)
+          fldacc(:,:,1)=-sealv
+          DO k=2,kdm
+            fldacc(:,:,k)=fldacc(:,:,k-1)+fld(:,:,k-1)
           ENDDO
           fld=fldacc
 c
@@ -1270,6 +1278,35 @@ c --- - Compute fixed cell volume of interpolated grid
               ENDDO
             ENDDO
           ENDDO
+c
+c --- - Compute fixed cell volume of interpolated grid
+        CASE ('volcellomon')
+          DO j=1,jj
+            DO i=1,ii
+              DO k=ddm,1,-1
+                IF (fld(i,j,1).EQ.0.) THEN
+                  fld(i,j,k)=1e20
+                ELSE
+                  fld(i,j,k)=fld(i,j,k)*fld2(i,j,1)
+                ENDIF
+              ENDDO
+            ENDDO
+          ENDDO
+c
+c --- - Compute vertical velocity form vertical mass flux
+        CASE ('wflx2wo')
+          DO j=1,jj
+            DO i=1,ii
+              DO k=1,kk
+                IF (fld(i,j,1).EQ.0.) THEN
+                  fld(i,j,k)=1e20
+                ELSE
+                  fld(i,j,k)=fld(i,j,k)/(1035.*parea(i,j))
+                ENDIF
+              ENDDO
+            ENDDO
+          ENDDO
+
 c
 c --- - Compute fixed cell thickness
         CASE ('thkcello')
@@ -1986,6 +2023,11 @@ c
         ii=secdm
         jj=1
         kk=1
+      ELSEIF (dimlens(1).EQ.1.AND.ndims.EQ.1) THEN
+        vtype='1d'
+        ii=1
+        jj=1
+        kk=1
       ENDIF
       ALLOCATE(fld(ii,jj,kk),fld2(ii,jj,kk),fldacc(ii,jj,kk),
      .    fldtmp(ii,jj,kk),STAT=status)
@@ -2623,6 +2665,9 @@ c --- Read time sclice
       IF (TRIM(vtype).EQ.'2d') THEN
         status=nf90_get_var(fid,rhid,fldtmp,(/1,1,rec/),
      .    (/idm,jdm,1/))
+      ELSEIF (TRIM(vtype).EQ.'1d') THEN
+        status=nf90_get_var(fid,rhid,fldtmp,(/1,1,rec/),
+     .    (/1,1,1/))
       ELSEIF (TRIM(vtype).EQ.'layer') THEN
         status=nf90_get_var(fid,rhid,fldtmp,(/1,1,1,rec/),
      .    (/idm,jdm,kdm,1/))

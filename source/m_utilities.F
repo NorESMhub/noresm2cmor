@@ -407,7 +407,8 @@ c
      .      .AND.TRIM(VNM).NE.'soga'.AND.TRIM(VNM).NE.'zosga'
      .      .AND.TRIM(VNM).NE.'zossga'.AND.TRIM(VNM).NE.'zostoga'
      .      .AND.TRIM(VNM).NE.'masso'.AND.TRIM(VNM).NE.'volo'
-     .      .AND.TRIM(VNM).NE.'transifs') THEN
+     .      .AND.TRIM(VNM).NE.'transifs'
+     .      .AND.TRIM(VNM).NE.'sosga'.AND.TRIM(VNM).NE.'tosga') THEN
             c80=c80((INDEX(c80,' ')+1):)
             c80=c80((INDEX(c80,' ')+1):)
           ENDIF
