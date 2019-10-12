@@ -86,6 +86,9 @@
                  'talknat       ','nattalklvl        ','mol m-3   ',
                  'zooc          ','zooc*122          ','mol m-3   ',
                  'zooc          ','zooclvl*122       ','mol m-3   ',
+! The following not available in model output, thus not tested
+!                'dissi13c      ','dissic13lvl       ','mol m-3   ',
+!                'fg13co2       ','co213fxd-co213fxu ','positivedo;kg m-2 s-1',
 /
 
 &table_omon
@@ -206,7 +209,6 @@
                  'cfc12         ','cfc12            ','cfcunits;cfc12comment        ',
                  'chl           ','phyclvl          ','kg m-3;mol P m-3 -> kg Chl m-3',
                  'chlos         ','srfphyc          ','kg m-3;mol P m-3 -> kg Chl m-3',
-                 'chlos         ','srfphyc          ','kg m-3;mol P m-3 -> kg Chl m-3',
                  'co3           ','co3              ','mol m-3    ',
                  'co3           ','co3lvl           ','mol m-3    ',
                  'co3nat        ','natco3           ','mol m-3    ',
@@ -223,7 +225,6 @@
                  'dfe           ','dfe              ','mol m-3    ',
                  'dfe           ','dfelvl           ','mol m-3    ',
                  'dfeos         ','srfdfe           ','mol m-3    ',
-                 'dissi13c      ','dissic13lvl      ','mol m-3    ',
                  'dissic        ','dissic           ','mol m-3    ',
                  'dissic        ','dissiclvl        ','mol m-3    ',
                  'dissicnat     ','natdissic        ','mol m-3    ',
@@ -242,7 +243,6 @@
                  'epn100        ','epc100           ','mol m-2 s-1;epc100toepn100   ',
                  'epp100        ','epc100           ','mol m-2 s-1;epc100toepp100   ',
                  'epsi100       ','epsi100          ','mol m-2 s-1                  ',
-                 'fg13co2       ','co213fxd-co213fxu','kg m-2 s-1                   ',
                  'fgco2         ','co2fxd-co2fxu    ','positivedo;kg m-2 s-1        ',
                  'fgco2nat      ','natco2fx         ','positivedo;kg m-2 s-1        ',
                  'fgdms         ','dmsflux          ','mol m-2 s-1;positiveup       ',
@@ -251,13 +251,7 @@
                  'fric          ','calflx_bot       ','mol m-2 s-1;positivedo       ',
                  'frn           ','carflx_bot*0.131147541+dnitint   ','mol m-2 s-1  ',
                  'froc          ','carflx_bot       ','mol m-2 s-1;positivedo       ',
-                 'intdic        ','dissiclvl*0.012  ','kg m-2;sumz          ',
-                 'intdic        ','dissiclvl*0.012  ','kg m-2;sumz          ',
-                 'intdoc        ','dissoclvl*1.464  ','kg m-2;sumz          ',
-                 'intdoc        ','dissoclvl*1.464  ','kg m-2;sumz          ',
                  'intpn2        ','nfixint          ','mol m-2 s-1          ',
-                 'intpoc        ','detoclvl*1.464   ','kg m-2;sumz          ',
-                 'intpoc        ','detoclvl*1.464   ','kg m-2;sumz          ',
                  'intpp         ','ppint            ','mol m-2 s-1          ',
                  'no3           ','no3              ','mol m-3              ',
                  'no3           ','no3lvl           ','mol m-3              ',
@@ -266,13 +260,9 @@
                  'o2            ','o2lvl            ','mol m-3              ',
                  'o2min         ','o2lvl            ','mol m-3;locmin       ',
                  'o2os          ','srfo2            ','mol m-3              ',
-                 'o2sat         ','ssatoxylvl       ','mol m-3              ',
-                 'o2satos       ','satoxylvl        ','mol m-3;lvl2srf      ',
-                 'o2satos       ','satoxylvl        ','mol m-3;lvl2srf      ',
                  'ph            ','ph               ','unitless             ',
                  'ph            ','phlvl            ','unitless             ',
                  'phnat         ','natphlvl         ','unitless             ',
-                 'phnatos       ','natphlvl         ','unitless;lvl2srf     ',
                  'phnatos       ','natphlvl         ','unitless;lvl2srf     ',
                  'phos          ','phlvl            ','unitless;lvl2srf     ',
                  'phyc          ','phyc*122         ','mol m-3              ',
@@ -281,10 +271,6 @@
                  'phyfeos       ','phyclvl          ','mol m-3;fe2ph;lvl2srf',
                  'phyn          ','phyclvl*16       ','mol m-3              ',
                  'phynos        ','phyclvl*16       ','mol m-3;lvl2srf      ',
-                 'phyp          ','phyclvl          ','mol m-3              ',
-                 'phyp          ','phyclvl          ','mol m-3              ',
-                 'phypos        ','phyclvl          ','mol m-3;lvl2srf      ',
-                 'phypos        ','phyclvl          ','mol m-3;lvl2srf      ',
                  'po4           ','po4              ','mol m-3              ',
                  'po4           ','po4lvl           ','mol m-3              ',
                  'po4os         ','srfpo4           ','mol m-3              ',
@@ -311,6 +297,16 @@
                  'zooc          ','zooc*122         ','mol m-3              ',
                  'zooc          ','zooclvl*122      ','mol m-3              ',
                  'zoocos        ','zooclvl*122      ','mol m-3;lvl2srf      ',
+! the following are not available in model output, thus not tested
+!                'dissi13c      ','dissic13lvl      ','mol m-3    ',
+!                'fg13co2       ','co213fxd-co213fxu','kg m-2 s-1                   ',
+!                'intdic        ','dissiclvl*0.012  ','kg m-2;sumz          ',
+!                'intdoc        ','dissoclvl*1.464  ','kg m-2;sumz          ',
+!                'intpoc        ','detoclvl*1.464   ','kg m-2;sumz          ',
+!                'o2sat         ','ssatoxylvl       ','mol m-3              ',
+!                'o2satos       ','satoxylvl        ','mol m-3;lvl2srf      ',
+!                'phyp          ','phyclvl          ','mol m-3              ',
+!                'phypos        ','phyclvl          ','mol m-3;lvl2srf      ',
 /
 
 &table_oimon
@@ -738,4 +734,7 @@ vCFday         =
                  'rsdsdiff  ','SOLLD+SOLSD       ','positivedo',
                  'rsus      ','FSDS-FSNS         ','positiveup',
                  'rsuscs    ','FSDSC-FSNSC       ','positiveup',
+! not available in output, thus not tested
+!                'uas       ','UAS               ','          ',
+!                'vas       ','VAS               ','          ',
 /
