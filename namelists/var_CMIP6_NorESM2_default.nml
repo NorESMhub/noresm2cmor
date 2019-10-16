@@ -48,6 +48,8 @@
                  'bsi           ','opallvl           ','mol m-3   ',
                  'calc          ','calc              ','mol m-3   ',
                  'calc          ','calclvl           ','mol m-3   ',
+                 'cfc11         ','cfc11lvl          ','mol m-3   ',
+                 'cfc12         ','cfc12lvl          ','mol m-3   ',
                  'co3           ','co3               ','mol m-3   ',
                  'co3           ','co3lvl            ','mol m-3   ',
                  'co3nat        ','natco3lvl         ','mol m-3   ',
