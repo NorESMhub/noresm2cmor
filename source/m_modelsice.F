@@ -47,6 +47,7 @@ c --- Cmor parameters
 c --- Data fields
       REAL(KIND=8), ALLOCATABLE, SAVE, DIMENSION(:,:) :: fld,fld2,
      .  fld3,fldacc 
+      REAL(KIND=8), ALLOCATABLE, SAVE, DIMENSION(:,:,:) :: fld3d
 c
 c --- Auxillary variables for special operations 
       CHARACTER(LEN=slenmax), SAVE :: str1,str2
@@ -507,6 +508,14 @@ c
 c --- - Convert units from radians2 to m2    
         CASE ('rad2m')
           vunits='m2'
+c        
+c --- - Convert units from m3 to 1e3 km3
+        CASE ('1e3 km3')
+          vunits='1e3 km3'
+c
+c --- - Convert units from m2 to 1e6 km2
+        CASE ('1e6 km2')
+          vunits='1e6 km2'
 c
 c --- - Fix hcice units 
         CASE ('J m-2')
@@ -600,6 +609,56 @@ c --- - Divide by cell area
               IF (abs(fld(i,j)).LT.1e20) fld(i,j)=fld(i,j)/tarea(i,j)
             ENDDO
           ENDDO
+c
+c --- - mask southern hemisphere
+        CASE ('masksh')
+          DO j=1,jdm
+            DO i=1,idm
+              IF (tlat(i,j).LT.0) fld(i,j)=0.0
+            ENDDO
+          ENDDO
+c
+c --- - mask northern hemisphere
+        CASE ('masknh')
+          DO j=1,jdm
+            DO i=1,idm
+              IF (tlat(i,j).GT.0) fld(i,j)=0.0
+            ENDDO
+          ENDDO
+c
+c --- - mask sea ice extent less than 15%
+        CASE ('mask15p')
+          DO j=1,jdm
+            DO i=1,idm
+              IF (fld(i,j).LT.0.15) fld(i,j)=0.0
+            ENDDO
+          ENDDO
+c
+c --- - Multiple by cell area 
+        CASE ('Xcellarea')
+          DO j=1,jdm
+            DO i=1,idm
+              IF (abs(fld(i,j)).LT.1e20) fld(i,j)=fld(i,j)*tarea(i,j)
+            ENDDO
+          ENDDO
+c
+c --- - Global sum
+        CASE ('glbsum')
+          DO j=1,jdm
+            DO i=1,idm
+              IF (abs(fld(i,j)).GT.1e20) fld(i,j)=0.0
+            ENDDO
+          ENDDO
+          fldacc(1,1)=sum(fld)
+          fld=fldacc(1,1)
+c
+c --- - convert to 1e3 km3
+        CASE ('1e3 km3')
+          fld=fld/1e9
+c
+c --- - convert to 1e6 km2
+        CASE ('1e6 km2')
+          fld=fld/1e12
 c
         END SELECT
         IF (str1.EQ.str2) exit
@@ -873,9 +932,18 @@ c
       CALL resolve_vnm2(slenmax,ivnm,ivnm1a,ivnm2a,ivnm1b,ivnm2b,fac1,
      .  fac2)
       IF (TRIM(ovnm).NE.'transifs') THEN
-        IF(verbose)write(*,*)'Resolve variable term: ',trim(ivnm1a),'*',
-     .  trim(ivnm1b),'*',fac1,'+',trim(ivnm2a),'*',trim(ivnm2b),'*',fac2
+        IF(verbose) THEN
+          IF (INDEX(special,'Dfield2').GT.0) THEN
+            write(*,*)'Resolve variable term: ',trim(ivnm1a),'/',
+     .      trim(ivnm1b),'*',fac1,'+',trim(ivnm2a),'/',trim(ivnm2b),
+     .      '*',fac2
+          ELSE
+            write(*,*)'Resolve variable term: ',trim(ivnm1a),'*',
+     .      trim(ivnm1b),'*',fac1,'+',trim(ivnm2a),'*',trim(ivnm2b),
+     .      '*',fac2
+          END IF
         status=nf90_inq_varid(ncid,TRIM(ivnm1a),rhid)
+        END IF
         IF (status.NE.nf90_noerr) THEN
           WRITE(*,*) 'cannot find input variable ',TRIM(ivnm1a)
           STOP
@@ -907,6 +975,9 @@ c
       ALLOCATE(fld(idm,jdm),fld2(idm,jdm),fld3(idm,jdm),
      .  fldacc(idm,jdm),STAT=status)
       IF (status.NE.0) STOP 'cannot ALLOCATE enough memory (4)'
+      IF (ALLOCATED(fld3d)) DEALLOCATE(fld3d)
+      ALLOCATE(fld3d(idm,jdm,5),STAT=status)
+      IF (status.NE.0) STOP 'cannot ALLOCATE enough memory (5)'
 c 
       IF (LEN_TRIM(vunits).EQ.0) THEN
         status=nf90_get_att(ncid,rhid,'units',vunits)
@@ -1049,6 +1120,22 @@ c --- Define vertical dummy coordinate
      .    coord_vals      = tmp1d, !(/5.d0/),
      .    cell_bounds     = tmp2d)! reshape((/0.d0,10.d0/),(/2,1/)))
         DEALLOCATE(tmp1d,tmp2d)
+      ELSE IF (TRIM(zcoord).EQ.'iceband') THEN
+        ALLOCATE (tmp1d(5),tmp2d(2,5))
+        tmp1d(:)=(/0.6445072d0, 1.391433d0, 2.470179d0,
+     .            4.567288d0, 1.d8/)
+        tmp2d(1,:)=(/0.d0,0.6445072d0, 1.391433d0,
+     .            2.470179d0, 4.567288d0/)
+        tmp2d(2,:)=(/0.6445072d0, 1.391433d0, 2.470179d0,
+     .            4.567288d0,1.d8/)
+        kaxid=cmor_axis(
+     .    table           = TRIM(tabledir)//TRIM(table),
+     .    table_entry     = 'iceband',
+     .    units           = 'm',
+     .    length          = 5,
+     .    coord_vals      = tmp1d,
+     .    cell_bounds     = tmp2d)
+        DEALLOCATE(tmp1d,tmp2d)
       ENDIF
 c
 c --- Define time axis 
@@ -1080,12 +1167,23 @@ c --- Define output variable
      .      missing_value  = 1e20, 
      .      comment        = TRIM(vcomment))
         ELSE
-          IF (TRIM(zcoord).EQ.'olevel') THEN
+          IF (TRIM(zcoord).EQ.'olevel'
+     .      .OR.TRIM(zcoord).EQ.'iceband') THEN
             varid=cmor_variable(
      .        table          = TRIM(tabledir)//TRIM(table),
      .        table_entry    = TRIM(ovnm),
      .        units          = TRIM(vunits),
      .        axis_ids       = (/ grdid, kaxid, taxid /),
+     .        original_name  = TRIM(ivnm),
+     .        missing_value  = 1e20, 
+     .        positive       = TRIM(vpositive),
+     .        comment        = TRIM(vcomment))
+          ELSE IF (INDEX(special,'glbsum').GT.0 ) THEN
+            varid=cmor_variable(
+     .        table          = TRIM(tabledir)//TRIM(table),
+     .        table_entry    = TRIM(ovnm),
+     .        units          = TRIM(vunits),
+     .        axis_ids       = (/ taxid /),
      .        original_name  = TRIM(ivnm),
      .        missing_value  = 1e20, 
      .        positive       = TRIM(vpositive),
@@ -1156,7 +1254,11 @@ c
         ENDIF
         status=nf90_get_var(ncid,rhid,fld2)
         CALL handle_ncerror(status)
-        fld=fld*fld2
+        IF (INDEX(special,'Dfiled2').GT.0) THEN
+           fld=fld/fld2
+        ELSE
+           fld=fld*fld2
+        END IF
       ENDIF
 c 
       IF (LEN_TRIM(ivnm2a).GT.0) THEN
@@ -1175,7 +1277,11 @@ c
           ENDIF
           status=nf90_get_var(ncid,rhid,fld3)
           CALL handle_ncerror(status)
-          fld2=fld2*fld3
+          IF (INDEX(special,'Dfiled2').GT.0) THEN
+            fld2=fld2/fld3
+          ELSE
+            fld2=fld2*fld3
+          END IF
         ENDIF
         fld=fld+fld2*fac2
       ENDIF 
@@ -1276,8 +1382,13 @@ c --- - Compute Fram Strait transport
           WRITE(*,*) 'cannot find input variable ',TRIM(ivnm1a),status
           STOP
         ENDIF
-        status=nf90_get_var(fid,rhid,fld,(/1,1,rec/), 
+        IF (TRIM(zcoord).EQ.'iceband') THEN
+            status=nf90_get_var(fid,rhid,fld3d,(/1,1,1,rec/), 
+     .    (/idm,jdm,5,1/)) 
+        ELSE
+            status=nf90_get_var(fid,rhid,fld,(/1,1,rec/), 
      .    (/idm,jdm,1/)) 
+        ENDIF
         CALL handle_ncerror(status) 
       ENDIF 
 c
@@ -1314,7 +1425,11 @@ c
 c
 c --- Apply user defined factors and linear combinations
       IF (fac1.ne.1) THEN
-        fld=fld*fac1
+        IF (TRIM(zcoord).EQ.'iceband') THEN
+          fld3d=fld3d*fac1
+        ELSE
+          fld=fld*fac1
+        END IF
       ENDIF
 c
       IF (LEN_TRIM(ivnm1b).GT.0) THEN
@@ -1415,12 +1530,21 @@ c
 c
       IMPLICIT NONE
 c
-      INTEGER :: i,j 
+      INTEGER :: i,j,k
 c
 c --- Set missing on land grid cells
       DO j=1,jdm
         DO i=1,idm
           IF (ABS(fld(i,j)).GT.1e20) fld(i,j)=1e20
+        ENDDO
+      ENDDO
+
+c --- Set missing on land grid cells
+      DO k=1,5
+        DO j=1,jdm
+          DO i=1,idm
+            IF (ABS(fld3d(i,j,k)).GT.1e20) fld3d(i,j,k)=1e20
+          ENDDO
         ENDDO
       ENDDO
 c
@@ -1444,6 +1568,20 @@ c     WRITE(*,*) 'tbnds=',tbnds
           error_flag=cmor_write(
      .      var_id         = varid,
      .      data           = reshape(fld,(/idm,jdm,1/)),
+     .      ntimes_passed  = 1,
+     .      time_vals      = tval,
+     .      time_bnds      = tbnds)
+        ELSE IF (TRIM(zcoord).EQ.'iceband') THEN
+          error_flag=cmor_write(
+     .      var_id         = varid,
+     .      data           = reshape(fld3d,(/idm,jdm,5/)),
+     .      ntimes_passed  = 1,
+     .      time_vals      = tval,
+     .      time_bnds      = tbnds)
+        ELSE IF (INDEX(special,'glbsum').GT.0) THEN
+          error_flag=cmor_write(
+     .      var_id         = varid,
+     .      data           = reshape(fld(1:1,1:1),(/1/)),
      .      ntimes_passed  = 1,
      .      time_vals      = tval,
      .      time_bnds      = tbnds)

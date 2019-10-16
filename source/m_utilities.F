@@ -97,6 +97,9 @@ c
         IF (INDEX(vnm,',').GT.0) THEN
           vnm1=vnm(1:INDEX(vnm,',')-1)
           vnm2=vnm(INDEX(vnm,',')+1:smax)
+        ELSE IF (INDEX(vnm,'/').GT.0) THEN
+          vnm1=vnm(1:INDEX(vnm,'/')-1)
+          vnm2=vnm(INDEX(vnm,'/')+1:smax)
         ELSE
           vnm1=vnm
           vnm2=' '
@@ -186,6 +189,16 @@ c
       IF (INDEX(vnm2a,',').GT.0) THEN
         vnm2b=vnm2a(INDEX(vnm2a,',')+1:smax)
         vnm2a=vnm2a(1:INDEX(vnm2a,',')-1)
+      ENDIF
+c
+      write(*,*) 'vnm1a:'//vnm1a
+      IF (INDEX(vnm1a,'/').GT.0) THEN
+        vnm1b=vnm1a(INDEX(vnm1a,'/')+1:smax)
+        vnm1a=vnm1a(1:INDEX(vnm1a,'/')-1)
+      ENDIF
+      IF (INDEX(vnm2a,'/').GT.0) THEN
+        vnm2b=vnm2a(INDEX(vnm2a,'/')+1:smax)
+        vnm2a=vnm2a(1:INDEX(vnm2a,'/')-1)
       ENDIF
 c
       END SUBROUTINE resolve_vnm2
@@ -403,12 +416,18 @@ c
           IF (INDEX(c80,'dimensions:').LE.0) CYCLE
           c80=ADJUSTL(TRIM(c80(12:)))
 #endif 
+c         heyc: this part of code is to skip the first two coordinates
+c               with exceptions of global mean/sum field
+c               are there better way to get time coordinates?
           IF (TRIM(VNM).NE.'mfo'.AND.TRIM(VNM).NE.'thetaoga'
      .      .AND.TRIM(VNM).NE.'soga'.AND.TRIM(VNM).NE.'zosga'
      .      .AND.TRIM(VNM).NE.'zossga'.AND.TRIM(VNM).NE.'zostoga'
      .      .AND.TRIM(VNM).NE.'masso'.AND.TRIM(VNM).NE.'volo'
      .      .AND.TRIM(VNM).NE.'transifs'
-     .      .AND.TRIM(VNM).NE.'sosga'.AND.TRIM(VNM).NE.'tosga') THEN
+     .      .AND.TRIM(VNM).NE.'sosga'.AND.TRIM(VNM).NE.'tosga'
+     .      .AND.TRIM(VNM).NE.'sivoln'.AND.TRIM(VNM).NE.'sivols'
+     .      .AND.TRIM(VNM(1:6)).NE.'siarea'
+     .      .AND.TRIM(VNM(1:8)).NE.'siextent') THEN
             c80=c80((INDEX(c80,' ')+1):)
             c80=c80((INDEX(c80,' ')+1):)
           ENDIF
