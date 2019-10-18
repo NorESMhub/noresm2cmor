@@ -2,7 +2,8 @@
 set -e
 
 #version=v20190920
-version=v20191009
+#version=v20191009
+version=v20191018
 
 #----------------
 # pdSST-futArcSIC part1

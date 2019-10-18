@@ -29,8 +29,8 @@
  branch_time_in_child   = 0.0D0,
  branch_time_in_parent  = 9215.0D0,
  tracking_prefix   = 'hdl:21.14100',
- newcolumnorder = .true.,
- scanallfiles   = .false.,
- membertag      = 0001,
+ newcolumnorder= .true.,
+ scanallfiles  = .false.,
+ membertag     = 0001,
  source_type   = 'AGCM AER'
 /
