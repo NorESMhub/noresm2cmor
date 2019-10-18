@@ -1085,7 +1085,14 @@ c --- - Compute depth below geoid at interfaces from dz
 c
 c --- - Convert units from radians2 to m2    
         CASE ('rad2m')
-          fld=fld*6.37122e6**2
+          DO k=1,kk
+            DO j=1,jj 
+              DO i=1,ii    
+                IF (fld(i,j,k).LT.1e20) 
+     .              fld(i,j,k)=fld(i,j,k)*6.37122e6**2
+              ENDDO  
+            ENDDO 
+          ENDDO
 c
 c --- - Unit transformation: cm day-1 -> kg m-2 s-1 
 c       CASE ('kg m-2 s-1')
@@ -1452,11 +1459,25 @@ c --- - uatm to Pa
 c
 c --- - Convert units from [mol P/m3] to [kg Chl/m3] using [60 gC/gChl]
         CASE ('mol P m-3 -> kg Chl m-3')
-          fld=fld*122*12/60/1000
+          DO k=1,kk
+            DO j=1,jj
+              DO i=1,ii
+                IF (fld(i,j,k).NE.1e20)
+     .            fld(i,j,k)=fld(i,j,k)*122*12/60/1000
+              ENDDO
+            ENDDO
+          ENDDO
 c
 c --- - Convert units from [m3] to [1e3 km3]
         CASE ('1e3 km3')
-          fld=fld/1e3/1e9
+          DO k=1,kk
+            DO j=1,jj
+              DO i=1,ii
+                IF (fld(i,j,k).NE.1e20)
+     .            fld(i,j,k)=fld(i,j,k)/1e3/1e9
+              ENDDO
+            ENDDO
+          ENDDO
 c
 c --- - Mask grid points in the southern hemisphere
         CASE ('masks')
@@ -1483,7 +1504,7 @@ c --- - Multiple parea
           DO k=1,kk
             DO j=1,jj 
               DO i=1,ii    
-                fld(i,j,k)=fld(i,j,k)*parea(i,j)
+                IF (fld(i,j,k).NE.1e20) fld(i,j,k)=fld(i,j,k)*parea(i,j)
               ENDDO  
             ENDDO 
           ENDDO
@@ -1493,7 +1514,8 @@ c --- - Iron to phosphorous ratio in organic matter
           DO k=1,kk
             DO j=1,jj 
               DO i=1,ii    
-                fld(i,j,k)=fld(i,j,k)*5.*122*1.e-6
+                IF (fld(i,j,k).NE.1e20)
+     .              fld(i,j,k)=fld(i,j,k)*5.*122*1.e-6
               ENDDO  
             ENDDO 
           ENDDO
@@ -1504,7 +1526,7 @@ c --- - Carbon to iron
           DO k=1,kk
             DO j=1,jj 
               DO i=1,ii    
-                fld(i,j,k)=fld(i,j,k)*5.*1.e-6
+                IF (fld(i,j,k).NE.1e20) fld(i,j,k)=fld(i,j,k)*5.*1.e-6
               ENDDO  
             ENDDO 
           ENDDO
@@ -1514,7 +1536,7 @@ c --- - epc100 to epn100
           DO k=1,kk
             DO j=1,jj 
               DO i=1,ii    
-                fld(i,j,k)=fld(i,j,k)/122.*16.
+                IF (fld(i,j,k).NE.1e20) fld(i,j,k)=fld(i,j,k)/122.*16.
               ENDDO  
             ENDDO 
           ENDDO
@@ -1524,7 +1546,7 @@ c --- - epc100 to epp100
           DO k=1,kk
             DO j=1,jj 
               DO i=1,ii    
-                fld(i,j,k)=fld(i,j,k)/122.
+                IF (fld(i,j,k).NE.1e20) fld(i,j,k)=fld(i,j,k)/122.
               ENDDO  
             ENDDO 
           ENDDO
@@ -1534,7 +1556,7 @@ c --- - percent
           DO k=1,kk
             DO j=1,jj 
               DO i=1,ii    
-                fld(i,j,k)=fld(i,j,k)*100.
+                IF (fld(i,j,k).NE.1e20) fld(i,j,k)=fld(i,j,k)*100.
               ENDDO  
             ENDDO 
           ENDDO
@@ -2612,7 +2634,7 @@ c
      .  fac1,fac2,fac3,fac4,fac5,fac6)
       IF (INDEX(special,'2rho').GT.0.OR.INDEX(special,'2zoss').GT.0.OR.
      . INDEX(special,'strmf').GT.0.OR.INDEX(special,'Xfield2').GT.0.OR.
-     . INDEX(special,'Dfields2').GT.0 ) THEN
+     . INDEX(special,'Dfield2').GT.0 ) THEN
         fld=0.
         CALL add_tslice(ivnm2,fac2,rec1,fid)
         fld2=fld

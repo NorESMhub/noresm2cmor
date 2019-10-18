@@ -3,7 +3,7 @@ c
       IMPLICIT NONE 
 c
 c --- Namelist limits 
-      INTEGER, PARAMETER :: rowmax=100,colmax=3,lenmax=80 
+      INTEGER, PARAMETER :: rowmax=200,colmax=3,lenmax=80 
       INTEGER, PARAMETER :: slenmax=1024,smax=10  
 c
 c --- System namelist
