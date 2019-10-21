@@ -460,6 +460,8 @@
                  'abs550aer    ','ABS550AL                  ','unitless;dayfoc    ',
                  'airmass      ','AIRMASSL                  ','          ',      
                  'bldep        ','PBLH                      ','          ',
+                 'ccn          ','CCN_B/FCTL_B              ','Dfield2   ',
+                 'cdnc         ','AWNC/FREQL                ','Dfield2   ',      
                  'chepsoa      ','GS_SOA_LV+GS_SOA_SV       ','          ',
                  'co2          ','CO2                       ','          ',
                  'dms          ','DMS                       ','          ',

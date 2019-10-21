@@ -1288,7 +1288,7 @@ c --- - Unit transformation: m s-1 -> kg m-2 s-1
           ofld=ofld*1e3
 c
 c --- - Weight with DAYFOC^-1, CLDFOC^-1 or FOCHANA^-1  
-        CASE ('dayfoc','cldfoc','fochana')
+        CASE ('dayfoc','cldfoc','fochana','Dfield2')
           DO k=1,kdm
             DO j=1,jdm
               DO i=1,idm 
@@ -2214,7 +2214,12 @@ c
      .        (/idm,jdm,kdm,1/))
           ENDIF
           CALL handle_ncerror(status)
-          ifld=ifld+ifld2*fac2
+          IF (INDEX(special,'Dfield2').GT.0) THEN ! divide in special_post
+            RETURN
+          ELSE
+            ifld=ifld+ifld2*fac2
+          ENDIF
+
         ENDIF
 c
         IF (LEN_TRIM(ivnm3).GT.0) THEN
