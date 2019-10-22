@@ -2,11 +2,15 @@
    v20190817 [label="v20190817"]
    future [shape=box]
    v20190815 -> v20190817 [style=dashed,label="Lmon,LImon"];
-   v20190815 -> v20190920 [penwidth=2.0];
+   v20190815 -> v20190920 [penwidth=2.0,weight="2",label="major_update"];
    v20190815 -> v20190909 [style=dashed,label="Emon"];
    v20190817 -> v20190920 [style=dashed,label="merge"];
    v20190909 -> v20190920 [style=dashed,label="merge"];
-   v20190920 -> v20191009 [style=dashed,label="AERday"];
-   v20191009 -> future [style=dashed,weight="1",label="merge"];
-   v20190920 -> future [penwidth=2.0,weight="2"];
+   v20190920 -> v20191022 [style=dashed,weight="1",label="Omon (bgc)"];
+   v20191022 -> future    [style=dashed,weight="1",label="merge"];
+   v20190920 -> future    [penwidth=2.0,weight="3",label="major_update"];
+   v20190920 -> v20191009 [style=dashed,wegith="1",label="AERday"];
+   v20191009 -> future    [style=dashed,weight="1",label="merge"];
+   v20191009 -> v20191018 [style=dashed,wegith="1",label="bug fix"];
+   v20191018 -> v20191009 [style=dashed,weight="1"];
  }
