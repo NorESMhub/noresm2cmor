@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 
-version=v20190920
+#version=v20190920
+version=v20191022
 
 #----------------
 # omip1
@@ -73,9 +74,9 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
     ../namelists/CMIP6_NorESM2-LM/${expid}/${version}/sys.nml \
     ../namelists/CMIP6_NorESM2-LM/${expid}/${version}/mod.nml \
     ../namelists/CMIP6_NorESM2-LM/${expid}/${version}/exp_${year1}-${year2}.nml \
-    ../namelists/CMIP6_NorESM2-LM/${expid}/${version}/var.nml sicompstren \
+    ../namelists/CMIP6_NorESM2-LM/${expid}/${version}/var.nml
     1>../logs/CMIP6_NorESM2-LM/${expid}/${version}/${year1}-${year2}.log \
     2>../logs/CMIP6_NorESM2-LM/${expid}/${version}/${year1}-${year2}.err &
 
-    sleep 10s
+    sleep 60s
 done
