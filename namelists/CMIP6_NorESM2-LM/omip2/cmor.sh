@@ -10,16 +10,16 @@ version=v20191022
 ExpName=NOIIAJRAOC20TR_TL319_tn14_20190710
 expid=omip2
 #login0
-#years1=(1653 $(seq 1660 10 1790))
-#years2=(1659 $(seq 1669 10 1799))
+years1=(1653 $(seq 1660 10 1790))
+years2=(1659 $(seq 1669 10 1799))
 
 #login1
 #years1=($(seq 1800 10 1950))
 #years2=($(seq 1809 10 1959))
 
 #login2
-years1=($(seq 1960 10 1990) 2010)
-years2=($(seq 1969 10 1999) 2018)
+#years1=($(seq 1960 10 2000) 2010)
+#years2=($(seq 1969 10 2009) 2018)
 
 # ==========================================================
 if [ ! -d ~/noresm2cmor/namelists/CMIP6_NorESM2-LM/${expid}/${version} ]
@@ -69,14 +69,17 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
 
     cd ~/noresm2cmor/bin
 
+    nmlroot="../namelists/CMIP6_NorESM2-LM/${expid}/${version}"
+    logroot="../logs/CMIP6_NorESM2-LM/${expid}/${version}"
+
     #nohup mpirun -n 8 ./noresm2cmor3_mpi \
     nohup ./noresm2cmor3 \
-    ../namelists/CMIP6_NorESM2-LM/${expid}/${version}/sys.nml \
-    ../namelists/CMIP6_NorESM2-LM/${expid}/${version}/mod.nml \
-    ../namelists/CMIP6_NorESM2-LM/${expid}/${version}/exp_${year1}-${year2}.nml \
-    ../namelists/CMIP6_NorESM2-LM/${expid}/${version}/var.nml
-    1>../logs/CMIP6_NorESM2-LM/${expid}/${version}/${year1}-${year2}.log \
-    2>../logs/CMIP6_NorESM2-LM/${expid}/${version}/${year1}-${year2}.err &
+            ${nmlroot}/sys.nml \
+            ${nmlroot}/mod.nml \
+            ${nmlroot}/exp_${year1}-${year2}.nml \
+            ${nmlroot}/var.nml \
+            1>${logroot}/${year1}-${year2}.log \
+            2>${logroot}/${year1}-${year2}.err &
 
     sleep 60s
 done
