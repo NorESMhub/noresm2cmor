@@ -1,16 +1,26 @@
 #!/bin/bash
 set -e
 
-version=v20190920
+#version=v20190920
+version=v20190920p2 #set fx,Ofx to false
 
 #----------------
-# 1pctCO2-cdr
+# 1pctCO2-cdr, part1
 #----------------
-CaseName=N1PCT_f19_tn14_CDR_20190926
+#CaseName=N1PCT_f19_tn14_CDR_20190926
+#expid=1pctCO2-cdr
+#login0
+#years1=(141 $(seq 150 10 270))
+#years2=(149 $(seq 159 10 279))
+
+#----------------
+# 1pctCO2-cdr, part2
+#----------------
+CaseName=N1850_f19_tn14_CDRxt_20191011
 expid=1pctCO2-cdr
 #login0
-years1=(141 $(seq 150 10 270))
-years2=(149 $(seq 159 10 279))
+years1=($(seq 280 10 300))
+years2=($(seq 289 10 309))
 
 # ==========================================================
 if [ ! -d ~/noresm2cmor/namelists/CMIP6_NorESM2-LM/${expid}/${version} ]
