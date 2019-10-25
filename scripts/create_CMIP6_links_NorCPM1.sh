@@ -8,7 +8,7 @@ cd $ROOT
 #VER=v20190914
 VER=v20191005
 
-#folders+=(.cmorout/NorCPM1/dcppA-assim/${VER})
+folders+=(.cmorout/NorCPM1/dcppA-assim/${VER})
 #folders+=(.cmorout/NorCPM1/piControl/${VER})
 folders+=(.cmorout/NorCPM1/historical/${VER})
 folders+=(.cmorout/NorCPM1/dcppA-hindcast/${VER})

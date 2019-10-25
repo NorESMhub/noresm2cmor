@@ -4,6 +4,13 @@ PROJECT=CMIP6
 ESGFROOT=/esg/data/cmor/$PROJECT
 NIRDROOT=/projects/NS9034K/$PROJECT
 
+if [ $VERSION ] 
+then 
+  VTAG=_v$VERSION
+else
+  VTAG=
+fi
+
 for MIP in `ls $NIRDROOT`
 do 
 	if [ $MIP1 ] && [ ! "$MIP1" == "$MIP" ] 
@@ -39,11 +46,11 @@ do
 						continue
 					fi
 
-					if [ ! -d "$NIRDROOT/$MIP/$INS/$MOD/$EXP/${RIP}" -o ! -e "$NIRDROOT/$MIP/$INS/$MOD/$EXP/.${RIP}.sha256sum" ]
+					if [ ! -d "$NIRDROOT/$MIP/$INS/$MOD/$EXP/${RIP}" -o ! -e "$NIRDROOT/$MIP/$INS/$MOD/$EXP/.${RIP}.sha256sum${VTAG}" ]
 					then 
 						continue
 					fi
-					MAPFILE="$NIRDROOT/$MIP/$INS/$MOD/$EXP/.${RIP}.map"
+					MAPFILE="$NIRDROOT/$MIP/$INS/$MOD/$EXP/.${RIP}.map${VTAG}"
 					echo "$MAPFILE"
                                         if [ -e "$MAPFILE" ] 
                                         then
@@ -58,7 +65,7 @@ do
                                         fi 
                                         echo "create new $MAPFILE"  
 					rm -f "$MAPFILE"
-					for ITEM in `sed 's/\ \ /%/g' "$NIRDROOT/$MIP/$INS/$MOD/$EXP/.${RIP}.sha256sum" | sort -u`
+					for ITEM in `sed 's/\ \ /%/g' "$NIRDROOT/$MIP/$INS/$MOD/$EXP/.${RIP}.sha256sum${VTAG}" | sort -u`
 					do
 						SHASUM=`echo $ITEM | cut -d"%" -f1`
                                                 RELPATH=`echo $ITEM | cut -d"%" -f2`
