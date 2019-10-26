@@ -5,7 +5,7 @@
  parent_experiment_id  = 'piControl',
  parent_experiment_rip = 'r1i1p1',
  parent_time_units = 'days since 0421-01-01',
- branch_method = 'Hybrid-restart from year 1600-01-01 of piControl',
+ branch_method = 'Hybrid-restart from year 1631-01-01 of piControl',
  history       = ' ',
  comment       = ' ',
  forcing       = 'N/A',
@@ -27,7 +27,7 @@
  sub_experiment = 'none',
  parent_sub_experiment = 'none'
  branch_time_in_child   = 0.0D0,
- branch_time_in_parent  = 430335.0D0,
+ branch_time_in_parent  = 441650.0D0,
  tracking_prefix   = 'hdl:21.14100',
  newcolumnorder = .true.,
  scanallfiles = .false.,
