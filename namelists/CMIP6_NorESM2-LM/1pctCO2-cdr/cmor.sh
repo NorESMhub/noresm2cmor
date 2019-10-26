@@ -2,8 +2,6 @@
 set -e
 
 #version=v20190920
-version=v20190920p2 #set fx,Ofx to false
-
 #----------------
 # 1pctCO2-cdr, part1
 #----------------
@@ -16,6 +14,8 @@ version=v20190920p2 #set fx,Ofx to false
 #----------------
 # 1pctCO2-cdr, part2
 #----------------
+version=v20190920b #set fx,Ofx to false
+
 CaseName=N1850_f19_tn14_CDRxt_20191011
 expid=1pctCO2-cdr
 #login0

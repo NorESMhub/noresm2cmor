@@ -1,6 +1,6 @@
 &experiment
  casename      = 'N1850_f19_tn14_CDRxt_20191011',
- osubdir       = 'NorESM2-LM/1pctCO2-cdr/v20190920'
+ osubdir       = 'NorESM2-LM/1pctCO2-cdr/v20190920n'
  experiment_id = '1pctCO2-cdr',
  parent_experiment_id  = '1pctCO2',
  parent_experiment_rip = 'r1i1p1',

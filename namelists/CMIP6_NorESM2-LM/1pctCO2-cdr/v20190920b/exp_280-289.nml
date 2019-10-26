@@ -1,6 +1,6 @@
 &experiment
  casename      = 'N1850_f19_tn14_CDRxt_20191011',
- osubdir       = 'NorESM2-LM/1pctCO2-cdr/v20190920'
+ osubdir       = 'NorESM2-LM/1pctCO2-cdr/v20190920b'
  experiment_id = '1pctCO2-cdr',
  parent_experiment_id  = '1pctCO2',
  parent_experiment_rip = 'r1i1p1',
@@ -14,8 +14,8 @@
  physics_version = 1,
  forcing_index = 1, 
  branch_time   = 0.,
- year1         = 290,
- yearn         = 299,
+ year1         = 280,
+ yearn         = 289,
  month1        = 1,
  monthn        = 12,
  exprefyear    = 1, 
