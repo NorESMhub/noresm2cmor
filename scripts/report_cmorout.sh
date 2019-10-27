@@ -12,7 +12,8 @@ fi
 #datetag=20190531
 #datetag=20190703
 #datetag=20190704
-datetag=20190811
+#datetag=20190811
+datetag=20191011
 noresm2cmorpath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
 
 FullName=$1

@@ -9,8 +9,8 @@ cd $ROOT
 #VER=v20190815
 #VER=v20190909
 #VER=v20190917
-#VER=v20190920
-VER=v20190920b
+VER=v20190920
+#VER=v20190920b
 #VER=v20191009
 #VER=v20191018
 #VER=v20191022
@@ -29,7 +29,7 @@ VER=v20190920b
 #folders+=(.cmorout/NorESM2-LM/omip2/${VER})
 #folders+=(.cmorout/NorESM2-LM/piClim-spAer-anthro/${VER})
 
-folders+=(.cmorout/NorESM2-LM/1pctCO2-cdr/${VER})
+#folders+=(.cmorout/NorESM2-LM/1pctCO2-cdr/${VER})
 
 #folders+=(.cmorout/NorESM2-LM/pdSST-pdSIC/${VER})
 #folders+=(.cmorout/NorESM2-LM/pdSST-futArcSIC/${VER})
@@ -56,7 +56,11 @@ folders+=(.cmorout/NorESM2-LM/1pctCO2-cdr/${VER})
 #folders+=(.cmorout/NorESM2-LM/piClim-CH4/${VER})
 #folders+=(.cmorout/NorESM2-LM/piClim-N2O/${VER})
 
+#RFMIP
 #folders+=(.cmorout/NorESM2-LM/piClim-histall/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-histaer/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-histghg/${VER})
+folders+=(.cmorout/NorESM2-LM/piClim-histnat/${VER})
 
 echo "----------------"
 echo "LINKING FILES..."
@@ -112,8 +116,8 @@ for (( i = 0; i < ${#folders[*]}; i++ )); do
         then
             mkdir -p "$subfolder"
         fi
-        #ln -sf ../../../../../../../../../$fname "$subfolder/${bname}.nc"
-        #ln -sfT "$version"  "$latest"
+        ln -sf ../../../../../../../../../$fname "$subfolder/${bname}.nc"
+        ln -sfT "$version"  "$latest"
         echo "$real/$table/$var/$grid/$version/${bname}.nc" >> ${folder}.links
         echo -ne "Linking $k/$nf files\r"
         let k+=1
@@ -136,12 +140,13 @@ k=1
 nf=$(tail -n +2 ${ROOT}/${folder}.links |wc -l)
 for fname in $(tail -n +2 ${ROOT}/${folder}.links)
     do
-    sha256sum $fname >>.${real}.sha256sum_${VER} &
-    if [ $(($k%15)) -eq 0 ]; then
-        echo -ne "sha256sum: $k/$nf files\r"
-        wait
-    fi
-    let k+=1
+        real=$(echo $fname |cut -d"/" -f1)
+        sha256sum $fname >>.${real}.sha256sum_${VER} &
+        if [ $(($k%15)) -eq 0 ]; then
+            echo -ne "sha256sum: $k/$nf files\r"
+            wait
+        fi
+        let k+=1
 done
 
 echo "---------------------"
