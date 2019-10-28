@@ -678,6 +678,10 @@ c
 c --- - Unit transformation: g m-2 s-1 -> kg m-2 s-1 
         CASE ('kg m-2 s-1')
           fld=fld*1e-3
+
+c --- - Unit transformation: mol to kg CH4
+        CASE ('mol to kg CH4')
+          fld=fld*16.04246*1e-3
 c
 c --- - Limit solid soil moisture (mask ice sheets)
         CASE ('limitmoist')
