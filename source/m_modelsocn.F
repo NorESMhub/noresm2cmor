@@ -55,7 +55,7 @@ c
 c --- Data fields
       REAL(KIND=8), ALLOCATABLE, SAVE, DIMENSION(:,:,:) :: fld,fld2,
      .  fldtmp,fldacc,fldhalf,dp
-      REAL(KIND=8), ALLOCATABLE, SAVE, DIMENSION(:,:) :: sealv
+      REAL(KIND=8), ALLOCATABLE, SAVE, DIMENSION(:,:) :: sealv,pbot
       REAL(KIND=8) :: sfac,offs,fill 
 c
 c --- Auxillary variables for special operations 
@@ -1037,10 +1037,18 @@ c
 c --- - Convert units from [m3] to [1e3 km3]
         CASE ('1e3 km3')
           vunits='1e3 km3'
-
+c
 c --- - Convert units from [s-1] to [s-2], fix bug for the units of bfsq in micom
         CASE ('s-2')
           vunits='s-2'
+c
+c --- - Set unit g m-2
+        CASE ('g m-2')
+          vunits='g m-2'
+c
+c --- - Set unit degC kg m-2
+        CASE ('degC kg m-2')
+          vunits='degC kg m-2'
 c
         END SELECT
         IF (str1.EQ.str2) exit
@@ -1055,7 +1063,7 @@ c
       IMPLICIT NONE
 c
       INTEGER :: i,j,k
-      REAL :: r,rd,p,ptop,pbot,sref=35.
+      REAL :: r,rd,p,ptoptmp,pbottmp,sref=35.
 c
       str2=special
       DO
@@ -1245,13 +1253,13 @@ c --- - Compute steric sea level
             r=0.
             DO j=1,jj
               DO i=1,ii
-                pbot=0.
+                pbottmp=0.
                 DO k=1,kk
-                  ptop=pbot
-                  pbot=ptop+dp(i,j,k)
+                  ptoptmp=pbottmp
+                  pbottmp=ptoptmp+dp(i,j,k)
                   IF (fld(i,j,k).NE.1e20) THEN
                     r=r+1e-2*(1e-2*ginv)*parea(i,j)*
-     .                p_alpha(ptop,pbot,fld(i,j,k),fld2(i,j,k))
+     .                p_alpha(ptoptmp,pbottmp,fld(i,j,k),fld2(i,j,k))
                   ENDIF
                 ENDDO
               ENDDO
@@ -1268,13 +1276,13 @@ c --- - Compute thermo-steric sea level
             r=0.
             DO j=1,jj
               DO i=1,ii
-                pbot=0.
+                pbottmp=0.
                 DO k=1,kk
-                  ptop=pbot
-                  pbot=ptop+dp(i,j,k)
+                  ptoptmp=pbottmp
+                  pbottmp=ptoptmp+dp(i,j,k)
                   IF (fld(i,j,k).NE.1e20)
      .              r=r+1e-2*(1e-2*ginv)*parea(i,j)*
-     .                p_alpha(ptop,pbot,fld(i,j,k),sref)
+     .                p_alpha(ptoptmp,pbottmp,fld(i,j,k),sref)
                 ENDDO
               ENDDO
             ENDDO
@@ -1300,9 +1308,9 @@ c --- - Compute fixed cell volume of interpolated grid
                 IF (fld(i,j,1).EQ.0.) THEN
                   fld(i,j,k)=1e20
                 ELSE
-                  ptop=MIN(depth_bnds(1,k),fld(i,j,1))
-                  pbot=MIN(depth_bnds(2,k),fld(i,j,1))
-                  fld(i,j,k)=(pbot-ptop)*fld2(i,j,1)
+                  ptoptmp=MIN(depth_bnds(1,k),fld(i,j,1))
+                  pbottmp=MIN(depth_bnds(2,k),fld(i,j,1))
+                  fld(i,j,k)=(pbottmp-ptoptmp)*fld2(i,j,1)
                 ENDIF
               ENDDO
             ENDDO
@@ -1424,6 +1432,111 @@ c --- - Divide a second field
                 IF (fld(i,j,k).NE.1e20)
      .            fld(i,j,k)=fld(i,j,k)/fld2(i,j,k)
               ENDDO
+            ENDDO
+          ENDDO
+c
+c --- - Integratal with respect to depth
+        CASE ('dpint')
+          DO j=1,jj
+            DO i=1,ii
+              IF (fld(i,j,1).NE.1e20)
+     .          fld(i,j,1)=fld(i,j,1)*fld2(i,j,1)/9.806
+              DO k=2,kk
+                IF (fld(i,j,k).NE.1e20)
+     .            fld(i,j,k)=fld(i,j,k-1)+fld(i,j,k)*fld2(i,j,k)/9.806
+              ENDDO
+            ENDDO
+          ENDDO
+c
+c --- - Integratal with respect to depth
+        CASE ('dpavg')
+          DO j=1,jj
+            DO i=1,ii
+              IF (fld(i,j,1).NE.1e20)
+     .          fld(i,j,1)=fld(i,j,1)*fld2(i,j,1)
+              DO k=2,kk
+                IF (fld(i,j,k).NE.1e20) THEN
+                  fld(i,j,k)=fld(i,j,k-1)+fld(i,j,k)*fld2(i,j,k)
+                  fld2(i,j,1)=fld2(i,j,1)+fld2(i,j,k)
+                ENDIF
+              ENDDO
+              IF (fld(i,j,1).NE.1e20)
+     .          fld(i,j,1)=fld(i,j,1)/fld2(i,j,1)
+            ENDDO
+          ENDDO
+c
+c --- - Average over upper 300 m
+        CASE ('dzavg300')
+          fldtmp=1e20
+          DO j=1,jj
+            DO i=1,ii
+              IF (fld(i,j,1).NE.1e20) THEN
+                fldtmp(i,j,1)= (min(300.,pdepth(i,j),depth_bnds(2,1))
+     .                         -min(300.,pdepth(i,j),depth_bnds(1,1)))
+     .                         *pbot(i,j)/pdepth(i,j)
+                fld(i,j,1)=fld(i,j,1)*fldtmp(i,j,1)
+              END IF
+              DO k=2,kk
+                IF (fld(i,j,k).NE.1e20) THEN
+                  fldtmp(i,j,k)= (min(300.,pdepth(i,j),depth_bnds(2,k))
+     .                           -min(300.,pdepth(i,j),depth_bnds(1,k)))
+     .                           *pbot(i,j)/pdepth(i,j)
+                  fld(i,j,k)=fld(i,j,k-1)+fld(i,j,k)*fldtmp(i,j,k)
+                  fldtmp(i,j,1)=fldtmp(i,j,1)+fldtmp(i,j,k)
+                ENDIF
+              ENDDO
+              IF (fld(i,j,1).NE.1e20)
+     .          fld(i,j,1)=fld(i,j,1)/fldtmp(i,j,1)
+            ENDDO
+          ENDDO
+c
+c --- - Average over upper 700 m
+        CASE ('dzavg700')
+          fldtmp=1e20
+          DO j=1,jj
+            DO i=1,ii
+              IF (fld(i,j,1).NE.1e20) THEN
+                fldtmp(i,j,1)= (min(700.,pdepth(i,j),depth_bnds(2,1))
+     .                         -min(700.,pdepth(i,j),depth_bnds(1,1)))
+     .                         *pbot(i,j)/pdepth(i,j)
+                fld(i,j,1)=fld(i,j,1)*fldtmp(i,j,1)
+              END IF
+              DO k=2,kk
+                IF (fld(i,j,k).NE.1e20) THEN
+                  fldtmp(i,j,k)= (min(700.,pdepth(i,j),depth_bnds(2,k))
+     .                           -min(700.,pdepth(i,j),depth_bnds(1,k)))
+     .                           *pbot(i,j)/pdepth(i,j)
+                  fld(i,j,k)=fld(i,j,k-1)+fld(i,j,k)*fldtmp(i,j,k)
+                  fldtmp(i,j,1)=fldtmp(i,j,1)+fldtmp(i,j,k)
+                ENDIF
+              ENDDO
+              IF (fld(i,j,1).NE.1e20)
+     .          fld(i,j,1)=fld(i,j,1)/fldtmp(i,j,1)
+            ENDDO
+          ENDDO
+c
+c --- - Average over upper 2000 m
+        CASE ('dzavg2000')
+          fldtmp=1e20
+          DO j=1,jj
+            DO i=1,ii
+              IF (fld(i,j,1).NE.1e20) THEN
+                fldtmp(i,j,1)= (min(2000.,pdepth(i,j),depth_bnds(2,1))
+     .                         -min(2000.,pdepth(i,j),depth_bnds(1,1)))
+     .                         *pbot(i,j)/pdepth(i,j)
+                fld(i,j,1)=fld(i,j,1)*fldtmp(i,j,1)
+              END IF
+              DO k=2,kk
+                IF (fld(i,j,k).NE.1e20) THEN
+                  fldtmp(i,j,k)= (min(2000.,pdepth(i,j),depth_bnds(2,k))
+     .                          -min(2000.,pdepth(i,j),depth_bnds(1,k)))
+     .                           *pbot(i,j)/pdepth(i,j)
+                  fld(i,j,k)=fld(i,j,k-1)+fld(i,j,k)*fldtmp(i,j,k)
+                  fldtmp(i,j,1)=fldtmp(i,j,1)+fldtmp(i,j,k)
+                ENDIF
+              ENDDO
+              IF (fld(i,j,1).NE.1e20)
+     .          fld(i,j,1)=fld(i,j,1)/fldtmp(i,j,1)
             ENDDO
           ENDDO
 c
@@ -1808,7 +1921,7 @@ c --- Read longitudes, latitudes
      .  plon_crnsp(ncrns,idm,jdm),plat_crnsp(ncrns,idm,jdm),
      .  ulon_crnsp(ncrns,idm,jdm),ulat_crnsp(ncrns,idm,jdm),
      .  vlon_crnsp(ncrns,idm,jdm),vlat_crnsp(ncrns,idm,jdm),
-     .  sealv(idm,jdm),xvec(idm),yvec(jdm),kvec(kdm),
+     .  sealv(idm,jdm),xvec(idm),yvec(jdm),kvec(kdm),pbot(idm,jdm),
      .  dzini(idm,jdm,kdm),sini(idm,jdm,kdm),tini(idm,jdm,kdm),
      .  kvechalf(kdm+1),uscaley(idm,jdm),vscalex(idm,jdm),
      .  udepth(idm,jdm),vdepth(idm,jdm),basin(idm,jdm),STAT=status) 
@@ -2302,6 +2415,30 @@ c --- Define vertical axis
      .    units           = 'm',
      .    length          = 1,
      .    coord_vals      = (/0/))
+      ELSEIF (INDEX(special,'dzavg300').GT.0) THEN 
+        kaxid=cmor_axis(
+     .    table           = TRIM(tablepath),
+     .    table_entry     = 'depth300m',
+     .    units           = 'm',
+     .    length          = 1,
+     .    coord_vals      = (/150./),
+     .    cell_bounds     = (/0.,300./))
+      ELSEIF (INDEX(special,'dzavg700').GT.0) THEN 
+        kaxid=cmor_axis(
+     .    table           = TRIM(tablepath),
+     .    table_entry     = 'depth700m',
+     .    units           = 'm',
+     .    length          = 1,
+     .    coord_vals      = (/350./),
+     .    cell_bounds     = (/0.,700./))
+      ELSEIF (INDEX(special,'dzavg2000').GT.0) THEN 
+        kaxid=cmor_axis(
+     .    table           = TRIM(tablepath),
+     .    table_entry     = 'depth2000m',
+     .    units           = 'm',
+     .    length          = 1,
+     .    coord_vals      = (/1000./),
+     .    cell_bounds     = (/0.,2000./))
       ELSEIF (TRIM(vtype).EQ.'level'.OR.vtype(1:4).EQ.'merd') THEN
         kaxid=cmor_axis(
      .    table           = TRIM(tablepath),
@@ -2389,6 +2526,8 @@ c --- Define output variable
      .  )).OR.lsumz.AND..NOT.INDEX(special,'glbave').GT.0
      .    .OR.INDEX(special,'lvl2srf').GT.0
      .    .OR.INDEX(special,'locmin').GT.0
+     .    .OR.INDEX(special,'dpint').GT.0
+     .    .OR.INDEX(special,'dpavg').GT.0
      .    .OR.INDEX(special,'omega2z').GT.0) THEN 
           varid=cmor_variable(
      .      table          = TRIM(tablepath),
@@ -2399,6 +2538,18 @@ c --- Define output variable
      .      missing_value  = 1e20, 
      .      comment        = TRIM(vcomment),
      .      positive       = TRIM(vpositive))
+        ELSEIF (INDEX(special,'dzavg').GT.0.) THEN
+            write(*,*) 'line2522'
+          varid=cmor_variable(
+     .      table          = TRIM(tablepath),
+     .      table_entry    = TRIM(ovnm),
+     .      units          = TRIM(vunits),
+     .      axis_ids       = (/grdid,taxid,kaxid/),
+     .      original_name  = TRIM(ivnm),
+     .      missing_value  = 1e20, 
+     .      comment        = TRIM(vcomment),
+     .      positive       = TRIM(vpositive))
+            write(*,*) 'line2532'
         ELSEIF (TRIM(vtype).EQ.'layer'.AND..NOT.(TRIM(ovnm).EQ.'zfull'
      .    .OR.TRIM(ovnm).EQ.'half'.OR.INDEX(special,'glbave').GT.0
      .    .OR.INDEX(special,'2zos').GT.0.)) THEN
@@ -2630,16 +2781,22 @@ c --- - Compute rescaled dp
         ENDIF 
       ENDIF 
 c
+      write(*,*) 'line 2764'
       CALL resolve_vnm(slenmax,ivnm,ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6,
      .  fac1,fac2,fac3,fac4,fac5,fac6)
       IF (INDEX(special,'2rho').GT.0.OR.INDEX(special,'2zoss').GT.0.OR.
      . INDEX(special,'strmf').GT.0.OR.INDEX(special,'Xfield2').GT.0.OR.
-     . INDEX(special,'Dfield2').GT.0 ) THEN
+     . INDEX(special,'Dfield2').GT.0.OR.INDEX(special,'dpint').OR.
+     . INDEX(special,'dpavg')) THEN
         fld=0.
+      write(*,*) 'line 2773'
+      write(*,*) 'vtype:'//vtype
         CALL add_tslice(ivnm2,fac2,rec1,fid)
         fld2=fld
         fld=0.
+      write(*,*) 'line 2777'
         CALL add_tslice(ivnm1,fac1,rec1,fid)
+      write(*,*) 'line 2779'
         IF (INDEX(special,'strmf').GT.0) THEN
           fldtmp=0.
           CALL strmf_eval(idm,jdm,kdm,fld,fld2,fldtmp)
@@ -2676,6 +2833,34 @@ c --- Read sea level height if necessary
               sealv(i,j)=1e20
             ELSE
               sealv(i,j)=sealv(i,j)*sfac+offs
+            ENDIF
+          ENDDO
+        ENDDO
+      ENDIF
+c
+c --- Read bottom pressure if necessary 
+      IF (INDEX(special,'dzavg').GT.0) THEN
+          write(*,*) 'line:2827'
+        status=nf90_inq_varid(fid,'pbot',rhid)
+        IF (status.NE.nf90_noerr) THEN
+          WRITE(*,*) 'cannot find input variable pbot '
+          STOP
+        ENDIF
+          write(*,*) 'line:2833'
+        status=nf90_get_var(fid,rhid,pbot,(/1,1,rec1/),
+     .    (/idm,jdm,1/))
+        CALL handle_ncerror(status)
+        status=nf90_get_att(fid,rhid,'scale_factor',sfac)
+        IF (status.NE.NF90_NOERR) sfac=1.
+        status=nf90_get_att(fid,rhid,'add_offset',offs)
+        IF (status.NE.NF90_NOERR) offs=0.
+        status=nf90_get_att(fid,rhid,'_FillValue',fill)  
+        DO j=1,jj 
+          DO i=1,ii 
+            IF (pbot(i,j).EQ.fill) THEN
+              pbot(i,j)=1e20
+            ELSE
+              pbot(i,j)=pbot(i,j)*sfac+offs
             ENDIF
           ENDDO
         ENDDO
@@ -2920,6 +3105,8 @@ c --- Store variable
           IF ((lsumz.OR.INDEX(special,'level1').GT.0).AND.
      .      .NOT.INDEX(special,'glbave').GT.0
      .      .OR.INDEX(special,'lvl2srf').GT.0
+     .      .OR.INDEX(special,'dpint').GT.0
+     .      .OR.INDEX(special,'dpavg').GT.0
      .      .OR.INDEX(special,'locmin').GT.0
      .      .OR.INDEX(special,'omega2z').GT.0) THEN
             error_flag=cmor_write(
@@ -2936,6 +3123,15 @@ c --- Store variable
      .        ntimes_passed  = 1,
      .        time_vals      = tval,
      .        time_bnds      = tbnds)
+          ELSEIF (INDEX(special,'dzavg').GT.0) THEN
+              write(*,*) 'line3073'
+            error_flag=cmor_write(
+     .        var_id         = varid,
+     .        data           = (reshape(fld(:,:,1),(/idm,jdm,1/))),
+     .        ntimes_passed  = 1,
+     .        time_vals      = tval,
+     .        time_bnds      = tbnds)
+              write(*,*) 'line3080'
           ELSEIF (vtype(1:4).EQ.'sect') THEN
             error_flag=cmor_write(
      .        var_id         = varid,
