@@ -455,6 +455,107 @@ c --- - Close output file if still open
 c
       ENDDO
 c
+c 
+c --- Process table CFmon
+      WRITE(*,*) 'Process table CFmon'
+      fnm=pcfmon
+      table=tcfmon
+      linstant=.FALSE.
+      lreadplev=.FALSE.
+      DO n=1,ncfmon
+        IF (skip_variable(n,ncfmon,dcfmon)) CYCLE
+c 
+c --- - Map namelist variables 
+        ovnm=vcfmon(ovnmpos,n)
+        ivnm=vcfmon(ivnmpos,n)
+        special=vcfmon(3,n)
+        vunits=' '
+        vpositive=' ' 
+        vcomment=' '
+c 
+c --- - Check if 2d and/or 3d fields are to be written 
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+cdiag   WRITE(*,*) TRIM(ovnm),TRIM(zcoord),do_3d
+        IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
+     .    zcoord(2:5).EQ.'levh') THEN
+          IF (.NOT.do_3d) CYCLE
+c --- --- Read pressure levels from table 
+          IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN 
+            CALL read_gridinfo_plev(TRIM(zcoord))
+            lreadplev=.FALSE.
+          ENDIF
+        ELSE
+          IF (.NOT.do_2d) CYCLE
+        ENDIF
+c 
+c --- - Choose history file 
+        SELECT CASE (TRIM(special))
+          CASE ('day2mon')
+            itag=tagaday
+          CASE ('6hr2mon')
+            itag=taga6hr
+          CASE ('3hr2mon')
+            itag=taga3hr
+          CASE DEFAULT
+            itag=tagamon
+        END SELECT
+c
+c --- - Check if input variable is present  
+        IF (LEN_TRIM(pcfmon).eq.0) CALL scan_files(reset=.TRUE.)
+        IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+c
+c --- - Prepare output file 
+        CALL special_pre
+c
+c --- - Loop over files and records
+        m=0
+        DO
+          m=m+1
+c
+c --- --- Open output file
+          IF (MOD(m-1,rcfmon).EQ.0) CALL open_ofile 
+c
+c --- --- Read variable into buffer (average if necessary)
+          rec=0
+          nrec=0
+          ifldacc=0.
+          LAST=.FALSE.
+          DO
+            IF (LEN_TRIM(pcfmon).eq.0) CALL scan_files 
+            IF (rec.EQ.0) THEN
+              last=.TRUE.
+              EXIT
+            ENDIF
+            nrec=nrec+1
+cdiag       write(*,*) 'DEBUG: ',trim(fnm),rec,nrec,tbnd,mbnd,year,month
+            CALL read_tslice(rec,badrec,fnm)
+            ifldacc=ifldacc+ifld
+            IF (tbnd(2).EQ.mbnd(2)) EXIT
+          ENDDO
+          IF (last) EXIT
+
+            ifld=ifldacc/FLOAT(nrec)
+            tbnds(:,1)=mbnd
+            tval=0.5*(tbnds(1,1)+tbnds(2,1))
+c 
+c --- --- Post processing 
+          ofld=ifld
+          CALL special_post
+c
+c --- --- Write time slice to output file 
+          CALL write_tslice
+c
+c --- --- Close output file if max rec has been reached 
+          IF (MOD(m,rcfmon).EQ.0) CALL close_ofile 
+c
+c --- - End loop over files and records
+        ENDDO 
+c
+c --- - Close output file if still open 
+        IF (MOD(m,rcfmon).GT.0) CALL close_ofile
+c
+      ENDDO
+c
 c
 c --- Process table day
       WRITE(*,*) 'Process table day'
