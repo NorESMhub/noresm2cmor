@@ -443,6 +443,74 @@ c --- - Close output file if still open
         IF (MOD(m,rday).GT.0) CALL close_ofile
 c
       ENDDO
+
+c --- Process table Eday
+      WRITE(*,*) 'Process table Eday'
+      fnm=pEday
+      table=tEday
+      linstant=.FALSE.
+      DO n=1,nEday
+        IF (skip_variable(n,nEday,dEday)) CYCLE
+c
+c --- - Map namelist variables 
+        ovnm=vEday(ovnmpos,n)
+        ivnm=vEday(ivnmpos,n)
+        special=vEday(3,n)
+        vunits=' '
+        vpositive=' '
+c
+c --- - Skip variable?
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+        IF (TRIM(zcoord).EQ.'sdepth') THEN 
+          IF (.NOT.do_3d) CYCLE 
+        ELSE 
+          IF (.NOT.do_2d) CYCLE 
+        ENDIF
+c 
+c --- - Choose history file 
+        itag=taglday
+c
+c --- - Check if input variable is present  
+        IF (LEN_TRIM(pEday).eq.0) CALL scan_files(reset=.TRUE.)
+        IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+c
+c --- - Prepare output file 
+        CALL special_pre
+c
+c --- - Loop over input files 
+        m=0
+        DO
+          m=m+1
+c
+c --- --- Open output file
+          IF (MOD(m-1,rEday).EQ.0) CALL open_ofile
+c
+c --- --- Read variable into buffer 
+          rec=0
+          IF (LEN_TRIM(pEday).eq.0) CALL scan_files(reset=.FALSE.)
+          IF (rec.EQ.0) EXIT
+          tbnds(:,1)=tbnd
+          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+c
+c --- --- Read data 
+          CALL read_tslice(rec,badrec,fnm)
+c 
+c --- --- Post processing 
+          CALL special_post
+c
+c --- --- Write time slice to output file 
+          CALL write_tslice
+c
+c --- --- Close output file if max rec has been reached 
+          IF (MOD(m,rEday).EQ.0) CALL close_ofile
+c
+c --- - End loop over files and records
+        ENDDO
+c
+c --- - Close output file if still open 
+        IF (MOD(m,rEday).GT.0) CALL close_ofile
+c
+      ENDDO
 c
 c
 c --- Process table 3hr (averaged fields)

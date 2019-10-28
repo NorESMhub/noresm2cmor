@@ -841,6 +841,70 @@ c --- - Close output file if still open
         IF (MOD(m,rOdaybgc).GT.0) CALL close_ofile
 c
       ENDDO
+c
+c --- Process table Eday
+      WRITE(*,*) 'Process table Eday'
+      fnm=pEday
+      table=tEday
+      DO n=1,nEday
+        IF (skip_variable(n,nEday,dEday)) CYCLE
+c
+c --- - Map namelist variables 
+        ovnm=vEday(ovnmpos,n)
+        ivnm=vEday(ivnmpos,n)
+        special=vEday(3,n)
+        vunits=' '
+        vpositive=' '
+        vcomment=' '
+c
+c --- - Check if vertical coordinate required        
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+c 
+c --- - Choose history file 
+        itag=tagoday
+c
+c --- - Check if input variable is present  
+        IF (LEN_TRIM(pEday).eq.0) CALL scan_files(reset=.TRUE.)
+        IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+c
+c --- - Prepare output file 
+        CALL special_pre
+c --- - Loop over input files 
+        m=0
+        DO
+          m=m+1
+c
+c --- --- Open output file
+          IF (MOD(m-1,rEday).EQ.0) CALL open_ofile
+c
+c --- --- Read variable into buffer 
+          rec=0
+          IF (LEN_TRIM(pEday).eq.0) CALL scan_files(reset=.false.)
+          IF (rec.EQ.0) EXIT
+          tbnds(1,1)=tval(1)-0.5
+          tbnds(2,1)=tval(1)+0.5
+          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+c
+c --- --- Read data 
+          CALL read_tslice(rec,badrec,fnm)
+c 
+c --- --- Post processing 
+          CALL special_post
+c
+c --- --- Write time slice to output file 
+          IF (badrec) fld=1e20
+          CALL write_tslice
+c
+c --- --- Close output file if max rec has been reached 
+          IF (MOD(m,rEday).EQ.0) CALL close_ofile
+c
+c --- - End loop over files and records
+        ENDDO
+c
+c --- - Close output file if still open 
+        IF (MOD(m,rEday).GT.0) CALL close_ofile
+c
+      ENDDO
 #endif 
 c
 c           exception for fill day 
@@ -2539,7 +2603,6 @@ c --- Define output variable
      .      comment        = TRIM(vcomment),
      .      positive       = TRIM(vpositive))
         ELSEIF (INDEX(special,'dzavg').GT.0.) THEN
-            write(*,*) 'line2522'
           varid=cmor_variable(
      .      table          = TRIM(tablepath),
      .      table_entry    = TRIM(ovnm),
@@ -2549,7 +2612,6 @@ c --- Define output variable
      .      missing_value  = 1e20, 
      .      comment        = TRIM(vcomment),
      .      positive       = TRIM(vpositive))
-            write(*,*) 'line2532'
         ELSEIF (TRIM(vtype).EQ.'layer'.AND..NOT.(TRIM(ovnm).EQ.'zfull'
      .    .OR.TRIM(ovnm).EQ.'half'.OR.INDEX(special,'glbave').GT.0
      .    .OR.INDEX(special,'2zos').GT.0.)) THEN
@@ -2781,7 +2843,6 @@ c --- - Compute rescaled dp
         ENDIF 
       ENDIF 
 c
-      write(*,*) 'line 2764'
       CALL resolve_vnm(slenmax,ivnm,ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6,
      .  fac1,fac2,fac3,fac4,fac5,fac6)
       IF (INDEX(special,'2rho').GT.0.OR.INDEX(special,'2zoss').GT.0.OR.
@@ -2789,14 +2850,10 @@ c
      . INDEX(special,'Dfield2').GT.0.OR.INDEX(special,'dpint').OR.
      . INDEX(special,'dpavg')) THEN
         fld=0.
-      write(*,*) 'line 2773'
-      write(*,*) 'vtype:'//vtype
         CALL add_tslice(ivnm2,fac2,rec1,fid)
         fld2=fld
         fld=0.
-      write(*,*) 'line 2777'
         CALL add_tslice(ivnm1,fac1,rec1,fid)
-      write(*,*) 'line 2779'
         IF (INDEX(special,'strmf').GT.0) THEN
           fldtmp=0.
           CALL strmf_eval(idm,jdm,kdm,fld,fld2,fldtmp)
@@ -2840,13 +2897,11 @@ c --- Read sea level height if necessary
 c
 c --- Read bottom pressure if necessary 
       IF (INDEX(special,'dzavg').GT.0) THEN
-          write(*,*) 'line:2827'
         status=nf90_inq_varid(fid,'pbot',rhid)
         IF (status.NE.nf90_noerr) THEN
           WRITE(*,*) 'cannot find input variable pbot '
           STOP
         ENDIF
-          write(*,*) 'line:2833'
         status=nf90_get_var(fid,rhid,pbot,(/1,1,rec1/),
      .    (/idm,jdm,1/))
         CALL handle_ncerror(status)
@@ -3124,14 +3179,12 @@ c --- Store variable
      .        time_vals      = tval,
      .        time_bnds      = tbnds)
           ELSEIF (INDEX(special,'dzavg').GT.0) THEN
-              write(*,*) 'line3073'
             error_flag=cmor_write(
      .        var_id         = varid,
      .        data           = (reshape(fld(:,:,1),(/idm,jdm,1/))),
      .        ntimes_passed  = 1,
      .        time_vals      = tval,
      .        time_bnds      = tbnds)
-              write(*,*) 'line3080'
           ELSEIF (vtype(1:4).EQ.'sect') THEN
             error_flag=cmor_write(
      .        var_id         = varid,
