@@ -529,8 +529,8 @@
 !                'wetso4       ','SO4_A1SFWET+SO4_A2SFWET+SO4_ACSFWET+SO4_NASFWET+SO4_PRSFWET+SO4_A1_OCWSFWET+SO4_A2_OCWSFWET+SO4_AC_OCWSFWET+SO4_NA_OCWSFWET+SO4_PR_OCWSFWET','    ',
 !                'toz          ','cb_ozone_c       ','                   ',
 !                'wetbc        ','BC_ACSFWET+BC_AISFWET+BC_ASFWET+BC_AXSFWET+BC_NISFWET+BC_NSFWET+BC_AC_OCWSFWET+BC_AI_OCWSFWET+BC_A_OCWSFWET+BC_NI_OCWSFWET+BC_N_OCWSFWET','',
-!                'cod          ','TAUTMODIS/CLTMODIS ','                   ',
-!                'reffclwtop   ','REFFCLWMODIS/CLWMODIS','                 ',
+!                'cod          ','TAUTMODIS/CLTMODIS ','unitless;Dfield2 ',
+!                'reffclwtop   ','REFFCLWMODIS/CLWMODIS','Dfield2        ',
 !                'chegpso4     ','GS_H2SO4         ','          ',
 !                'cltc         ','CONCLD * 100 as a 3d variable only    ','          ',      
 /
@@ -792,10 +792,17 @@ dAERday        = .true.
 tAERday        = 'CMIP6_AERday.json', 
 rAERday        = 1000000, 
 vAERday        = 
-                 'zg10        ','Z010       ','          ',
-                 'zg500       ','Z500       ','          ',
-                 'ua10        ','U010       ','          ',
-                 'va10        ','V010       ','          ',
+                 'od550aer  ','DOD550/DAYFOC','unitless;dayfoc',
+                 'ua10      ','U010         ','         ',
+                 'va10      ','V010         ','         ',
+                 'zg10      ','Z010         ','         ',
+                 'zg100     ','Z100         ','         ',
+                 'zg1000    ','Z1000        ','         ,
+                 'zg500     ','Z500         ','         ',
+! not available
+!                'ua10      ','U010         ','         ',
+!                'va10      ','V010         ','         ',
+!                'cod       ','TAUTMODIS/CLTMODIS','Dfield2',
 /
 
 &table_Eday

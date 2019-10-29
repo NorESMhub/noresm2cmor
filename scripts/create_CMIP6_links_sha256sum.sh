@@ -158,13 +158,18 @@ for fname in $(tail -n +2 ${ROOT}/${folder}.links)
     do
         real=$(echo $fname |cut -d"/" -f1)
         sha256sum $fname >>.${real}.sha256sum_${VER} &
-        if [ $(($k%15)) -eq 0 ]; then
-            echo -ne "sha256sum: $k/$nf files\r"
-            wait
+        echo -ne "sha256sum: $k/$nf files\r"
+        np=$(ps x |grep -c 'sha256sum')
+        if [ $np -lt 17 ]; then
+            sleep 10s
         fi
+        #if [ $(($k%15)) -eq 0 ]; then
+            #echo -ne "sha256sum: $k/$nf files\r"
+            #wait
+        #fi
         let k+=1
 done
-
+echo -e "\r"
 echo "---------------------"
 echo "      ALL DONE       "
 echo "---------------------"
