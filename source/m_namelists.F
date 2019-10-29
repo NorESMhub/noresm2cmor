@@ -28,7 +28,8 @@ c --- Model namelist
      .  institution1,source1,references1,contact1
       CHARACTER(LEN=slenmax), SAVE :: tagoyr,tagoyrbgc,tagomon,
      .  tagomonbgc,tagoday,tagodaybgc,tagimon,tagiday,tagamon,tagaday,
-     .  taga6hr,taga3hr,taga3hri,taglmon,taglday,tagl3hr,tagl3hri
+     .  taga6hr,taga6hri,taga3hr,taga3hri,taglmon,taglday,tagl3hr,
+     .  tagl3hri
       CHARACTER(LEN=slenmax), SAVE :: 
      .  secindexfile,ocngridfile,ocninitfile,ocnmertfile,rhotablesuff,
      .  atmgridfile,ocnregnfile
@@ -66,6 +67,7 @@ c --- Model namelist
      .  tagamon,
      .  tagaday,
      .  taga6hr,
+     .  taga6hri,
      .  taga3hr,
      .  taga3hri,
      .  taglmon,
@@ -357,6 +359,7 @@ c --- Initialise namelist variables
       tagamon       = ' '
       tagaday       = ' ' 
       taga6hr       = ' ' 
+      taga6hri      = ' ' 
       taga3hr       = ' ' 
       taga3hri      = ' ' 
       taglmon       = ' '
@@ -1269,6 +1272,7 @@ c
       WRITE(*,*) ' tag monthly atm  = ',TRIM(tagamon)
       WRITE(*,*) ' tag daily atm    = ',TRIM(tagaday)
       WRITE(*,*) ' tag 6hourly atm  = ',TRIM(taga6hr) 
+      WRITE(*,*) ' tag 6hourly insa = ',TRIM(taga6hri) 
       WRITE(*,*) ' tag 3hourly atm  = ',TRIM(taga3hr) 
       WRITE(*,*) ' tag 3hourly insa = ',TRIM(taga3hri) 
       WRITE(*,*) ' tag monthly lnd  = ',TRIM(taglmon)
