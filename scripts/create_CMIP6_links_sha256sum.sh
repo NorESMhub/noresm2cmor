@@ -15,52 +15,68 @@ VER=v20190920
 #VER=v20191018
 #VER=v20191022
 
-# set paths of cmorized data
+##Set Paths of Cmorized Data
+# CMIP
 #folders+=(.cmorout/NorESM2-LM/1pctCO2/${VER})
 #folders+=(.cmorout/NorESM2-LM/abrupt-4xCO2/${VER})
-#folders+=(.cmorout/NorESM2-LM/hist-GHG/${VER})
+#folders+=(.cmorout/NorESM2-LM/esm-hist/${VER})
+#folders+=(.cmorout/NorESM2-LM/esm-piControl/${VER})
 #folders+=(.cmorout/NorESM2-LM/historical/${VER})
+#folders+=(.cmorout/NorESM2-LM/piControl/${VER})
+
+# OMIP
+#folders+=(.cmorout/NorESM2-LM/omip1/${VER})
+#folders+=(.cmorout/NorESM2-LM/omip2/${VER})
+
+# DAMIP
+#folders+=(.cmorout/NorESM2-LM/hist-GHG/${VER})
+
+# AerChemMIP
 #folders+=(.cmorout/NorESM2-LM/hist-piAer/${VER})
 #folders+=(.cmorout/NorESM2-LM/hist-piNTCF/${VER})
-#folders+=(.cmorout/NorESM2-LM/piControl/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-spAer-aer/${VER})
-#folders+=(.cmorout/NorESM2-LM/esm-hist/${VER})
-##folders+=(.cmorout/NorESM2-LM/omip1/${VER})
-#folders+=(.cmorout/NorESM2-LM/omip2/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-spAer-anthro/${VER})
-
-#folders+=(.cmorout/NorESM2-LM/1pctCO2-cdr/${VER})
-
-#folders+=(.cmorout/NorESM2-LM/pdSST-pdSIC/${VER})
-#folders+=(.cmorout/NorESM2-LM/pdSST-futArcSIC/${VER})
-#folders+=(.cmorout/NorESM2-LM/pdSST-piAntSIC/${VER})
-#folders+=(.cmorout/NorESM2-LM/pdSST-futAntSIC/${VER})
-
 #folders+=(.cmorout/NorESM2-LM/histSST/${VER})
 #folders+=(.cmorout/NorESM2-LM/histSST-piAer/${VER})
 #folders+=(.cmorout/NorESM2-LM/histSST-piNTCF/${VER})
-
-#folders+=(.cmorout/NorESM2-LM/piClim-4xCO2/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-aer/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-BC/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-control/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-ghg/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-lu/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-OC/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-SO2/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-anthro/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-2xss/${VER})
-#folders+=(.cmorout/NorESM2-LM/piClim-2xdust/${VER})
 #folders+=(.cmorout/NorESM2-LM/piClim-2xDMS/${VER})
 #folders+=(.cmorout/NorESM2-LM/piClim-2xVOC/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-2xdust/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-2xss/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-BC/${VER})
 #folders+=(.cmorout/NorESM2-LM/piClim-CH4/${VER})
 #folders+=(.cmorout/NorESM2-LM/piClim-N2O/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-OC/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-SO2/${VER})
 
-#RFMIP
-#folders+=(.cmorout/NorESM2-LM/piClim-histall/${VER})
+# RFMIP
+folders+=(.cmorout/NorESM2-LM/hist-spAer-all/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-4xCO2/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-aer/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-anthro/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-control/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-ghg/${VER})
 #folders+=(.cmorout/NorESM2-LM/piClim-histaer/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-histall/${VER})
 #folders+=(.cmorout/NorESM2-LM/piClim-histghg/${VER})
-folders+=(.cmorout/NorESM2-LM/piClim-histnat/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-histnat/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-lu/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-spAer-aer/${VER})
+#folders+=(.cmorout/NorESM2-LM/piClim-spAer-anthro/${VER})
+
+# CDRMIP
+#folders+=(.cmorout/NorESM2-LM/1pctCO2-cdr/${VER})
+
+# PAMIP
+#folders+=(.cmorout/NorESM2-LM/pdSST-futAntSIC/${VER})
+#folders+=(.cmorout/NorESM2-LM/pdSST-futArcSIC/${VER})
+#folders+=(.cmorout/NorESM2-LM/pdSST-pdSIC/${VER})
+#folders+=(.cmorout/NorESM2-LM/pdSST-piAntSIC/${VER})
+#folders+=(.cmorout/NorESM2-LM/pdSST-piArcSIC/${VER})
+#folders+=(.cmorout/NorESM2-LM/piSST-pdSIC/${VER})
+
+# PMIP
+#folders+=(.cmorout/NorESM2-LM/lig127k/${VER})
+#folders+=(.cmorout/NorESM2-LM/midHolocene/${VER})
+#folders+=(.cmorout/NorESM2-LM/midPliocene-eoi400/${VER})
 
 echo "----------------"
 echo "LINKING FILES..."
