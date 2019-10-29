@@ -750,7 +750,7 @@
                  'vas       ','VAS               ','          ',
                  'wap       ','OMEGA             ','          ',
                  'zg        ','Z3                ','          ', 
-! not available
+! not available in output, thus not tested
 !                'prsn      ','PRECSC+PRECSL     ','kg m-2 s-1',
 !                'rlut      ','FSNTOA-FSNT+FLNT  ','          ',
 !                'uas       ','UAS               ','          ',
@@ -808,7 +808,7 @@ vAERday        =
                  'zg100     ','Z100         ','         ',
                  'zg1000    ','Z1000        ','         ,
                  'zg500     ','Z500         ','         ',
-! not available
+! not available in output, thus not tested
 !                'ua10      ','U010         ','         ',
 !                'va10      ','V010         ','         ',
 !                'cod       ','TAUTMODIS/CLTMODIS','Dfield2',
@@ -893,7 +893,7 @@ vCFday         =
                  'wap           ','OMEGA        ','         ',
                  'wap500        ','OMEGA500     ','         ',
                  'zg            ','Z3           ','         ',
-! not available
+! not available in output, thus not tested
 !                'albisccp      ','MEANCLDALB_ISCCP/CLDTOT_ISCCP','Dfield2',
 !                'clhcalipso    ','CLDGHG_CAL   ','         ',
 !                'clisccp       ','FISCCP1_COSP ','         ',
@@ -907,6 +907,61 @@ vCFday         =
 !                'rsut          ','FSUTOA       ','positiveup',
 /
 
+&table_6hrlev
+ d6hrlev       = .false.
+ t6hrlev       = 'CMIP6_6hrLev.json', 
+ r6hrlev       = 1000000, 
+ v6hrlev       = 
+                 'hus         ','Q             ','          ',
+! not available in output, thus not tested
+!                'bs550aer    ','BS550AER/DAYFOC','DAYFOC   ',
+!                'ps          ','PS            ','          ',
+!                'ta          ','T             ','          ', 
+!                'ua          ','U             ','          ',
+!                'va          ','V             ','          ',
+/
+
+&table_6hrplev
+ d6hrplev      = .false.
+ t6hrplev      = 'CMIP6_6hrPlev.json', 
+ r6hrplev      = 1000000, 
+ v6hrplev      = 
+                 'bldep       ','PBLH          ','          ',
+                 'hurs        ','RHREFHT       ','percent   ',
+                 'hus4        ','Q             ','          ',
+                 'pr          ','PRECT         ','kg m-2 s-1',
+                 'psl         ','PSL           ','          ',
+                 'sfcWind     ','U10           ','          ',
+                 'tas         ','TREFHT        ','          ',
+                 'wap4        ','OMEGA         ','          ',
+                 'zg1000      ','Z1000         ','          ',
+! not available in output, thus not tested
+!                'uas         ','UAS           ','          ',
+!                'vas         ','VAS           ','          ',
+/
+
+&table_6hrPlevPt
+ d6hrPlevPt    = .true.
+ t6hrPlevPt    = 'CMIP6_6hrPlevPt.json', 
+ r6hrPlevPt    = 1000000, 
+ v6hrPlevPt    = 
+                 'hus27       ','Q             ','          ',
+                 'huss        ','QREFHT        ','          ',
+                 'psl         ','PSL           ','          ',
+                 'sfcWind     ','U10           ','          ',
+                 'ta          ','T             ','          ',
+                 'tas         ','TREFHT        ','          ',
+                 'ts          ','TS            ','          ',
+                 'ua          ','U             ','          ',
+                 'va          ','V             ','          ',
+                 'zg27        ','Z3            ','          ',
+                 'zg500       ','Z500          ','          ',
+! not available in output, thus not tested
+!                'mrsol       ','SOILLIQ+SOILICE','         ',
+!                'mrsos       ','SOILWATER_10CM','          ',
+!                'snw         ','SNOWICE+SNOWLIQ','         ',
+!                'tsl         ','TSL           ','          ',
+/
 &table_3hr 
  d3hr          = .true.
  t3hr          = 'CMIP6_3hr.json',

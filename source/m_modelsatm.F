@@ -1087,6 +1087,90 @@ c --- - Close output file if still open
 c
       ENDDO
 c
+c --- Process table 6hrPlevPt
+      WRITE(*,*) 'Process table 6hrPlevPt'
+      fnm=p6hrPlevPt
+      table=t6hrPlevPt
+      linstant=.TRUE.
+      lreadplev=.TRUE.
+      DO n=1,n6hrPlevPt
+        IF (skip_variable(n,n6hrPlevPt,d6hrPlevPt)) CYCLE
+c
+c --- - Map namelist variables 
+        ovnm=v6hrPlevPt(ovnmpos,n)
+        ivnm=v6hrPlevPt(ivnmpos,n)
+        special=v6hrPlevPt(3,n)
+        vunits=' '
+        vpositive=' '
+        vcomment=' '
+c 
+c --- - Check if 2d and/or 3d fields are to be written 
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+        IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
+     .    zcoord(2:5).EQ.'levh') THEN
+          IF (.NOT.do_3d) CYCLE
+c --- --- Read pressure levels from table 
+          IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN 
+            CALL read_gridinfo_plev(TRIM(zcoord))
+            lreadplev=.FALSE.
+          ENDIF
+        ELSE
+          IF (.NOT.do_2d) CYCLE
+        ENDIF
+c 
+c --- - Choose history file 
+        itag=taga6hri
+c
+c --- - Check if input variable is present  
+        IF (LEN_TRIM(p6hrPlevPt).EQ.0)CALL scan_files(reset=.TRUE.)
+        IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+c
+c --- - Prepare output file 
+        CALL special_pre
+c
+c --- - Loop over files
+        m=0
+        DO
+          m=m+1
+c
+c --- --- Open output file
+          IF (MOD(m-1,r6hrPlevPt).EQ.0) CALL open_ofile 
+c
+c --- --- Read variable into buffer (average if necessary)
+          rec=0
+          IF (LEN_TRIM(p6hrPlevPt).eq.0) CALL scan_files 
+          IF (rec.EQ.0) EXIT
+cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
+          tbnds(:,1)=tbnd
+          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+c
+c --- --- Read data 
+          CALL read_tslice(rec,badrec,fnm)
+c
+c --- --- Post processing 
+          IF (zcoord(1:4).EQ.'plev'.AND.
+     .      INDEX(special,'catplev').LT.1) THEN 
+            CALL interp_z
+          ELSE
+            ofld=ifld
+          ENDIF
+          CALL special_post
+          IF (badrec) ofld=1e20
+
+c --- --- Write time slice to output file 
+          CALL write_tslice
+c
+c --- --- Close output file if max rec has been reached 
+          IF (MOD(m,r6hrPlevPt).EQ.0) CALL close_ofile 
+c
+c --- - End loop over files and records
+        ENDDO
+c
+c --- - Close output file if still open 
+        IF (MOD(m,r6hrPlevPt).GT.0) CALL close_ofile
+c
+      ENDDO
+c
 c
 c --- Process table 3hr 
       WRITE(*,*) 'Process table 3hr'
@@ -2466,13 +2550,23 @@ c
 c
 c --- Read auxillary data 
       IF (zcoord(2:4).EQ.'lev'.OR.INDEX(special,'calcload').GT.0) THEN 
+c       IF (.NOT.readdummy) THEN
+c         status=nf90_inq_varid(fid,'PS',rhid)
+c         CALL handle_ncerror(status)
+c         status=nf90_get_var(fid,rhid,ps,(/1,1,rec/),(/idm,jdm,1/))
+c         CALL handle_ncerror(status)
+c       ELSE 
+c         ps=0.
+c       ENDIF
         IF (.NOT.readdummy) THEN
           status=nf90_inq_varid(fid,'PS',rhid)
-          CALL handle_ncerror(status)
-          status=nf90_get_var(fid,rhid,ps,(/1,1,rec/),(/idm,jdm,1/))
-          CALL handle_ncerror(status)
-        ELSE 
-          ps=0.
+          IF (status.NE.0) THEN
+            ps=0.           !for 6hr (cam.h2), PS are not available
+          ELSE 
+            CALL handle_ncerror(status)
+            status=nf90_get_var(fid,rhid,ps,(/1,1,rec/),(/idm,jdm,1/))
+            CALL handle_ncerror(status)
+          ENDIF
         ENDIF
       ENDIF
 c
