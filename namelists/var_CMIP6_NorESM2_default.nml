@@ -763,8 +763,14 @@
  tSIday        = 'CMIP6_SIday.json', 
  rSIday        = 1000000, 
  vSIday        = 
+                 'siconc      ','aice_d        ','            ',
+                 'sisnthick   ','sisnthick_d   ','            ',
+                 'sispeed     ','sispeed_d     ','            ',
+                 'sitemptop   ','sitemptop_d   ','            ',
                  'sithick     ','sithick_d     ','            ',
-!====todo list====
+                 'sitimefrac  ','ice_present_d ','            ',
+                 'siu         ','siu_d         ','zero2missing',
+                 'siv         ','siv_d         ','zero2missing',
 /
 
 &table_Oday

@@ -191,7 +191,6 @@ c
         vnm2a=vnm2a(1:INDEX(vnm2a,',')-1)
       ENDIF
 c
-      write(*,*) 'vnm1a:'//vnm1a
       IF (INDEX(vnm1a,'/').GT.0) THEN
         vnm1b=vnm1a(INDEX(vnm1a,'/')+1:smax)
         vnm1a=vnm1a(1:INDEX(vnm1a,'/')-1)
