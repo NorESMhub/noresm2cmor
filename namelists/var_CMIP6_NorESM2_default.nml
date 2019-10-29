@@ -449,7 +449,6 @@
                  'vas              ','VAS                  ','          ',
                  'wap              ','OMEGA                ','          ',
                  'zg               ','Z3                   ','          ', 
-!====todo list====
 /
 
 &table_aero
@@ -657,11 +656,6 @@
 !                'rsdcs         ','FDSC         ','         ',
 !                'rsu           ','FUS          ','         ',
 !                'rsucs         ','FUSC         ','         ',
-!not implemented, UNCLEAR
-!                'clcalipso     ','CLD_CAL (?)  ','         ',
-!                'tnt           ','DTCORE+DTCOND+?','       ',
-!not implemented
-!todo            'clisccp       ','FISCCP1_COSP ','         ',
 /
 
 
@@ -731,6 +725,7 @@
                  'hus       ','Q                 ','          ',
                  'huss      ','QREFHT            ','          ',
                  'mrro      ','QRUNOFF           ','          ',
+                 'mrso      ','TOTSOILLIQ+TOTSOILICE','       ',
                  'mrsos     ','SOILWATER_10CM    ','          ',
                  'pr        ','PRECT             ','kg m-2 s-1',
                  'prc       ','PRECC             ','kg m-2 s-1',
@@ -741,6 +736,7 @@
                  'rlut      ','FSNTOA-FSNT+FLNT  ','positiveup',
                  'rsds      ','FSDS              ','positivedo',
                  'rsus      ','FSDS-FSNS         ','positiveup',
+                 'sfcWind   ','U10               ','          ',
                  'snw       ','SNOWHLND          ','kg m-2    ',
                  'ta        ','T                 ','          ',
                  'tas       ','TREFHT            ','          ',
@@ -753,7 +749,13 @@
                  'vas       ','VAS               ','          ',
                  'wap       ','OMEGA             ','          ',
                  'zg        ','Z3                ','          ', 
-!====todo list====                    
+! not available
+!                'prsn      ','PRECSC+PRECSL     ','kg m-2 s-1',
+!                'rlut      ','FSNTOA-FSNT+FLNT  ','          ',
+!                'uas       ','UAS               ','          ',
+!                'vas       ','VAS               ','          ',
+!                'snc       ','FSNO              ','percent   ',
+!                'snw       ','SNOWICE+SNOWLIQ   ','          ',
 /
 
 &table_SIday
