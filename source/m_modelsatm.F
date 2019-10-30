@@ -928,7 +928,6 @@ c --- - Close output file if still open
 c
       ENDDO
 c
-c
 c --- Process table 6hrlev
       WRITE(*,*) 'Process table 6hrlev'
       fnm=p6hrlev
@@ -999,6 +998,80 @@ c --- - End loop over files and records
 c
 c --- - Close output file if still open 
         IF (MOD(m,r6hrlev).GT.0) CALL close_ofile
+c
+      ENDDO
+c
+c
+c --- Process table 6hrlevi
+      WRITE(*,*) 'Process table 6hrlevi'
+      fnm=p6hrlevi
+      table=t6hrlevi
+      linstant=.TRUE.
+      DO n=1,n6hrlevi
+        IF (skip_variable(n,n6hrlevi,d6hrlevi)) CYCLE
+c
+c --- - Map namelist variables 
+        ovnm=v6hrlevi(ovnmpos,n)
+        ivnm=v6hrlevi(ivnmpos,n)
+        special=v6hrlevi(3,n)
+        vunits=' '
+        vpositive=' '
+        vcomment=' '
+c 
+c --- - Check if 2d and/or 3d fields are to be written 
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+        IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
+     .    zcoord(2:5).EQ.'levh') THEN
+          IF (.NOT.do_3d) CYCLE
+        ELSE
+          IF (.NOT.do_2d) CYCLE
+        ENDIF
+c 
+c --- - Choose history file 
+        itag=taga6hri
+c
+c --- - Check if input variable is present  
+        IF (LEN_TRIM(p6hrlevi).eq.0) CALL scan_files(reset=.TRUE.)
+        IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+c
+c --- - Prepare output file 
+        CALL special_pre
+c
+c --- - Loop over files
+        m=0
+        DO
+          m=m+1
+c
+c --- --- Open output file
+          IF (MOD(m-1,r6hrlevi).EQ.0) CALL open_ofile 
+c
+c --- --- Read variable into buffer (average if necessary)
+          rec=0
+          IF (LEN_TRIM(p6hrlevi).eq.0) CALL scan_files
+          IF (rec.EQ.0) EXIT
+cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
+          tbnds(:,1)=tbnd
+          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+c
+c --- --- Read data 
+          CALL read_tslice(rec,badrec,fnm) 
+c
+c --- --- Post processing 
+          ofld=ifld
+          CALL special_post
+          IF (badrec) ofld=1e20
+c
+c --- --- Write time slice to output file 
+          CALL write_tslice
+c
+c --- --- Close output file if max rec has been reached 
+          IF (MOD(m,r6hrlevi).EQ.0) CALL close_ofile 
+c
+c --- - End loop over files and records
+        ENDDO
+c
+c --- - Close output file if still open 
+        IF (MOD(m,r6hrlevi).GT.0) CALL close_ofile
 c
       ENDDO
 c

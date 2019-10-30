@@ -98,8 +98,10 @@ c --- Experiment namelist
       REAL(KIND=8), SAVE :: branch_time
       LOGICAL, SAVE :: dry_run,plevdummy,readdummy,add_fill_day,
      .  do_fx,do_oyr,do_oyrbgc,do_amon,do_omon,do_omonbgc,do_oimon,
-     .  do_lmon,do_limon,do_aero,do_day,do_6hrlev,do_6hrplev,do_3hr,
-     .  do_3hri,do_2d,do_3d,do_xd,do_bgc,newcolumnorder,scanallfiles
+     .  do_lmon,do_limon,do_aero,do_day,do_6hrlev,do_6hrlevi,do_6hrplev,
+
+     .  do_3hr,do_3hri,do_2d,do_3d,do_xd,do_bgc,
+     .  newcolumnorder,scanallfiles
       INTEGER, SAVE :: 
      .  physics_version=1,initialization_method=1,ivnmpos=1,ovnmpos=2
 #ifdef CMOR3 
@@ -162,6 +164,7 @@ c --- Experiment namelist
      .  do_aero, ! hidden
      .  do_day, ! hidden
      .  do_6hrlev, ! hidden
+     .  do_6hrlevi, ! hidden
      .  do_6hrplev, ! hidden
      .  do_3hr, ! hidden
      .  do_3hri, ! hidden
@@ -212,22 +215,23 @@ c --- Experiment namelist
 c 
 c --- Tables 
       LOGICAL, SAVE :: 
-     .  dfx,damon,domon,doimon,daero,dday,d6hrlev,d6hrplev,d3hr,d3hri,
-     .  dlmon,dlimon,doyr,doyrbgc,domonbgc
+     .  dfx,damon,domon,doimon,daero,dday,d6hrlev,d6hrlevi,d6hrplev,
+     .  d3hr,d3hri,dlmon,dlimon,doyr,doyrbgc,domonbgc
       CHARACTER(len=lenmax),DIMENSION(colmax,rowmax), SAVE :: 
-     .  vfx,vamon,vomon,voimon,vaero,vday,v6hrlev,v6hrplev,v3hr,v3hri,
-     .  vlmon,vlimon,voyr,voyrbgc,vomonbgc
+     .  vfx,vamon,vomon,voimon,vaero,vday,v6hrlev,v6hrlevi,v6hrplev,
+     .  v3hr,v3hri,vlmon,vlimon,voyr,voyrbgc,vomonbgc
       CHARACTER(len=slenmax), SAVE ::
-     .  pfx,pamon,pomon,poimon,paero,pday,p6hrlev,p6hrplev,p3hr,p3hri,
-     .  plmon,plimon,poyr,poyrbgc,pomonbgc
+     .  pfx,pamon,pomon,poimon,paero,pday,p6hrlev,p6hrlevi,p6hrplev,
+     .  p3hr,p3hri,plmon,plimon,poyr,poyrbgc,pomonbgc
       CHARACTER(len=slenmax), SAVE ::
-     .  tfx,tamon,tomon,toimon,taero,tday,t6hrlev,t6hrplev,t3hr,t3hri,
-     .  tlmon,tlimon,toyr,toyrbgc,tomonbgc,tgrids
+     .  tfx,tamon,tomon,toimon,taero,tday,t6hrlev,t6hrlevi,t6hrplev,
+     .  t3hr,t3hri,tlmon,tlimon,toyr,toyrbgc,tomonbgc,tgrids
       INTEGER, SAVE :: 
-     .  nfx,namon,nomon,noimon,naero,nday,n6hrlev,n6hrplev,n3hr,n3hri,
-     .  nlmon,nlimon,noyr,noyrbgc,nomonbgc
+     .  nfx,namon,nomon,noimon,naero,nday,n6hrlev,n6hrlevi,n6hrplev,
+     .  n3hr,n3hri,nlmon,nlimon,noyr,noyrbgc,nomonbgc
       INTEGER, SAVE :: 
-     .  rfx,ramon,romon,roimon,raero,rday,r6hrlev,r6hrplev,r3hr,r3hri,
+     .  rfx,ramon,romon,roimon,raero,rday,r6hrlev,r6hrlevi,r6hrplev,
+     .  r3hr,r3hri,
      .  rlmon,rlimon,royr,royrbgc,romonbgc
       NAMELIST /table_grids/   tgrids
       NAMELIST /table_fx/      dfx,pfx,tfx,vfx
@@ -243,6 +247,8 @@ c --- Tables
       NAMELIST /table_limon/   dlimon,plimon,tlimon,rlimon,vlimon
       NAMELIST /table_day/     dday,pday,tday,rday,vday
       NAMELIST /table_6hrlev/  d6hrlev,p6hrlev,t6hrlev,r6hrlev,v6hrlev
+      NAMELIST /table_6hrlevi/ d6hrlevi,p6hrlevi,t6hrlevi,r6hrlevi,
+     .                         v6hrlevi
       NAMELIST /table_6hrplev/ d6hrplev,p6hrplev,t6hrplev,r6hrplev,
      .                         v6hrplev
       NAMELIST /table_3hr/     d3hr,p3hr,t3hr,r3hr,v3hr
@@ -395,6 +401,7 @@ c --- Initialise namelist variables
       do_limon      = .TRUE.
       do_day        = .TRUE.
       do_6hrlev     = .TRUE.
+      do_6hrlevi    = .TRUE.
       do_6hrplev    = .TRUE.
       do_3hr        = .TRUE.
       do_3hri       = .TRUE.
@@ -469,6 +476,7 @@ c
       dlimon        = .FALSE. 
       dday          = .FALSE. 
       d6hrlev       = .FALSE. 
+      d6hrlevi      = .FALSE. 
       d6hrplev      = .FALSE. 
       d3hr          = .FALSE. 
       d3hri         = .FALSE.
@@ -514,6 +522,7 @@ c
       vlimon        = ' ' 
       vday          = ' ' 
       v6hrlev       = ' ' 
+      v6hrlevi      = ' ' 
       v6hrplev      = ' ' 
       v3hr          = ' ' 
       v3hri         = ' ' 
@@ -559,6 +568,7 @@ c
       plimon        = ' '
       pday          = ' '
       p6hrlev       = ' '
+      p6hrlevi      = ' '
       p6hrplev      = ' '
       p3hr          = ' '
       p3hri         = ' '
@@ -603,6 +613,7 @@ c
       rlimon        = 1000000
       rday          = 1000000
       r6hrlev       = 1000000
+      r6hrlevi      = 1000000
       r6hrplev      = 1000000
       r3hr          = 1000000
       r3hri         = 1000000
@@ -650,6 +661,7 @@ c
       tlimon        = 'CMIP5_LImon'
       tday          = 'CMIP5_da' 
       t6hrlev       = 'CMIP5_6hrLev' 
+      t6hrlevi      = 'CMIP5_6hrLev' 
       t6hrplev      = 'CMIP5_6hrPlev' 
       t3hr          = 'CMIP5_3hr' 
       t3hri         = 'CMIP5_3hr' 
@@ -667,6 +679,7 @@ c
       tlimon        = 'CMIP6_LImon.json'
       tday          = 'CMIP6_da.json'
       t6hrlev       = 'CMIP6_6hrLev.json'
+      t6hrlevi      = 'CMIP6_6hrLev.json'
       t6hrplev      = 'CMIP6_6hrPlev.json'
       t3hr          = 'CMIP6_3hr.json'
       t3hri         = 'CMIP6_3hr.json'
@@ -850,6 +863,10 @@ c
       REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
      .  'WARNING: Table 6hrLev not in namelist file. Skipping table...'
+      READ(funit,nml=table_6hrlevi,IOSTAT=istatus)
+      REWIND(funit)
+      IF (istatus.NE.0) WRITE(*,*) 
+     .  'WARNING: Table 6hrLevi not in namelist file. Skipping table...'
       READ(funit,nml=table_6hrplev,IOSTAT=istatus)
       REWIND(funit)
       IF (istatus.NE.0) WRITE(*,*) 
@@ -1028,6 +1045,7 @@ c --- Count number of table entries
       nlimon=0   
       nday=0   
       n6hrlev=0   
+      n6hrlevi=0   
       n6hrplev=0   
       n3hr=0   
       n3hri=0   
@@ -1044,6 +1062,7 @@ c --- Count number of table entries
         IF (LEN_TRIM(vlimon(1,n)).ne.0) nlimon=nlimon+1 
         IF (LEN_TRIM(vday(1,n)).ne.0) nday=nday+1 
         IF (LEN_TRIM(v6hrlev(1,n)).ne.0) n6hrlev=n6hrlev+1 
+        IF (LEN_TRIM(v6hrlevi(1,n)).ne.0) n6hrlevi=n6hrlevi+1 
         IF (LEN_TRIM(v6hrplev(1,n)).ne.0) n6hrplev=n6hrplev+1 
         IF (LEN_TRIM(v3hr(1,n)).ne.0) n3hr=n3hr+1 
         IF (LEN_TRIM(v3hri(1,n)).ne.0) n3hri=n3hri+1 
@@ -1065,6 +1084,8 @@ c --- Count number of table entries
           IF (TRIM(vsingle).NE.TRIM(vlimon(po,n))) vlimon(pi,n)='SKIP'
           IF (TRIM(vsingle).NE.TRIM(vday(po,n))) vday(pi,n)='SKIP'
           IF (TRIM(vsingle).NE.TRIM(v6hrlev(po,n))) v6hrlev(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(v6hrlevi(po,n)))
+     .      v6hrlevi(pi,n)='SKIP'
           IF (TRIM(vsingle).NE.TRIM(v6hrplev(po,n))) 
      .      v6hrplev(pi,n)='SKIP'
           IF (TRIM(vsingle).NE.TRIM(v3hr(po,n))) v3hr(pi,n)='SKIP'
@@ -1182,6 +1203,7 @@ c --- Skip deselected namelists
       if (.not.do_limon)   nlimon=0   
       if (.not.do_day)     nday=0   
       if (.not.do_6hrlev)  n6hrlev=0   
+      if (.not.do_6hrlevi) n6hrlevi=0   
       if (.not.do_6hrplev) n6hrplev=0   
       if (.not.do_3hr)     n3hr=0   
       if (.not.do_3hri)    n3hri=0   
@@ -1376,6 +1398,12 @@ c
       WRITE(*,*) 'Table 6hrlev:'
       DO n=1,n6hrlev
         WRITE(*,'(1X,A20,A20,A20)') v6hrlev(:,n)
+      ENDDO
+c
+      WRITE(*,*) 
+      WRITE(*,*) 'Table 6hrlevi:'
+      DO n=1,n6hrlevi
+        WRITE(*,'(1X,A20,A20,A20)') v6hrlevi(:,n)
       ENDDO
 c
       WRITE(*,*) 
