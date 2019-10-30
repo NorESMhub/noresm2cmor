@@ -1013,7 +1013,7 @@ vCFday         =
                  'gpp       ','GPP                 ','kg m-2 s-1',
                  'ra        ','AR                  ','kg m-2 s-1;positiveup',
                  'rh        ','HR                  ','kg m-2 s-1;positiveup',
-! not availabel
+! not available in output, thus not tested
 !                'clivi     ','TGCLDIWP            ','          ',
 !                'prra      ','lip                 ','          ',
 !                'rlut      ','FSNTOA-FSNT+FLNT    ','positiveup',
@@ -1028,3 +1028,43 @@ vCFday         =
 !                'vas       ','VAS                 ','          ',
 /
 
+&table_CF3hr 
+ dCF3hr        = .true.
+ tCF3hr        = 'CMIP6_CF3hr.json',
+ rCF3hr        = 1000000, 
+ vCF3hr        = 
+                 'sfcWind   ','U10                  ','             ',
+                 'ts        ','TS                   ','             ',
+! not available in output, thus not tested
+                 'clivi     ','TGCLDIWP             ','             ',
+                 'clt       ','CLDTOT               ','unitless     ',
+                 'evspsbl   ','QFLX                 ','evscomment   ',
+                 'hfls      ','LHFLX                ','positiveup   ',
+                 'hfss      ','SHFLX                ','positiveup   ',
+                 'hurs      ','RHREFHT              ','percent;hurcomment',
+                 'pr        ','PRECT                ','kg m-2 s-1   ',
+                 'prc       ','PRECC                ','kg m-2 s-1   ',
+                 'prsn      ','PRECSC+PRECSL        ','kg m-2 s-1   ',
+                 'prw       ','Q                    ','calcload     ',
+                 'psl       ','PSL                  ','             ',
+                 'reffclws  ','REFFL                ','             ',
+                 'rlds      ','FLDS                 ','positivedo   ',
+                 'rldscs    ','FLDSC                ','positivedo   ',
+                 'rlus      ','FLDS+FLNS            ','positiveup   ',
+                 'rlut      ','FSNTOA-FSNT+FLNT     ','positiveup   ',
+                 'rlutcs    ','FSNTOAC-FSNTC+FLNTC  ','positiveup   ',
+                 'rsds      ','FSDS                 ','positivedo   ',
+                 'rsdscs    ','FSDSC                ','positivedo   ',
+                 'rsdt      ','FSNTOA+FSUTOA        ','positivedo   ',
+                 'rsus      ','FSDS-FSNS            ','positiveup   ',
+                 'rsuscs    ','FSDSC-FSNSC          ','positiveup   ',
+                 'rsut      ','FSUTOA               ','positiveup   ',
+                 'rsutcs    ','SOLIN-FSNTOAC        ','positiveup   ',
+                 'rtmt      ','FSNT-FLNT            ','positivedo   ',
+                 'ta        ','T                    ','             ',
+                 'tauu      ','TAUX                 ','positiveup   ',
+                 'tauv      ','TAUY                 ','positiveup   ',
+! not implemented
+!                'pfull     ',',PS derived          ','             ',
+!                'phalf     ',',PS derived          ','             ',
+/
