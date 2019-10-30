@@ -1,5 +1,5 @@
 ! d* - do table true/false
-! t* - path to table file (guessed if omitted) 
+! t* - path to table file (guessed if omitted)
 ! p* - alternative path to data file (path created if omitted)
 ! r* - ?
 ! v* - list of varibles: <NorESM name>,<cmor name>,<special operation>
@@ -7,11 +7,11 @@
 &table_grids
  tgrids        = 'CMIP6_grids.json'
 /
- 
+
 &table_fx
- dfx           = .true. 
- tfx           = 'CMIP6_fx.json', 
- vfx           = 
+ dfx           = .true.
+ tfx           = 'CMIP6_fx.json',
+ vfx           =
                  'areacella     ','area              ','rad2m            ',
                  'orog          ','PHIS              ','m;xginv          ',
                  'sftgif        ','PCT_GLACIER*0.01  ','unitless;landfrac',
@@ -19,9 +19,9 @@
 /
 
 &table_ofx
- dofx           = .true. 
- tofx           = 'CMIP6_Ofx.json', 
- vofx           = 
+ dofx           = .true.
+ tofx           = 'CMIP6_Ofx.json',
+ vofx           =
                  'areacello     ','parea             ','pmask           ',
                  'basin         ','region            ','                ',
                  'deptho        ','pdepth            ','zero2missing    ',
@@ -34,8 +34,7 @@
  doyr          = .true.,
  royr          = 100000,
  toyr          = 'CMIP6_Oyr.json',
- voyr          = ' ' 
-!====todo list=====
+ voyr          = ' '
 /
 
 &table_oyrbgc
@@ -169,7 +168,7 @@
                  'wfonocorr     ','lip+sop+eva+rnf+rfi+fmltfz','  ',
                  'wmo           ','wflx             ','halflayer  ',
                  'wmo           ','wflxlvl          ','           ',
-                 'wo            ','wflx             ','wflx2wo    ', 
+                 'wo            ','wflx             ','wflx2wo    ',
                  'wo            ','wflxlvl          ','wflx2wo    ',
                  'zfullo        ','dz               ','dz2zfullo;pmask',
                  'zhalfo        ','dz               ','dz2zhalfo;pmask',
@@ -244,7 +243,10 @@
                  'fric          ','calflx_bot       ','mol m-2 s-1              ',
                  'frn           ','carflx_bot*0.131147541+dnitint   ','mol m-2 s-1  ',
                  'froc          ','carflx_bot       ','mol m-2 s-1          ',
+                 'intdic        ','dissiclvl*0.012  ','kg m-2;sumz          ',
+                 'intdoc        ','dissoclvl*1.464  ','kg m-2;sumz          ',
                  'intpn2        ','nfixint          ','mol m-2 s-1          ',
+                 'intpoc        ','detoclvl*1.464   ','kg m-2;sumz          ',
                  'intpp         ','ppint            ','mol m-2 s-1          ',
                  'no3           ','no3              ','mol m-3              ',
                  'no3           ','no3lvl           ','mol m-3              ',
@@ -273,7 +275,7 @@
                  'ponos         ','detoclvl*16      ','mol m-3;lvl2srf      ',
                  'pop           ','detoclvl         ','mol m-3              ',
                  'popos         ','detoclvl         ','mol m-3;lvl2srf      ',
-                 'pp            ','pplvl            ','mol m-3 s-1          ', 
+                 'pp            ','pplvl            ','mol m-3 s-1          ',
                  'ppos          ','pplvl            ','mol m-3 s-1;lvl2srf  ',
                  'sf6           ','sf6              ','mol m-3              ',
                  'sf6           ','sf6lvl           ','mol m-3              ',
@@ -297,19 +299,16 @@
 ! not available in output, thus not tested
 !                'dissi13c      ','dissic13lvl      ','mol m-3              ',
 !                'fg13co2       ','co213fxd-co213fxu','kg m-2 s-1           ',
-!                'intdic        ','dissiclvl*0.012  ','kg m-2;sumz          ',
-!                'intdoc        ','dissoclvl*1.464  ','kg m-2;sumz          ',
-!                'intpoc        ','detoclvl*1.464   ','kg m-2;sumz          ',
 !                'phyp          ','phyclvl          ','mol m-3              ',
 !                'phypos        ','phyclvl          ','mol m-3;lvl2srf      ',
 !                'sfdsi         ','fsalt_ai         ','kg m-2 s-1;positivedo',
 /
 
 &table_oimon
- doimon        = .true., 
+ doimon        = .true.,
  roimon        = 100000,
- toimon        = 'CMIP6_SImon.json', 
- voimon        = 
+ toimon        = 'CMIP6_SImon.json',
+ voimon        =
                  'sfdsi            ','siflsaltbot   ','positivedo     ',
                  'siage            ','siage         ','               ',
                  'siarean          ','aice          ','masksh;Xcellarea;glbsum;1e6 km2',
@@ -391,8 +390,8 @@
 &table_amon
  damon         = .true.
  tamon         = 'CMIP6_Amon.json',
- ramon         = 1000000, 
- vamon         = 
+ ramon         = 1000000,
+ vamon         =
                  'ccb              ','PCONVB               ','          ',
                  'cct              ','PCONVT               ','          ',
                  'cfc11global      ','f11vmr               ','unitless ',
@@ -401,7 +400,7 @@
                  'cl               ','CLOUD                ','unitless  ',
                  'cli              ','CLDICE               ','unitless  ',
                  'clivi            ','TGCLDIWP             ','          ',
-                 'clt              ','CLDTOT               ','unitless  ', 
+                 'clt              ','CLDTOT               ','unitless  ',
                  'clw              ','CLDLIQ               ','unitless  ',
                  'clwvi            ','TGCLDCWP             ','          ',
                  'co2              ','CO2                  ','co2units  ',
@@ -410,7 +409,7 @@
                  'hfls             ','LHFLX                ','positiveup',
                  'hfss             ','SHFLX                ','positiveup',
                  'hur              ','RELHUM               ','percent;hurcomment',
-                 'hurs             ','RHREFHT              ','percent;hurcomment', 
+                 'hurs             ','RHREFHT              ','percent;hurcomment',
                  'hus              ','Q                    ','          ',
                  'huss             ','QREFHT               ','          ',
                  'mc               ','CMFMC+CMFMCDZM       ','positiveup',
@@ -438,7 +437,7 @@
                  'sci              ','FREQSH               ','unitless  ',
                  'sfcWind          ','U10                  ','          ',
                  'ta               ','T                    ','          ',
-                 'tas              ','TREFHT               ','          ',  
+                 'tas              ','TREFHT               ','          ',
                  'tasmax           ','TREFHMXAV            ','          ',
                  'tasmin           ','TREFHMNAV            ','          ',
                  'tauu             ','TAUX                 ','positiveup',
@@ -449,19 +448,19 @@
                  'va               ','V                    ','          ',
                  'vas              ','VAS                  ','          ',
                  'wap              ','OMEGA                ','          ',
-                 'zg               ','Z3                   ','          ', 
+                 'zg               ','Z3                   ','          ',
 /
 
 &table_aero
  daero         = .true.
  taero         = 'CMIP6_AERmon.json',
- raero         = 1000000, 
- vaero         = 
+ raero         = 1000000,
+ vaero         =
                  'abs550aer    ','ABS550AL                  ','unitless;dayfoc    ',
-                 'airmass      ','AIRMASSL                  ','          ',      
+                 'airmass      ','AIRMASSL                  ','          ',
                  'bldep        ','PBLH                      ','          ',
                  'ccn          ','CCN_B/FCTL_B              ','Dfield2   ',
-                 'cdnc         ','AWNC/FREQL                ','Dfield2   ',      
+                 'cdnc         ','AWNC/FREQL                ','Dfield2   ',
                  'chepsoa      ','GS_SOA_LV+GS_SOA_SV       ','          ',
                  'co2          ','CO2                       ','          ',
                  'dms          ','DMS                       ','          ',
@@ -493,46 +492,46 @@
                  'mmrsoa       ','SOA_NA+SOA_A1             ','          ',
                  'mmrss        ','mmr_SALT                  ','          ',
                  'o3           ','ozone                     ','                   ',
-                 'od440aer     ','DOD440                    ','unitless;dayfoc    ',      
+                 'od440aer     ','DOD440                    ','unitless;dayfoc    ',
                  'od550aer     ','DOD550                    ','unitless;dayfoc    ',
-                 'od550aerh2o  ','DOD550-OD550DRY           ','unitless;dayfoc    ',      
-                 'od550bc      ','D550_BC                   ','unitless;dayfoc    ',      
-                 'od550csaer   ','CDOD550                   ','unitless;dayfoc;cldfree    ',      
-                 'od550dust    ','D550_DU                   ','unitless;dayfoc    ',      
+                 'od550aerh2o  ','DOD550-OD550DRY           ','unitless;dayfoc    ',
+                 'od550bc      ','D550_BC                   ','unitless;dayfoc    ',
+                 'od550csaer   ','CDOD550                   ','unitless;dayfoc;cldfree    ',
+                 'od550dust    ','D550_DU                   ','unitless;dayfoc    ',
                  'od550lt1aer  ','DLT_SS+DLT_DUST+DLT_SO4+DLT_BC+DLT_POM ','unitless;dayfoc',
-                 'od550oa      ','D550_POM                  ','unitless;dayfoc    ',      
-                 'od550so4     ','D550_SO4                  ','unitless;dayfoc    ',      
-                 'od550ss      ','D550_SS                   ','unitless;dayfoc    ',      
-                 'od870aer     ','DOD870                    ','unitless;dayfoc    ',      
-                 'oh           ','OH_aft                    ','mol mol-1 ',      
-                 'ps           ','PS                        ','          ',      
+                 'od550oa      ','D550_POM                  ','unitless;dayfoc    ',
+                 'od550so4     ','D550_SO4                  ','unitless;dayfoc    ',
+                 'od550ss      ','D550_SS                   ','unitless;dayfoc    ',
+                 'od870aer     ','DOD870                    ','unitless;dayfoc    ',
+                 'oh           ','OH_aft                    ','mol mol-1 ',
+                 'ps           ','PS                        ','          ',
                  'reffclwtop   ','REHANA                    ','fochana;micrometer',
-                 'rlutaf       ','FLNT_DRF                  ','                   ',      
-                 'rlutcsaf     ','FLNTCDRF                  ','                   ',      
+                 'rlutaf       ','FLNT_DRF                  ','                   ',
+                 'rlutcsaf     ','FLNTCDRF                  ','                   ',
                  'rsutaf       ','FSNT_DRF                  ','positiveup         ',
-                 'rsutcsaf     ','FSNTCDRF                  ','positiveup         ',      
-                 'so2          ','SO2                       ','          ',      
-                 'ua           ','U                         ','          ',      
-                 'va           ','V                         ','          ',      
+                 'rsutcsaf     ','FSNTCDRF                  ','positiveup         ',
+                 'so2          ','SO2                       ','          ',
+                 'ua           ','U                         ','          ',
+                 'va           ','V                         ','          ',
                  'wetoa        ','OM_ACSFWET+OM_AISFWET+OM_NISFWET+OM_AC_OCWSFWET+OM_AI_OCWSFWET+OM_NI_OCWSFWET','',
                  'wetoa        ','WET_POM                   ','          ',
-                 'wetso2       ','WD_A_SO2                  ','          ',      
+                 'wetso2       ','WD_A_SO2                  ','          ',
                  'wetss        ','SS_A1SFWET+SS_A2SFWET+SS_A3SFWET+SS_A1_OCWSFWET+SS_A2_OCWSFWET+SS_A3_OCWSFWET','   ',
                  'zg           ','Z3                        ','          ',
                  'ztp          ','TROP_Z                    ','                   ',
 ! not available in output, thus not tested
-!                'dryso4       ','SO4_A1DDF+SO4_A2DDF+SO4_ACDDF+SO4_NADDF+SO4_PRDDF+SO4_A1_OCWDDF+SO4_A2_OCWDDF+SO4_AC_OCWDDF+SO4_NA_OCWDDF+SO4_PR_OCWDDF    ','          ',      
-!                'ch4          ','CH4              ','                   ', 
-!                'emibc        ','SFBC_A+SFBC_AC+SFBC_AI+SFBC_AX+SFBC_N+SFBC_NI+BC_AX_CMXF+BC_NI_CMXF+BC_N_CMXF       ','          ',      
-!                'emidust      ','SFDST_A2+SF_DST_A3    ','          ',      
+!                'ch4          ','CH4              ','                   ',
+!                'chegpso4     ','GS_H2SO4         ','          ',
+!                'cltc         ','CONCLD * 100 as a 3d variable only    ','          ',
+!                'cod          ','TAUTMODIS/CLTMODIS ','unitless;Dfield2 ',
 !                'drybc        ','BC_ACDDF+BC_AC_OCWDDF+BC_ADDF+BC_AIDDF+BC_AI_OCWDDF+BC_AXDDF+BC_A_OCWDDF+BC_NDDF+BC_NIDDF+BC_NI_OCWDDF+BC_N_OCWDDF','    ',
-!                'wetso4       ','SO4_A1SFWET+SO4_A2SFWET+SO4_ACSFWET+SO4_NASFWET+SO4_PRSFWET+SO4_A1_OCWSFWET+SO4_A2_OCWSFWET+SO4_AC_OCWSFWET+SO4_NA_OCWSFWET+SO4_PR_OCWSFWET','    ',
+!                'dryso4       ','SO4_A1DDF+SO4_A2DDF+SO4_ACDDF+SO4_NADDF+SO4_PRDDF+SO4_A1_OCWDDF+SO4_A2_OCWDDF+SO4_AC_OCWDDF+SO4_NA_OCWDDF+SO4_PR_OCWDDF    ','          ',
+!                'emibc        ','SFBC_A+SFBC_AC+SFBC_AI+SFBC_AX+SFBC_N+SFBC_NI+BC_AX_CMXF+BC_NI_CMXF+BC_N_CMXF       ','          ',
+!                'emidust      ','SFDST_A2+SF_DST_A3    ','          ',
+!                'reffclwtop   ','REFFCLWMODIS/CLWMODIS','Dfield2        ',
 !                'toz          ','cb_ozone_c       ','                   ',
 !                'wetbc        ','BC_ACSFWET+BC_AISFWET+BC_ASFWET+BC_AXSFWET+BC_NISFWET+BC_NSFWET+BC_AC_OCWSFWET+BC_AI_OCWSFWET+BC_A_OCWSFWET+BC_NI_OCWSFWET+BC_N_OCWSFWET','',
-!                'cod          ','TAUTMODIS/CLTMODIS ','unitless;Dfield2 ',
-!                'reffclwtop   ','REFFCLWMODIS/CLWMODIS','Dfield2        ',
-!                'chegpso4     ','GS_H2SO4         ','          ',
-!                'cltc         ','CONCLD * 100 as a 3d variable only    ','          ',      
+!                'wetso4       ','SO4_A1SFWET+SO4_A2SFWET+SO4_ACSFWET+SO4_NASFWET+SO4_PRSFWET+SO4_A1_OCWSFWET+SO4_A2_OCWSFWET+SO4_AC_OCWSFWET+SO4_NA_OCWSFWET+SO4_PR_OCWSFWET','    ',
 /
 
 
@@ -547,9 +546,9 @@
                  'cStem              ','LIVESTEMC+DEADSTEMC                          ','kg m-2   ',
                  'cWood              ','LIVESTEMC+DEADSTEMC                          ','kg m-2    ',
                  'cldnvi             ','CDNCINT                                      ','fochana;m-2',
-                 'concdms            ','DMSCO*1.4375                                 ','unitless  ', 
+                 'concdms            ','DMSCO*1.4375                                 ','unitless  ',
                  'concdust           ','DUST                                         ','          ',
-                 'concso2            ','SO2CO                                        ','unitless  ', 
+                 'concso2            ','SO2CO                                        ','unitless  ',
                  'concso4            ','SO4                                          ','          ',
                  'concss             ','SS                                           ','          ',
                  'ec550aer           ','BAK                                          ','dayfoc    ',
@@ -636,18 +635,18 @@
 &table_CFmon
  dcfmon        = .true.
  tcfmon        = 'CMIP6_CFmon.json',
- rcfmon        = 1000000, 
- vcfmon        = 
-                 'hur           ','RELHUM       ','         ',
-                 'hus           ','Q            ','         ',
-                 'ta            ','T            ','         ',
+ rcfmon        = 1000000,
+ vcfmon        =
                  'albisccp      ','MEANCLDALB_ISCCP/CLDTOT_ISCCP','Dfield2  '
                  'clhcalipso    ','CLDHGH_CAL   ','         ',
                  'cllcalipso    ','CLDLOW_CAL   ','         ',
                  'clmcalipso    ','CLDMED_CAL   ','         ',
                  'cltcalipso    ','CLDTOT_CAL   ','         ',
                  'cltisccp      ','CLDTOT_ISCCP ','         ',
+                 'hur           ','RELHUM       ','         ',
+                 'hus           ','Q            ','         ',
                  'pctisccp      ','MEANPTOP_ISCCP/CLDTOT_ISCCP','Dfield2    '
+                 'ta            ','T            ','         ',
 !not available, therefore not tested
 !                'rld           ','FDL          ','         ',
 !                'rldcs         ','FDLC         ','         ',
@@ -697,14 +696,13 @@
                  'rh           ','HR                    ','kg m-2 s-1;positiveup',
                  'tran         ','QVEGT                 ','positiveup',
                  'tsl          ','TSOI                  ','missingval',
-!====todo list====
 /
 
 
 &table_limon
  dlimon        = .true.
  tlimon        = 'CMIP6_LImon.json'
- rlimon        = 1000000, 
+ rlimon        = 1000000,
  vlimon        =
                  'lwsnl     ','SNOWLIQ           ','          ',
                  'snc       ','FSNO              ','percent   ',
@@ -715,9 +713,9 @@
 
 &table_day
  dday          = .true.
- tday          = 'CMIP6_day.json', 
- rday          = 1000000, 
- vday          = 
+ tday          = 'CMIP6_day.json',
+ rday          = 1000000,
+ vday          =
                  'clt       ','CLDTOT*100        ','percent   ',
                  'hfls      ','LHFLX             ','positiveup',
                  'hfss      ','SHFLX             ','positiveup',
@@ -749,21 +747,21 @@
                  'va        ','V                 ','          ',
                  'vas       ','VAS               ','          ',
                  'wap       ','OMEGA             ','          ',
-                 'zg        ','Z3                ','          ', 
+                 'zg        ','Z3                ','          ',
 ! not available in output, thus not tested
 !                'prsn      ','PRECSC+PRECSL     ','kg m-2 s-1',
 !                'rlut      ','FSNTOA-FSNT+FLNT  ','          ',
-!                'uas       ','UAS               ','          ',
-!                'vas       ','VAS               ','          ',
 !                'snc       ','FSNO              ','percent   ',
 !                'snw       ','SNOWICE+SNOWLIQ   ','          ',
+!                'uas       ','UAS               ','          ',
+!                'vas       ','VAS               ','          ',
 /
 
 &table_SIday
  dSIday        = .true.
- tSIday        = 'CMIP6_SIday.json', 
- rSIday        = 1000000, 
- vSIday        = 
+ tSIday        = 'CMIP6_SIday.json',
+ rSIday        = 1000000,
+ vSIday        =
                  'siconc      ','aice_d        ','            ',
                  'sisnthick   ','sisnthick_d   ','            ',
                  'sispeed     ','sispeed_d     ','            ',
@@ -776,31 +774,30 @@
 
 &table_Oday
  dOday         = .true.
- tOday         = 'CMIP6_Oday.json', 
- rOday         = 1000000, 
- vOday         = 
+ tOday         = 'CMIP6_Oday.json',
+ rOday         = 1000000,
+ vOday         =
                  'omldamax    ','maxmld     ','          ',
                  'sos         ','sss        ','          ',
                  'sossq       ','ssssq      ','          ',
                  'tos         ','sst        ','          ',
                  'tossq       ','sstsq      ','          ',
-!====todo list====
 /
 
 &table_Odaybgc
  dOdaybgc      = .true.
- tOdaybgc      = 'CMIP6_Oday.json', 
- rOdaybgc      = 1000000, 
- vOdaybgc      = 
+ tOdaybgc      = 'CMIP6_Oday.json',
+ rOdaybgc      = 1000000,
+ vOdaybgc      =
                  'chlos       ','srfphyc       ','kg m-3;mol P m-3 -> kg Chl m-3',
                  'phycos      ','srfphyc       ','mol m-3     ',
 /
 
 &table_AERday
 dAERday        = .true.
-tAERday        = 'CMIP6_AERday.json', 
-rAERday        = 1000000, 
-vAERday        = 
+tAERday        = 'CMIP6_AERday.json',
+rAERday        = 1000000,
+vAERday        =
                  'od550aer  ','DOD550/DAYFOC','unitless;dayfoc',
                  'ua10      ','U010         ','         ',
                  'va10      ','V010         ','         ',
@@ -809,16 +806,16 @@ vAERday        =
                  'zg1000    ','Z1000        ','         ,
                  'zg500     ','Z500         ','         ',
 ! not available in output, thus not tested
+!                'cod       ','TAUTMODIS/CLTMODIS','Dfield2',
 !                'ua10      ','U010         ','         ',
 !                'va10      ','V010         ','         ',
-!                'cod       ','TAUTMODIS/CLTMODIS','Dfield2',
 /
 
 &table_Eday
 dEday          = .true.
 tEday          = 'CMIP6_Eday.json',
-rEday          = 1000000,   
-vEday          =   
+rEday          = 1000000,
+vEday          =
                  'ares         ','RAM1                ','          ',
                  'clt          ','CLDTOT              ','unitless  ',
                  'dmlt         ','ALT                 ','          ',
@@ -862,9 +859,9 @@ vEday          =
 !                'loaddust     ','DST_A2+DST_A3       ','calcload  ',
 !                'loadso4      ','SO4_A1*3+SO4_A2*3+SO4_AC*3+SO4_N*3+SO4_NA*3+SO4_PR*3','calcload  ',
 !                'loadss       ','SS_A1+SS_A2+SS_A3   ','calcload  ',
+!                'lwsnl        ','SNOWLIQ             ','          ',
 !                'prra         ','PRECT-PRECSC-PRECSL ','          ',
 !                'prrc         ','PRECC-PRECSC        ','          ',
-!                'lwsnl        ','SNOWLIQ             ','          ',
 !                'sbl          ','BC_A+BC_AC+BC_AI+BC_AX+BC_N+BC_NI','          ',
 !                'snd          ','SNOWDP              ','          ',
 !                'sootsn       ','SNOBCMCL            ','          ',
@@ -873,8 +870,8 @@ vEday          =
 &table_CFday
 dCFday         = .true.
 tCFday         = 'CMIP6_CFday.json',
-rCFday         = 1000000,   
-vCFday         =   
+rCFday         = 1000000,
+vCFday         =
                  'cl            ','CLOUD        ','unitless ',
                  'cli           ','CLDICE       ','unitless ',
                  'clivi         ','TGCLDIWP     ','         ',
@@ -909,30 +906,32 @@ vCFday         =
 
 &table_6hrlev
  d6hrlev       = .true.
- t6hrlev       = 'CMIP6_6hrLev.json', 
- r6hrlev       = 1000000, 
- v6hrlev       = 
+ t6hrlev       = 'CMIP6_6hrLev.json',
+ r6hrlev       = 1000000,
+ v6hrlev       =
 ! not available
 !                'bs550aer    ','BS550AER/DAYFOC','DAYFOC   ',
 /
 
 &table_6hrlevi
  d6hrlevi      = .true.
- t6hrlevi      = 'CMIP6_6hrLev.json', 
- r6hrlevi      = 1000000, 
- v6hrlevi      = 
+ t6hrlevi      = 'CMIP6_6hrLev.json',
+ r6hrlevi      = 1000000,
+ v6hrlevi      =
                  'hus         ','Q             ','          ',
                  'ps          ','PS            ','          ',
-                 'ta          ','T             ','          ', 
+                 'ta          ','T             ','          ',
                  'ua          ','U             ','          ',
                  'va          ','V             ','          ',
+! not available in output, thus not tested
+!                'ec550aer    ','EC550AER/DAYFOC','DAYFOC   ',
 /
 
 &table_6hrplev
  d6hrplev      = .true.
- t6hrplev      = 'CMIP6_6hrPlev.json', 
- r6hrplev      = 1000000, 
- v6hrplev      = 
+ t6hrplev      = 'CMIP6_6hrPlev.json',
+ r6hrplev      = 1000000,
+ v6hrplev      =
                  'bldep       ','PBLH          ','          ',
                  'hurs        ','RHREFHT       ','percent   ',
                  'hus4        ','Q             ','          ',
@@ -949,9 +948,9 @@ vCFday         =
 
 &table_6hrPlevPt
  d6hrPlevPt    = .true.
- t6hrPlevPt    = 'CMIP6_6hrPlevPt.json', 
- r6hrPlevPt    = 1000000, 
- v6hrPlevPt    = 
+ t6hrPlevPt    = 'CMIP6_6hrPlevPt.json',
+ r6hrPlevPt    = 1000000,
+ v6hrPlevPt    =
                  'hus27       ','Q             ','          ',
                  'huss        ','QREFHT        ','          ',
                  'psl         ','PSL           ','          ',
@@ -969,11 +968,11 @@ vCFday         =
 !                'snw         ','SNOWICE+SNOWLIQ','         ',
 !                'tsl         ','TSL           ','          ',
 /
-&table_3hr 
+&table_3hr
  d3hr          = .true.
  t3hr          = 'CMIP6_3hr.json',
- r3hr          = 1000000, 
- v3hr          = 
+ r3hr          = 1000000,
+ v3hr          =
                  'huss      ','QREFHT            ','          ',
                  'mrro      ','QRUNOFF           ','          ',
                  'mrsos     ','SOILWATER_10CM    ','          ',
@@ -985,8 +984,8 @@ vCFday         =
 &table_3hri
  d3hri         = .true.
  t3hri         = 'CMIP6_3hr.json',
- r3hri         = 1000000, 
- v3hri         = 
+ r3hri         = 1000000,
+ v3hri         =
                  'clt       ','CLDTOT            ','unitless  ',
                  'hfls      ','LHFLX             ','positiveup',
                  'hfss      ','SHFLX             ','positiveup',
@@ -1006,11 +1005,11 @@ vCFday         =
 !                'vas       ','VAS               ','          ',
 /
 
-&table_E3hr 
+&table_E3hr
  dE3hr          = .true.
  tE3hr          = 'CMIP6_E3hr.json',
- rE3hr          = 1000000, 
- vE3hr          = 
+ rE3hr          = 1000000,
+ vE3hr          =
                  'gpp       ','GPP                 ','kg m-2 s-1',
                  'ra        ','AR                  ','kg m-2 s-1;positiveup',
                  'rh        ','HR                  ','kg m-2 s-1;positiveup',
@@ -1018,12 +1017,14 @@ vCFday         =
 !                'clivi     ','TGCLDIWP            ','          ',
 !                'prra      ','lip                 ','          ',
 !                'rlut      ','FSNTOA-FSNT+FLNT    ','positiveup',
-!                'rlutcs    ','FSNTOAC-FSNTC+FLNTC ','positiveup',
 !                'rlut      ','FSNTOA-FSNT+FLNT    ','positiveup',
+!                'rlutcs    ','FSNTOAC-FSNTC+FLNTC ','positiveup',
 !                'rlutcs    ','FSNTOAC-FSNTC+FLNTC ','positiveup',
 !                'rsdt      ','FSNTOA+FSUTOA       ','positivedo',
 !                'rsut      ','FSUTOA              ','positiveup',
 !                'rsutcs    ','SOLIN-FSNTOAC       ','positiveup',
-                 'sfcWind   ','U10                 ','          ',
+!                'sfcWind   ','U10                 ','          ',
+!                'uas       ','UAS                 ','          ',
+!                'vas       ','VAS                 ','          ',
 /
 
