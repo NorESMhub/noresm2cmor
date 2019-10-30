@@ -1463,6 +1463,78 @@ c --- - Close output file if still open
 c
       ENDDO
 c
+c --- Process table E3hrPt 
+      WRITE(*,*) 'Process table E3hrPt'
+      fnm=pE3hrPt
+      table=tE3hrPt
+      linstant=.FALSE.
+      DO n=1,nE3hrPt
+        IF (skip_variable(n,nE3hrPt,dE3hrPt)) CYCLE
+c
+c --- - Map namelist variables 
+        ovnm=vE3hrPt(ovnmpos,n)
+        ivnm=vE3hrPt(ivnmpos,n)
+        special=vE3hrPt(3,n)
+        vunits=' '
+        vpositive=' '
+        vcomment=' '
+c 
+c --- - Check if 2d and/or 3d fields are to be written 
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+        IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
+     .    zcoord(2:5).EQ.'levh') THEN
+          IF (.NOT.do_3d) CYCLE
+        ELSE
+          IF (.NOT.do_2d) CYCLE
+        ENDIF
+c 
+c --- - Choose history file 
+        itag=taga3hri
+c
+c --- - Check if input variable is present  
+        IF (LEN_TRIM(pE3hrPt).eq.0) CALL scan_files(reset=.TRUE.)
+        IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+c
+c --- - Prepare output file 
+        CALL special_pre
+c
+c --- - Loop over files
+        m=0
+        DO
+          m=m+1
+c
+c --- --- Open output file
+          IF (MOD(m-1,rE3hrPt).EQ.0) CALL open_ofile 
+c
+c --- --- Read variable into buffer (average if necessary)
+          rec=0
+          IF (LEN_TRIM(pE3hrPt).eq.0) CALL scan_files 
+          IF (rec.EQ.0) EXIT
+cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
+          tbnds(:,1)=tbnd
+          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+c
+c --- --- Read data 
+          CALL read_tslice(rec,badrec,fnm)
+
+c --- --- Post processing 
+          ofld=ifld
+          CALL special_post
+c
+c --- --- Write time slice to output file 
+          CALL write_tslice
+c
+c --- --- Close output file if max rec has been reached 
+          IF (MOD(m,rE3hrPt).EQ.0) CALL close_ofile 
+c
+c --- - End loop over files
+        ENDDO 
+c
+c --- - Close output file if still open 
+        IF (MOD(m,rE3hrPt).GT.0) CALL close_ofile
+c
+      ENDDO
+c
 c --- Process table CF3hr 
       WRITE(*,*) 'Process table CF3hr'
       fnm=pCF3hr

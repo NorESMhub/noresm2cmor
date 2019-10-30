@@ -107,7 +107,7 @@ c --- Experiment namelist
 #ifdef CMOR3 
       LOGICAL, SAVE :: do_ofx,do_6hrPlevPt,do_AERday,do_AERhr,
      .  do_AERmonZ,do_CF3hr,do_CFday,do_CFmon,do_CFsubhr,do_E1hrClimMon,
-     .  do_E1hr,do_E3hr,do_CE3hrPt,do_E6hrZ,do_Eday,do_EdayZ,do_Efx,
+     .  do_E1hr,do_E3hr,do_E3hrPt,do_E6hrZ,do_Eday,do_EdayZ,do_Efx,
      .  do_Emon,do_EmonZ,do_Esubhr,do_Eyr,do_Oclim,do_Oday,do_Odaybgc,
      .  do_Odec,do_COfx,do_SIday
       CHARACTER(LEN=slenmax), SAVE ::
@@ -187,7 +187,7 @@ c --- Experiment namelist
      .  do_E1hrClimMon, ! hidden
      .  do_E1hr, ! hidden
      .  do_E3hr, ! hidden
-     .  do_CE3hrPt, ! hidden
+     .  do_E3hrPt, ! hidden
      .  do_E6hrZ, ! hidden
      .  do_Eday, ! hidden
      .  do_EdayZ, ! hidden
@@ -256,32 +256,32 @@ c --- Tables
 #ifdef CMOR3 
       LOGICAL, SAVE :: 
      .  dofx,d6hrPlevPt,dAERday,dAERhr,dAERmonZ,dCF3hr,dCFday,dCFmon,
-     .  dCFsubhr,dE1hrClimMon,dE1hr,dE3hr,dCE3hrPt,dE6hrZ,dEday,dEdayZ,
+     .  dCFsubhr,dE1hrClimMon,dE1hr,dE3hr,dE3hrPt,dE6hrZ,dEday,dEdayZ,
      .  dEfx,dEmon,dEmonZ,dEsubhr,dEyr,dOclim,dOday,dOdaybgc,dOdec,
      .  dCOfx,dSIday
       CHARACTER(len=lenmax),DIMENSION(colmax,rowmax), SAVE :: 
      .  vofx,v6hrPlevPt,vAERday,vAERhr,vAERmonZ,vCF3hr,vCFday,vCFmon,
-     .  vCFsubhr,vE1hrClimMon,vE1hr,vE3hr,vCE3hrPt,vE6hrZ,vEday,vEdayZ,
+     .  vCFsubhr,vE1hrClimMon,vE1hr,vE3hr,vE3hrPt,vE6hrZ,vEday,vEdayZ,
      .  vEfx,vEmon,vEmonZ,vEsubhr,vEyr,vOclim,vOday,vOdaybgc,vOdec,
      .  vCOfx,vSIday
       CHARACTER(len=slenmax), SAVE ::
      .  pofx,p6hrPlevPt,pAERday,pAERhr,pAERmonZ,pCF3hr,pCFday,pCFmon,
-     .  pCFsubhr,pE1hrClimMon,pE1hr,pE3hr,pCE3hrPt,pE6hrZ,pEday,pEdayZ,
+     .  pCFsubhr,pE1hrClimMon,pE1hr,pE3hr,pE3hrPt,pE6hrZ,pEday,pEdayZ,
      .  pEfx,pEmon,pEmonZ,pEsubhr,pEyr,pOclim,pOday,pOdaybgc,pOdec,
      .  pCOfx,pSIday
       CHARACTER(len=slenmax), SAVE ::
      .  tofx,t6hrPlevPt,tAERday,tAERhr,tAERmonZ,tCF3hr,tCFday,tCFmon,
-     .  tCFsubhr,tE1hrClimMon,tE1hr,tE3hr,tCE3hrPt,tE6hrZ,tEday,tEdayZ,
+     .  tCFsubhr,tE1hrClimMon,tE1hr,tE3hr,tE3hrPt,tE6hrZ,tEday,tEdayZ,
      .  tEfx,tEmon,tEmonZ,tEsubhr,tEyr,tOclim,tOday,tOdaybgc,tOdec,
      .  tCOfx,tSIday
       INTEGER, SAVE ::
      .  nofx,n6hrPlevPt,nAERday,nAERhr,nAERmonZ,nCF3hr,nCFday,nCFmon,
-     .  nCFsubhr,nE1hrClimMon,nE1hr,nE3hr,nCE3hrPt,nE6hrZ,nEday,nEdayZ,
+     .  nCFsubhr,nE1hrClimMon,nE1hr,nE3hr,nE3hrPt,nE6hrZ,nEday,nEdayZ,
      .  nEfx,nEmon,nEmonZ,nEsubhr,nEyr,nOclim,nOday,nOdaybgc,nOdec,
      .  nCOfx,nSIday
       INTEGER, SAVE ::
      .  rofx,r6hrPlevPt,rAERday,rAERhr,rAERmonZ,rCF3hr,rCFday,rCFmon,
-     .  rCFsubhr,rE1hrClimMon,rE1hr,rE3hr,rCE3hrPt,rE6hrZ,rEday,rEdayZ,
+     .  rCFsubhr,rE1hrClimMon,rE1hr,rE3hr,rE3hrPt,rE6hrZ,rEday,rEdayZ,
      .  rEfx,rEmon,rEmonZ,rEsubhr,rEyr,rOclim,rOday,rOdaybgc,rOdec,
      .  rCOfx,rSIday
       NAMELIST /table_ofx/       dofx,pofx,tofx,vofx,rofx
@@ -300,8 +300,8 @@ c --- Tables
      .                           tE1hrClimMon,vE1hrClimMon,rE1hrClimMon
       NAMELIST /table_E1hr/      dE1hr,pE1hr,tE1hr,vE1hr,rE1hr
       NAMELIST /table_E3hr/      dE3hr,pE3hr,tE3hr,vE3hr,rE3hr
-      NAMELIST /table_CE3hrPt/   dCE3hrPt,pCE3hrPt,tCE3hrPt,vCE3hrPt,
-     .                           rCE3hrPt
+      NAMELIST /table_E3hrPt/    dE3hrPt,pE3hrPt,tE3hrPt,vE3hrPt,
+     .                           rE3hrPt
       NAMELIST /table_E6hrZ/     dE6hrZ,pE6hrZ,tE6hrZ,vE6hrZ,rE6hrZ
       NAMELIST /table_Eday/      dEday,pEday,tEday,vEday,rEday
       NAMELIST /table_EdayZ/     dEdayZ,pEdayZ,tEdayZ,vEdayZ,rEdayZ
@@ -422,7 +422,7 @@ c --- Initialise namelist variables
       do_E1hrClimMon= .TRUE.
       do_E1hr       = .TRUE.
       do_E3hr       = .TRUE.
-      do_CE3hrPt    = .TRUE.
+      do_E3hrPt    = .TRUE.
       do_E6hrZ      = .TRUE.
       do_Eday       = .TRUE.
       do_EdayZ      = .TRUE.
@@ -493,7 +493,7 @@ c
       dE1hrClimMon  = .FALSE.
       dE1hr         = .FALSE.
       dE3hr         = .FALSE.
-      dCE3hrPt      = .FALSE.
+      dE3hrPt       = .FALSE.
       dE6hrZ        = .FALSE.
       dEday         = .FALSE.
       dEdayZ        = .FALSE.
@@ -539,7 +539,7 @@ c
       vE1hrClimMon  = ' ' 
       vE1hr         = ' ' 
       vE3hr         = ' ' 
-      vCE3hrPt      = ' ' 
+      vE3hrPt       = ' ' 
       vE6hrZ        = ' ' 
       vEday         = ' ' 
       vEdayZ        = ' ' 
@@ -585,7 +585,7 @@ c
       pE1hrClimMon  = ' '
       pE1hr         = ' '
       pE3hr         = ' ' 
-      pCE3hrPt      = ' ' 
+      pE3hrPt       = ' ' 
       pE6hrZ        = ' ' 
       pEday         = ' ' 
       pEdayZ        = ' ' 
@@ -630,7 +630,7 @@ c
       rE1hrClimMon  = 1000000 
       rE1hr         = 1000000 
       rE3hr         = 1000000  
-      rCE3hrPt      = 1000000  
+      rE3hrPt       = 1000000  
       rE6hrZ        = 1000000  
       rEday         = 1000000  
       rEdayZ        = 1000000  
@@ -696,7 +696,7 @@ c
       tE1hrClimMon  = 'CMIP6_E1hrClimMon.json'
       tE1hr         = 'CMIP6_E1hr.json'
       tE3hr         = 'CMIP6_E3hr.json'
-      tCE3hrPt      = 'CMIP6_CE3hrPt.json'
+      tE3hrPt       = 'CMIP6_E3hrPt.json'
       tE6hrZ        = 'CMIP6_E6hrZ.json'
       tEday         = 'CMIP6_Eday.json'
       tEdayZ        = 'CMIP6_EdayZ.json'
@@ -938,9 +938,9 @@ c
      .  'WARNING: Table E3hr not in namelist file. Skipping table...'
       REWIND(funit,IOSTAT=istatus)
       IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
-      READ(funit,nml=table_CE3hrPt,IOSTAT=istatus)
+      READ(funit,nml=table_E3hrPt,IOSTAT=istatus)
       IF (istatus.NE.0) WRITE(*,*) 
-     .  'WARNING: Table CE3hrPt not in namelist file. Skipping table...'
+     .  'WARNING: Table E3hrPt not in namelist file. Skipping table...'
       REWIND(funit,IOSTAT=istatus)
       IF (istatus.NE.0) WRITE(*,*) 'cannot rewind namelist file'
       READ(funit,nml=table_E6hrZ,IOSTAT=istatus)
@@ -1105,7 +1105,7 @@ c --- Count number of table entries
       nE1hrClimMon  = 0
       nE1hr         = 0
       nE3hr         = 0
-      nCE3hrPt      = 0
+      nE3hrPt       = 0
       nE6hrZ        = 0
       nEday         = 0
       nEdayZ        = 0
@@ -1133,7 +1133,7 @@ c --- Count number of table entries
         IF (LEN_TRIM(vE1hrClimMon(1,n)).ne.0)nE1hrClimMon=nE1hrClimMon+1
         IF (LEN_TRIM(vE1hr(1,n)).ne.0) nE1hr=nE1hr+1 
         IF (LEN_TRIM(vE3hr(1,n)).ne.0) nE3hr=nE3hr+1 
-        IF (LEN_TRIM(vCE3hrPt(1,n)).ne.0) nCE3hrPt=nCE3hrPt+1 
+        IF (LEN_TRIM(vE3hrPt(1,n)).ne.0) nE3hrPt=nE3hrPt+1 
         IF (LEN_TRIM(vE6hrZ(1,n)).ne.0) nE6hrZ=nE6hrZ+1 
         IF (LEN_TRIM(vEday(1,n)).ne.0) nEday=nEday+1 
         IF (LEN_TRIM(vEdayZ(1,n)).ne.0) nEdayZ=nEdayZ+1 
@@ -1169,8 +1169,8 @@ c --- Count number of table entries
      .      vE1hrClimMon(pi,n)='SKIP'
           IF (TRIM(vsingle).NE.TRIM(vE1hr(po,n))) vE1hr(pi,n)='SKIP'
           IF (TRIM(vsingle).NE.TRIM(vE3hr(po,n))) vE3hr(pi,n)='SKIP'
-          IF (TRIM(vsingle).NE.TRIM(vCE3hrPt(po,n))) 
-     .      vCE3hrPt(pi,n)='SKIP'
+          IF (TRIM(vsingle).NE.TRIM(vE3hrPt(po,n))) 
+     .      vE3hrPt(pi,n)='SKIP'
           IF (TRIM(vsingle).NE.TRIM(vE6hrZ(po,n))) vE6hrZ(pi,n)='SKIP'
           IF (TRIM(vsingle).NE.TRIM(vEday(po,n))) vEday(pi,n)='SKIP'
           IF (TRIM(vsingle).NE.TRIM(vEdayZ(po,n))) vEdayZ(pi,n)='SKIP'
@@ -1220,7 +1220,7 @@ c --- Skip deselected namelists
       if (.not.do_E1hrClimMon) nE1hrClimMon=0   
       if (.not.do_E1hr)        nE1hr=0   
       if (.not.do_E3hr)        nE3hr=0   
-      if (.not.do_CE3hrPt)     nCE3hrPt=0   
+      if (.not.do_E3hrPt)      nE3hrPt=0   
       if (.not.do_E6hrZ)       nE6hrZ=0   
       if (.not.do_Eday)        nEday=0   
       if (.not.do_EdayZ)       nEdayZ=0   
@@ -1498,9 +1498,9 @@ c
       ENDDO
 c
       WRITE(*,*) 
-      WRITE(*,*) 'Table CE3hrPt:'
-      DO n=1,nCE3hrPt
-        WRITE(*,'(1X,A20,A20,A20)') vCE3hrPt(:,n)
+      WRITE(*,*) 'Table E3hrPt:'
+      DO n=1,nE3hrPt
+        WRITE(*,'(1X,A20,A20,A20)') vE3hrPt(:,n)
       ENDDO
 c
       WRITE(*,*) 

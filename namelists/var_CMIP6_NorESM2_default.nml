@@ -1028,6 +1028,35 @@ vCFday         =
 !                'vas       ','VAS                 ','          ',
 /
 
+&table_E3hrPt
+ dE3hrPt        = .true.
+ tE3hrPt        = 'CMIP6_E3hrPt.json',
+ rE3hrPt        = 1000000, 
+ vE3hrPt        = 
+! not available in output, thus not tested
+!                'rsdcsaf       ','FDSCDRF         ','positivedo   ',     
+!                'rsdscsaf      ','FSDS_DRF        ','positivedo   ',
+!                'rsucsaf       ','FUSCDRF         ','positiveup   ',
+!                'rsuscsaf      ','FSDSCDRF-FSNSCDRF','positiveup  ',
+!                'rsutcsaf      ','FSNTCDRF        ','positiveup   ',
+!                'cfadDbze94    ','CFAD_DBZE94_CS  ','             ',
+!                'cfadLidarsr532','CFAD_SR532_CAL  ','             ',
+!                'clcalipso     ','CLD_CAL         ','             ',
+!                'clcalipso2    ','CLD_CAL_NOTCS   ','             ',
+!                'clhcalipso    ','CLDHGH_CAL      ','             ',
+!                'clisccp       ','FISCCP1_COSP    ','             ',
+!                'cllcalipso    ','CLDLOW_CAL      ','             ',
+!                'clmcalipso    ','CLDMED_CAL      ','             ',
+!                'cltcalipso    ','CLDTOT_CAL      ','             ',
+!                'co2           ','CO2             ','co2units     ',
+!                'hus           ','Q               ','             ',
+!                'rsdcs         ','FDSC            ','             ',
+!                'ta            ','T               ','             ',
+!                'ua            ','U               ','             ',
+!                'va            ','V               ','             ',
+!                'wap           ','OMEGA           ','             ',
+/
+
 &table_CF3hr 
  dCF3hr        = .true.
  tCF3hr        = 'CMIP6_CF3hr.json',
