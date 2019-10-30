@@ -908,21 +908,28 @@ vCFday         =
 /
 
 &table_6hrlev
- d6hrlev       = .false.
+ d6hrlev       = .true.
  t6hrlev       = 'CMIP6_6hrLev.json', 
  r6hrlev       = 1000000, 
  v6hrlev       = 
-                 'hus         ','Q             ','          ',
-! not available in output, thus not tested
+! not available
 !                'bs550aer    ','BS550AER/DAYFOC','DAYFOC   ',
-!                'ps          ','PS            ','          ',
-!                'ta          ','T             ','          ', 
-!                'ua          ','U             ','          ',
-!                'va          ','V             ','          ',
+/
+
+&table_6hrlevi
+ d6hrlevi      = .true.
+ t6hrlevi      = 'CMIP6_6hrLev.json', 
+ r6hrlevi      = 1000000, 
+ v6hrlevi      = 
+                 'hus         ','Q             ','          ',
+                 'ps          ','PS            ','          ',
+                 'ta          ','T             ','          ', 
+                 'ua          ','U             ','          ',
+                 'va          ','V             ','          ',
 /
 
 &table_6hrplev
- d6hrplev      = .false.
+ d6hrplev      = .true.
  t6hrplev      = 'CMIP6_6hrPlev.json', 
  r6hrplev      = 1000000, 
  v6hrplev      = 
