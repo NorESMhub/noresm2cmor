@@ -228,7 +228,10 @@ c --- --- Post processing
      .      INDEX(special,'catplev').LT.1) THEN 
             CALL interp_z
           ELSE
-            ofld=ifld  
+            IF (.NOT.(INDEX(special,'ps2pfull').GT.0.OR.
+     .        INDEX(special,'ps2phalf').GT.0)) THEN 
+              ofld=ifld  
+            ENDIF
           ENDIF                 
           CALL special_post 
 c
@@ -438,7 +441,10 @@ cdiag       write(*,*) 'DEBUG: ',trim(fnm),rec,nrec,tbnd,mbnd,year,month
             tval=0.5*(tbnds(1,1)+tbnds(2,1))
 c 
 c --- --- Post processing 
-          ofld=ifld
+          IF (.NOT.(INDEX(special,'ps2pfull').GT.0.OR.
+     .        INDEX(special,'ps2phalf').GT.0)) THEN 
+            ofld=ifld
+          ENDIF
           CALL special_post
 c
 c --- --- Write time slice to output file 
@@ -909,7 +915,10 @@ c --- --- Post processing
      .      INDEX(special,'catplev').LT.1) THEN
             CALL interp_z
           ELSE
-            ofld=ifld
+            IF (.NOT.(INDEX(special,'ps2pfull').GT.0.OR.
+     .        INDEX(special,'ps2phalf').GT.0)) THEN
+              ofld=ifld
+            ENDIF
           ENDIF
           CALL special_post
 c
@@ -983,7 +992,10 @@ c --- --- Read data
           CALL read_tslice(rec,badrec,fnm) 
 c
 c --- --- Post processing 
-          ofld=ifld
+          IF (.NOT.(INDEX(special,'ps2pfull').GT.0.OR.
+     .        INDEX(special,'ps2phalf').GT.0)) THEN 
+            ofld=ifld
+          ENDIF
           CALL special_post
           IF (badrec) ofld=1e20
 c
@@ -1590,7 +1602,10 @@ c --- --- Read data
           CALL read_tslice(rec,badrec,fnm)
 
 c --- --- Post processing 
-          ofld=ifld
+          IF (.NOT.(INDEX(special,'ps2pfull').GT.0.OR.
+     .        INDEX(special,'ps2phalf').GT.0)) THEN 
+            ofld=ifld
+          ENDIF
           CALL special_post
 c
 c --- --- Write time slice to output file 
@@ -1790,7 +1805,26 @@ c
 c --- - Divide by g 
         CASE ('xginv')
           ofld=ofld/9.80665
-c 
+c
+c --- - Derive pressure at level mid-points
+        CASE ('ps2pfull')
+          DO j=1,jdm
+            DO i=1,idm
+              DO k=1,ldm
+                ofld(i,j,k)=p0*hyam(k)+ps(i,j)*hybm(k)
+              ENDDO
+            ENDDO
+          ENDDO
+c
+c --- - Derive pressure at level interfaces
+        CASE ('ps2phalf')
+          DO j=1,jdm
+            DO i=1,idm
+              DO k=1,ldm+1
+                ofld(i,j,k)=p0*hyai(k)+ps(i,j)*hybi(k)
+              ENDDO
+            ENDDO
+          ENDDO
         END SELECT
         IF (str1.EQ.str2) exit
       END DO
@@ -2446,6 +2480,10 @@ c --- Allocate memory for output variable
       IF (ALLOCATED(ofld)) DEALLOCATE(ofld)
       IF (zcoord(1:4).EQ.'plev') THEN 
         ALLOCATE(ofld(idm,jdm,pdm),STAT=status)
+      ELSEIF (INDEX(special,'ps2pfull').GT.0) THEN 
+        ALLOCATE(ofld(idm,jdm,ldm),STAT=status)
+      ELSEIF (INDEX(special,'ps2phalf').GT.0) THEN 
+        ALLOCATE(ofld(idm,jdm,ldm+1),STAT=status)
       ELSE 
         ALLOCATE(ofld(idm,jdm,kdm),STAT=status)
       ENDIF
