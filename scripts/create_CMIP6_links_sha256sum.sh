@@ -19,6 +19,7 @@ VER=v20190920
 # CMIP
 #folders+=(.cmorout/NorESM2-LM/1pctCO2/${VER})
 #folders+=(.cmorout/NorESM2-LM/abrupt-4xCO2/${VER})
+#folders+=(.cmorout/NorESM2-LM/amip/${VER})
 #folders+=(.cmorout/NorESM2-LM/esm-hist/${VER})
 #folders+=(.cmorout/NorESM2-LM/esm-piControl/${VER})
 #folders+=(.cmorout/NorESM2-LM/historical/${VER})
@@ -30,6 +31,8 @@ VER=v20190920
 
 # DAMIP
 #folders+=(.cmorout/NorESM2-LM/hist-GHG/${VER})
+folders+=(.cmorout/NorESM2-LM/hist-nat/${VER})
+#folders+=(.cmorout/NorESM2-LM/hist-aer/${VER})
 
 # AerChemMIP
 #folders+=(.cmorout/NorESM2-LM/hist-piAer/${VER})
@@ -48,7 +51,7 @@ VER=v20190920
 #folders+=(.cmorout/NorESM2-LM/piClim-SO2/${VER})
 
 # RFMIP
-folders+=(.cmorout/NorESM2-LM/hist-spAer-all/${VER})
+#folders+=(.cmorout/NorESM2-LM/hist-spAer-all/${VER})
 #folders+=(.cmorout/NorESM2-LM/piClim-4xCO2/${VER})
 #folders+=(.cmorout/NorESM2-LM/piClim-aer/${VER})
 #folders+=(.cmorout/NorESM2-LM/piClim-anthro/${VER})
@@ -159,10 +162,17 @@ for fname in $(tail -n +2 ${ROOT}/${folder}.links)
         real=$(echo $fname |cut -d"/" -f1)
         sha256sum $fname >>.${real}.sha256sum_${VER} &
         echo -ne "sha256sum: $k/$nf files\r"
-        np=$(ps x |grep -c 'sha256sum')
-        if [ $np -lt 17 ]; then
-            sleep 10s
-        fi
+
+        # keep maximumn 15 jobs
+        flag=true
+        while $flag ; do
+            np=$(ps x |grep -c 'sha256sum')
+            if [ $np -lt 17 ]; then
+                flag=false
+            else
+                sleep 10s
+            fi
+        done
         #if [ $(($k%15)) -eq 0 ]; then
             #echo -ne "sha256sum: $k/$nf files\r"
             #wait
