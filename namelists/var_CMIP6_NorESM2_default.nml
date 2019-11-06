@@ -632,6 +632,17 @@
 !               'rhSoil             ','SOMHR            ','kg m-s s-1',
 /
 
+&table_EmonZ
+ dEmonZ       = .true.
+ tEmonZ       = 'CMIP6_EmonZ.json'
+ vEmonZ       =
+                'epfy       ','epfy     ','         ',
+                'epfz       ','epfz     ','positiveup',
+                'utendepfd  ','utendepfd','         ',
+                'vtem       ','vtem     ','         ',
+                'wtem       ','wtem     ','         ',
+/
+
 &table_CFmon
  dcfmon        = .true.
  tcfmon        = 'CMIP6_CFmon.json',

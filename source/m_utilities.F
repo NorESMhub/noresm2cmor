@@ -361,7 +361,10 @@ cdiag WRITE(*,*) 'getvertcoord:tnm,vnm=',tnm(1:lenmax),vnm(1:lenmax)
           c80=ADJUSTL(TRIM(c80(12:)))
 #endif
           c80=c80((INDEX(c80,' ')+1):)
-          c80=c80((INDEX(c80,' ')+1):)
+          ! in case zonal mean variables (second dimension plev)
+          IF (INDEX(C80,'plev').NE.1) THEN
+            c80=c80((INDEX(c80,' ')+1):)
+          ENDIF
           IF (c80(1:4).NE.'time') THEN
             cnm=c80(1:(INDEX(c80,' ')-1))
           ELSE

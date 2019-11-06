@@ -356,6 +356,115 @@ c --- - Close output file if still open
         IF (MOD(m,rEmon).GT.0) CALL close_ofile
 c
       ENDDO
+c
+c --- Process table EmonZ
+      WRITE(*,*) 'Process table EmonZ'
+      fnm=pEmonZ
+      table=tEmonZ
+      linstant=.FALSE.
+      lreadplev=.TRUE.
+      DO n=1,nEmonZ
+        IF (skip_variable(n,nEmonZ,dEmonZ)) CYCLE
+c
+c --- - Map namelist variables 
+        ovnm=vEmonZ(ovnmpos,n)
+        ivnm=vEmonZ(ivnmpos,n)
+        special=vEmonZ(3,n)
+        vunits=' '
+        vpositive=' '
+        vcomment=' '
+c 
+c --- - Check if 2d and/or 3d fields are to be written 
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+cdiag   WRITE(*,*) TRIM(ovnm),TRIM(zcoord),do_3d
+        IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
+     .    zcoord(2:5).EQ.'levh') THEN
+          IF (.NOT.do_3d) CYCLE
+c --- --- Read pressure levels from table 
+          IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN
+            CALL read_gridinfo_plev(TRIM(zcoord))
+            lreadplev=.FALSE.
+          ENDIF
+        ELSE
+          IF (.NOT.do_2d) CYCLE
+        ENDIF
+c 
+c --- - Choose history file 
+        SELECT CASE (TRIM(special))
+          CASE ('day2mon')
+            itag=tagaday
+          CASE ('6hr2mon')
+            itag=taga6hr
+          CASE ('3hr2mon')
+            itag=taga3hr
+          CASE DEFAULT
+            itag=tagamon
+        END SELECT
+c
+c --- - Check if input variable is present  
+        IF (LEN_TRIM(pEmonZ).eq.0) CALL scan_files(reset=.TRUE.)
+cdiag   write(*,*) 'DEBUG: ',trim(fnm),year1,year,month
+        IF (INDEX(special,'catplev').LT.1) THEN
+          IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+        ENDIF
+c 
+c --- - Prepare special operations
+        CALL special_pre
+c
+c --- - Loop over input files 
+        m=0
+        DO
+          m=m+1
+c
+c --- --- Open output file
+          IF (MOD(m-1,rEmonZ).EQ.0) CALL open_ofile
+c
+c --- --- Read variable into buffer (average if necessary)
+          rec=0
+          nrec=0
+          ifldacc=0.
+          LAST=.FALSE.
+          DO
+            IF (LEN_TRIM(pEmonZ).eq.0) CALL scan_files
+            IF (rec.EQ.0) THEN
+              last=.TRUE.
+              EXIT
+            ENDIF
+            nrec=nrec+1
+cdiag      write(*,*) 'DEBUG: ',trim(fnm),rec,nrec,tbnd,mbnd,year,month
+            CALL read_tslice(rec,badrec,fnm)
+            ifldacc=ifldacc+ifld
+            IF (tbnd(2).EQ.mbnd(2)) EXIT
+          ENDDO
+          IF (last) EXIT
+          ifld=ifldacc/FLOAT(nrec)
+          tbnds(:,1)=mbnd
+          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+c 
+c --- --- Post processing 
+          IF (zcoord(1:4).EQ.'plev'.AND.
+     .      INDEX(special,'catplev').LT.1) THEN
+            CALL interp_z
+          ELSE
+            ofld=ifld
+          ENDIF
+c          ofld(1,:,1:33)=ifld(1,:,1:33)
+c          ofld(1,:,34:39)=ifld(1,:,28:33)
+          CALL special_post
+c
+c --- --- Write time slice to output file 
+          CALL write_tslice
+c
+c --- --- Close output file if max rec has been reached 
+          IF (MOD(m,rEmonZ).EQ.0) CALL close_ofile
+c
+c --- - End loop over files and records
+        ENDDO
+c
+c --- - Close output file if still open 
+        IF (MOD(m,rEmonZ).GT.0) CALL close_ofile
+c
+      ENDDO
 #endif
 c 
 c --- Process table aero
@@ -1934,26 +2043,46 @@ c
 c
 c --- Read vertical hybrid coefficients 
       status=nf90_inq_dimid(ncid,'lev',dimid)
-      CALL handle_ncerror(status)
-      status=nf90_inquire_dimension(ncid,dimid,len=ldm)
-      CALL handle_ncerror(status)
+      IF (status.EQ.0 ) THEN
+        status=nf90_inquire_dimension(ncid,dimid,len=ldm)
+        CALL handle_ncerror(status)
+      ELSE
+        WRITE(*,*) 'WARNING: no lev coord found, search for ilev...'
+        status=nf90_inq_dimid(ncid,'ilev',dimid)
+          IF (status.EQ.0 ) THEN
+            status=nf90_inquire_dimension(ncid,dimid,len=ldm)
+            CALL handle_ncerror(status)
+            ldm=ldm-1
+          ELSE
+            CALL handle_ncerror(status)
+          ENDIF
+      ENDIF
 c
       ALLOCATE(lev(ldm),hyam(ldm),hybm(ldm),ilev(ldm+1),hyai(ldm+1),
      .  hybi(ldm+1),iilev(ldm+2),hyaii(ldm+2),hybii(ldm+2),STAT=status)
       IF (status.NE.0) STOP 'cannot allocate enough memory'
 c
       status=nf90_inq_varid(ncid,'lev',rhid) 
-      CALL handle_ncerror(status)
-      status=nf90_get_var(ncid,rhid,lev)
-      CALL handle_ncerror(status)
+      IF (status.EQ.0 ) THEN
+        status=nf90_get_var(ncid,rhid,lev)
+      ELSE
+        WRITE(*,*) 'WARNING: no lev coordinate found,read ilev'
+c       CALL handle_ncerror(status)
+      ENDIF
       status=nf90_inq_varid(ncid,'hyam',rhid) 
-      CALL handle_ncerror(status)
-      status=nf90_get_var(ncid,rhid,hyam)
-      CALL handle_ncerror(status)
+      IF (status.EQ.0 ) THEN
+        status=nf90_get_var(ncid,rhid,hyam)
+      ELSE
+        WRITE(*,*) 'WARNING: no hyam found...'
+c       CALL handle_ncerror(status)
+      ENDIF
       status=nf90_inq_varid(ncid,'hybm',rhid) 
-      CALL handle_ncerror(status)
-      status=nf90_get_var(ncid,rhid,hybm)
-      CALL handle_ncerror(status)
+      IF (status.EQ.0 ) THEN
+        status=nf90_get_var(ncid,rhid,hybm)
+      ELSE
+        WRITE(*,*) 'WARNING: no hybm found...'
+c       CALL handle_ncerror(status)
+      ENDIF
       status=nf90_inq_varid(ncid,'P0',rhid) 
       CALL handle_ncerror(status)
       status=nf90_get_var(ncid,rhid,p0)
@@ -2160,8 +2289,13 @@ c       STOP
         kdm=pdm
       ENDIF  
       IF (ALLOCATED(ifld)) DEALLOCATE(ifld,ifld2,ifldacc)
-      ALLOCATE(ifld(idm,jdm,kdm),ifld2(idm,jdm,kdm),
-     .  ifldacc(idm,jdm,kdm),STAT=status)
+      IF (dimlens(1).EQ.1) THEN
+        ALLOCATE(ifld(1,jdm,kdm),ifld2(1,jdm,kdm),
+     .    ifldacc(1,jdm,kdm),STAT=status)
+      ELSE
+        ALLOCATE(ifld(idm,jdm,kdm),ifld2(idm,jdm,kdm),
+     .    ifldacc(idm,jdm,kdm),STAT=status)
+      ENDIF
       IF (status.NE.0) STOP 'cannot ALLOCATE enough memory (4)'
 c 
       IF (LEN_TRIM(vunits).EQ.0) THEN
@@ -2427,15 +2561,27 @@ c --- Define output variable
      .    comment        = TRIM(vcomment))
       ELSE  
         IF (zcoord(1:4).EQ.'plev'.OR.zcoord(1:4).EQ.'alev') THEN
-          varid=cmor_variable(
-     .      table          = TRIM(tabledir)//TRIM(table),
-     .      table_entry    = TRIM(ovnm),
-     .      units          = TRIM(vunits),
-     .      axis_ids       = (/ iaxid, jaxid, kaxid, taxid /),
-     .      original_name  = TRIM(ivnm), 
-     .      missing_value  = 1e20,
-     .      comment        = TRIM(vcomment),
-     .      positive       = TRIM(vpositive))
+            IF (dimlens(1).EQ.1) THEN   !zonal mean
+              varid=cmor_variable(
+     .          table          = TRIM(tabledir)//TRIM(table),
+     .          table_entry    = TRIM(ovnm),
+     .          units          = TRIM(vunits),
+     .          axis_ids       = (/jaxid, kaxid, taxid /),
+     .          original_name  = TRIM(ivnm), 
+     .          missing_value  = 1e20,
+     .          comment        = TRIM(vcomment),
+     .          positive       = TRIM(vpositive))
+            ELSE
+              varid=cmor_variable(
+     .          table          = TRIM(tabledir)//TRIM(table),
+     .          table_entry    = TRIM(ovnm),
+     .          units          = TRIM(vunits),
+     .          axis_ids       = (/ iaxid, jaxid, kaxid, taxid /),
+     .          original_name  = TRIM(ivnm), 
+     .          missing_value  = 1e20,
+     .          comment        = TRIM(vcomment),
+     .          positive       = TRIM(vpositive))
+            ENDIF
         ELSEIF (ndims.EQ.1) THEN
             varid=cmor_variable(
      .        table          = TRIM(tabledir)//TRIM(table),
@@ -2479,7 +2625,11 @@ cdiag       WRITE(*,*) 'DEBUG 2'
 c --- Allocate memory for output variable
       IF (ALLOCATED(ofld)) DEALLOCATE(ofld)
       IF (zcoord(1:4).EQ.'plev') THEN 
-        ALLOCATE(ofld(idm,jdm,pdm),STAT=status)
+        IF (dimlens(1).EQ.1) THEN 
+            ALLOCATE(ofld(1,jdm,pdm),STAT=status)
+        ELSE
+            ALLOCATE(ofld(idm,jdm,pdm),STAT=status)
+        ENDIF
       ELSEIF (INDEX(special,'ps2pfull').GT.0) THEN 
         ALLOCATE(ofld(idm,jdm,ldm),STAT=status)
       ELSEIF (INDEX(special,'ps2phalf').GT.0) THEN 
@@ -2674,8 +2824,13 @@ cdiag WRITE(*,*) 'DEBUG',trim(ivnm1),rec,idm,jdm,kdm
               status=nf90_get_var(fid,rhid,ifld,(/1,1,rec/), 
      .          (/idm,jdm,1/)) 
             ELSE 
-              status=nf90_get_var(fid,rhid,ifld,(/1,1,1,rec/), 
-     .          (/idm,jdm,kdm,1/)) 
+              IF (INDEX(table,'EmonZ').GT.0) THEN
+                status=nf90_get_var(fid,rhid,ifld(1,:,:),(/1,1,1,rec/), 
+     .              (/1,jdm,kdm,1/)) 
+              ELSE
+                status=nf90_get_var(fid,rhid,ifld,(/1,1,1,rec/), 
+     .            (/idm,jdm,kdm,1/)) 
+              ENDIF
             ENDIF 
             CALL handle_ncerror(status)
           ELSE 
@@ -2966,6 +3121,13 @@ c --- Store variable
      .      ntimes_passed  = 1,
      .      time_vals      = tval,
      .      time_bnds      = tbnds)
+        ELSEIF (INDEX(table,'EmonZ').GT.0) THEN 
+          error_flag=cmor_write(
+     .      var_id         = varid,
+     .      data           = RESHAPE(ofld(1,:,:),(/jdm,pdm/)),
+     .      ntimes_passed  = 1,
+     .      time_vals      = tval,
+     .      time_bnds      = tbnds)
         ELSE
           error_flag=cmor_write(
      .      var_id         = varid,
@@ -3025,7 +3187,7 @@ c
       IF (.NOT.ALLOCATED(tmp1d)) THEN 
         ALLOCATE(tmp1d(ldm+1),STAT=status) 
         IF (status.NE.0) STOP 'cannot allocate enough memory'
-        missing=-999. 
+        missing=1.e20
         p0_hpa=p0*1e-2 
       ENDIF
       IF (ALLOCATED(plevs_hpa)) DEALLOCATE(plevs_hpa)
@@ -3041,8 +3203,13 @@ c
           CALL vinth2pecmwf(ifld,ofld,hyam,hybm,p0_hpa,tmp1d,plevs_hpa,
      .    1,ps,missing,1,idm,jdm,ldm,ldm,pdm,-1,tbot,phis)
         ELSE 
-          CALL vinth2pecmwf(ifld,ofld,hyam,hybm,p0_hpa,tmp1d,plevs_hpa,
-     .    1,ps,missing,1,idm,jdm,ldm,ldm,pdm,0,tbot,phis)
+          IF (INDEX(table,'EmonZ').GT.0) THEN
+           CALL vinth2pecmwf(ifld,ofld,hyai,hybi,p0_hpa,tmp1d,plevs_hpa,
+     .        1,ps,missing,0,1,jdm,ldm+1,ldm+1,pdm,0,tbot,phis)
+          ELSE
+           CALL vinth2pecmwf(ifld,ofld,hyam,hybm,p0_hpa,tmp1d,plevs_hpa,
+     .       1,ps,missing,1,idm,jdm,ldm,ldm,pdm,0,tbot,phis)
+          ENDIF
         ENDIF 
       ELSE
         ofld=0. 
