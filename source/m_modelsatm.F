@@ -3319,7 +3319,8 @@ c
      .    1,ps,missing,1,idm,jdm,ldm,ldm,pdm,-1,tbot,phis)
         ELSE 
           IF (INDEX(table,'EmonZ').GT.0) THEN
-           CALL vinth2pecmwf(ifld,ofld,hyai,hybi,p0_hpa,tmp1d,plevs_hpa,
+           CALL vinth2pecmwf(ifld,ofld,ilev/1000.,hybi*0.,p0_hpa,tmp1d,
+     .        plevs_hpa,
      .        1,ps,missing,0,1,jdm,ldm+1,ldm+1,pdm,0,tbot,phis)
           ELSE
            CALL vinth2pecmwf(ifld,ofld,hyam,hybm,p0_hpa,tmp1d,plevs_hpa,
