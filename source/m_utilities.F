@@ -14,11 +14,15 @@ c --- -----------------------------------------------------------------
 
 
       SUBROUTINE resolve_vnm(smax,vnm,vnm1,vnm2,vnm3,vnm4,vnm5,vnm6,
-     .  fac1,fac2,fac3,fac4,fac5,fac6)
+     .  fac1,fac2,fac3,fac4,fac5,fac6,
+     .  vnm7,vnm8,vnm9,vnm10,vnm11,vnm12,
+     .  fac7,fac8,fac9,fac10,fac11,fac12)
 c
       REAL :: fac1,fac2,fac3,fac4,fac5,fac6
+      REAL, OPTIONAL :: fac7,fac8,fac9,fac10,fac11,fac12
       INTEGER :: smax
       CHARACTER(len=*) :: vnm,vnm1,vnm2,vnm3,vnm4,vnm5,vnm6
+      CHARACTER(len=*), OPTIONAL :: vnm7,vnm8,vnm9,vnm10,vnm11,vnm12
 c 
       REAL :: r
       INTEGER :: ind
@@ -29,6 +33,14 @@ c
       fac4=1.
       fac5=1.
       fac6=1.
+      IF (PRESENT(fac7)) THEN
+       fac7=1.
+       fac8=1.
+       fac9=1.
+       fac10=1.
+       fac11=1.
+       fac12=1.
+      ENDIF
 c
       IF (INDEX(vnm,'-').GT.0.AND.INDEX(vnm,'+').GT.0) then
         ind=MIN(INDEX(vnm,'-'),INDEX(vnm,'+'))
@@ -66,7 +78,7 @@ c
               IF (vnm4(ind:ind).EQ.'-') fac5=-fac5
               vnm5=vnm4(ind+1:smax)
               vnm4=vnm4(1:ind-1)
-              IF (INDEX(vnm5,'-').GT.0.AND.INDEX(vnm5,'+').GT.0) then
+              IF (INDEX(vnm5,'-').GT.0.AND.INDEX(vnm5,'+').GT.0) THEN
                 ind=MIN(INDEX(vnm5,'-'),INDEX(vnm5,'+'))
               ELSE
                 ind=MAX(INDEX(vnm5,'-'),INDEX(vnm5,'+'))
@@ -75,23 +87,139 @@ c
                 IF (vnm5(ind:ind).EQ.'-') fac6=-fac6
                 vnm6=vnm5(ind+1:smax)
                 vnm5=vnm5(1:ind-1)
+                IF (INDEX(vnm6,'-').GT.0.AND.INDEX(vnm6,'+').GT.0) THEN
+                  ind=MIN(INDEX(vnm6,'-'),INDEX(vnm6,'+'))
+                ELSE
+                  ind=MAX(INDEX(vnm6,'-'),INDEX(vnm6,'+'))
+                ENDIF
+                IF (PRESENT(fac7).AND.ind.GT.0) THEN
+                  IF (vnm6(ind:ind).EQ.'-') fac7=-fac7
+                  vnm7=vnm6(ind+1:smax)
+                  vnm6=vnm6(1:ind-1)
+                  IF (INDEX(vnm7,'-').GT.0.AND.INDEX(vnm7,'+').GT.0)
+     .              THEN
+                    ind=MIN(INDEX(vnm7,'-'),INDEX(vnm7,'+'))
+                  ELSE
+                    ind=MAX(INDEX(vnm7,'-'),INDEX(vnm7,'+'))
+                  ENDIF
+                  IF (ind.GT.0) THEN
+                    IF (vnm7(ind:ind).EQ.'-') fac8=-fac8
+                    vnm8=vnm7(ind+1:smax)
+                    vnm7=vnm7(1:ind-1)
+                    IF (INDEX(vnm8,'-').GT.0.AND.INDEX(vnm8,'+').GT.0)
+     .                THEN
+                      ind=MIN(INDEX(vnm8,'-'),INDEX(vnm8,'+'))
+                    ELSE
+                      ind=MAX(INDEX(vnm8,'-'),INDEX(vnm8,'+'))
+                    ENDIF
+                    IF (ind.GT.0) THEN
+                      IF (vnm8(ind:ind).EQ.'-') fac9=-fac9
+                      vnm9=vnm8(ind+1:smax)
+                      vnm8=vnm8(1:ind-1)
+                      IF (INDEX(vnm8,'-').GT.0.AND.INDEX(vnm8,'+').GT.0)
+     .                THEN
+                        ind=MIN(INDEX(vnm9,'-'),INDEX(vnm9,'+'))
+                      ELSE
+                        ind=MAX(INDEX(vnm9,'-'),INDEX(vnm9,'+'))
+                      ENDIF
+                      IF (ind.GT.0) THEN
+                        IF (vnm9(ind:ind).EQ.'-') fac10=-fac10
+                        vnm10=vnm9(ind+1:smax)
+                        vnm9=vnm9(1:ind-1)
+                        IF (INDEX(vnm9,'-').GT.0.AND.INDEX(vnm9,'+')
+     .                     .GT.0) THEN
+                          ind=MIN(INDEX(vnm10,'-'),INDEX(vnm10,'+'))
+                        ELSE
+                          ind=MAX(INDEX(vnm10,'-'),INDEX(vnm10,'+'))
+                        ENDIF
+                        IF (ind.GT.0) THEN
+                          IF (vnm10(ind:ind).EQ.'-') fac11=-fac11
+                          vnm11=vnm10(ind+1:smax)
+                          vnm10=vnm10(1:ind-1)
+                          IF (INDEX(vnm11,'-').GT.0.AND.
+     .                        INDEX(vnm11,'+').GT.0) THEN
+                            ind=MIN(INDEX(vnm11,'-'),INDEX(vnm11,'+'))
+                          ELSE
+                            ind=MAX(INDEX(vnm11,'-'),INDEX(vnm11,'+'))
+                          ENDIF
+                          IF (ind.GT.0) THEN
+                            IF (vnm11(ind:ind).EQ.'-') fac12=-fac12
+                            vnm12=vnm11(ind+1:smax)
+                            vnm11=vnm11(1:ind-1)
+                          ELSE
+                            vnm12=' '
+                          ENDIF
+                        ELSE
+                          vnm11=' '
+                          vnm12=' '
+                        ENDIF
+                      ELSE
+                          vnm10=' '
+                          vnm11=' '
+                          vnm12=' '
+                      ENDIF
+                    ELSE
+                      vnm9=' '
+                      vnm10=' '
+                      vnm11=' '
+                      vnm12=' '
+                    ENDIF
+                  ELSE
+                    vnm8=' '
+                    vnm9=' '
+                    vnm10=' '
+                    vnm11=' '
+                    vnm12=' '
+                  ENDIF
+                ELSE
+                  vnm7=' '
+                  vnm8=' '
+                  vnm9=' '
+                  vnm10=' '
+                  vnm11=' '
+                  vnm12=' '
+                ENDIF
               ELSE
                 vnm6=' '
+                vnm7=' '
+                vnm8=' '
+                vnm9=' '
+                vnm10=' '
+                vnm11=' '
+                vnm12=' '
               ENDIF
             ELSE
               vnm5=' '
               vnm6=' '
+              vnm7=' '
+              vnm8=' '
+              vnm9=' '
+              vnm10=' '
+              vnm11=' '
+              vnm12=' '
             ENDIF
           ELSE
             vnm4=' '
             vnm5=' '
             vnm6=' '
+            vnm7=' '
+            vnm8=' '
+            vnm9=' '
+            vnm10=' '
+            vnm11=' '
+            vnm12=' '
           ENDIF
         ELSE
           vnm3=' '
           vnm4=' '
           vnm5=' '
           vnm6=' '
+          vnm7=' '
+          vnm8=' '
+          vnm9=' '
+          vnm10=' '
+          vnm11=' '
+          vnm12=' '
         ENDIF
       ELSE
         IF (INDEX(vnm,',').GT.0) THEN
@@ -108,6 +236,14 @@ c
         vnm4=' '
         vnm5=' '
         vnm6=' '
+        IF (PRESENT(vnm7)) THEN
+          vnm7=' '
+          vnm8=' '
+          vnm9=' '
+          vnm10=' '
+          vnm11=' '
+          vnm12=' '
+        ENDIF
       ENDIF
 c
       IF (INDEX(vnm1,'*').GT.0) THEN
@@ -139,6 +275,39 @@ c
         READ(vnm6(INDEX(vnm6,'*')+1:smax),*) r
         vnm6=vnm6(1:INDEX(vnm6,'*')-1)
         fac6=fac6*r
+      ENDIF
+      IF (.NOT.PRESENT(vnm7)) THEN
+          RETURN
+      ENDIF
+      IF (INDEX(vnm7,'*').GT.0) THEN
+        READ(vnm7(INDEX(vnm7,'*')+1:smax),*) r
+        vnm7=vnm7(1:INDEX(vnm7,'*')-1)
+        fac7=fac7*r
+      ENDIF
+      IF (INDEX(vnm8,'*').GT.0) THEN
+        READ(vnm8(INDEX(vnm8,'*')+1:smax),*) r
+        vnm8=vnm8(1:INDEX(vnm8,'*')-1)
+        fac8=fac8*r
+      ENDIF
+      IF (INDEX(vnm9,'*').GT.0) THEN
+        READ(vnm9(INDEX(vnm9,'*')+1:smax),*) r
+        vnm9=vnm9(1:INDEX(vnm9,'*')-1)
+        fac9=fac9*r
+      ENDIF
+      IF (INDEX(vnm10,'*').GT.0) THEN
+        READ(vnm10(INDEX(vnm10,'*')+1:smax),*) r
+        vnm10=vnm10(1:INDEX(vnm10,'*')-1)
+        fac10=fac10*r
+      ENDIF
+      IF (INDEX(vnm11,'*').GT.0) THEN
+        READ(vnm11(INDEX(vnm11,'*')+1:smax),*) r
+        vnm11=vnm11(1:INDEX(vnm11,'*')-1)
+        fac11=fac11*r
+      ENDIF
+      IF (INDEX(vnm12,'*').GT.0) THEN
+        READ(vnm12(INDEX(vnm12,'*')+1:smax),*) r
+        vnm12=vnm12(1:INDEX(vnm12,'*')-1)
+        fac12=fac12*r
       ENDIF
 c
       END SUBROUTINE resolve_vnm
@@ -209,8 +378,10 @@ c
       IMPLICIT NONE
 c
       REAL :: fac1,fac2,fac3,fac4,fac5,fac6
+      REAL :: fac7,fac8,fac9,fac10,fac11,fac12
       CHARACTER(LEN=*) :: fnm,vnm
       CHARACTER(LEN=slenmax) :: vnm1,vnm2,vnm3,vnm4,vnm5,vnm6
+      CHARACTER(len=slenmax) :: vnm7,vnm8,vnm9,vnm10,vnm11,vnm12
 c
       INTEGER :: ncid,rhid,status,ind
 c 
@@ -231,13 +402,15 @@ c
       ENDIF  
 c
       var_in_file=.TRUE.
-      CALL resolve_vnm(slenmax,vnm,vnm1,vnm2,vnm3,vnm4,vnm5,vnm6,fac1,
-     .  fac2,fac3,fac4,fac5,fac6)
+      CALL resolve_vnm(slenmax,vnm,vnm1,vnm2,vnm3,vnm4,vnm5,vnm6,
+     .  fac1,fac2,fac3,fac4,fac5,fac6,
+     .  vnm7,vnm8,vnm9,vnm10,vnm11,vnm12,
+     .  fac7,fac8,fac9,fac10,fac11,fac12)
       status=nf90_inq_varid(ncid,TRIM(vnm1),rhid)
       IF (status.NE.nf90_noerr) THEN
         var_in_file=.FALSE.
           IF (verbose) WRITE(*,*)
-     .      'skipping variable. '//TRIM(vnm)//' not in '//TRIM(fnm) 
+     .      'skipping variable. '//TRIM(vnm1)//' not in '//TRIM(fnm) 
       ENDIF
       IF (LEN_TRIM(vnm2).GT.0) THEN
         status=nf90_inq_varid(ncid,TRIM(vnm2),rhid)
@@ -268,7 +441,7 @@ c
         IF (status.NE.nf90_noerr) THEN
           var_in_file=.FALSE.
             IF (verbose) WRITE(*,*)
-     .        'skipping variable '//TRIM(vnm)
+     .        'skipping variable '//TRIM(vnm5)//' not in '//TRIM(fnm)
         ENDIF
       ENDIF
       IF (LEN_TRIM(vnm6).GT.0) THEN
@@ -276,7 +449,55 @@ c
         IF (status.NE.nf90_noerr) THEN
           var_in_file=.FALSE.
             IF (verbose) WRITE(*,*)
-     .        'skipping variable '//TRIM(vnm)
+     .        'skipping variable '//TRIM(vnm6)//' not in '//TRIM(fnm)
+        ENDIF
+      ENDIF
+      IF (LEN_TRIM(vnm7).GT.0) THEN
+        status=nf90_inq_varid(ncid,TRIM(vnm7),rhid)
+        IF (status.NE.nf90_noerr) THEN
+          var_in_file=.FALSE.
+            IF (verbose) WRITE(*,*)
+     .        'skipping variable '//TRIM(vnm7)//' not in '//TRIM(fnm)
+        ENDIF
+      ENDIF
+      IF (LEN_TRIM(vnm8).GT.0) THEN
+        status=nf90_inq_varid(ncid,TRIM(vnm8),rhid)
+        IF (status.NE.nf90_noerr) THEN
+          var_in_file=.FALSE.
+            IF (verbose) WRITE(*,*)
+     .        'skipping variable '//TRIM(vnm8)//' not in '//TRIM(fnm)
+        ENDIF
+      ENDIF
+      IF (LEN_TRIM(vnm9).GT.0) THEN
+        status=nf90_inq_varid(ncid,TRIM(vnm9),rhid)
+        IF (status.NE.nf90_noerr) THEN
+          var_in_file=.FALSE.
+            IF (verbose) WRITE(*,*)
+     .        'skipping variable '//TRIM(vnm9)//' not in '//TRIM(fnm)
+        ENDIF
+      ENDIF
+      IF (LEN_TRIM(vnm10).GT.0) THEN
+        status=nf90_inq_varid(ncid,TRIM(vnm10),rhid)
+        IF (status.NE.nf90_noerr) THEN
+          var_in_file=.FALSE.
+            IF (verbose) WRITE(*,*)
+     .        'skipping variable '//TRIM(vnm10)//' not in '//TRIM(fnm)
+        ENDIF
+      ENDIF
+      IF (LEN_TRIM(vnm11).GT.0) THEN
+        status=nf90_inq_varid(ncid,TRIM(vnm11),rhid)
+        IF (status.NE.nf90_noerr) THEN
+          var_in_file=.FALSE.
+            IF (verbose) WRITE(*,*)
+     .        'skipping variable '//TRIM(vnm11)//' not in '//TRIM(fnm)
+        ENDIF
+      ENDIF
+      IF (LEN_TRIM(vnm12).GT.0) THEN
+        status=nf90_inq_varid(ncid,TRIM(vnm12),rhid)
+        IF (status.NE.nf90_noerr) THEN
+          var_in_file=.FALSE.
+            IF (verbose) WRITE(*,*)
+     .        'skipping variable '//TRIM(vnm12)//' not in '//TRIM(fnm)
         ENDIF
       ENDIF
 c

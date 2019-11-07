@@ -2213,9 +2213,11 @@ c
       LOGICAL :: fxflag
 c
       REAL :: fac1,fac2,fac3,fac4,fac5,fac6
+      REAL :: fac7,fac8,fac9,fac10,fac11,fac12
       INTEGER, PARAMETER :: ndimmax=10
       INTEGER :: n,ndims,dimids(ndimmax),dimlens(ndimmax)
       CHARACTER(len=slenmax) :: ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6,str
+      CHARACTER(len=slenmax) :: ivnm7,ivnm8,ivnm9,ivnm10,ivnm11,ivnm12
       REAL(KIND=8), DIMENSION(:), ALLOCATABLE :: tmp1d, tmp1d_2
       REAL(KIND=8), DIMENSION(:), ALLOCATABLE :: tmp2d
 c
@@ -2229,8 +2231,12 @@ c --- Inquire variable units and dimensions in input file
       status=nf90_open(fnm,nf90_nowrite,ncid)
       CALL handle_ncerror(status)
 c
+c      CALL resolve_vnm(slenmax,ivnm,ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6,
+c     .  fac1,fac2,fac3,fac4,fac5,fac6)
       CALL resolve_vnm(slenmax,ivnm,ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6,
-     .  fac1,fac2,fac3,fac4,fac5,fac6)
+     .  fac1,fac2,fac3,fac4,fac5,fac6,
+     .  ivnm7,ivnm8,ivnm9,ivnm10,ivnm11,ivnm12,
+     .  fac7,fac8,fac9,fac10,fac11,fac12)
       IF (verbose) THEN
         WRITE(*,*) 'Resolve input variable term ',TRIM(ivnm),' ='
         IF (LEN_TRIM(ivnm1).GT.0) WRITE(*,*) ' ',TRIM(ivnm1),'*',fac1
@@ -2239,6 +2245,15 @@ c
         IF (LEN_TRIM(ivnm4).GT.0) WRITE(*,*) ' + ',TRIM(ivnm4),'*',fac4
         IF (LEN_TRIM(ivnm5).GT.0) WRITE(*,*) ' + ',TRIM(ivnm5),'*',fac5
         IF (LEN_TRIM(ivnm6).GT.0) WRITE(*,*) ' + ',TRIM(ivnm6),'*',fac6
+        IF (LEN_TRIM(ivnm7).GT.0) WRITE(*,*) ' + ',TRIM(ivnm7),'*',fac7
+        IF (LEN_TRIM(ivnm8).GT.0) WRITE(*,*) ' + ',TRIM(ivnm8),'*',fac8
+        IF (LEN_TRIM(ivnm9).GT.0) WRITE(*,*) ' + ',TRIM(ivnm9),'*',fac9
+        IF (LEN_TRIM(ivnm10).GT.0) WRITE(*,*) ' + ',TRIM(ivnm10),'*',
+     .                                                             fac10
+        IF (LEN_TRIM(ivnm11).GT.0) WRITE(*,*) ' + ',TRIM(ivnm11),'*',
+     .                                                             fac11
+        IF (LEN_TRIM(ivnm12).GT.0) WRITE(*,*) ' + ',TRIM(ivnm12),'*',
+     .                                                             fac12
       ENDIF 
       IF (INDEX(special,'catplev').GE.1) THEN
         str=' ' 
@@ -2755,10 +2770,12 @@ c
       IMPLICIT NONE
 c
       REAL :: fac1,fac2,fac3,fac4,fac5,fac6
+      REAL :: fac7,fac8,fac9,fac10,fac11,fac12
       INTEGER :: ind,rec,i,j
       INTEGER, SAVE :: fid,fidphis
       CHARACTER(LEN=*), INTENT(IN), OPTIONAL :: fname 
       CHARACTER(LEN=slenmax) :: ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6,str
+      CHARACTER(LEN=slenmax) :: ivnm7,ivnm8,ivnm9,ivnm10,ivnm11,ivnm12
       LOGICAL :: badrec    
 c
 c --- Open input file 
@@ -2806,7 +2823,9 @@ c --- - Exception for instantaneous 6+3 hourly data
 c
 c --- Read data 
       CALL resolve_vnm(slenmax,ivnm,ivnm1,ivnm2,ivnm3,ivnm4,ivnm5,ivnm6,
-     .  fac1,fac2,fac3,fac4,fac5,fac6)
+     .  fac1,fac2,fac3,fac4,fac5,fac6,
+     .  ivnm7,ivnm8,ivnm9,ivnm10,ivnm11,ivnm12,
+     .  fac7,fac8,fac9,fac10,fac11,fac12)
       IF (INDEX(special,'catplev').LT.1) THEN 
         status=nf90_inq_varid(fid,TRIM(ivnm1),rhid)
       ENDIF
@@ -2955,6 +2974,102 @@ c
           ENDIF
           CALL handle_ncerror(status)
           ifld=ifld+ifld2*fac6
+        ENDIF
+        IF (LEN_TRIM(ivnm7).GT.0) THEN
+          status=nf90_inq_varid(fid,TRIM(ivnm7),rhid)
+          IF (status.NE.nf90_noerr) THEN
+            WRITE(*,*) 'cannot find input variable ',TRIM(ivnm7)
+            STOP
+          ENDIF
+          IF (kdm.eq.1) THEN
+            status=nf90_get_var(fid,rhid,ifld2,(/1,1,rec/),
+     .        (/idm,jdm,1/))
+          ELSE
+            status=nf90_get_var(fid,rhid,ifld2,(/1,1,1,rec/),
+     .        (/idm,jdm,kdm,1/))
+          ENDIF
+          CALL handle_ncerror(status)
+          ifld=ifld+ifld2*fac7
+        ENDIF
+        IF (LEN_TRIM(ivnm8).GT.0) THEN
+          status=nf90_inq_varid(fid,TRIM(ivnm8),rhid)
+          IF (status.NE.nf90_noerr) THEN
+            WRITE(*,*) 'cannot find input variable ',TRIM(ivnm8)
+            STOP
+          ENDIF
+          IF (kdm.eq.1) THEN
+            status=nf90_get_var(fid,rhid,ifld2,(/1,1,rec/),
+     .        (/idm,jdm,1/))
+          ELSE
+            status=nf90_get_var(fid,rhid,ifld2,(/1,1,1,rec/),
+     .        (/idm,jdm,kdm,1/))
+          ENDIF
+          CALL handle_ncerror(status)
+          ifld=ifld+ifld2*fac8
+        ENDIF
+        IF (LEN_TRIM(ivnm9).GT.0) THEN
+          status=nf90_inq_varid(fid,TRIM(ivnm9),rhid)
+          IF (status.NE.nf90_noerr) THEN
+            WRITE(*,*) 'cannot find input variable ',TRIM(ivnm9)
+            STOP
+          ENDIF
+          IF (kdm.eq.1) THEN
+            status=nf90_get_var(fid,rhid,ifld2,(/1,1,rec/),
+     .        (/idm,jdm,1/))
+          ELSE
+            status=nf90_get_var(fid,rhid,ifld2,(/1,1,1,rec/),
+     .        (/idm,jdm,kdm,1/))
+          ENDIF
+          CALL handle_ncerror(status)
+          ifld=ifld+ifld2*fac9
+        ENDIF
+        IF (LEN_TRIM(ivnm10).GT.0) THEN
+          status=nf90_inq_varid(fid,TRIM(ivnm10),rhid)
+          IF (status.NE.nf90_noerr) THEN
+            WRITE(*,*) 'cannot find input variable ',TRIM(ivnm10)
+            STOP
+          ENDIF
+          IF (kdm.eq.1) THEN
+            status=nf90_get_var(fid,rhid,ifld2,(/1,1,rec/),
+     .        (/idm,jdm,1/))
+          ELSE
+            status=nf90_get_var(fid,rhid,ifld2,(/1,1,1,rec/),
+     .        (/idm,jdm,kdm,1/))
+          ENDIF
+          CALL handle_ncerror(status)
+          ifld=ifld+ifld2*fac10
+        ENDIF
+        IF (LEN_TRIM(ivnm11).GT.0) THEN
+          status=nf90_inq_varid(fid,TRIM(ivnm11),rhid)
+          IF (status.NE.nf90_noerr) THEN
+            WRITE(*,*) 'cannot find input variable ',TRIM(ivnm11)
+            STOP
+          ENDIF
+          IF (kdm.eq.1) THEN
+            status=nf90_get_var(fid,rhid,ifld2,(/1,1,rec/),
+     .        (/idm,jdm,1/))
+          ELSE
+            status=nf90_get_var(fid,rhid,ifld2,(/1,1,1,rec/),
+     .        (/idm,jdm,kdm,1/))
+          ENDIF
+          CALL handle_ncerror(status)
+          ifld=ifld+ifld2*fac11
+        ENDIF
+        IF (LEN_TRIM(ivnm12).GT.0) THEN
+          status=nf90_inq_varid(fid,TRIM(ivnm12),rhid)
+          IF (status.NE.nf90_noerr) THEN
+            WRITE(*,*) 'cannot find input variable ',TRIM(ivnm12)
+            STOP
+          ENDIF
+          IF (kdm.eq.1) THEN
+            status=nf90_get_var(fid,rhid,ifld2,(/1,1,rec/),
+     .        (/idm,jdm,1/))
+          ELSE
+            status=nf90_get_var(fid,rhid,ifld2,(/1,1,1,rec/),
+     .        (/idm,jdm,kdm,1/))
+          ENDIF
+          CALL handle_ncerror(status)
+          ifld=ifld+ifld2*fac12
         ENDIF
       ENDIF
 c
