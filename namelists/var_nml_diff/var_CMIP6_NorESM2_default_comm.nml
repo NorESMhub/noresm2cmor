@@ -400,6 +400,10 @@
                  'wap                ','OMEGA                                        ','          ',
 /
 
+/
+
+/
+
 &table_lmon
  dlmon        = .true.
  tlmon        = 'CMIP6_Lmon.json'
@@ -507,3 +511,27 @@
                  'tossq       ','sstsq      ','          ',
 /
 
+/
+
+/
+
+/
+
+/
+
+/
+
+/
+
+/
+
+/
+/
+
+/
+
+/
+
+/
+
+/

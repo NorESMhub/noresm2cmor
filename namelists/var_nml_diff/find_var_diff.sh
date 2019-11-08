@@ -42,14 +42,14 @@ echo ovms1 n ${#ovms1[*]}
 echo ivms1 n ${#ivms1[*]}
 echo opts1 n ${#ivms1[*]}
 
-echo ~~~~~~~~~~~~~~~~~~~~~~
-echo FIND DIFFERENCE
-echo ~~~~~~~~~~~~~~~~~~~~~~
+echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+echo FIND DIFFERENCE with 20191108
+echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 rm -f var_CMIP6_NorESM2_default_diff.nml
 rm -f var_CMIP6_NorESM2_default_comm.nml
 
-nf=$(cat var_CMIP6_NorESM2_default.nml.20191101 |wc -l)
+nf=$(cat var_CMIP6_NorESM2_default.nml.20191108 |wc -l)
 k=1
 while read -r line
 do
@@ -108,5 +108,5 @@ do
         fi
     fi
     let k+=1
-done <var_CMIP6_NorESM2_default.nml.20191101
+done <var_CMIP6_NorESM2_default.nml.20191108
 echo -e "\r"
