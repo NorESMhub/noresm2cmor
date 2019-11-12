@@ -165,7 +165,7 @@ cdiag   WRITE(*,*) TRIM(ovnm),TRIM(zcoord),do_3d
 c --- --- Read pressure levels from table 
           IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN 
             CALL read_gridinfo_plev(TRIM(zcoord))
-            lreadplev=.FALSE.
+c            lreadplev=.FALSE.
           ENDIF
         ELSE
           IF (.NOT.do_2d) CYCLE
@@ -276,7 +276,7 @@ cdiag   WRITE(*,*) TRIM(ovnm),TRIM(zcoord),do_3d
 c --- --- Read pressure levels from table 
           IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN
             CALL read_gridinfo_plev(TRIM(zcoord))
-            lreadplev=.FALSE.
+c            lreadplev=.FALSE.
           ENDIF
         ELSE
           IF (.NOT.do_2d) CYCLE
@@ -383,7 +383,7 @@ cdiag   WRITE(*,*) TRIM(ovnm),TRIM(zcoord),do_3d
 c --- --- Read pressure levels from table 
           IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN
             CALL read_gridinfo_plev(TRIM(zcoord))
-            lreadplev=.FALSE.
+c            lreadplev=.FALSE.
           ENDIF
         ELSE
           IF (.NOT.do_2d) CYCLE
@@ -472,7 +472,7 @@ c --- Process table aero
       fnm=paero
       table=taero
       linstant=.FALSE.
-      lreadplev=.FALSE.
+      lreadplev=.TRUE.
       DO n=1,naero
         IF (skip_variable(n,naero,daero)) CYCLE
 c 
@@ -493,7 +493,7 @@ cdiag   WRITE(*,*) TRIM(ovnm),TRIM(zcoord),do_3d
 c --- --- Read pressure levels from table 
           IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN 
             CALL read_gridinfo_plev(TRIM(zcoord))
-            lreadplev=.FALSE.
+c            lreadplev=.FALSE.
           ENDIF
         ELSE
           IF (.NOT.do_2d) CYCLE
@@ -576,7 +576,7 @@ c --- Process table CFmon
       fnm=pcfmon
       table=tcfmon
       linstant=.FALSE.
-      lreadplev=.FALSE.
+      lreadplev=.TRUE.
       DO n=1,ncfmon
         IF (skip_variable(n,ncfmon,dcfmon)) CYCLE
 c 
@@ -597,7 +597,7 @@ cdiag   WRITE(*,*) TRIM(ovnm),TRIM(zcoord),do_3d
 c --- --- Read pressure levels from table 
           IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN 
             CALL read_gridinfo_plev(TRIM(zcoord))
-            lreadplev=.FALSE.
+c            lreadplev=.FALSE.
           ENDIF
         ELSE
           IF (.NOT.do_2d) CYCLE
@@ -1050,7 +1050,7 @@ c --- Process table 6hrlev
       WRITE(*,*) 'Process table 6hrlev'
       fnm=p6hrlev
       table=t6hrlev
-      linstant=.TRUE.
+      linstant=.FALSE.
       DO n=1,n6hrlev
         IF (skip_variable(n,n6hrlev,d6hrlev)) CYCLE
 c
@@ -1201,7 +1201,7 @@ c --- Process table 6hrplev
       WRITE(*,*) 'Process table 6hrplev'
       fnm=p6hrplev
       table=t6hrplev
-      linstant=.TRUE.
+      linstant=.FALSE.
       lreadplev=.TRUE.
       DO n=1,n6hrplev
         IF (skip_variable(n,n6hrplev,d6hrplev)) CYCLE
@@ -1222,7 +1222,7 @@ c --- - Check if 2d and/or 3d fields are to be written
 c --- --- Read pressure levels from table 
           IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN 
             CALL read_gridinfo_plev(TRIM(zcoord))
-            lreadplev=.FALSE.
+c            lreadplev=.FALSE.
           ENDIF
         ELSE
           IF (.NOT.do_2d) CYCLE
@@ -1306,7 +1306,7 @@ c --- - Check if 2d and/or 3d fields are to be written
 c --- --- Read pressure levels from table 
           IF (lreadplev.AND.zcoord(1:4).EQ.'plev') THEN 
             CALL read_gridinfo_plev(TRIM(zcoord))
-            lreadplev=.FALSE.
+c            lreadplev=.FALSE.
           ENDIF
         ELSE
           IF (.NOT.do_2d) CYCLE
@@ -1588,7 +1588,7 @@ c --- Process table E3hrPt
       WRITE(*,*) 'Process table E3hrPt'
       fnm=pE3hrPt
       table=tE3hrPt
-      linstant=.FALSE.
+      linstant=.TRUE.
       DO n=1,nE3hrPt
         IF (skip_variable(n,nE3hrPt,dE3hrPt)) CYCLE
 c
