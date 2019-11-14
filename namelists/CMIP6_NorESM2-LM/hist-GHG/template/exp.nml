@@ -19,7 +19,7 @@
  month1        = 1,
  monthn        = 12,
  exprefyear    = 1, 
- activity_id   = 'CMIP', 
+ activity_id   = 'DAMIP', 
  parent_activity_id = 'CMIP', 
  parent_variant_label = 'r1i1p1f1',
  parent_mip_era = 'CMIP6',

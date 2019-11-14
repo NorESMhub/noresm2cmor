@@ -1,5 +1,16 @@
 #!/bin/bash
-#set -e
+
+# USAGE:   ./create_CMIP6_links_sha256sum.sh 
+#       or ./create_CMIP6_links_sha256sum.sh  $VERSIOIN "data folders" true/false
+
+# quit if in IPCC node
+if [ $(hostname -f |grep 'ipcc') ]; then
+    echo "                       "
+    echo "On IPCC node, QUIT...  "
+    echo "SHA256SUM NOT DONE     "
+    echo "~~~~~~~~~~~~~~~~~~~~~~~"
+fi
+
 pid=$$
 
 ROOT=/projects/NS9034K/CMIP6
@@ -9,11 +20,13 @@ cd $ROOT
 #VER=v20190815
 #VER=v20190909
 #VER=v20190917
-VER=v20190920
+#VER=v20190920
 #VER=v20190920b
+#VER=v20190920c
 #VER=v20191009
 #VER=v20191018
 #VER=v20191022
+VER=v20191108b
 
 ##Set Paths of Cmorized Data
 # CMIP
@@ -23,7 +36,7 @@ VER=v20190920
 #folders+=(.cmorout/NorESM2-LM/esm-hist/${VER})
 #folders+=(.cmorout/NorESM2-LM/esm-piControl/${VER})
 #folders+=(.cmorout/NorESM2-LM/historical/${VER})
-#folders+=(.cmorout/NorESM2-LM/piControl/${VER})
+folders+=(.cmorout/NorESM2-LM/piControl/${VER})
 
 # OMIP
 #folders+=(.cmorout/NorESM2-LM/omip1/${VER})
@@ -31,7 +44,7 @@ VER=v20190920
 
 # DAMIP
 #folders+=(.cmorout/NorESM2-LM/hist-GHG/${VER})
-folders+=(.cmorout/NorESM2-LM/hist-nat/${VER})
+#folders+=(.cmorout/NorESM2-LM/hist-nat/${VER})
 #folders+=(.cmorout/NorESM2-LM/hist-aer/${VER})
 
 # AerChemMIP
@@ -77,13 +90,27 @@ folders+=(.cmorout/NorESM2-LM/hist-nat/${VER})
 #folders+=(.cmorout/NorESM2-LM/piSST-pdSIC/${VER})
 
 # PMIP
-#folders+=(.cmorout/NorESM2-LM/lig127k/${VER})
-#folders+=(.cmorout/NorESM2-LM/midHolocene/${VER})
-#folders+=(.cmorout/NorESM2-LM/midPliocene-eoi400/${VER})
+#folders+=(.cmorout/NorESM1-F/lig127k/${VER})
+#folders+=(.cmorout/NorESM1-F/midHolocene/${VER})
+#folders+=(.cmorout/NorESM1-F/midPliocene-eoi400/${VER})
+#folders+=(.cmorout/NorESM1-F/piControl/${VER})
 
-echo "----------------"
+#~~~~~~~~~NO EDIT BELOW~~~~~~~~~~~
+
+# If VERBOSE log
+verbose=true
+
+# Overwrite if external input
+if [ $# -eq 3 ]
+then
+    VER=$1
+    folders=($2)
+    verbose=$3
+fi
+
+echo "~~~~~~~~~~~~~~~~"
 echo "LINKING FILES..."
-echo "----------------"
+echo "                "
 
 insitute=NCC
 for (( i = 0; i < ${#folders[*]}; i++ )); do
@@ -99,6 +126,7 @@ for (( i = 0; i < ${#folders[*]}; i++ )); do
         continue
     fi
     nf=$(cat /tmp/flist.txt.$pid |wc -l)
+    echo "Total $nf files"
     fname1=$(head -1 /tmp/flist.txt.$pid) 
     version=$(echo $folder | awk -F/ '{print $(NF) }')
     version=${version:0:9}
@@ -106,6 +134,9 @@ for (( i = 0; i < ${#folders[*]}; i++ )); do
     if [ "$activity" == "RFMIP AerChemMIP" ]
     then
         activity="RFMIP"
+    elif [ "$activity" == "C4MIP CDRMIP" ]
+    then
+        activity="C4MIP"
     fi
     k=1
 
@@ -138,14 +169,23 @@ for (( i = 0; i < ${#folders[*]}; i++ )); do
         ln -sf ../../../../../../../../../$fname "$subfolder/${bname}.nc"
         ln -sfT "$version"  "$latest"
         echo "$real/$table/$var/$grid/$version/${bname}.nc" >> ${folder}.links
-        echo -ne "Linking $k/$nf files\r"
+        if $verbose
+        then
+            echo -ne "Linking $k/$nf files\r"
+        fi
         let k+=1
     done </tmp/flist.txt.$pid
 
 done
-echo "---------------------"
-echo "UPDATING SHA256SUM..."
-echo "---------------------"
+echo -e "\r"
+echo "                       "
+echo "LINKS DONE             "
+echo "~~~~~~~~~~~~~~~~~~~~~~~"
+
+echo "                       "
+echo "~~~~~~~~~~~~~~~~~~~~~~~"
+echo "UPDATING SHA256SUM...  "
+echo "                       "
 
 cd $activity/$insitute/$model/$expid
 
@@ -157,11 +197,15 @@ done
 
 k=1
 nf=$(tail -n +2 ${ROOT}/${folder}.links |wc -l)
+echo "Total $nf files"
 for fname in $(tail -n +2 ${ROOT}/${folder}.links)
     do
         real=$(echo $fname |cut -d"/" -f1)
         sha256sum $fname >>.${real}.sha256sum_${VER} &
-        echo -ne "sha256sum: $k/$nf files\r"
+        if $verbose
+        then
+            echo -ne "sha256sum: $k/$nf files\r"
+        fi
 
         # keep maximumn 15 jobs
         flag=true
@@ -180,6 +224,6 @@ for fname in $(tail -n +2 ${ROOT}/${folder}.links)
         let k+=1
 done
 echo -e "\r"
-echo "---------------------"
-echo "      ALL DONE       "
-echo "---------------------"
+echo "                       "
+echo "SHA256SUM DONE         "
+echo "~~~~~~~~~~~~~~~~~~~~~~~"

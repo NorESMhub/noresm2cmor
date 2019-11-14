@@ -4,7 +4,6 @@
  experiment_id = 'amip',
  parent_experiment_id  = 'no parent',
  parent_experiment_rip = 'no parent',
- parent_source_id = 'no parent',
  parent_time_units = 'no parent',
  branch_method = 'no parent',
  history       = ' ',

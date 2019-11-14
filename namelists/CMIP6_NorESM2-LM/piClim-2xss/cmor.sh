@@ -1,73 +1,66 @@
 #!/bin/bash
-set -e
 
-version=v20190920
+source ../scripts/runcmor_single.sh
 
+#version=v20190920
+version=v20191108b
+
+if [ $# -eq 1 ]
+then
+    echo $#
+    version=$1
+fi
+
+# initialize
+login0=false
+login1=false
+login2=false
+login3=false
+
+# set active
+login0=true
+login1=true
+login2=true
+login3=true
+
+
+expid=piClim-2xss
+echo "--------------------"
+echo "EXPID: $expid     "
+echo "--------------------"
+
+echo "                    "
+echo "START CMOR..."
+echo "                    "
+
+if $login0
+then
 #----------------
-# piClim-anthro
+# piClim-2xss
 #----------------
-#ExpName=
+#CaseName=
 expid=piClim-2xss
 #login0
 years1=(0  11 21)
 years2=(10 20 30)
 
-# ==========================================================
-if [ ! -d ~/noresm2cmor/namelists/CMIP6_NorESM2-LM/${expid}/${version} ]
-then
-    mkdir -p ~/noresm2cmor/namelists/CMIP6_NorESM2-LM/${expid}/${version}
+runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+#---
 fi
-if [ ! -d ~/noresm2cmor/logs/CMIP6_NorESM2-LM/${expid}/${version} ]
-then
-    mkdir -p ~/noresm2cmor/logs/CMIP6_NorESM2-LM/${expid}/${version}
-fi
-# check if sys mod var namelist exist
-if [ ! -e ~/noresm2cmor/namelists/CMIP6_NorESM2-LM/${expid}/${version}/sys.nml ]
-then
-    echo "ERROR: ../namelists/CMIP6_NorESM2-LM/${expid}/${version}/sys.nml does not exist"
-    echo "EXIT..."
-    exit
-fi
-if [ ! -e ~/noresm2cmor/namelists/CMIP6_NorESM2-LM/${expid}/${version}/mod.nml ]
-then
-    echo "ERROR:../namelists/CMIP6_NorESM2-LM/${expid}/${version}/mod.nml does not exist"
-    echo "EXIT..."
-    exit
-fi
-if [ ! -e ~/noresm2cmor/namelists/CMIP6_NorESM2-LM/${expid}/${version}/var.nml ]
-then
-    echo "ERROR: ../namelists/CMIP6_NorESM2-LM/${expid}/${version}/var.nml does not exist"
-    echo "EXIT..."
-    exit
-fi
+#---
 
-#sleep 6h
-# copy template namelist and submit
-for (( i = 0; i < ${#years1[*]}; i++ )); do
-    year1=${years1[i]}
-    year2=${years2[i]}
-    echo ${year1} ${year2}
-    cd ~/noresm2cmor/namelists
 
-    cp CMIP6_NorESM2-LM/${expid}/template/exp.nml CMIP6_NorESM2-LM/${expid}/${version}/exp.nml
-    sed -i "s/vyyyymmdd/${version}/" \
-        CMIP6_NorESM2-LM/${expid}/${version}/exp.nml
-    sed -i "s/year1         =.*/year1         = ${year1},/g" \
-        CMIP6_NorESM2-LM/${expid}/${version}/exp.nml
-    sed -i "s/yearn         =.*/yearn         = ${year2},/g" \
-        CMIP6_NorESM2-LM/${expid}/${version}/exp.nml
-    mv CMIP6_NorESM2-LM/${expid}/${version}/exp.nml CMIP6_NorESM2-LM/${expid}/${version}/exp_${year1}-${year2}.nml
+wait
+echo "         "
+echo "CMOR DONE"
+echo "~~~~~~~~~"
 
-    cd ~/noresm2cmor/bin
+# PrePARE QC check
+source ../scripts/cmorQC.sh
+cmorQC -e=$expid -v=$version
 
-    #nohup ./noresm2cmor3 \
-    nohup mpirun -n 5 ./noresm2cmor3_mpi \
-    ../namelists/CMIP6_NorESM2-LM/${expid}/${version}/sys.nml \
-    ../namelists/CMIP6_NorESM2-LM/${expid}/${version}/mod.nml \
-    ../namelists/CMIP6_NorESM2-LM/${expid}/${version}/exp_${year1}-${year2}.nml \
-    ../namelists/CMIP6_NorESM2-LM/${expid}/${version}/var.nml \
-    1>../logs/CMIP6_NorESM2-LM/${expid}/${version}/${year1}-${year2}.log \
-    2>../logs/CMIP6_NorESM2-LM/${expid}/${version}/${year1}-${year2}.err &
+# Create links and sha256sum
+../../../scripts/create_CMIP6_links_sha256sum.sh $version ".cmorout/NorESM2-LM/${expid}/${version}" false
 
-    sleep 60s
-done
+# zip log files
+gzip ../../../logs/CMIP6_NorESM2-LM/${expid}/${version}/{*.log,*.err}

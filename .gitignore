@@ -2,3 +2,5 @@ bin
 data
 cmorlib
 devel
+logs
+test
