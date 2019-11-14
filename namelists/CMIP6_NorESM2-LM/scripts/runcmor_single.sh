@@ -10,7 +10,7 @@ if [ $# -gt 0 ] && [ $1 == "--help" ]
      printf "runcmor -c=[CaseName] -e=[expid] -v=[version] -r=[realisation] \
                      -yrs1=[(${years1[*]})] -yrs2=[(${years2[*]})] -p=[project] \
                      -mpi=[DMPI] \n"
-     #exit 1
+     return
  else
      while test $# -gt 0; do
          case "$1" in

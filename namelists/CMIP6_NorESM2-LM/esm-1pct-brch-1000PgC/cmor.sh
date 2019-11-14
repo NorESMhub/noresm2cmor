@@ -7,7 +7,6 @@ version=v20191108
 
 if [ $# -eq 1 ]
 then
-    echo $#
     version=$1
 fi
 

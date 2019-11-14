@@ -121,9 +121,9 @@ for (( i = 0; i < ${#expids[*]}; i++ )); do
     then
         mkdir ./logs 
     fi
-    ./cmor2.sh ${version}  &> ./logs/cmor2.log.${version}
+    ./cmor.sh ${version}  &> ./logs/cmor.log.${version}
     wait 
-    cat  ./logs/cmor2.log.${version} >>${root}/cmor2.log.${version}
+    cat  ./logs/cmor.log.${version} >>${root}/cmor.log.${version}
     echo "DONE                "
 done
 
