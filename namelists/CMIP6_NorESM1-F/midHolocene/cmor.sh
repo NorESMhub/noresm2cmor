@@ -2,7 +2,7 @@
 
 source ../scripts/runcmor_single.sh
 
-#version=v20190920
+#version=vyyyymmdd
 version=v20191108b
 
 if [ $# -eq 1 ]
@@ -61,7 +61,7 @@ source ../scripts/cmorQC.sh
 cmorQC -e=$expid -v=$version
 
 # Create links and sha256sum
-../../../scripts/create_CMIP6_links_sha256sum.sh $version ".cmorout/NorESM2-LM/${expid}/${version}" false
+../../../scripts/create_CMIP6_links_sha256sum.sh $version ".cmorout/NorESM1-F/${expid}/${version}" false
 
 # zip log files
-gzip ../../../logs/CMIP6_NorESM2-LM/${expid}/${version}/{*.log,*.err}
+gzip ../../../logs/CMIP6_NorESM1-F/${expid}/${version}/{*.log,*.err}

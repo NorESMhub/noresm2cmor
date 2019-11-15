@@ -17,7 +17,7 @@ login0=true
 if $login0
 then
 # PMIP
-expids+=(lig127k)
+#expids+=(lig127k)           # done
 expids+=(midHolocene)
 expids+=(midPliocene-eoi400)
 expids+=(piControl)
