@@ -24,8 +24,9 @@ login3=true
 
 
 expid=omip2
+model=NorESM2-LM
 echo "--------------------"
-echo "EXPID: $expid     "
+echo "EXPID: $expid       "
 echo "--------------------"
 
 if $login0
@@ -34,10 +35,9 @@ then
 # omip2
 #----------------
 #CaseName=NOIIAJRAOC20TR_TL319_tn14_20190710
-expid=omip2
 #login0
 years1=(1653 $(seq 1660 10 1750))
-years2=(1659 $(seq 1609 10 1759))
+years2=(1659 $(seq 1669 10 1759))
 #login1
 years1+=($(seq 1760 10 1850))
 years2+=($(seq 1769 10 1859))
@@ -58,12 +58,5 @@ echo "         "
 echo "CMOR DONE"
 echo "~~~~~~~~~"
 
-# PrePARE QC check
-source ../scripts/cmorQC.sh
-cmorQC -e=$expid -v=$version
-
-# Create links and sha256sum
-../../../scripts/create_CMIP6_links_sha256sum.sh $version ".cmorout/NorESM2-LM/${expid}/${version}" false
-
-# zip log files
-gzip ../../../logs/CMIP6_NorESM2-LM/${expid}/${version}/{*.log,*.err}
+# PrePARE QC check, create links and update sha256sum
+../scripts/cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false

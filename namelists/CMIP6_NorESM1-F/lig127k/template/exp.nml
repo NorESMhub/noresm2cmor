@@ -1,6 +1,6 @@
 &experiment
  casename      = 'NBF1850OC_f19_tn11_01_127ka',
- osubdir       = 'NorESM1-F/lig127k/v20190920' 
+ osubdir       = 'NorESM1-F/lig127k/vyyyymmdd' 
  experiment_id = 'lig127k',
  parent_experiment_id  = 'no parent',
  parent_experiment_rip = 'no parent',

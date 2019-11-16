@@ -18,12 +18,12 @@ login3=false
 
 # set active
 login0=true
-login1=true
-login2=true
-login3=true
+#login1=true
+#login2=true
+#login3=true
 
 
-expid=lig127k
+expid=midPliocene-eoi400
 echo "--------------------"
 echo "EXPID: $expid     "
 echo "--------------------"
@@ -64,4 +64,4 @@ cmorQC -e=$expid -v=$version
 ../../../scripts/create_CMIP6_links_sha256sum.sh $version ".cmorout/NorESM1-F/${expid}/${version}" false
 
 # zip log files
-gzip ../../../logs/CMIP6_NorESM1-F/${expid}/${version}/{*.log,*.err}
+gzip -f ../../../logs/CMIP6_NorESM1-F/${expid}/${version}/{*.log,*.err}

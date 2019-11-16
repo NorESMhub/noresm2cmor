@@ -24,8 +24,9 @@ login3=true
 
 
 expid=hist-nat
+model=NorESM2-LM
 echo "--------------------"
-echo "EXPID: $expid     "
+echo "EXPID: $expid       "
 echo "--------------------"
 
 echo "                    "
@@ -38,7 +39,6 @@ then
 # hist-nat, ensemble 1, part1
 #----------------
 CaseName=N1850natonly_f19_tn14_20190805
-expid=hist-nat
 real=1
 #
 years1=(1849 $(seq 1860 10 1940))
@@ -49,7 +49,6 @@ runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="
 # hist-nat, ensemble 1, part2
 #----------------
 CaseName=N1850natonly_f19_tn14_20190815
-expid=hist-nat
 real=1
 #
 years1=($(seq 1950 10 2000) 2010)
@@ -60,7 +59,6 @@ runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="
 # hist-nat, ensemble 1, part3
 #----------------
 CaseName=NSSP245frc2natonly_f19_tn14_20191015
-expid=hist-nat
 real=1
 #
 years1=(2015)
@@ -78,7 +76,6 @@ then
 # hist-nat, ensemble 2, part1
 #----------------
 CaseName=N1850natonly_02_f19_tn14_20190909
-expid=hist-nat
 real=2
 #
 years1=(1849 $(seq 1860 10 1940))
@@ -91,7 +88,6 @@ runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="
 # hist-nat, ensemble 2, part2
 #----------------
 CaseName=NSSP245frc2natonly_02_f19_tn14_20191015
-expid=hist-nat
 real=2
 #
 years1=(2015)
@@ -109,7 +105,6 @@ then
 # hist-nat, ensemble 3, part1
 #----------------
 CaseName=N1850natonly_03_f19_tn14_20190913
-expid=hist-nat
 real=3
 #
 years1=(1849 $(seq 1860 10 1940))
@@ -122,7 +117,6 @@ runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="
 # hist-nat, ensemble 3, part2
 #----------------
 CaseName=NSSP245frc2natonly_03_f19_tn14_20191015
-expid=hist-nat
 real=3
 #
 years1=(2015)
@@ -139,12 +133,5 @@ echo "         "
 echo "CMOR DONE"
 echo "~~~~~~~~~"
 
-# PrePARE QC check
-source ../scripts/cmorQC.sh
-cmorQC -e=$expid -v=$version
-
-# Create links and sha256sum
-../../../scripts/create_CMIP6_links_sha256sum.sh $version ".cmorout/NorESM2-LM/${expid}/${version}" false
-
-# zip log files
-gzip ../../../logs/CMIP6_NorESM2-LM/${expid}/${version}/{*.log,*.err}
+# PrePARE QC check, create links and update sha256sum
+../scripts/cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false

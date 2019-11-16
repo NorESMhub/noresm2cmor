@@ -24,8 +24,9 @@ login0=true
 
 
 expid=esm-1pct-brch-1000PgC
+model=NorESM2-LM
 echo "--------------------"
-echo "EXPID: $expid     "
+echo "EXPID: $expid       "
 echo "--------------------"
 
 echo "                    "
@@ -38,7 +39,6 @@ then
 # 1pctCO2 part1
 #----------------
 #CaseName=N1850esm_ZECMIP_f19_tn14_20191023
-expid=esm-1pct-brch-1000PgC
 years1=($(seq 67 10 157))
 years2=($(seq 76 10 166))
 
@@ -52,12 +52,5 @@ echo "         "
 echo "CMOR DONE"
 echo "~~~~~~~~~"
 
-# PrePARE QC check
-source ../scripts/cmorQC.sh
-cmorQC -e=$expid -v=$version
-
-# Create links and sha256sum
-../../../scripts/create_CMIP6_links_sha256sum.sh $version ".cmorout/NorESM2-LM/${expid}/${version}" false
-
-# zip log files
-gzip ../../../logs/CMIP6_NorESM2-LM/${expid}/${version}/{*.log,*.err}
+# PrePARE QC check, create links and update sha256sum
+../scripts/cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false

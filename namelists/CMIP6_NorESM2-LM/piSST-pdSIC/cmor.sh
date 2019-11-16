@@ -26,8 +26,9 @@ login3=true
 
 
 expid=piSST-pdSIC
+model=NorESM2-LM
 echo "--------------------"
-echo "EXPID: $expid     "
+echo "EXPID: $expid       "
 echo "--------------------"
 
 echo "                    "
@@ -40,7 +41,6 @@ then
 # pdSST-pdSIC part1
 #----------------
 CaseName=m1-25
-expid=piSST-pdSIC
 years1=(2000)
 years2=(2001)
 month1=6
@@ -64,7 +64,6 @@ then
 # piSST-pdSIC part2
 #----------------
 CaseName=m26-50
-expid=piSST-pdSIC
 years1=(2000)
 years2=(2001)
 month1=6
@@ -88,7 +87,6 @@ then
 # piSST-pdSIC part3
 #----------------
 CaseName=m51-75
-expid=piSST-pdSIC
 years1=(2000)
 ears2=(2001)
 month1=6
@@ -113,7 +111,6 @@ then
 # piSST-pdSIC part4
 #----------------
 CaseName=m76-100
-expid=piSST-pdSIC
 years1=(2000)
 years2=(2001)
 month1=6
@@ -136,13 +133,5 @@ echo "         "
 echo "CMOR DONE"
 echo "~~~~~~~~~"
 
-# PrePARE QC check
-source ../scripts/cmorQC.sh
-cmorQC -e=$expid -v=$version
-
-# Create links and sha256sum
-../../../scripts/create_CMIP6_links_sha256sum.sh $version ".cmorout/NorESM2-LM/${expid}/${version}" false
-
-# zip log files
-gzip ../../../logs/CMIP6_NorESM2-LM/${expid}/${version}/{*.log,*.err}
-
+# PrePARE QC check, create links and update sha256sum
+../scripts/cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false

@@ -24,8 +24,9 @@ login3=true
 
 
 expid=piClim-histnat
+model=NorESM2-LM
 echo "--------------------"
-echo "EXPID: $expid     "
+echo "EXPID: $expid       "
 echo "--------------------"
 
 echo "                    "
@@ -38,7 +39,6 @@ then
 # piClim-histnat, ensemble 1
 #----------------
 CaseName=NFHISTnorpibc_natonly_f19_20190810
-expid=piClim-histnat
 real=1
 #login0
 years1=(1849 $(seq 1860 10 1940))
@@ -57,7 +57,6 @@ then
 # piClim-histnat, ensemble 2
 #----------------
 CaseName=NFHISTnorpibc_natonly_02_f19_20190909
-expid=piClim-histnat
 real=2
 #login0
 years1=(1849 $(seq 1860 10 1940))
@@ -76,12 +75,5 @@ echo "         "
 echo "CMOR DONE"
 echo "~~~~~~~~~"
 
-# PrePARE QC check
-source ../scripts/cmorQC.sh
-cmorQC -e=$expid -v=$version
-
-# Create links and sha256sum
-../../../scripts/create_CMIP6_links_sha256sum.sh $version ".cmorout/NorESM2-LM/${expid}/${version}" false
-
-# zip log files
-gzip ../../../logs/CMIP6_NorESM2-LM/${expid}/${version}/{*.log,*.err}
+# PrePARE QC check, create links and update sha256sum
+../scripts/cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false

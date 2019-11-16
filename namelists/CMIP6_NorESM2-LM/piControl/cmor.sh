@@ -24,8 +24,9 @@ login3=true
 
 
 expid=piControl
+model=NorESM2-LM
 echo "--------------------"
-echo "EXPID: $expid     "
+echo "EXPID: $expid       "
 echo "--------------------"
 
 echo "                    "
@@ -38,7 +39,6 @@ then
 # piControl 1
 #----------------
 CaseName=N1850_f19_tn14_20190621
-expid=piControl
 years1=($(seq 1600 10 1790) 1800)
 years2=($(seq 1609 10 1799) 1800)
 
@@ -53,7 +53,6 @@ then
 # piControl 2
 #----------------
 CaseName=N1850_f19_tn14_20190722
-expid=piControl
 years1=($(seq 1801 10 1891))
 years2=($(seq 1810 10 1900))
 
@@ -68,7 +67,6 @@ then
 # piControl 3
 #----------------
 CaseName=N1850_f19_tn14_20190802
-expid=piControl
 years1=($(seq 1901 10 1991))
 years2=($(seq 1910 10 2000))
 years1+=($(seq 2001 10 2091))
@@ -84,12 +82,5 @@ echo "         "
 echo "CMOR DONE"
 echo "~~~~~~~~~"
 
-# PrePARE QC check
-source ../scripts/cmorQC.sh
-cmorQC -e=$expid -v=$version
-
-# Create links and sha256sum
-../../../scripts/create_CMIP6_links_sha256sum.sh $version ".cmorout/NorESM2-LM/${expid}/${version}" false
-
-# zip log files
-gzip ../../../logs/CMIP6_NorESM2-LM/${expid}/${version}/{*.log,*.err}
+# PrePARE QC check, create links and update sha256sum
+../scripts/cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false

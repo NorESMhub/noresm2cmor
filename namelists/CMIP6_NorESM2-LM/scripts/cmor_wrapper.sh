@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+#set -e
 
 version=v20191108b
 # initialize
@@ -9,9 +9,9 @@ login2=false
 login3=false
 
 # set active
-login0=true
+#login0=true
 #login1=true
-#login2=true
+login2=true
 #login3=true
 
 if $login0
@@ -21,7 +21,7 @@ then
 #expids+=(abrupt-4xCO2)  # done
 
 ## OMIP
-expids+=(omip1)         # running
+#expids+=(omip1)         # done
 expids+=(omip2)
 
 ## DAMIP (not cmorized, since upcoming extension)
@@ -60,8 +60,8 @@ fi
 if $login2
 then
 # CMIP
-expids+=(esm-piControl) # done
-expids+=(historical)    # running
+#expids+=(esm-piControl) # done
+#expids+=(historical)    # running
 
 ## RFMIP
 expids+=(hist-spAer-all)
@@ -84,13 +84,13 @@ fi
 if $login3
 then
 # CMIP
-expids+=(piControl) # running, again
+#expids+=(piControl) # running on login0
 
 # CDRMIP
-expids+=(1pctCO2-cdr)   # running
+#expids+=(1pctCO2-cdr)   # wrong
 
 ## PAMIP
-expids+=(pdSST-pdSIC)
+expids+=(pdSST-pdSIC)   # running
 expids+=(piSST-pdSIC)
 expids+=(pdSST-futAntSIC)
 expids+=(pdSST-futArcSIC)

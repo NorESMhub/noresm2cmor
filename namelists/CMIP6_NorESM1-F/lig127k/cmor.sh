@@ -63,4 +63,4 @@ cmorQC -e=$expid -v=$version
 ../../../scripts/create_CMIP6_links_sha256sum.sh $version ".cmorout/NorESM1-F/${expid}/${version}" false
 
 # zip log files
-gzip ../../../logs/CMIP6_NorESM1-F/${expid}/${version}/{*.log,*.err} 2>/dev/null
+gzip -f ../../../logs/CMIP6_NorESM1-F/${expid}/${version}/{*.log,*.err} 2>/dev/null

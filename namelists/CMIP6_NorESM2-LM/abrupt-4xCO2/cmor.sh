@@ -24,8 +24,9 @@ login2=true
 
 
 expid=abrupt-4xCO2
+model=NorESM2-LM
 echo "--------------------"
-echo "EXPID: $expid     "
+echo "EXPID: $expid       "
 echo "--------------------"
 
 echo "                    "
@@ -38,7 +39,6 @@ then
 # abrupt-4xCO2 1
 #----------------
 CaseName=NCO2x4_f19_tn14_20190624
-expid=abrupt-4xCO2
 years1=(0  $(seq 11 10 111))
 years2=(10 $(seq 20 10 120))
 
@@ -53,7 +53,6 @@ then
 # abrupt-4xCO2 2
 #----------------
 CaseName=NCO2x4_f19_tn14_20190705
-expid=abrupt-4xCO2
 years1=($(seq 121 10 141))
 years2=($(seq 130 10 150))
 
@@ -68,7 +67,6 @@ then
 # abrupt-4xCO2 3
 #----------------
 CaseName=NCO2x4_f19_tn14_20190724
-expid=abrupt-4xCO2
 #login0
 years1=($(seq 151 10 291))
 years2=($(seq 160 10 300))
@@ -82,12 +80,5 @@ echo "         "
 echo "CMOR DONE"
 echo "~~~~~~~~~"
 
-# PrePARE QC check
-source ../scripts/cmorQC.sh
-cmorQC -e=$expid -v=$version
-
-# Create links and sha256sum
-../../../scripts/create_CMIP6_links_sha256sum.sh $version ".cmorout/NorESM2-LM/${expid}/${version}" false
-
-# zip log files
-gzip ../../../logs/CMIP6_NorESM2-LM/${expid}/${version}/{*.log,*.err}
+# PrePARE QC check, create links and update sha256sum
+../scripts/cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false

@@ -1,6 +1,6 @@
 &experiment
  casename      = 'PlioMIP2_03',
- osubdir       = 'NorESM1-F/midPliocene-eoi400/v20190920' 
+ osubdir       = 'NorESM1-F/midPliocene-eoi400/vyyyymmdd' 
  experiment_id = 'midPliocene-eoi400',
  parent_experiment_id  = 'no parent',
  parent_experiment_rip = 'no parent',

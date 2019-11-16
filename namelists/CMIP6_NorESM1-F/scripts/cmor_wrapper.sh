@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+#set -e
 
 version=v20191108b
 # initialize

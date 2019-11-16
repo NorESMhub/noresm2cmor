@@ -24,8 +24,9 @@ login3=true
 
 
 expid=hist-piNTCF
+model=NorESM2-LM
 echo "--------------------"
-echo "EXPID: $expid     "
+echo "EXPID: $expid       "
 echo "--------------------"
 
 echo "                    "
@@ -38,7 +39,6 @@ then
 # hist-piNTCF, esemble 1
 #----------------
 #CaseName=
-expid=hist-piNTCF
 real=1
 #login0
 years1=(1849 $(seq 1860 10 1940))
@@ -58,7 +58,6 @@ then
 # hist-piNTCF, esemble 2
 #----------------
 CaseName=NHISTpintcf_02_f19_tn14_20190909
-expid=hist-piNTCF
 real=2
 #login0
 years1+=(1849 $(seq 1860 10 1940))
@@ -80,7 +79,6 @@ then
 #----------------
 version=v20190920
 CaseName=NHISTpintcf_03_f19_tn14_20190909
-expid=hist-piNTCF
 real=3
 #login0
 years1+=(1849 $(seq 1860 10 1940))
@@ -100,12 +98,5 @@ echo "         "
 echo "CMOR DONE"
 echo "~~~~~~~~~"
 
-# PrePARE QC check
-source ../scripts/cmorQC.sh
-cmorQC -e=$expid -v=$version
-
-# Create links and sha256sum
-../../../scripts/create_CMIP6_links_sha256sum.sh $version ".cmorout/NorESM2-LM/${expid}/${version}" false
-
-# zip log files
-gzip ../../../logs/CMIP6_NorESM2-LM/${expid}/${version}/{*.log,*.err}
+# PrePARE QC check, create links and update sha256sum
+../scripts/cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false
