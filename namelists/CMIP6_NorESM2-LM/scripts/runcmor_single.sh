@@ -71,6 +71,8 @@ ulimit -c 0
 if [ $(hostname -f |grep 'ipcc') ]
 then
     root=/scratch/NS9034K
+    project=ipcc
+    source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux
 else
     root=~
 fi
@@ -140,6 +142,7 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
                 1>${logroot}/${year1}-${year2}${real}.log \
                 2>${logroot}/${year1}-${year2}${real}.err &
     fi
+    sleep 30s
     # keep maximumn 8 jobs
     flag=true
     while $flag ; do
@@ -147,7 +150,7 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
         if [ $np -lt 8 ]; then
             flag=false
         fi
-        sleep 60s
+        sleep 30s
     done
 done
 
