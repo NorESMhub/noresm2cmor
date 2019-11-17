@@ -1,4 +1,5 @@
 ##!/bin/bash
+set -x
 
 source ../scripts/runcmor_single.sh
 

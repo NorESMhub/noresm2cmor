@@ -54,11 +54,11 @@ else
 fi
 
 # PrePARE QC check
-source ./cmorQC.sh
+source ${cmorroot}/namelists/CMIP6_${model}/scripts/cmorQC.sh
 cmorQC -m=$model -e=$expid -v=$version
 
 # rsync from ipcc to nird node
-./cmorRsync.sh -m=$model -e=$expid -v=$version
+${cmorroot}/namelists/CMIP6_${model}/scripts/cmorRsync.sh -m=$model -e=$expid -v=$version
 
 # Create links and sha256sum
 ${cmorroot}/scripts/create_CMIP6_links_sha256sum.sh -m=$model -e=$expid -v=$version --verbose=${verbose}

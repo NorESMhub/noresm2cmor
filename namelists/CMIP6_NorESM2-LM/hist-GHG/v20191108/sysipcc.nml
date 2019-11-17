@@ -1,7 +1,7 @@
 &sys
  ibasedir      = '/projects/NS9560K/noresm/cases',
- obasedir      = '/projects/NS9034K/CMIP6/.cmorout',
- griddata      = '/projects/NS9560K/cmor/griddata',
+ obasedir      = '/scratch/NS9034K/CMIP6/.cmorout',
+ griddata      = '/scratch/NS9034K/griddata',
  tabledir      = '../tables'
  createsubdirs = .false.,
  forcefilescan = .false.,  

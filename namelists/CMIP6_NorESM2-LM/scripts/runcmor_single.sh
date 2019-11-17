@@ -70,6 +70,7 @@ fi
 if [ $(hostname -f |grep 'ipcc') ]
 then
     root=/scratch/NS9034K
+    project=ipcc
 else
     root=~
 fi
