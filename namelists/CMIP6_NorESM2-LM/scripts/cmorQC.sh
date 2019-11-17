@@ -65,12 +65,15 @@ do
     echo ${rls}: $nf files >>${version}.QCreport
     for table in $(ls ${version}/* 2>/dev/null |cut -d"_" -f2 |sort -u)
     do
-        echo ${table} >>${version}.QCreport
-        PrePARE --max-processes 8 \
-            ${version}/*_${table}_*_${rls}_*.nc &>>/tmp/QCreport.txt
-        wait
-        tail -2 /tmp/QCreport.txt >>${version}.QCreport
-        printf %n >>${version}.QCreport
+        nf2=$(ls ${version}/*_${table}_*_${rls}_*.nc |wc -l)
+        if [ $nf2 -gt 0 ]; then
+            echo ${table} >>${version}.QCreport
+            PrePARE --max-processes 8 \
+                ${version}/*_${table}_*_${rls}_*.nc &>>/tmp/QCreport.txt
+            wait
+            tail -2 /tmp/QCreport.txt >>${version}.QCreport
+            printf %n >>${version}.QCreport
+        fi
     done
 done
 

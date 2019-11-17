@@ -46,11 +46,11 @@ years2=($(seq 1709 10 1799))
 years1+=($(seq 1800 10 1890))
 years2+=($(seq 1809 10 1899))
 #login2
-years1+=($(seq 1900 10 1990))
-years2+=($(seq 1909 10 1999))
+years1+=($(seq 1900 10 2000))
+years2+=($(seq 1909 10 2009))
 #login3
-years1+=($(seq 2000 10 2060) 2070)
-years2+=($(seq 2009 10 2069) 2071)
+years1+=($(seq 2010 10 2060) 2070)
+years2+=($(seq 2019 10 2069) 2071)
 
 runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
 #---

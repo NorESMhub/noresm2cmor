@@ -67,10 +67,10 @@ fi
 #echo -e "years1  : ${years1[*]}"
 #echo -e "years2  : ${years2[*]}"
 # ==========================================================
+ulimit -c 0
 if [ $(hostname -f |grep 'ipcc') ]
 then
     root=/scratch/NS9034K
-    project=ipcc
 else
     root=~
 fi
@@ -124,7 +124,7 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
 
     if [ ! -z $mpi ] && [ $mpi == "DMPI" ]
     then
-        nohup mpirun -n 4 ./noresm2cmor3_mpi \
+        nohup mpirun -n 8 ./noresm2cmor3_mpi \
             ${nmlroot}/sys${project}.nml \
             ${nmlroot}/mod.nml \
             ${nmlroot}/exp_${year1}-${year2}${real}.nml \
@@ -140,11 +140,11 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
                 1>${logroot}/${year1}-${year2}${real}.log \
                 2>${logroot}/${year1}-${year2}${real}.err &
     fi
-    # keep maximumn 16 jobs
+    # keep maximumn 8 jobs
     flag=true
     while $flag ; do
         np=$(ps x |grep -c 'noresm2cmor3')
-        if [ $np -lt 17 ]; then
+        if [ $np -lt 8 ]; then
             flag=false
         fi
         sleep 60s

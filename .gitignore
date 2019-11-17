@@ -4,3 +4,5 @@ cmorlib
 devel
 logs
 test
+obselete
+*_tmp.sh

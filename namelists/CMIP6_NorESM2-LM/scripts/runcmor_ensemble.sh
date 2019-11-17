@@ -81,6 +81,7 @@ fi
 #echo -e "years1  : ${years1[*]}"
 #echo -e "years2  : ${years2[*]}"
 # ==========================================================
+ulimit -c 0
 if [ $(hostname -f |grep 'ipcc') ]
 then
     root=/scratch/NS9034K

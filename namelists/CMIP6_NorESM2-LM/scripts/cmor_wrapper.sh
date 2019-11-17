@@ -10,25 +10,26 @@ login3=false
 
 # set active
 #login0=true
-#login1=true
-login2=true
+login1=true
+#login2=true
 #login3=true
 
 if $login0
 then
 # CMIP
-#expids+=(1pctCO2)       # done
-#expids+=(abrupt-4xCO2)  # done
+#expids+=(1pctCO2)      # done
+#expids+=(abrupt-4xCO2) # done
 
-## OMIP
-#expids+=(omip1)         # done
-expids+=(omip2)
+# OMIP
+#expids+=(omip1)        # done
+#expids+=(omip2)        # done
 
 ## DAMIP (not cmorized, since upcoming extension)
 #expids+=(hist-GHG)
 #expids+=(hist-nat)
 #expids+=(hist-aer)
 #~~~~~~~~~~~~~~~~~
+:
 fi
 #~~~~~~~~~~~~~~~~~
 
@@ -54,6 +55,7 @@ expids+=(piClim-N2O)
 expids+=(piClim-OC)
 expids+=(piClim-SO2)
 #~~~~~~~~~~~~~~~~~
+:
 fi
 #~~~~~~~~~~~~~~~~~
 
@@ -61,7 +63,7 @@ if $login2
 then
 # CMIP
 #expids+=(esm-piControl) # done
-#expids+=(historical)    # running
+#expids+=(historical)    # running on login0
 
 ## RFMIP
 expids+=(hist-spAer-all)
@@ -78,25 +80,27 @@ expids+=(piClim-lu)
 expids+=(piClim-spAer-aer)
 expids+=(piClim-spAer-anthro)
 #~~~~~~~~~~~~~~~~~
+:
 fi
 #~~~~~~~~~~~~~~~~~
 
 if $login3
 then
 # CMIP
-#expids+=(piControl) # running on login0
+#expids+=(piControl) # running 
 
 # CDRMIP
 #expids+=(1pctCO2-cdr)   # wrong
 
 ## PAMIP
-expids+=(pdSST-pdSIC)   # running
-expids+=(piSST-pdSIC)
-expids+=(pdSST-futAntSIC)
-expids+=(pdSST-futArcSIC)
-expids+=(pdSST-piAntSIC)
-expids+=(pdSST-piArcSIC)
+#expids+=(pdSST-pdSIC)      # done
+#expids+=(piSST-pdSIC)      # done
+#expids+=(pdSST-futAntSIC)  # done
+#expids+=(pdSST-futArcSIC)  # done
+#expids+=(pdSST-piAntSIC)   # done
+#expids+=(pdSST-piArcSIC)   # done
 #~~~~~~~~~~~~~~~~~
+:
 fi
 #~~~~~~~~~~~~~~~~~
 
