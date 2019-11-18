@@ -3,11 +3,11 @@ function cmorQC {
 
 local expid version rls cmoroutroot table
 #
-if [ $# -gt 0 ] && [ $1 == "--help" ] 
+if [ $# -eq 0 ] || [ $1 == "--help" ] 
  then
      printf "Usage:\n"
      printf "cmorQC -m=[model] -e=[expid] -v=[version]"
-     exit 1
+     return
  else
      while test $# -gt 0; do
          case "$1" in
@@ -54,8 +54,7 @@ echo "~~~~~~~~~~~~~~~~~~~~"
 echo "PrePARE QC CHECK... "
 cdw=$(pwd)
 cd ${cmoroutroot}/.cmorout/${model}/${expid}
-rm -f /tmp/QCreport.txt
-rm -f ${version}.QCreport
+rm -f ${version}.QCreport ${version}.QCreportlong
 nf=$(ls ${version}/*${rls}*.nc 2>/dev/null |wc -l)
 echo "$nf files           "
 echo "                    "
@@ -69,9 +68,9 @@ do
         if [ $nf2 -gt 0 ]; then
             echo ${table} >>${version}.QCreport
             PrePARE --max-processes 8 \
-                ${version}/*_${table}_*_${rls}_*.nc &>>/tmp/QCreport.txt
+                ${version}/*_${table}_*_${rls}_*.nc &>>./${version}.QCreportlong
             wait
-            tail -2 /tmp/QCreport.txt >>${version}.QCreport
+            tail -2 ./${version}.QCreportlong >>${version}.QCreport
             printf %n >>${version}.QCreport
         fi
     done
@@ -79,13 +78,21 @@ done
 
 wait
 
-grep 'Error' ${version}.QCreport &>/dev/null
-
 # check if error in QC report
-if [ $? -eq 0 ]
+nerr=0
+while read -r line
+do
+    ne=$(echo $line | grep 'error(s)' |sed 's/\[0m//g' |sed 's/[^0-9]//g')
+    if [ ! -z $ne ]
+    then
+        let nerr+=$ne
+    fi
+done <${version}.QCreport
+
+if [ $nerr -gt 0 ]
 then
     echo "ERROR in ${version}.QCreport, EXIT..."
-    exit
+    return
 else
     echo "         "
     echo "QC DONE  "
