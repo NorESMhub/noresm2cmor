@@ -71,7 +71,7 @@ ulimit -c 0
 if [ $(hostname -f |grep 'ipcc') ]
 then
     root=/scratch/NS9034K
-    project=ipcc
+    project=${project}ipcc
     source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux
 else
     root=~
@@ -124,6 +124,16 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
 
     cd ../bin
 
+    # keep maximumn 8 jobs
+    flag=true
+    while $flag ; do
+        np=$(ps x |grep -c 'noresm2cmor3')
+        if [ $np -lt 8 ]; then
+            flag=false
+        fi
+        sleep 30s
+    done
+
     if [ ! -z $mpi ] && [ $mpi == "DMPI" ]
     then
         nohup mpirun -n 8 ./noresm2cmor3_mpi \
@@ -143,15 +153,6 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
                 2>${logroot}/${year1}-${year2}${real}.err &
     fi
     sleep 30s
-    # keep maximumn 8 jobs
-    flag=true
-    while $flag ; do
-        np=$(ps x |grep -c 'noresm2cmor3')
-        if [ $np -lt 8 ]; then
-            flag=false
-        fi
-        sleep 30s
-    done
 done
 
 cd $cwd

@@ -62,7 +62,7 @@ for (( r = 0; r < ${#reals[*]}; r++ )); do
     printf "Total:\t\t$nfs\n"
 
     ls ${cmoroutroot}/.cmorout/${model}/${expid}/${version}/*_${real}_*.nc 2>/dev/null | \
-        grep 'g[n,m,r][^_.]' >wrongfiles.txt
+        grep -e '_g[nmr][a-z0-9][^_]' >wrongfiles.txt
     nf=$(cat wrongfiles.txt |wc -l)
     if [ $nf -ge 1 ]
     then
@@ -72,7 +72,7 @@ for (( r = 0; r < ${#reals[*]}; r++ )); do
     else
         REPLY="N"
     fi
-    if [ $REPLY == "Y" ]
+    if [ ! -z $REPLY ] && [ $REPLY == "Y" ]
     then
         while read -r fname
         do

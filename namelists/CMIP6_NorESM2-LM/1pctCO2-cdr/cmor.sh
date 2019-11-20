@@ -32,7 +32,8 @@ echo "EXPID: $expid       "
 echo "--------------------"
 
 echo "                    "
-echo "START CMOR..."
+echo "START CMOR...       "
+echo "$(date)             "
 echo "                    "
 
 if $login0
@@ -84,6 +85,7 @@ fi
 wait
 echo "         "
 echo "CMOR DONE"
+echo "$(date)  "
 echo "~~~~~~~~~"
 
 # PrePARE QC check, create links and update sha256sum

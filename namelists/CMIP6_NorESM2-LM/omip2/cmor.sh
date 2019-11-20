@@ -56,6 +56,7 @@ fi
 wait
 echo "         "
 echo "CMOR DONE"
+echo "$(date)  "
 echo "~~~~~~~~~"
 
 # PrePARE QC check, create links and update sha256sum

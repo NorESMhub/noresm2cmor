@@ -42,8 +42,8 @@ else
 fi
 
 /usr/bin/rsync --remove-source-files --perms --times --group --owner --devices --quiet \
-    $USER@ipcc.nird.sigma2.no:/scratch/NS9034K/.cmorout/${model}/${expid}/${version}/ \
-    $USER@login.nird.sigma2.no:/projects/NS9034K/.cmorout/${model}/${expid}/${version}/ \
+    /scratch/NS9034K/.cmorout/${model}/${expid}/${version}/ \
+    $USER@login.nird.sigma2.no:/projects/NS9034K/CMIP6/.cmorout/${model}/${expid}/${version}/ \
     1>/dev/null
 
 echo "rsync done          "
