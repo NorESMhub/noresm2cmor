@@ -9,11 +9,12 @@ login2=false
 login3=false
 
 # set active
-#login0=true
-login1=true
+login0=true
+#login1=true
 #login2=true
 #login3=true
 
+expids=()
 if $login0
 then
 # CMIP
@@ -24,10 +25,20 @@ then
 #expids+=(omip1)        # done
 #expids+=(omip2)        # done
 
-## DAMIP (not cmorized, since upcoming extension)
-#expids+=(hist-GHG)
-#expids+=(hist-nat)
-#expids+=(hist-aer)
+## RFMIP
+#expids+=(piClim-4xCO2)  # done
+#expids+=(piClim-aer)    # done
+#expids+=(piClim-anthro) # done
+expids+=(piClim-control) # no permission
+#expids+=(piClim-ghg)    # done
+expids+=(piClim-histaer) # running
+expids+=(piClim-histall)
+expids+=(piClim-histghg)
+expids+=(piClim-histnat)
+expids+=(piClim-lu)
+expids+=(piClim-spAer-aer)
+expids+=(piClim-spAer-anthro)
+
 #~~~~~~~~~~~~~~~~~
 :
 fi
@@ -40,8 +51,8 @@ then
 #expids+=(esm-hist)      # done
 
 ## AerChemMIP
-expids+=(hist-piAer)    # running
-expids+=(hist-piNTCF)
+expids+=(hist-piAer)    # r3 missing, running
+expids+=(hist-piNTCF)   # running
 expids+=(histSST)
 expids+=(histSST-piAer)
 expids+=(histSST-piNTCF)
@@ -63,22 +74,10 @@ if $login2
 then
 # CMIP
 #expids+=(esm-piControl) # done
-#expids+=(historical)    # running on login0
+#expids+=(historical)    # done
 
 ## RFMIP
-expids+=(hist-spAer-all)
-expids+=(piClim-4xCO2)
-expids+=(piClim-aer)
-expids+=(piClim-anthro)
-expids+=(piClim-control)
-expids+=(piClim-ghg)
-expids+=(piClim-histaer)
-expids+=(piClim-histall)
-expids+=(piClim-histghg)
-expids+=(piClim-histnat)
-expids+=(piClim-lu)
-expids+=(piClim-spAer-aer)
-expids+=(piClim-spAer-anthro)
+expids+=(hist-spAer-all)    # running
 #~~~~~~~~~~~~~~~~~
 :
 fi
@@ -87,7 +86,7 @@ fi
 if $login3
 then
 # CMIP
-#expids+=(piControl) # running 
+expids+=(piControl) # running 
 
 # CDRMIP
 #expids+=(1pctCO2-cdr)   # wrong

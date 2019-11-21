@@ -1,7 +1,7 @@
 #!/bin/bash
 # link cmorized files and calculate sha256sum
 
-if [ $# -gt 0 ] && [ $1 == "--help" ] 
+if [ $# -eq 0 ] || [ $1 == "--help" ] 
  then
      printf "Usage:\n"
      printf "cmorPost -m=[model] -e=[expid] -v=[version] --verbose=[true|false]"

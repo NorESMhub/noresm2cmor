@@ -72,6 +72,7 @@ if [ $(hostname -f |grep 'ipcc') ]
 then
     root=/scratch/NS9034K
     project=${project}ipcc
+    export PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/local/sbin
     source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux
 else
     root=~
