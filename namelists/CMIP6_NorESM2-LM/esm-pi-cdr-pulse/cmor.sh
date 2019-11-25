@@ -1,10 +1,11 @@
 ##!/bin/bash
-set -x
+#set -x
 
 source ../scripts/runcmor_single.sh
 
-version=v20190920
+#version=v20190920
 #version=v20191108b
+version=v20191108
 
 if [ $# -eq 1 ]
 then
@@ -19,12 +20,12 @@ login3=false
 
 # set active
 login0=true
-login1=true
-login2=true
+#login1=true
+#login2=true
 #login3=true
 
 
-expid=hist-GHG
+expid=esm-pi-cdr-pulse
 model=NorESM2-LM
 echo "--------------------"
 echo "EXPID: $expid       "
@@ -38,74 +39,15 @@ echo "                    "
 if $login0
 then
 #----------------
-# hist-GHG emsemble 1, part 1
+# esm-pi-cdr-pulse
 #----------------
-CaseName=N1850ghgonly_f19_tn14_20190712
-real=1
-years1=(1849 $(seq 1860 10 2000) 2010)
-years2=(1859 $(seq 1869 10 2009) 2014)
+CaseName=N1850_f19_tn14_CDRpulse_20191101esm
+#real=1
+years1=(1849 $(seq 1860 10 1940))
+years2=(1859 $(seq 1869 10 1949))
 
-runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 
-#----------------
-# hist-GHG emsemble 1, part 2
-#----------------
-CaseName=NSSP245frc2ghgonly_f19_tn14_20191015
-real=1
-years1=(2015)
-years2=(2020)
-
-runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
-#---
-fi
-#---
-
-if $login1
-then
-#----------------
-# hist-GHG emsemble 2, part 1
-#----------------
-CaseName=N1850ghgonly_02_f19_tn14_20190909
-real=2
-years1=(1849 $(seq 1860 10 2000) 2010)
-years2=(1859 $(seq 1869 10 2009) 2014)
-
-runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
-
-#----------------
-# hist-GHG emsemble 2, part 2
-#----------------
-CaseName=NSSP245frc2ghgonly_02_f19_tn14_20191015
-real=2
-years1=(2015)
-years2=(2020)
-
-runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
-#---
-fi
-#---
-
-if $login2
-then
-#----------------
-# hist-GHG emsemble 3, part 1
-#----------------
-CaseName=N1850ghgonly_03_f19_tn14_20190913
-real=3
-years1=(1849 $(seq 1860 10 2000) 2010)
-years2=(1859 $(seq 1869 10 2009) 2014)
-
-runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
-
-#----------------
-# hist-GHG emsemble 3, part 2
-#----------------
-CaseName=NSSP245frc2ghgonly_03_f19_tn14_20191015
-real=3
-years1=(2015)
-years2=(2020)
-
-runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
 #---
 fi
 #---
