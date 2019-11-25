@@ -50,8 +50,9 @@ reals=($(ls ${cmoroutroot}/.cmorout/${model}/${expid}/${version}/* | \
 for (( r = 0; r < ${#reals[*]}; r++ )); do
     real=${reals[r]}
     printf "real:\t$real\n"
+    nfs=$(ls ${cmoroutroot}/.cmorout/${model}/${expid}/${version}/*_{Ofx,fx}_*_${real}_*.nc 2>/dev/null |wc -l)
+    printf "Ofx, fx, etc\t$nfs\n"
     printf "yyyy1\tyyyy2\tnf\n"
-    nfs=0
     for (( i = 0; i < ${#years1[*]}; i++ )); do
         yyyy1=$(printf %04d ${years1[i]})
         yyyy2=$(printf %04d ${years2[i]})
@@ -62,7 +63,7 @@ for (( r = 0; r < ${#reals[*]}; r++ )); do
     printf "Total:\t\t$nfs\n"
 
     ls ${cmoroutroot}/.cmorout/${model}/${expid}/${version}/*_${real}_*.nc 2>/dev/null | \
-        grep -e '_g[nmr][a-z0-9][^_]' >wrongfiles.txt
+        grep -e '_g[nmr][a-zA-Z0-9][^_]' >wrongfiles.txt
     nf=$(cat wrongfiles.txt |wc -l)
     if [ $nf -ge 1 ]
     then

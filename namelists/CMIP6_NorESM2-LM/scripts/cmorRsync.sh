@@ -1,7 +1,8 @@
 #!/bin/bash
+
 # rsync form ipcc to nird node
 #
-if [ $# -gt 0 ] && [ $1 == "--help" ] 
+if [ $# -eq 0 ] || [ $1 == "--help" ] 
  then
      printf "Usage:\n"
      printf "cmorRsync.sh -m=[model] -e=[expid] -v=[version]"
@@ -36,15 +37,16 @@ then
 else
     echo "~~~~~~~~~~~~~~~~~~~~"
     echo "rsync from          "
-    echo "  ipcc:/scratch/NS9034K/.cmorout/${model}/${expid}/${version}"
+    echo "  ipcc:/scratch/NS9034K/CMIP6/.cmorout/${model}/${expid}/${version}"
     echo "to                  "
-    echo "  nird:/projects/NS9034K/.cmorout/${model}/${expid}/${version}"
+    echo "  nird:/projects/NS9034K/CMIP6/.cmorout/${model}/${expid}/${version}"
 fi
 
-/usr/bin/rsync --remove-source-files --perms --times --group --owner --devices --quiet \
-    /scratch/NS9034K/.cmorout/${model}/${expid}/${version}/ \
+/usr/bin/rsync --recursive --compress --remove-source-files --perms --times --group --owner --devices --quiet \
+    /scratch/NS9034K/CMIP6/.cmorout/${model}/${expid}/${version}/ \
     $USER@login.nird.sigma2.no:/projects/NS9034K/CMIP6/.cmorout/${model}/${expid}/${version}/ \
-    1>/dev/null
+    1>/dev/null &
 
+wait
 echo "rsync done          "
 echo "~~~~~~~~~~~~~~~~~~~~"
