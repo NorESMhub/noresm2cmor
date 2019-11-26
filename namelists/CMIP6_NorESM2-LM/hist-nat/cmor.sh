@@ -45,7 +45,7 @@ real=1
 years1=(1849 $(seq 1860 10 1940))
 years2=(1859 $(seq 1869 10 1949))
 
-runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #----------------
 # hist-nat, ensemble 1, part2
 #----------------
@@ -55,7 +55,7 @@ real=1
 years1=($(seq 1950 10 2000) 2010)
 years2=($(seq 1959 10 2009) 2014)
 
-runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #----------------
 # hist-nat, ensemble 1, part3
 #----------------
@@ -65,7 +65,7 @@ real=1
 years1=(2015)
 years2=(2020)
 
-runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 
 #---
 fi
@@ -84,7 +84,7 @@ years2=(1859 $(seq 1869 10 1949))
 #
 years1+=($(seq 1950 10 2000) 2010)
 years2+=($(seq 1959 10 2009) 2014)
-runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -p=NS2345K
+runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -p=NS2345K -mpi=DMPI
 #----------------
 # hist-nat, ensemble 2, part2
 #----------------
@@ -94,7 +94,7 @@ real=2
 years1=(2015)
 years2=(2020)
 
-runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 
 #---
 fi
@@ -113,7 +113,7 @@ years2=(1859 $(seq 1869 10 1949))
 #
 years1+=($(seq 1950 10 2000) 2010)
 years2+=($(seq 1959 10 2009) 2014)
-runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -p=NS2345K
+runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -p=NS2345K -mpi=DMPI
 #----------------
 # hist-nat, ensemble 3, part2
 #----------------
@@ -123,7 +123,7 @@ real=3
 years1=(2015)
 years2=(2020)
 
-runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 
 #---
 fi
