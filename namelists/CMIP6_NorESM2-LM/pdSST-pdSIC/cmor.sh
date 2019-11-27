@@ -1,16 +1,13 @@
 #!/bin/bash
 
-source ../scripts/runcmor_ensemble.sh
-
-#version=v20190920
-#version=v20191009
-version=v20191018
-version=v20191108b
-
-if [ $# -eq 1 ]
+# load ENV
+if [ $(hostname -f |grep 'ipcc') ]
 then
-    version=$1
+    wfroot=/scratch/NS9034K/noresm2cmor/workflow
+else
+    wfroot=~/noresm2cmor/workflow
 fi
+source ${wfroot}/cmorRun1memb.sh
 
 # initialize
 login0=false
@@ -24,9 +21,42 @@ login1=true
 login2=true
 login3=true
 
+# initialize
+#version=v20190920
+#version=v20191009
+version=v20191018
+version=v20191108b
 
 expid=pdSST-pdSIC
 model=NorESM2-LM
+
+# --- Use input arguments if exits
+if [ $# -ge 1 ] 
+then
+     while test $# -gt 0; do
+         case "$1" in
+             -m=*)
+                 model=$(echo $1|sed -e 's/^[^=]*=//g')
+                 shift
+                 ;;
+             -e=*)
+                 expid=$(echo $1|sed -e 's/^[^=]*=//g')
+                 shift
+                 ;;
+             -v=*)
+                 version=$(echo $1|sed -e 's/^[^=]*=//g')
+                 shift
+                 ;;
+             * )
+                 echo "ERROR: option $1 not allowed."
+                 echo "*** EXITING THE SCRIPT"
+                 exit 1
+                 ;;
+         esac
+    done
+fi
+# --- 
+
 echo "--------------------"
 echo "EXPID: $expid       "
 echo "--------------------"
@@ -53,7 +83,7 @@ membs=(0001 0002 0003 0004 0005 0006 0007 0008 0009 0010 0011 0012 0013)
 reals+=(  14   15   16   17   18   19   20   21   22   23   24   25)
 membs+=(0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
-runcmor -c=$CaseName -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" \
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" \
     -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -m="${membs[*]}"
 #---
 fi
@@ -76,7 +106,7 @@ membs=(0001 0002 0003 0004 0005 0006 0007 0008 0009 0010 0011 0012)
 reals+=(  38   39   40   41   42   43   44   45   46   47   48   49   50)
 membs+=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
-runcmor -c=$CaseName -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" \
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" \
     -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -m="${membs[*]}"
 #---
 fi
@@ -99,7 +129,7 @@ membs=(0001 0002 0003 0004 0005 0006 0007 0008 0009 0010 0011 0012)
 reals+=(  63   64   65   66   67   68   69   70   71   72   73   74   75)
 membs+=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
-runcmor -c=$CaseName -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" \
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" \
     -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -m="${membs[*]}"
 #---
 fi
@@ -122,7 +152,7 @@ membs=(0001 0002 0003 0004 0005 0006 0007 0008 0009 0010 0011 0012)
 reals+=(  88   89   90   91   92   93   94   95   96   97   98   99  100)
 membs+=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
-runcmor -c=$CaseName -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" \
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" \
     -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -m="${membs[*]}"
 #---
 fi
@@ -135,4 +165,4 @@ echo "$(date)  "
 echo "~~~~~~~~~"
 
 # PrePARE QC check, create links and update sha256sum
-../scripts/cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false
+${wfroot}/cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false

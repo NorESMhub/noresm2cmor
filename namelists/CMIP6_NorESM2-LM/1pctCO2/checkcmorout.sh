@@ -1,11 +1,12 @@
 #!/bin/bash
 
 version=v20191108b
-expid=pdSST-piArcSIC
+expid=1pctCO2
 model=NorESM2-LM
-
-years1+=(2000)
-years2+=(2001)
+years1=(0  $(seq 11 10 111))
+years2=(10 $(seq 20 10 120))
+years1+=($(seq 121 10 141))
+years2+=($(seq 130 10 150))
 
 
 if [ $(hostname -f |grep 'ipcc') ]

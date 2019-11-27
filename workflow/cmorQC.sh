@@ -33,9 +33,6 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
     done
 fi
 
-if [ -z $model ]; then
-    model=NorESM2-LM
-fi
 
 # ENV for PrePARE
 export PATH=/opt/anaconda3/bin:${PATH}

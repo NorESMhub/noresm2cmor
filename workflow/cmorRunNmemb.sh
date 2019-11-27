@@ -6,10 +6,10 @@ local month1 month2 yyyy1 yyyy2 mm1 mm2 reals membs
 local project mpi
 local nmlroot logroot
 #
-if [ $# -gt 0 ] && [ $1 == "--help" ] 
+if [ $# -eq 0 ] || [ $1 == "--help" ] 
  then
      printf "Usage:\n"
-     printf 'runcmor -c=[CaseName] -e=[expid] -v=[version] -yrs1=["${years1[*]}"] -yrs2=["${years2[*]}"] \\ \n'
+     printf 'runcmor -c=[CaseName] -m=[model] -e=[expid] -v=[version] -yrs1=["${years1[*]}"] -yrs2=["${years2[*]}"] \\ \n'
      printf '        -mon1=month1 -mon2=month2 \\ \n' 
      printf '        -r=["${reals[*]}"] -m=["${membs[*]}"] \\ \n'
      printf '        -p=[project] -mpi=[DMPI] \n'
@@ -21,12 +21,20 @@ if [ $# -gt 0 ] && [ $1 == "--help" ]
                  CaseName=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
+             -m=*)
+                 model=$(echo $1|sed -e 's/^[^=]*=//g')
+                 shift
+                 ;;
              -e=*)
                  expid=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
              -v=*)
                  version=$(echo $1|sed -e 's/^[^=]*=//g')
+                 shift
+                 ;;
+             -r=*)
+                 reals=($(echo $1|sed -e 's/^[^=]*=//g'))
                  shift
                  ;;
              -yrs1=*)
@@ -43,10 +51,6 @@ if [ $# -gt 0 ] && [ $1 == "--help" ]
                  ;;
              -mon2=*)
                  month2=$(echo $1|sed -e 's/^[^=]*=//g')
-                 shift
-                 ;;
-             -r=*)
-                 reals=($(echo $1|sed -e 's/^[^=]*=//g'))
                  shift
                  ;;
              -m=*)
@@ -84,15 +88,18 @@ fi
 ulimit -c 0
 if [ $(hostname -f |grep 'ipcc') ]
 then
-    root=/scratch/NS9034K
+    cmorroot=/scratch/NS9034K/noresm2cmor
+    project=${project}ipcc
+    export PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/local/sbin
+    source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux
 else
-    root=~
+    cmorroot=~/noresm2cmor
 fi
 cwd=$(pwd)
 
-cd ${root}/noresm2cmor/bin
-nmlroot=../namelists/CMIP6_NorESM2-LM/${expid}/${version}
-logroot=../logs/CMIP6_NorESM2-LM/${expid}/${version}
+cd ${cmorroot}/bin
+nmlroot=${cmorroot}/namelists/CMIP6_${model}/${expid}/${version}
+logroot=${cmorroot}/logs/CMIP6_${model}/${expid}/${version}
 
 if [ ! -d $logroot ]
 then
@@ -115,6 +122,17 @@ fi
 
 # copy template namelist and submit
 for (( i = 0; i < ${#years1[*]}; i++ )); do
+
+    # keep maximumn 8 jobs
+    flag=true
+    while $flag ; do
+        np=$(ps x |grep -c 'noresm2cmor3')
+        if [ $np -lt 8 ]; then
+            flag=false
+        fi
+        sleep 30s
+    done
+
     year1=${years1[i]}
     year2=${years2[i]}
     yyyy1=$(printf "%04i\n" $year1)
@@ -156,7 +174,7 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
 
         if [ ! -z $mpi ] && [ $mpi == "DMPI" ]
         then
-            nohup mpirun -n 4 ./noresm2cmor3_mpi \
+            nohup mpirun -n 8 ./noresm2cmor3_mpi \
                 ${nmlroot}/sys${project}.nml \
                 ${nmlroot}/mod.nml \
                 ${nmlroot}/exp_${yyyy1}${mm1}-${yyyy2}${mm2}_r${real}.nml \
@@ -172,15 +190,6 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
                 1>${logroot}/${yyyy1}${mm1}-${yyyy2}${mm2}_r${real}.log \
                 2>${logroot}/${yyyy1}${mm1}-${yyyy2}${mm2}_r${real}.err &
         fi
-        # keep maximumn 16 jobs
-        flag=true
-        while $flag ; do
-            np=$(ps x |grep -c 'noresm2cmor3')
-            if [ $np -lt 17 ]; then
-                flag=false
-            fi
-            sleep 30s
-        done
     done
 done
 

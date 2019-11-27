@@ -33,7 +33,9 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
 fi
 if [ ! $(hostname -f |grep 'ipcc') ]
 then
-    exit
+    echo "ON IPCC.NIRD          "
+    echo "SKIP cmorRsync,EXIT..."
+    exit 1
 else
     echo "~~~~~~~~~~~~~~~~~~~~"
     echo "rsync from          "
@@ -42,11 +44,18 @@ else
     echo "  nird:/projects/NS9034K/CMIP6/.cmorout/${model}/${expid}/${version}"
 fi
 
-/usr/bin/rsync --recursive --compress --remove-source-files --perms --times --group --owner --devices --quiet \
+if [ ! -d logs ]; then
+    mkdir logs
+fi
+/usr/bin/rsync --verbose --progress --recursive --compress --remove-source-files --perms --times --group --owner \
     /scratch/NS9034K/CMIP6/.cmorout/${model}/${expid}/${version}/ \
     $USER@login.nird.sigma2.no:/projects/NS9034K/CMIP6/.cmorout/${model}/${expid}/${version}/ \
-    1>/dev/null &
-
+    &>./logs/cmorRysnc.log.$expid &
 wait
+
+/usr/bin/scp /scratch/NS9034K/CMIP6/.cmorout/${model}/${expid}/${version}.QCreport* \
+    $USER@login.nird.sigma2.no:/projects/NS9034K/CMIP6/.cmorout/${model}/${expid}/ &
+wait
+
 echo "rsync done          "
 echo "~~~~~~~~~~~~~~~~~~~~"

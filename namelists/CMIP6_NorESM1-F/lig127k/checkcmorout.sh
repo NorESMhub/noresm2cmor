@@ -12,5 +12,3 @@ years2+=($(seq 1610 10 1700))
 
 
 
-../../../scripts/cmoroutcheck.sh -v=$version -e=$expid -m=$model -yrs1="${years1[*]}" -yrs2="${years2[*]}"
-

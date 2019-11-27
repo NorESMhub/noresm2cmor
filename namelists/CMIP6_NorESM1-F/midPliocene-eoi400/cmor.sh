@@ -1,14 +1,13 @@
 #!/bin/bash
 
-source ../scripts/runcmor_single.sh
-
-#version=vyyyymmdd
-version=v20191108b
-
-if [ $# -eq 1 ]
+# load ENV
+if [ $(hostname -f |grep 'ipcc') ]
 then
-    version=$1
+    wfroot=/scratch/NS9034K/noresm2cmor/workflow
+else
+    wfroot=~/noresm2cmor/workflow
 fi
+source ${wfroot}/cmorRun1memb.sh
 
 # initialize
 login0=false
@@ -22,14 +21,47 @@ login0=true
 #login2=true
 #login3=true
 
+# initialize
+#version=v20190920
+version=v20191108b
 
 expid=midPliocene-eoi400
+model=NorESM2-LM
+
+# --- Use input arguments if exits
+if [ $# -ge 1 ] 
+then
+     while test $# -gt 0; do
+         case "$1" in
+             -m=*)
+                 model=$(echo $1|sed -e 's/^[^=]*=//g')
+                 shift
+                 ;;
+             -e=*)
+                 expid=$(echo $1|sed -e 's/^[^=]*=//g')
+                 shift
+                 ;;
+             -v=*)
+                 version=$(echo $1|sed -e 's/^[^=]*=//g')
+                 shift
+                 ;;
+             * )
+                 echo "ERROR: option $1 not allowed."
+                 echo "*** EXITING THE SCRIPT"
+                 exit 1
+                 ;;
+         esac
+    done
+fi
+# --- 
+
 echo "--------------------"
-echo "EXPID: $expid     "
+echo "EXPID: $expid       "
 echo "--------------------"
 
 echo "                    "
-echo "START CMOR..."
+echo "START CMOR...       "
+echo "$(date)             "
 echo "                    "
 
 if $login0
@@ -46,7 +78,7 @@ years2=($(seq 2310 10 2400))
 years1+=($(seq 2401 10 2491))
 years2+=($(seq 2410 10 2500))
 
-runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
 #---
 fi
 #---
@@ -54,14 +86,8 @@ fi
 wait
 echo "         "
 echo "CMOR DONE"
+echo "$(date)  "
 echo "~~~~~~~~~"
 
-# PrePARE QC check
-source ../scripts/cmorQC.sh
-cmorQC -e=$expid -v=$version
-
-# Create links and sha256sum
-../../../scripts/create_CMIP6_links_sha256sum.sh $version ".cmorout/NorESM1-F/${expid}/${version}" false
-
-# zip log files
-gzip -f ../../../logs/CMIP6_NorESM1-F/${expid}/${version}/{*.log,*.err}
+# PrePARE QC check, create links and update sha256sum
+${wfroot}/cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false

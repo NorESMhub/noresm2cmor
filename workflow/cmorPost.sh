@@ -46,22 +46,23 @@ fi
 
 if [ $(hostname -f |grep 'ipcc') ]
 then
-    cmoroutroot=/scratch/NS9034K/CMIP6
-    cmorroot=/scratch/NS9034K/noresm2cmor
+    PATH=/scratch/NS9034K/noresm2cmor/workflow:$PATH
 else
-    cmoroutroot=/projects/NS9034K/CMIP6
-    cmorroot=~/noresm2cmor
+    PATH=~/noresm2cmor/workflow:$PATH
 fi
 
 # PrePARE QC check
-source ${cmorroot}/namelists/CMIP6_${model}/scripts/cmorQC.sh
+source cmorQC.sh
 cmorQC -m=$model -e=$expid -v=$version
 
 # rsync from ipcc to nird node
-${cmorroot}/namelists/CMIP6_${model}/scripts/cmorRsync.sh -m=$model -e=$expid -v=$version
+cmorRsync.sh -m=$model -e=$expid -v=$version
 
-# Create links and sha256sum
-${cmorroot}/scripts/create_CMIP6_links_sha256sum.sh -m=$model -e=$expid -v=$version --verbose=${verbose}
+# Create links
+cmorLink.sh -m=$model -e=$expid -v=$version --verbose=${verbose}
+
+# Calculate sha256sum
+cmorSha256sum.sh -m=$model -e=$expid -v=$version --verbose=${verbose}
 
 # zip log files
-gzip -f ${cmorroot}/logs/CMIP6_${model}/${expid}/${version}/{*.log,*.err} 2>/dev/null
+/usr/bin/gzip -f ${wfroot}/logs/CMIP6_${model}/${expid}/${version}/{*.log,*.err} 2>/dev/null
