@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#version=v20190920
 version=v20191108b
 expid=hist-piNTCF
 model=NorESM2-LM

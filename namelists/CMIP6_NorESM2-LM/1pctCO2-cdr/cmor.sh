@@ -75,7 +75,7 @@ CaseName=N1PCT_f19_tn14_CDR_20190926
 years1=(141 $(seq 150 10 270))
 years2=(149 $(seq 159 10 279))
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---
@@ -91,7 +91,7 @@ CaseName=N1850_f19_tn14_CDRxt_20191011
 years1=($(seq 280 10 300))
 years2=($(seq 289 10 309))
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---
@@ -107,7 +107,7 @@ CaseName=N1850_f19_tn14_CDRxt_20191011
 years1=($(seq 310 10 390))
 years2=($(seq 319 10 399))
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---

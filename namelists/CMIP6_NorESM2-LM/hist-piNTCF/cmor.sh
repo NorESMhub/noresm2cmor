@@ -108,7 +108,6 @@ then
 #----------------
 # hist-piNTCF, esemble 3
 #----------------
-version=v20190920
 CaseName=NHISTpintcf_03_f19_tn14_20190909
 real=3
 #login0

@@ -26,7 +26,7 @@ login0=true
 version=v20191108b
 
 expid=lig127k
-model=NorESM2-LM
+model=NorESM1-F
 
 # --- Use input arguments if exits
 if [ $# -ge 1 ] 

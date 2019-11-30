@@ -72,7 +72,7 @@ CaseName=N1850frc2_f09_tn14_20191001
 years1=($(seq 1200 10 1290))
 years2=($(seq 1209 10 1299))
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -p=NS9560K -mpi=DMPI
 #---
 fi
 #---
@@ -86,7 +86,7 @@ CaseName=N1850frc2_f09_tn14_20191012
 years1=($(seq 1300 10 1440) 1450 )
 years2=($(seq 1309 10 1449) 1450 )
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -p=NS9560KFRAM -mpi=DMPI
 #---
 fi
 #---

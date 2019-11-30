@@ -71,10 +71,8 @@ then
 #----------------
 CaseName=NFHISTnorpibc_f19_20190810
 real=1
-#login0
 years1=(1849 $(seq 1860 10 1940))
 years2=(1859 $(seq 1869 10 1949))
-#login1
 years1+=($(seq 1950 10 2000) 2010)
 years2+=($(seq 1959 10 2009) 2014)
 
@@ -82,17 +80,15 @@ runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]
 #---
 fi
 #---
-if $login0
+if $login1
 then
 #----------------
 # piClim-histall, esemble 2
 #----------------
 CaseName=NFHISTnorpibc_02_f19_20190909
 real=2
-#login0
 years1=(1849 $(seq 1860 10 1940))
 years2=(1859 $(seq 1869 10 1949))
-#login1
 years1+=($(seq 1950 10 2000) 2010)
 years2+=($(seq 1959 10 2009) 2014)
 
