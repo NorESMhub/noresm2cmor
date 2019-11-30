@@ -29,6 +29,7 @@ then
 
 # CMIP
 #expids+=(piControl)            ; versions+=(v20191108b)    ; models+=(NorESM1-F)   # done
+
 # PMIP
 #expids+=(lig127k)              ; versions+=(v20191108b)    ; models+=(NorESM1-F)   # done
 #expids+=(midHolocene)          ; versions+=(v20191108b)    ; models+=(NorESM1-F)   # done
@@ -38,21 +39,16 @@ then
 #expids+=(omip1)                ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 #expids+=(omip2)                ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 
-## AerChemMIP
-#expids+=(hist-piAer)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
-#expids+=(hist-piNTCF)          ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # r1,r2,finished; r3 not
- expids+=(histSST)              ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # 
- expids+=(histSST-piAer)        ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(histSST-piNTCF)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-2xDMS)         ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-2xVOC)         ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-2xdust)        ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-2xss)          ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-BC)            ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-CH4)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-N2O)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-OC)            ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-SO2)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+# CMIP
+#expids+=(piControl)            ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # error, running login0
+#expids+=(historical)           ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # running login0
+ expids+=(abrupt-4xCO2)         ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # error
+ expids+=(1pctCO2)              ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # error
+ expids+=(ssp126)               ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # error
+ expids+=(ssp245)               ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # error
+ expids+=(ssp370)               ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # error
+ expids+=(ssp585)               ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # error
+
 
 
 #~~~~~~~~~~~~~~~~~
@@ -71,10 +67,10 @@ then
 #expids+=(piClim-aer)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 #expids+=(piClim-anthro)        ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 #expids+=(piClim-ghg)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
-#expids+=(piClim-histaer)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # running, missing 70,80,90
- expids+=(piClim-control)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
- expids+=(piClim-histall)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # running
- expids+=(piClim-histghg)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+#expids+=(piClim-histaer)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
+#expids+=(piClim-control)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
+ expids+=(piClim-histall)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # missing, running again
+ expids+=(piClim-histghg)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # running
  expids+=(piClim-histnat)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
  expids+=(piClim-lu)            ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
  expids+=(piClim-spAer-aer)     ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
@@ -98,15 +94,6 @@ then
 #expids+=(esm-pi-cdr-pulse)     ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # done
 #expids+=(esm-pi-CO2pulse)      ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # done
 
-# CMIP
-#expids+=(piControl)            ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # missing
-#expids+=(historical)           ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # missing
- expids+=(abrupt-4xCO2)         ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # running
- expids+=(1pctCO2)              ; versions+=(v20191108)     ; models+=(NorESM2-MM)
- expids+=(ssp126)               ; versions+=(v20191108)     ; models+=(NorESM2-MM)
- expids+=(ssp245)               ; versions+=(v20191108)     ; models+=(NorESM2-MM)
- expids+=(ssp370)               ; versions+=(v20191108)     ; models+=(NorESM2-MM)
- expids+=(ssp585)               ; versions+=(v20191108)     ; models+=(NorESM2-MM)
 
 #~~~~~~~~~~~~~~~~~
 :
@@ -127,13 +114,14 @@ then
 #expids+=(pdSST-piArcSIC)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 
 # CDRMIP
-#expids+=(1pctCO2-cdr)          ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # wrong
+ expids+=(1pctCO2-cdr)          ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # disk quota error, running again
 
 ## ScenarioMIP
-#expids+=(ssp126)               ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # HDF error
-#expids+=(ssp245)               ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # wrong
-#expids+=(ssp370)               ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # wrong
- expids+=(ssp585)               ; versions+=(v20191108)     ; models+=(NorESM2-LM)
+#expids+=(ssp126)               ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # HDF error,31,51,61,81, run twice
+#expids+=(ssp245)               ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # HDF error,runned twice
+#expids+=(ssp370)               ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # wrong, empty fnm list
+#expids+=(ssp585)               ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # HDF error,invalid pointer
+
 #~~~~~~~~~~~~~~~~~
 :
 fi
@@ -144,8 +132,25 @@ then
 
 ## DAMIP
 #expids+=(hist-GHG)             ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # done
- expids+=(hist-nat)              ; versions+=(v20191108b)   ; models+=(NorESM2-LM)  # running
- expids+=(hist-aer)              ; versions+=(v20191108b)   ; models+=(NorESM2-LM)
+#expids+=(hist-nat)              ; versions+=(v20191108b)   ; models+=(NorESM2-LM)  # done
+
+## AerChemMIP
+#expids+=(hist-piAer)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
+#expids+=(hist-piNTCF)          ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # r1,r2,finished; r3 not, running on login3
+#expids+=(histSST)              ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done 
+ expids+=(histSST-piAer)        ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  #
+ expids+=(histSST-piNTCF)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+ expids+=(piClim-2xDMS)         ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+ expids+=(piClim-2xVOC)         ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+ expids+=(piClim-2xdust)        ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+ expids+=(piClim-2xss)          ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+ expids+=(piClim-BC)            ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+ expids+=(piClim-CH4)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+ expids+=(piClim-N2O)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+ expids+=(piClim-OC)            ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+ expids+=(piClim-SO2)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+ expids+=(hist-aer)             ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # 
+
 #~~~~~~~~~~~~~~~~~
 fi
 #~~~~~~~~~~~~~~~~~
@@ -163,32 +168,33 @@ while $flag ; do
     fi
 done
 
-# --- submit jobs ---
-if [ $(hostname -f |grep 'ipcc') ]
-then
-    nmlroot=/scratch/NS9034K/noresm2cmor/namelists/CMIP6_${model}
-else
-    nmlroot=~/noresm2cmor/namelists/CMIP6_${model}
-fi
 
 for (( i = 0; i < ${#expids[*]}; i++ )); do
     expid=${expids[i]}
     version=${versions[i]}
     model=${models[i]}
 
+    # --- submit jobs ---
+    if [ $(hostname -f |grep 'ipcc') ]
+    then
+        cmorroot=/scratch/NS9034K/noresm2cmor
+    else
+        cmorroot=~/noresm2cmor
+    fi
+
     echo "--------------------"
     echo "CMORING...          "
     echo "$expid              "
     echo "$version            "
-    cd ${nmlroot}/${expid}
+    cd ${cmorroot}/namelists/CMIP6_${model}/${expid}
     
     if [ ! -d ./logs ]
     then
         mkdir ./logs 
     fi
-    ./cmor.sh -m=${model} -e=${expid} -v=${version}  &> ./logs/cmor.log.${version}
+    ./cmor.sh -m=${model} -e=${expid} -v=${version}  &>./logs/cmor.log.${version}
     wait 
-    cat  ./logs/cmor.log.${version} >>${root}/cmor.log.${version}
+    cat  ./logs/cmor.log.${version} >>${cmorroot}/cmor.log.${version}
     echo "DONE                "
 done
 
