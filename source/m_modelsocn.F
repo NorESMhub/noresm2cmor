@@ -151,7 +151,11 @@ c --- - Map namelist variables
         vcomment=' '
 
 c --- - Use oceanregnfile for region
-        IF (ovnm.EQ.'basin') fnm=TRIM(griddata)//TRIM(ocnregnfile)
+        IF (ovnm.EQ.'basin') THEN
+          fnm=TRIM(griddata)//TRIM(ocnregnfile)
+        ELSE
+          fnm=TRIM(griddata)//TRIM(ocngridfile)
+        ENDIF
 c
 c --- - Check if input variable is present 
         IF (.NOT.var_in_file(fnm,ivnm)) CYCLE

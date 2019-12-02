@@ -39,6 +39,7 @@
  rhotablesuff  = 'OnRho',
  atmgridfile   = 'grid_atm_0.9x1.25_tnx1v4.nc',
  ocngridfile   = 'grid_tnx1v4.nc',
+ ocnregnfile   = 'ocean_regions_tnx1v4.nc',
  ocninitfile   = 'inicon_tnx1v4.nc',
  ocnmertfile   = 'mertraoceans_tnx1v4.dat',
  secindexfile  = 'secindex_tnx1v4.dat'
