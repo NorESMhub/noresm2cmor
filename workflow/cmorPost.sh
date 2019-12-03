@@ -46,7 +46,12 @@ fi
 
 if [ $(hostname -f |grep 'ipcc') ]
 then
-    PATH=/scratch/NS9034K/noresm2cmor/workflow:$PATH
+    #PATH=/scratch/NS9034K/noresm2cmor/workflow:$PATH
+    echo "                       "
+    echo "On IPCC node!!!        "
+    echo "SKIP cmorPOST.sh...    "
+    echo "~~~~~~~~~~~~~~~~~~~~~~~"
+    exit 1
 else
     PATH=~/noresm2cmor/workflow:$PATH
 fi
@@ -56,7 +61,7 @@ source cmorQC.sh
 cmorQC -m=$model -e=$expid -v=$version
 
 # rsync from ipcc to nird node
-cmorRsync.sh -m=$model -e=$expid -v=$version
+cmorRsync.sh -m=$model -e=$expid -v=$version &>/dev/null &
 
 # Create links
 cmorLink.sh -m=$model -e=$expid -v=$version --verbose=${verbose}

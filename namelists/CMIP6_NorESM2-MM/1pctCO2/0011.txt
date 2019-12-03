@@ -1,0 +1,14 @@
+AERmon 	 39 
+Amon 	 50 
+CFday 	 16 
+CFmon 	 3 
+day 	 20 
+Eday 	 17 
+Emon 	 62 
+LImon 	 5 
+Lmon 	 32 
+Oday 	 2 
+Omon 	 103 
+Oyr 	 31 
+SIday 	 7 
+SImon 	 64 

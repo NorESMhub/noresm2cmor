@@ -1,9 +1,7 @@
-noresm2cmor
------------
+# noresm2cmor
 
 
-1. General
-----------
+## 1. General
 
 noresm2cmor is a FORTRAN based command line tool for post-processing NorESM 
 output using the Climate Model Output Rewriter (cmor) libraries.
@@ -12,17 +10,20 @@ System, model, experiment and variable information are set in namelist files
 which noresm2cmor reads during its execution. 
 
 
-2. Installation
----------------
+## 2. Installation
 
-2.1 Download
+### 2.1 Download
 
 Download noresm2cmor with
+```bash
  git clone https://github.com/NorwegianClimateCentre/noresm2cmor
+```
 
-2.2 Build 
-
-Change directory to noresm2cmor/build/  
+### 2.2 Build 
+```bash
+# Change directory 
+cd noresm2cmor/build/  
+```
 
 Make a copy of Makefile.nird_intel - e.g., Makefile.xxx - and customize 
 your make file. IMPORTANT: The build of noresm2cmor requires the fortran version 
@@ -30,9 +31,11 @@ of the cmor-library (see https://pcmdi.github.io/cmor-site/download.htm for
 download instructions).  
 
 Build with
+```
  make –f Makefile.xxx 
+```
 
-2.3 Installation of grid data and sample input (use only if data not available)
+### 2.3 Installation of grid data and sample input (use only if data not available)
 
 Change directory to noresm2cmor/scripts
 
@@ -42,7 +45,7 @@ Run installation script for grid data
 Run installation script for input data sample 
  ./install_sampledata.sh <absolute path to folder where sample input should be stored> 
 
-2.4 Set paths to grid data, sample data and output folder  
+### 2.4 Set paths to grid data, sample data and output folder  
 
 Change directory to noresm2cmor/scripts
 
@@ -56,8 +59,7 @@ Set path to output folder
  ./install_cmorout.sh <absolute path to folder where CMOR output should be stored>
 
 
-3 Testing of CMORization on sample data
----------------------------------------
+## 3 Testing of CMORization on sample data
 
 Change directory to noresm2cmor/scripts
 
@@ -65,26 +67,31 @@ Run CMORization test with
  ./cmorize_sampledata.sh 
 
 
-4. General usage of noresm2cmor binary executable 
--------------------------------------------------
+## 4. General usage of noresm2cmor binary executable 
 
 NORSTORE:  
 
 Load modules 
+```bash
  . /usr/share/Modules/init/sh
  module unload netcdf gcc hdf
  module load gcc/4.7.2
+```
 or
+```bash
  . /usr/share/Modules/init/sh
  module unload netcdf gcc hdf
  module load netcdf.intel/4.4.0 udunits/2.2.17 uuid/1.5.1
 depending on whether noresm2cmor was compiled with intel or gnu. 
+```
 
 NIRD:
 
 Make intel environment available and increase stack size  
+```bash
  source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux 
  ulimit -s unlimited 
+```
 
 
 Change directory to folder with executable
@@ -102,8 +109,7 @@ E.g.
 Call noresm2cmor or noresm2cmor3 without argument to prompt syntax.
 
 
-5. Easy CMORization with cmorize_generic.sh wrapper script
-----------------------------------------------------------
+## 5. Easy CMORization with cmorize_generic.sh wrapper script
 
 Change directory to noresm2cmor/scripts
 
@@ -114,8 +120,7 @@ E.g.
  ./cmorize_generic.sh `pwd`/../data/sampledata/N20TRAERCN_f19_g16_01 2000 2000
 
 
-6. Parallel CMORization
------------------------
+## 6. Parallel CMORization
 
 NORSTORE (only CMOR2 parallel support):
 
@@ -143,4 +148,6 @@ CMORize (e.g. using 8 tasks) with
  export I_MPI_WAIT_MODE=1
  mpirun -n 8 ./noresm2cmor_mpi <path to namelist> 
  mpirun -n 8 ./noresm2cmor3_mpi <path to namelist> 
+
+
 

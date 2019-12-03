@@ -45,6 +45,7 @@ then
 else
     cmoroutroot=/projects/NS9034K/CMIP6
     source activate /projects/NS9560K/cmor/PrePARE
+    conda activate /scratch/NS9034K/cmorlib/PrePARE
 fi
 
 echo "~~~~~~~~~~~~~~~~~~~~"
@@ -89,7 +90,7 @@ done <${version}.QCreport
 if [ $nerr -gt 0 ]
 then
     echo "ERROR in ${version}.QCreport, EXIT..."
-    return
+    exit 1
 else
     echo "         "
     echo "QC DONE  "

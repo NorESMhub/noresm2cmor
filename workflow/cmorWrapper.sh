@@ -40,16 +40,9 @@ then
 #expids+=(omip2)                ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 
 # CMIP
-#expids+=(piControl)            ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # error, running login0
-#expids+=(historical)           ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # running login0
- expids+=(abrupt-4xCO2)         ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # error
- expids+=(1pctCO2)              ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # error
- expids+=(ssp126)               ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # error
- expids+=(ssp245)               ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # error
- expids+=(ssp370)               ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # error
- expids+=(ssp585)               ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # error
-
-
+#expids+=(historical)           ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # missing years, running again
+ expids+=(abrupt-4xCO2)         ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # queue
+ expids+=(1pctCO2)              ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # queue
 
 #~~~~~~~~~~~~~~~~~
 :
@@ -62,19 +55,10 @@ then
 #expids+=(amip)                 ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 #expids+=(esm-hist)             ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 
-## RFMIP
-#expids+=(piClim-4xCO2)         ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
-#expids+=(piClim-aer)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
-#expids+=(piClim-anthro)        ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
-#expids+=(piClim-ghg)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
-#expids+=(piClim-histaer)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
-#expids+=(piClim-control)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
- expids+=(piClim-histall)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # missing, running again
- expids+=(piClim-histghg)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # running
- expids+=(piClim-histnat)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-lu)            ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-spAer-aer)     ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-spAer-anthro)  ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+# CMIP
+#expids+=(piControl)            ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # missing years, running again
+ expids+=(ssp126)               ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # error
+ expids+=(ssp245)               ; versions+=(v20191108)     ; models+=(NorESM2-MM)  # error
 
 #~~~~~~~~~~~~~~~~~
 :
@@ -87,12 +71,26 @@ then
 #expids+=(esm-piControl)        ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 #expids+=(historical)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 
-## RFMIP
+# RFMIP
 #expids+=(hist-spAer-all)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 
 # CDRMIP
 #expids+=(esm-pi-cdr-pulse)     ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # done
 #expids+=(esm-pi-CO2pulse)      ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # done
+
+# RFMIP
+#expids+=(piClim-4xCO2)         ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
+#expids+=(piClim-aer)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
+#expids+=(piClim-anthro)        ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
+#expids+=(piClim-ghg)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
+#expids+=(piClim-histaer)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
+#expids+=(piClim-control)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
+#expids+=(piClim-histall)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # missing, running again
+#expids+=(piClim-histghg)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # missing 1950-2010,running
+
+ # CMIP
+ expids+=(ssp370)               ; versions+=(v20191108)     ; models+=(NorESM2-MM)
+ expids+=(ssp585)               ; versions+=(v20191108)     ; models+=(NorESM2-MM)
 
 
 #~~~~~~~~~~~~~~~~~
@@ -114,13 +112,17 @@ then
 #expids+=(pdSST-piArcSIC)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 
 # CDRMIP
- expids+=(1pctCO2-cdr)          ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # disk quota error, running again
+#expids+=(1pctCO2-cdr)          ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
+
+## AerChemMIP
+ expids+=(hist-aer)             ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # running
 
 ## ScenarioMIP
-#expids+=(ssp126)               ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # HDF error,31,51,61,81, run twice
-#expids+=(ssp245)               ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # HDF error,runned twice
-#expids+=(ssp370)               ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # wrong, empty fnm list
-#expids+=(ssp585)               ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # HDF error,invalid pointer
+# on FRAM
+ expids+=(ssp126)               ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # HDF error,31,51,61,81, run twice, queue
+ expids+=(ssp245)               ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # HDF error,runned twice, queue
+ expids+=(ssp370)               ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # wrong, empty fnm list, queue
+ expids+=(ssp585)               ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # HDF error,invalid pointer, queue
 
 #~~~~~~~~~~~~~~~~~
 :
@@ -132,14 +134,14 @@ then
 
 ## DAMIP
 #expids+=(hist-GHG)             ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # done
-#expids+=(hist-nat)              ; versions+=(v20191108b)   ; models+=(NorESM2-LM)  # done
+#expids+=(hist-nat)              ; versions+=(v20191108b)   ; models+=(NorESM2-LM)  # finished
 
 ## AerChemMIP
 #expids+=(hist-piAer)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
-#expids+=(hist-piNTCF)          ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # r1,r2,finished; r3 not, running on login3
+#expids+=(hist-piNTCF)          ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 #expids+=(histSST)              ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done 
- expids+=(histSST-piAer)        ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  #
- expids+=(histSST-piNTCF)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+#expids+=(histSST-piAer)        ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
+#expids+=(histSST-piNTCF)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # finished
  expids+=(piClim-2xDMS)         ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
  expids+=(piClim-2xVOC)         ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
  expids+=(piClim-2xdust)        ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
@@ -149,8 +151,12 @@ then
  expids+=(piClim-N2O)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
  expids+=(piClim-OC)            ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
  expids+=(piClim-SO2)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(hist-aer)             ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # 
 
+## RFMIP
+ expids+=(piClim-histnat)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+ expids+=(piClim-lu)            ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+ expids+=(piClim-spAer-aer)     ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+ expids+=(piClim-spAer-anthro)  ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
 #~~~~~~~~~~~~~~~~~
 fi
 #~~~~~~~~~~~~~~~~~

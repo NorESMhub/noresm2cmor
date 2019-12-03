@@ -1,0 +1,1 @@
+../../CMIP6_NorESM2-LM/scripts/cmorQC.sh
