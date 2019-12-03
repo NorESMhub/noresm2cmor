@@ -72,20 +72,18 @@ fi
 #echo -e "years2  : ${years2[*]}"
 # ==========================================================
 ulimit -c 0
+ulimit -s unlimited
 if [ $(hostname -f |grep 'ipcc') ]
 then
-    cmorroot=/scratch/NS9034K/noresm2cmor
     project=${project}ipcc
     export PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/local/sbin
     source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux
-else
-    cmorroot=~/noresm2cmor
 fi
 cwd=$(pwd)
 
-cd ${cmorroot}/bin
-nmlroot=${cmorroot}/namelists/CMIP6_${model}/${expid}/${version}
-logroot=${cmorroot}/logs/CMIP6_${model}/${expid}/${version}
+cd ${CMOR_ROOT}/bin
+nmlroot=${CMOR_ROOT}/namelists/CMIP6_${model}/${expid}/${version}
+logroot=${CMOR_ROOT}/logs/CMIP6_${model}/${expid}/${version}
 
 if [ ! -d $logroot ]
 then

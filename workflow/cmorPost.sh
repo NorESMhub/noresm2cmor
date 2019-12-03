@@ -46,28 +46,25 @@ fi
 
 if [ $(hostname -f |grep 'ipcc') ]
 then
-    #PATH=/scratch/NS9034K/noresm2cmor/workflow:$PATH
     echo "                       "
     echo "On IPCC node!!!        "
     echo "SKIP cmorPOST.sh...    "
     echo "~~~~~~~~~~~~~~~~~~~~~~~"
     exit 1
-else
-    PATH=~/noresm2cmor/workflow:$PATH
 fi
 
 # PrePARE QC check
-source cmorQC.sh
+source ${CMOR_ROOT}/workflow/cmorQC.sh
 cmorQC -m=$model -e=$expid -v=$version
 
 # rsync from ipcc to nird node
-cmorRsync.sh -m=$model -e=$expid -v=$version &>/dev/null &
+${CMOR_ROOT}/workflow/cmorRsync.sh -m=$model -e=$expid -v=$version &>/dev/null &
 
 # Create links
-cmorLink.sh -m=$model -e=$expid -v=$version --verbose=${verbose}
+${CMOR_ROOT}/workflow/cmorLink.sh -m=$model -e=$expid -v=$version --verbose=${verbose}
 
 # Calculate sha256sum
-cmorSha256sum.sh -m=$model -e=$expid -v=$version --verbose=${verbose}
+${CMOR_ROOT}/workflow/cmorSha256sum.sh -m=$model -e=$expid -v=$version --verbose=${verbose}
 
 # zip log files
-/usr/bin/gzip -f ${wfroot}/logs/CMIP6_${model}/${expid}/${version}/{*.log,*.err} 2>/dev/null
+gzip -f ${CMOR_ROOT}/logs/CMIP6_${model}/${expid}/${version}/{*.log,*.err} 2>/dev/null

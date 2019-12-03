@@ -1,13 +1,6 @@
 #!/bin/bash
 
-# load ENV
-if [ $(hostname -f |grep 'ipcc') ]
-then
-    wfroot=/scratch/NS9034K/noresm2cmor/workflow
-else
-    wfroot=~/noresm2cmor/workflow
-fi
-source ${wfroot}/cmorRun1memb.sh
+source ${CMOR_ROOT}/workflow/cmorRun1memb.sh
 
 # initialize
 login0=false
@@ -83,4 +76,4 @@ echo "$(date)  "
 echo "~~~~~~~~~"
 
 # PrePARE QC check, create links and update sha256sum
-${wfroot}/cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false
+${CMOR_ROOT}/workflow/cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false

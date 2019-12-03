@@ -174,25 +174,16 @@ while $flag ; do
     fi
 done
 
-
 for (( i = 0; i < ${#expids[*]}; i++ )); do
     expid=${expids[i]}
     version=${versions[i]}
     model=${models[i]}
 
-    # --- submit jobs ---
-    if [ $(hostname -f |grep 'ipcc') ]
-    then
-        cmorroot=/scratch/NS9034K/noresm2cmor
-    else
-        cmorroot=~/noresm2cmor
-    fi
-
     echo "--------------------"
     echo "CMORING...          "
     echo "$expid              "
     echo "$version            "
-    cd ${cmorroot}/namelists/CMIP6_${model}/${expid}
+    cd ${CMOR_ROOT}/namelists/CMIP6_${model}/${expid}
     
     if [ ! -d ./logs ]
     then
@@ -200,7 +191,6 @@ for (( i = 0; i < ${#expids[*]}; i++ )); do
     fi
     ./cmor.sh -m=${model} -e=${expid} -v=${version}  &>./logs/cmor.log.${version}
     wait 
-    cat  ./logs/cmor.log.${version} >>${cmorroot}/cmor.log.${version}
     echo "DONE                "
 done
 
