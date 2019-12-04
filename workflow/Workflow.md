@@ -269,6 +269,30 @@ NOTE: Be cautious not to submit jobs that is alreay finished or are running.
 I set the maximumn running noresm2cmor jobs as 8 to avoid overload of the system and crashes. Therefore, when the job is submitted by `cmor.sh` (or `cmorWrapper.sh`), it will check if there are already more than 8 running jobs, if so it will not start immediately. Just wait as long it has the `cmor.sh` job running.
 
 ---
+
+A type file tree of namelists/scripts of an experiments:
+```bash
+yanchun@login-nird-1:noresm2cmor/namelists/CMIP6_NorESM2-LM/piClim-histall
+$ tree -I 'exp_[0-9]*.nml'
+.
+├── checkcmorout.sh
+├── cmor.sh
+├── cmor_tmp.sh
+├── template
+│   ├── exp_NFHISTnorpibc_02_f19_20190909.nml
+│   ├── exp_NFHISTnorpibc_f19_20190810.nml
+│   ├── mod.nml
+│   ├── sys.nml
+│   └── var.nml
+├── v20190920
+│   ├── mod.nml
+│   ├── sys.nml
+│   └── var.nml
+└── v20191108b
+    ├── mod.nml
+    ├── sys.nml
+    └── var.nml
+```
 A simple flowchart of the workflow:
 
 ![workflow](./workflow.svg)
