@@ -41,14 +41,15 @@ source ~/.bashrc
 ```
 
 ## 1 - Create and submit cmorization job
-(Assume you are processing experiment **hist-GHG** of **NorESM2-LM** with cmor data version **v20191108**. Therefore, I use here three SHELL variables to represent for these parameters:
+Assume you are processing experiment **piClim-histall** of **NorESM2-LM** with cmor data version **v20191108b**. Therefore, I use here three SHELL variables to represent for these parameters:
 
 ```bash
 model=NorESM2-LM
-expid=hist-GHG
-version=v20191108
+expid=piClim-histall
+version=v20191108b
 ```
 
+(Note, **v20191108b** contains a subset of supported fields of **v20191108** compared to **v20190920**, the suffix `b` is only used where its origional cmorized outut is store, i.e, `/projects/NS9034K/CMIP6/.cmorout`; the suffix is trim, i.e., v20191108 is used when link to DKRZ folder structure)
 ### 1.1 - Create template namelist files for each model casename
 
 First create a folder for each `expid`
@@ -64,17 +65,13 @@ Then one should create mannually a namelist file for the each CASENAME (note, on
 
 This file contains the information on the `casename`, the folder path where the cmorized data been store `osubdir`, the `experiment_id`, `activity_id`, `realisation`, etc
 
-As an exmaple here, for `expid=hist-GHG` of `NorESM2-LM`, the basic information is found at its corresponding GitHub Issues, here [Issue 124 for realisation 1](https://github.com/NorwegianClimateCentre/noresm2cmor/issues/124), [Issue 125 for realisation 2](https://github.com/NorwegianClimateCentre/noresm2cmor/issues/125) and [Issue 126 for realisation 3](https://github.com/NorwegianClimateCentre/noresm2cmor/issues/126)
+As an exmaple here, for `expid=piClim-histall` of `NorESM2-LM`, the basic information is found at its corresponding GitHub Issues, here [Issue 86 for realisation 1](https://github.com/NorwegianClimateCentre/noresm2cmor/issues/86), and [Issue 90 for realisation 2](https://github.com/NorwegianClimateCentre/noresm2cmor/issues/90)
 
 Three namelist files are therefore created under `${CMOR_ROOT}/namelists/CMIP6_${model}/${expid}/template`:
 
 ```
-exp_N1850ghgonly_02_f19_tn14_20190909.nml
-exp_N1850ghgonly_03_f19_tn14_20190913.nml
-exp_N1850ghgonly_f19_tn14_20190712.nml
-exp_NSSP245frc2ghgonly_02_f19_tn14_20191015.nml
-exp_NSSP245frc2ghgonly_03_f19_tn14_20191015.nml
-exp_NSSP245frc2ghgonly_f19_tn14_20191015.nml
+exp_NFHISTnorpibc_f19_20190810.nml
+exp_NFHISTnorpibc_02_f19_20190909.nml
 ```
 
 >Tips:
@@ -104,7 +101,7 @@ Note: `{CMOR_ROOT}/namelist/var_CMIP6_NorESM2_default.nml` is the full list of l
 
 The folder to store namelist settings of each data version.
 
-Again, assume we are using the `expid=v20191108`
+Again, assume we are using the `expid=v20191108b`
 
 ```bash
 mkdir -p ${CMOR_ROOT}/namelists/CMIP6_${model}/${expid}/${version}
@@ -125,11 +122,11 @@ This script basically does two tasks:
 2. PrePARE QC check, create links and update sha256sum, `cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false`
 
 ### 1.4 Submit the job
-Still, assume we are doing cmorization for `model=NorESM2-LM`, `expid=hist-GHG`,`version=v20191108`, we submit the job by:
+Still, assume we are doing cmorization for `model=NorESM2-LM`, `expid=piClim-histall`,`version=v20191108b`, we submit the job by:
 
 ```bash
 cd ${CMOR_ROOT}/namelists/CMIP6_${model}/${expid}/
-./cmor.sh -m=NorESM2-LM -e=hist-GHG -v=v20191108 &>>logs/cmor.log.v20191108 &
+./cmor.sh -m=NorESM2-LM -e=piClim-histall -v=v20191108b &>>logs/cmor.log.v20191108b &
 ```
 
 If luckily enough, the job will fully finish, and will call the `cmorPost.sh` file to have the quality-check (`cmorQC.sh`), making links (`cmorLink.sh`), and calculate sha256sum (`cmorSha256sum.sh`)
@@ -165,34 +162,34 @@ There are two places of stored log files:
 ### 2.2 - PrePARE quality-check log
 If the cmorization is complete and successfuly, there will be two Quality-check log files:
 
-`/tos-project1/NS9034K/CMIP6/.cmorout/NorESM2-LM/hist-GHG`
+`/tos-project1/NS9034K/CMIP6/.cmorout/NorESM2-LM/piClim-histall`
 
-* v20191108.QCreport
-* v20191108.QCreportlong
+* v20191108b.QCreport
+* v20191108b.QCreportlong
 
-One should check if there are `0 error(s)` in `v20191108.QCreport`
+One should check if there are `0 error(s)` in `v20191108b.QCreport`
 
-If there is errors, check `v20191108.QCreportlong` what is the error.
+If there is errors, check `v20191108b.QCreportlong` what is the error.
 
 If there is no error, go to the next step.
 
 ### 2.3 - Check logs of linking files
-Under `/tos-project1/NS9034K/CMIP6/.cmorout/NorESM2-LM/hist-GHG`, there is log file `v20191108.links` showing which files has been linked to the DKRZ folder structure, for example, here under:
+Under `/tos-project1/NS9034K/CMIP6/.cmorout/NorESM2-LM/piClim-histall`, there is log file `v20191108b.links` showing which files has been linked to the DKRZ folder structure, for example, here under:
 
 ```
-/tos-project1/NS9034K/CMIP6/ScenarioMIP/NCC/NorESM2-LM/hist-GHG`
+/tos-project1/NS9034K/CMIP6/ScenarioMIP/NCC/NorESM2-LM/piClim-histall`
 ```
 
 Check if the number of files in this file is identical to the *.QCreport file
 
 ### 2.4 - Check if the sha256sum caclulated
 
-Go to `/tos-project1/NS9034K/CMIP6/ScenarioMIP/NCC/NorESM2-LM/hist-GHG`
+Go to `/tos-project1/NS9034K/CMIP6/ScenarioMIP/NCC/NorESM2-LM/piClim-histall`
 There should be hidden files:
 
-* .r1i1p1f1.sha256sum_v20191108
-* .r2i1p1f1.sha256sum_v20191108
-* .r3i1p1f1.sha256sum_v20191108
+* .r1i1p1f1.sha256sum_v20191108b
+* .r2i1p1f1.sha256sum_v20191108b
+* .r3i1p1f1.sha256sum_v20191108b
 
 (each realisation has a seperate sha256sum files)
 
@@ -204,10 +201,10 @@ If there are errors identified above, then go to Step 4 to resubmit the job
 
 ## 3 - Update Github issue to publish the data
 
-Post on the corresponding issue [Issue 124 for realisation 1](https://github.com/NorwegianClimateCentre/noresm2cmor/issues/124), [Issue 125 for realisation 2](https://github.com/NorwegianClimateCentre/noresm2cmor/issues/125) and [Issue 126 for realisation 3](https://github.com/NorwegianClimateCentre/noresm2cmor/issues/126) on the cmorized data, and request to publish
-
-Change the **Label** from _CMORize_ to _ESGF publish_
-Once the ESGF publish is finished, the Issue will be closed.
+* Post on the corresponding issue [Issue 86 for realisation 1](https://github.com/NorwegianClimateCentre/noresm2cmor/issues/86), and [Issue 90 for realisation 2](https://github.com/NorwegianClimateCentre/noresm2cmor/issues/90) on the cmorized data, and request to publish
+* Change the **Label** from _CMORize_ to _ESGF publish_
+* If the issues is of status **closed**, reopen the issue
+Once the ESGF publish is finished, the Issue will be closed again.
 
 (If there are new cmorization for this experiment, the issue can be opened again)
 
@@ -223,7 +220,7 @@ cp cmor.sh cmor_tmp.sh
 Then edit cmor_tmp.sh and only keep the years of periods that are not completed, and submit again
 
 ```bash
-./cmor_tmp.sh -m=NorESM2-LM -e=hist-GHG -v=v20191108 &>>logs/cmor.log.v20191108 &
+./cmor_tmp.sh -m=NorESM2-LM -e=piClim-histall -v=v20191108b &>>logs/cmor.log.v20191108b &
 ```
 
 Again, if there is no crash, `cmorPost.sh` called inside `cmor.sh` should quality-check and calculated sha256sum etc, and one can go back to Step 3.
@@ -273,5 +270,6 @@ I set the maximumn running noresm2cmor jobs as 8 to avoid overload of the system
 
 ---
 A simple flowchart of the workflow:
+
 ![workflow](./workflow.svg)
 

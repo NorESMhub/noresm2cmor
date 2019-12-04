@@ -45,7 +45,6 @@ then
 else
     cmoroutroot=/projects/NS9034K/CMIP6
     source activate /projects/NS9560K/cmor/PrePARE
-    conda activate /scratch/NS9034K/cmorlib/PrePARE
 fi
 
 echo "~~~~~~~~~~~~~~~~~~~~"

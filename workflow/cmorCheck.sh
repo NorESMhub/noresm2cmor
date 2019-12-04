@@ -68,7 +68,10 @@ for (( r = 0; r < ${#reals[*]}; r++ )); do
     if [ $nf -ge 1 ]
     then
         printf "Wrong files:\n"
-        cat /tmp/wrongfiles.txt
+        while read -r fname
+        do
+            ls -gGh $fname |cut -d" " -f3-8
+        done </tmp/wrongfiles.txt
         read -p "Remove wrong files [Y/N] "
     else
         REPLY="N"
