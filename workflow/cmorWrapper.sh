@@ -11,8 +11,8 @@ ipcc=false
 # set active
 #login0=true
 #login1=true
-login2=true
-#login3=true
+#login2=true
+login3=true
 #ipcc=true
 
 # --- set expid, version, model ---
@@ -114,9 +114,6 @@ then
 # CDRMIP
 #expids+=(1pctCO2-cdr)          ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 
-## AerChemMIP
- expids+=(hist-aer)             ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # running
-
 ## ScenarioMIP
 # on FRAM
  expids+=(ssp126)               ; versions+=(v20191108)     ; models+=(NorESM2-LM)  # HDF error,31,51,61,81, run twice, queue
@@ -142,19 +139,22 @@ then
 #expids+=(histSST)              ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done 
 #expids+=(histSST-piAer)        ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 #expids+=(histSST-piNTCF)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # finished
- expids+=(piClim-2xDMS)         ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-2xVOC)         ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-2xdust)        ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-2xss)          ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-BC)            ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-CH4)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-N2O)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-OC)            ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-SO2)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
+#expids+=(piClim-2xDMS)         ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # finished
+#expids+=(piClim-2xVOC)         ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # finished
+#expids+=(piClim-2xdust)        ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # finished
+#expids+=(piClim-2xss)          ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # finished
+#expids+=(piClim-BC)            ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # finished
+#expids+=(piClim-CH4)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # finished
+#expids+=(piClim-N2O)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # finished
+#expids+=(piClim-OC)            ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # finished
+#expids+=(piClim-SO2)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # finished
+
+## AerChemMIP
+#expids+=(hist-aer)             ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # running
 
 ## RFMIP
+#expids+=(piClim-lu)            ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # running
  expids+=(piClim-histnat)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
- expids+=(piClim-lu)            ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
  expids+=(piClim-spAer-aer)     ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
  expids+=(piClim-spAer-anthro)  ; versions+=(v20191108b)    ; models+=(NorESM2-LM)
 #~~~~~~~~~~~~~~~~~
