@@ -1,7 +1,7 @@
 #!/bin/bash
 
 version=v20191108b
-expid=piClim-lu
+expid=piClim-spAer-anthro
 model=NorESM2-LM
 years1=(1  11 21)
 years2=(10 20 30)
