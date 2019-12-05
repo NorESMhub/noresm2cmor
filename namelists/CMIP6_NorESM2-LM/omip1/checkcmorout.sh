@@ -12,12 +12,5 @@ years2+=($(seq 1909 10 1999))
 years1+=($(seq 2010 10 2060) 2070)
 years2+=($(seq 2019 10 2069) 2071)
 
-
-if [ $(hostname -f |grep 'ipcc') ]
-then
-    wfroot=/scratch/NS9034K/noresm2cmor/workflow
-else
-    wfroot=~/noresm2cmor/workflow
-fi
-${wfroot}/cmorCheck.sh -v=$version -e=$expid -m=$model -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+${CMOR_ROOT}/workflow/cmorCheck.sh -v=$version -e=$expid -m=$model -yrs1="${years1[*]}" -yrs2="${years2[*]}"
 

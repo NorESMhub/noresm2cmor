@@ -85,8 +85,8 @@ then
 #expids+=(piClim-ghg)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 #expids+=(piClim-histaer)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 #expids+=(piClim-control)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
-#expids+=(piClim-histall)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # missing 1970
-#expids+=(piClim-histghg)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # missing 1950-2010,running
+#expids+=(piClim-histall)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # missing 1970, running login3
+#expids+=(piClim-histghg)       ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # missing 1950-2010,running login3
 
  # CMIP
  expids+=(ssp370)               ; versions+=(v20191108)     ; models+=(NorESM2-MM)
@@ -150,7 +150,7 @@ then
 #expids+=(piClim-SO2)           ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
 
 ## AerChemMIP
-#expids+=(hist-aer)             ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # interupted
+#expids+=(hist-aer)             ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # interupted; queuing
 
 ## RFMIP
 #expids+=(piClim-lu)            ; versions+=(v20191108b)    ; models+=(NorESM2-LM)  # done
