@@ -115,8 +115,14 @@ c --- - Check if 2d and/or 3d fields are to be written
 c
 c --- - Check if input variable is present        
         WRITE(*,*) TRIM(ivnm),TRIM(ovnm),TRIM(atmgridfile)
-        IF (LEN_TRIM(pfx).eq.0) fnm=TRIM(griddata)//TRIM(atmgridfile)
-cdiag   write(*,*) 'DEBUG: ',trim(fnm),year,month
+        IF (LEN_TRIM(pfx).eq.0) THEN
+          IF (INDEX(TRIM(ovnm),'sftlf').GT.0) THEN
+            CALL scan_files(reset=.TRUE.)
+          ELSE
+           fnm=TRIM(griddata)//TRIM(atmgridfile)
+          ENDIF
+        ENDIF
+cdiag    write(*,*) 'DEBUG: ',trim(fnm),year,month
         IF (.NOT.var_in_file(fnm,ivnm)) CYCLE 
 c
 c --- - Prepare output file 
