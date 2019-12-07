@@ -323,7 +323,7 @@ c --- Tables
 c
 c --- Misc 
       INTEGER :: istatus,funit 
-      CHARACTER(LEN=slenmax), SAVE :: fnm,itag,nmlfp,vsingle=' ' ! input file name and tag 
+      CHARACTER(LEN=slenmax), SAVE :: fnm,fnm2,itag,nmlfp,vsingle=' ' ! input file name and tag 
       CHARACTER(LEN=slenmax), SAVE :: nmlfpsys,nmlfpmod,nmlfpexp, 
      .  nmlfpvar  ! namelist file paths 
 c

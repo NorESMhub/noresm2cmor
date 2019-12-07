@@ -390,7 +390,7 @@ c
         status=nf90_open(TRIM(fnm),nf90_nowrite,ncid)
         IF (status.NE.nf90_noerr) THEN
           IF (verbose) WRITE(*,*) 
-     .      'WARNING: no file found for tag=',TRIM(itag),
+     .      'WARNING: error open file ',TRIM(fnm),
      .      '. Will skip respective output group.' 
           RETURN 
         ENDIF 

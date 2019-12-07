@@ -104,7 +104,6 @@ c --- - Map namelist variables
         vcomment=' '
 c 
 c --- - Check if 2d and/or 3d fields are to be written 
-        WRITE(*,*) TRIM(ivnm),TRIM(ovnm)
         CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
         IF (zcoord(1:4).EQ.'plev'.OR.zcoord(2:5).EQ.'leve'.OR.
      .    zcoord(2:5).EQ.'levh') THEN
@@ -114,15 +113,21 @@ c --- - Check if 2d and/or 3d fields are to be written
         ENDIF
 c
 c --- - Check if input variable is present        
-        WRITE(*,*) TRIM(ivnm),TRIM(ovnm),TRIM(atmgridfile)
         IF (LEN_TRIM(pfx).eq.0) THEN
           IF (INDEX(TRIM(ovnm),'sftlf').GT.0) THEN
             CALL scan_files(reset=.TRUE.)
           ELSE
            fnm=TRIM(griddata)//TRIM(atmgridfile)
           ENDIF
+          IF (INDEX(TRIM(ovnm),'sftgif').GT.0) THEN
+            CALL scan_files(reset=.TRUE.)
+            fnm2=fnm
+            fnm=TRIM(griddata)//TRIM(atmgridfile)
+          ENDIF
         ENDIF
 cdiag    write(*,*) 'DEBUG: ',trim(fnm),year,month
+        WRITE(*,*) 'ivnm, ovnm:'//TRIM(ivnm)//','//TRIM(ovnm)
+        write(*,*) 'fnm:'//trim(fnm)
         IF (.NOT.var_in_file(fnm,ivnm)) CYCLE 
 c
 c --- - Prepare output file 
@@ -2756,16 +2761,18 @@ c
         ifld=ifld+ifld2*fac6
       ENDIF
 c
+      status=nf90_close(ncid)
+      CALL handle_ncerror(status)
+c
       IF (INDEX(special,'landfrac').GT.0) THEN
           ifld2=1.
+          status=nf90_open(fnm2,nf90_nowrite,ncid)
           status=nf90_inq_varid(ncid,'LANDFRAC',rhid)
-          CALL handle_ncerror(status)
           status=nf90_get_var(ncid,rhid,ifld2)
+          status=nf90_close(ncid)
           CALL handle_ncerror(status)
       ENDIF
 c
-      status=nf90_close(ncid)
-      CALL handle_ncerror(status)
 c
       END SUBROUTINE read_field
 
