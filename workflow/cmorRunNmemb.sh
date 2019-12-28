@@ -87,11 +87,11 @@ fi
 # ==========================================================
 ulimit -c 0
 ulimit -s unlimited
+source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux
 if [ $(hostname -f |grep 'ipcc') ]
 then
     project=${project}ipcc
     export PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/local/sbin
-    source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux
 else
 fi
 cwd=$(pwd)

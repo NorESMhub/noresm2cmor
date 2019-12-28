@@ -35,7 +35,7 @@ if [ ! $(hostname -f |grep 'ipcc') ]
 then
     echo "ON IPCC.NIRD          "
     echo "SKIP cmorRsync,EXIT..."
-    exit 1
+    exit 0
 else
     echo "~~~~~~~~~~~~~~~~~~~~"
     echo "rsync from          "

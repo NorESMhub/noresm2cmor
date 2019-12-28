@@ -28,7 +28,7 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
              * )
                  echo "ERROR: option $1 not allowed."
 
-                 echo "*** EXITING THE SCRIPT"
+                 #echo "*** EXITING THE SCRIPT"
                  exit 1
                  ;;
          esac

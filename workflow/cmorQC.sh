@@ -52,14 +52,18 @@ echo "PrePARE QC CHECK... "
 cdw=$(pwd)
 cd ${cmoroutroot}/.cmorout/${model}/${expid}
 rm -f ${version}.QCreport ${version}.QCreportlong
-nf=$(ls ${version}/*${rls}*.nc 2>/dev/null |wc -l)
+files=($(find ./${version} -name '*.nc' -print))
+nf=${#files[*]}
 echo "$nf files           "
 echo "                    "
-for rls in $(ls ${version}/*.nc 2>/dev/null |cut -d"_" -f5 |sort -u --version-sort)
+rls=$(echo ${files[*]} |tr ' ' '\n' |cut -d"_" -f5 |sort -u --version-sort)
+tbs=$(echo ${files[*]} |tr ' ' '\n' |cut -d"_" -f2 |sort -u)
+for rls in $(echo ${rls[*]})
 do
-    nf=$(ls ${version}/*${rls}*.nc 2>/dev/null |wc -l)
+    files=($(find ./${version} -name "*${rls}*.nc" -print))
+    nf=${#files[*]}
     echo ${rls}: $nf files >>${version}.QCreport
-    for table in $(ls ${version}/* 2>/dev/null |cut -d"_" -f2 |sort -u)
+    for table in $(echo ${tbs[*]})
     do
         nf2=$(ls ${version}/*_${table}_*_${rls}_*.nc |wc -l)
         if [ $nf2 -gt 0 ]; then
@@ -79,7 +83,7 @@ wait
 nerr=0
 while read -r line
 do
-    ne=$(echo $line | grep 'error(s)' |sed 's/\[0m//g' |sed 's/[^0-9]//g')
+    ne=$(echo $line | command grep 'error(s)' |sed 's/\[0m//g' |sed 's/[^0-9]//g')
     if [ ! -z $ne ]
     then
         let nerr+=$ne

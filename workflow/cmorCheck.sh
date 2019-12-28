@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [ $# -gt 0 ] && [ $1 == "--help" ] 
+if [ $# -eq 0 ] || [ $1 == "--help" ] 
  then
      printf "Usage:\n"
-     printf "cmoroutcheck -e=[expid] -v=[version] -m=[model]\
-                     -yrs1=[(${years1[*]})] -yrs2=[(${years2[*]})] -p=[project]"
+     printf 'cmoroutcheck -e=[expid] -v=[version] -m=[model]\
+                          -yrs1=[(${years1[*]})] -yrs2=[(${years2[*]})] -p=[project]'
      exit
  else
      while test $# -gt 0; do
@@ -45,7 +45,7 @@ then
 else
     cmoroutroot=/projects/NS9034K/CMIP6
 fi
-reals=($(ls ${cmoroutroot}/.cmorout/${model}/${expid}/${version}/*.nc | \
+reals=($(find ${cmoroutroot}/.cmorout/${model}/${expid}/${version} -type f -name '*.nc' -print | \
     awk -F"/" '{print $NF}' |cut -d"_" -f5 |sort -u --version-sort))
 for (( r = 0; r < ${#reals[*]}; r++ )); do
     real=${reals[r]}
@@ -62,17 +62,17 @@ for (( r = 0; r < ${#reals[*]}; r++ )); do
     done
     printf "Total:\t\t$nfs\n"
 
-    ls ${cmoroutroot}/.cmorout/${model}/${expid}/${version}/*_${real}_*.nc 2>/dev/null | \
-        grep -e '_g[nmr][a-zA-Z0-9][^_]' >/tmp/wrongfiles.txt
-    nf=$(cat /tmp/wrongfiles.txt |wc -l)
+    find ${cmoroutroot}/.cmorout/${model}/${expid}/${version} -name "*_${real}_*.nc" -print | \
+        grep -e '_g[nmr][a-zA-Z0-9][^_]' >/tmp/wrongfiles.txt.$$
+    nf=$(cat /tmp/wrongfiles.txt.$$ |wc -l)
     if [ $nf -ge 1 ]
     then
-        printf "Wrong files:\n"
+        printf "Unfinished files:\n"
         while read -r fname
         do
             ls -gGh $fname |cut -d" " -f3-8
-        done </tmp/wrongfiles.txt
-        read -p "Remove wrong files [Y/N] "
+        done </tmp/wrongfiles.txt.$$
+        read -p "Remove unfinished files [Y/N] "
     else
         REPLY="N"
     fi
@@ -81,8 +81,8 @@ for (( r = 0; r < ${#reals[*]}; r++ )); do
         while read -r fname
         do
             rm -f $fname
-        done </tmp/wrongfiles.txt
+        done </tmp/wrongfiles.txt.$$
         echo "ALL wrong files removed!"
     fi
-    rm -f /tmp/wrongfiles.txt
+    rm -f /tmp/wrongfiles.txt.$$
 done
