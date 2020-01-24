@@ -15,7 +15,7 @@
  forcing_index = 1, 
  branch_time   = 0.,
  year1         = 151,
- yearn         = 160,
+ yearn         = 500,
  month1        = 1,
  monthn        = 12,
  exprefyear    = 1, 

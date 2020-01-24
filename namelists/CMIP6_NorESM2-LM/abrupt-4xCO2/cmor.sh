@@ -16,7 +16,8 @@ login2=true
 
 # initialize
 #version=v20190920
-version=v20191108b
+#version=v20191108b
+version=v20191108
 
 expid=abrupt-4xCO2
 model=NorESM2-LM
@@ -66,7 +67,7 @@ CaseName=NCO2x4_f19_tn14_20190624
 years1=(0  $(seq 11 10 111))
 years2=(10 $(seq 20 10 120))
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---
@@ -80,7 +81,7 @@ CaseName=NCO2x4_f19_tn14_20190705
 years1=($(seq 121 10 141))
 years2=($(seq 130 10 150))
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---
@@ -92,9 +93,9 @@ then
 #----------------
 CaseName=NCO2x4_f19_tn14_20190724
 #login0
-years1=($(seq 151 10 291))
-years2=($(seq 160 10 300))
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+years1=($(seq 151 10 491))
+years2=($(seq 160 10 500))
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---
