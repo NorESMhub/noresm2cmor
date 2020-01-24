@@ -57,10 +57,10 @@ nf=${#files[*]}
 echo "$nf files           "
 echo "                    "
 rls=$(echo ${files[*]} |tr ' ' '\n' |cut -d"_" -f5 |sort -u --version-sort)
-tbs=$(echo ${files[*]} |tr ' ' '\n' |cut -d"_" -f2 |sort -u)
 for rls in $(echo ${rls[*]})
 do
     files=($(find ./${version} -name "*${rls}*.nc" -print))
+    tbs=$(echo ${files[*]} |tr ' ' '\n' |cut -d"_" -f2 |sort -u)
     nf=${#files[*]}
     echo ${rls}: $nf files >>${version}.QCreport
     for table in $(echo ${tbs[*]})

@@ -2792,6 +2792,9 @@ c
       LOGICAL :: badrec    
 c
 c --- Open input file 
+c     WRITE(*,*) 'read_tslice, fname: '//trim(fname)
+c     WRITE(*,*) 'read_tslice, ivnm1,ivnm2: '\
+c                   //trim(ivnm1)//','//trim(ivnm2)
       IF (PRESENT(fname)) THEN 
         status=nf90_open(fname,nf90_nowrite,fid)
         CALL handle_ncerror(status)
