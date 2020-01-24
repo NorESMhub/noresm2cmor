@@ -15,10 +15,10 @@ login0=true
 #login3=true
 
 # initialize
-#version=v20191108
+version=v20191108
 version=v20191108c
 
-expid=lig127k
+expid=midHolocene
 model=NorESM2-LM
 
 # --- Use input arguments if exits
@@ -60,18 +60,33 @@ echo "                    "
 if $login0
 then
 #----------------
-# lig127k
+# midHolocene
 #----------------
-#CaseName=NBF1850OC_f19_tn11_01_127ka
-expid=lig127k
+#CaseName=MH6000y
+expid=midHolocene
 
 years1=($(seq 2101 10 2191))
 years2=($(seq 2110 10 2200))
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---
+
+if $login1
+then
+#----------------
+# midHolocene
+#----------------
+#CaseName=MH6000y
+expid=midHolocene
+
+years1=(2191)
+years2=(2200)
+
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+#---
+fi
 
 wait
 echo "         "

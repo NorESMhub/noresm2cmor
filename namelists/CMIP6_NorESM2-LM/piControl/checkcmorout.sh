@@ -5,8 +5,10 @@ version=v20191108b
 expid=piControl
 model=NorESM2-LM
 
-years1+=($(seq 1600 10 1790) 1701 1800)
-years2+=($(seq 1609 10 1799) 1709 1800)
+years1+=($(seq 1600 10 1700))
+years2+=($(seq 1609 10 1709))
+years1+=(1701 $(seq 1710 10 1790) 1800)
+years2+=(1709 $(seq 1719 10 1799) 1800)
 years1+=($(seq 1801 10 1891))
 years2+=($(seq 1810 10 1900))
 years1+=($(seq 1901 10 1991))
