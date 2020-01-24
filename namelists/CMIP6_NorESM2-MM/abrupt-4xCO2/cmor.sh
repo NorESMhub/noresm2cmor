@@ -15,8 +15,7 @@ login1=true
 #login3=true
 
 # initialize
-#version=v20190920
-version=v20191108b
+version=v20191108
 
 expid=abrupt-4xCO2
 model=NorESM2-MM
@@ -63,8 +62,8 @@ then
 # abrupt-4xCO2 1
 #----------------
 CaseName=NCO2x4frc2_f09_tn14_20191008
-years1=(0  $(seq 11 10 111))
-years2=(10 $(seq 20 10 120))
+years1=($(seq  1 10 111))
+years2=($(seq 10 10 120))
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
