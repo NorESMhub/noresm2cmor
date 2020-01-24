@@ -84,6 +84,20 @@ runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]
 fi
 #---
 
+if $login2
+then
+#----------------
+# piControl, part 2
+#----------------
+CaseName=N1850frc2_f09_tn14_20191113
+years1=($(seq 1450 10 1690))
+years2=($(seq 1459 10 1699))
+
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -p=NS9560KFRAM -mpi=DMPI
+#---
+fi
+#---
+
 wait
 echo "         "
 echo "CMOR DONE"
