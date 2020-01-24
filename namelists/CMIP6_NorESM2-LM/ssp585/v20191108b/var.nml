@@ -1,0 +1,17 @@
+! d* - do table true/false
+! t* - path to table file (guessed if omitted)
+! p* - alternative path to data file (path created if omitted)
+! r* - ?
+! v* - list of varibles: <NorESM name>,<cmor name>,<special operation>
+
+
+&table_6hrlevi
+ d6hrlevi      = .true.
+ t6hrlevi      = 'CMIP6_6hrLev.json',
+ r6hrlevi      = 1000000,
+ v6hrlevi      =
+!                'ps          ','PS            ','          ',
+                 'ta          ','T             ','          ',
+!                'ua          ','U             ','          ',
+!                'va          ','V             ','          ',
+/

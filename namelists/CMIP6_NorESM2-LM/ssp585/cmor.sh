@@ -15,7 +15,8 @@ login0=true
 #login3=true
 
 # initialize
-version=v20191108
+#version=v20191108
+version=v20191108b
 
 expid=ssp585
 model=NorESM2-LM
