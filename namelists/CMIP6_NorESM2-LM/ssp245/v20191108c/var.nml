@@ -1,0 +1,50 @@
+! d* - do table true/false
+! t* - path to table file (guessed if omitted)
+! p* - alternative path to data file (path created if omitted)
+! r* - ?
+! v* - list of varibles: <NorESM name>,<cmor name>,<special operation>
+
+&table_grids
+ tgrids        = 'CMIP6_grids.json'
+/
+
+
+&table_amon
+ damon         = .true.
+ tamon         = 'CMIP6_Amon.json',
+ ramon         = 1000000,
+ vamon         =
+                 'tas              ','TREFHT               ','          ',
+/
+
+&table_day
+ dday          = .true.
+ tday          = 'CMIP6_day.json',
+ rday          = 1000000,
+ vday          =
+                 'tas       ','TREFHT            ','          ',
+/
+
+
+&table_6hrplev
+ d6hrplev      = .true.
+ t6hrplev      = 'CMIP6_6hrPlev.json',
+ r6hrplev      = 1000000,
+ v6hrplev      =
+                 'tas         ','TREFHT        ','          ',
+/
+
+&table_6hrPlevPt
+ d6hrPlevPt    = .true.
+ t6hrPlevPt    = 'CMIP6_6hrPlevPt.json',
+ r6hrPlevPt    = 1000000,
+ v6hrPlevPt    =
+                 'tas         ','TREFHT        ','          ',
+/
+&table_3hr
+ d3hr          = .true.
+ t3hr          = 'CMIP6_3hr.json',
+ r3hr          = 1000000,
+ v3hr          =
+                 'tas       ','TREFHT            ','          ',
+/
