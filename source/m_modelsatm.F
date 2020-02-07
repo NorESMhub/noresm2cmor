@@ -1945,6 +1945,18 @@ c --- - Derive pressure at level interfaces
               ENDDO
             ENDDO
           ENDDO
+c
+c --- - Set as missing if abs(ofld) is larger then 1.0e+20
+        CASE ('resetfill')
+          DO k=1,kdm
+            DO j=1,jdm
+              DO i=1,idm
+                IF (abs(ofld(i,j,k)).gt.1e20) THEN
+                  ofld(i,j,k)=1e20
+              ENDIF
+              ENDDO
+            ENDDO
+          ENDDO
         END SELECT
         IF (str1.EQ.str2) exit
       END DO

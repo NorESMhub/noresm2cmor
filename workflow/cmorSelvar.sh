@@ -76,6 +76,7 @@ do
  sed -i "s/!                '${vname} /                 '${vname} /g" ${pnml}/vartmp.nml
  sed -i "s/!                '${vname}'/                 '${vname}'/g" ${pnml}/vartmp.nml
 done </tmp/var_${year1}-${year2}_diff.txt.$$
+sed -i "/^! * '/d" ${pnml}/vartmp.nml
 mv ${pnml}/vartmp.nml ${pnml}/var_${year1}-${year2}r${real}.nml
 
 rm -f ${pnml}/vartmp.nml
