@@ -17,7 +17,7 @@ login0=true
 # initialize
 version=v20191108
 
-expid=ssp245
+expid=amip
 model=NorESM2-MM
 
 # --- Use input arguments if exits
@@ -59,15 +59,15 @@ echo "                    "
 if $login0
 then
 #----------------
-# ssp245
+# amip
 #----------------
-CaseName=NSSP245frc2_f09_tn14_20191105
-real=1
-years1=(2015 $(seq 2021 10 2091))
-years2=(2020 $(seq 2030 10 2100))
+#CaseName=NFHISTfrc2_f09_mg17_20191107
+#login0
+#real=1
+years1=($(seq 1980 10 2000) 2010)
+years2=($(seq 1989 10 2009) 2012)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -p=NS9560KFRAM -mpi=DMPI
-
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
 #---
 fi
 #---

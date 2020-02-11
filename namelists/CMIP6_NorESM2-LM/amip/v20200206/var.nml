@@ -1,0 +1,15 @@
+! d* - do table true/false
+! t* - path to table file (guessed if omitted)
+! p* - alternative path to data file (path created if omitted)
+! r* - ?
+! v* - list of varibles: <NorESM name>,<cmor name>,<special operation>
+
+
+&table_CFmon
+ dcfmon        = .true.
+ tcfmon        = 'CMIP6_CFmon.json',
+ rcfmon        = 1000000,
+ vcfmon        =
+                 'cllcalipso    ','CLDLOW_CAL   ','resetfill',
+                 'cltisccp      ','CLDTOT_ISCCP ','resetfill',
+/

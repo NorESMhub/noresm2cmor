@@ -1,11 +1,10 @@
 #!/bin/bash
 
-#version=v20191108
 version=v20200206
-expid=ssp370-lowNTCF
+expid=1pctCO2-rad
 model=NorESM2-LM
-years1=(2015 2021 2031 2041 2051)
-years2=(2020 2030 2040 2050 2054)
+years1=($(seq 1  10 131))
+years2=($(seq 10 10 140))
 
 ${CMOR_ROOT}/workflow/cmorCheck.sh -v=$version -e=$expid -m=$model -yrs1="${years1[*]}" -yrs2="${years2[*]}"
 

@@ -10,12 +10,13 @@ login3=false
 
 # set active
 login0=true
-#login1=true
-#login2=true
+login1=true
+login2=true
 #login3=true
 
 # initialize
-version=v20191108
+#version=v20191108
+version=v20200206
 
 expid=ssp370-lowNTCF
 model=NorESM2-LM
@@ -61,12 +62,13 @@ then
 #----------------
 # ssp370-lowNTCF, r1
 #----------------
-CaseName=NSSP370LOWNTCFfrc2_f19_tn14_20191118
+#CaseName=NSSP370LOWNTCFfrc2_f19_tn14_20191118
+CaseName=NSSP370REFGHGLOWNTCFfrc2_f19_tn14_20191220
 real=1
-years1=(2015 $(seq 2021 10 2051))
-years2=(2020 $(seq 2030 10 2054))
+years1=(2015 $(seq 2021 10 2041) 2051)
+years2=(2020 $(seq 2030 10 2050) 2054)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -p=NS9034K -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 
 #---
 :
@@ -78,12 +80,13 @@ then
 #----------------
 # ssp370, r2
 #----------------
-CaseName=NSSP370LOWNTCFfrc2_02_f19_tn14_20191118
+#CaseName=NSSP370LOWNTCFfrc2_02_f19_tn14_20191118
+CaseName=NSSP370REFGHGLOWNTCFfrc2_02_f19_tn14_20191220
 real=2
 years1=(2015 2021 2031 2041 2051)
 years2=(2020 2030 2040 2050 2054)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -p=NS9560KFRAM -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 
 #---
 :
@@ -95,12 +98,13 @@ then
 #----------------
 # ssp370, r3
 #----------------
-CaseName=NSSP370LOWNTCFfrc2_03_f19_tn14_20191118
+#CaseName=NSSP370LOWNTCFfrc2_03_f19_tn14_20191118
+CaseName=NSSP370REFGHGLOWNTCFfrc2_03_f19_tn14_20191220
 real=3
 years1=(2015 2021 2031 2041 2051)
 years2=(2020 2030 2040 2050 2054)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -p=NS9560KFRAM -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 
 #---
 :
