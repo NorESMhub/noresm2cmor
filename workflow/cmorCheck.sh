@@ -39,12 +39,12 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
      done
 fi
 
-if [ $(hostname -f |grep 'ipcc') ]
-then
-    cmoroutroot=/scratch/NS9034K/CMIP6
-else
+#if [ $(hostname -f |grep 'ipcc') ]
+#then
+    #cmoroutroot=/scratch/NS9034K/CMIP6
+#else
     cmoroutroot=/projects/NS9034K/CMIP6
-fi
+#fi
 reals=($(find ${cmoroutroot}/.cmorout/${model}/${expid}/${version} -type f -name '*.nc' -print | \
     awk -F"/" '{print $NF}' |cut -d"_" -f5 |sort -u --version-sort))
 for (( r = 0; r < ${#reals[*]}; r++ )); do

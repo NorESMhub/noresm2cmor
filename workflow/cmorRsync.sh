@@ -31,7 +31,7 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
          esac
     done
 fi
-if [ ! $(hostname -f |grep 'ipcc') ]
+if [ ! $(hostname -f |grep 'ipcc.nird') ]
 then
     echo "ON IPCC.NIRD          "
     echo "SKIP cmorRsync,EXIT..."
