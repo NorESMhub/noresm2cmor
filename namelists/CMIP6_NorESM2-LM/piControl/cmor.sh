@@ -9,14 +9,15 @@ login2=false
 login3=false
 
 # set active
-#login0=true
-#login1=true
-#login2=true
+login0=true
+login1=true
+login2=true
 #login3=true
 
 # initialize
 #version=v20190920
-version=v20191108b
+#version=v20191108b
+version=v20200217
 
 expid=piControl
 model=NorESM2-LM
@@ -66,7 +67,7 @@ CaseName=N1850_f19_tn14_20190621
 years1=($(seq 1600 10 1790) 1800)
 years2=($(seq 1609 10 1799) 1800)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---
@@ -80,7 +81,7 @@ CaseName=N1850_f19_tn14_20190722
 years1=($(seq 1801 10 1891))
 years2=($(seq 1810 10 1900))
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---
@@ -96,7 +97,7 @@ years2=($(seq 1910 10 2000))
 years1+=($(seq 2001 10 2091))
 years2+=($(seq 2010 10 2100))
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---

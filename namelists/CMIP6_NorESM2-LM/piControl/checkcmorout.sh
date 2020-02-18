@@ -1,7 +1,8 @@
 #!/bin/bash
 
-version=v20190920
-version=v20191108b
+#version=v20190920
+#version=v20191108b
+version=v20200217
 expid=piControl
 model=NorESM2-LM
 
