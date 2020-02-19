@@ -1183,7 +1183,7 @@ c --- --- Read variable into buffer (average if necessary)
           IF (rec.EQ.0) EXIT
 cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
           tbnds(:,1)=tbnd
-          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+          tval=tbnds(2,1)
 c
 c --- --- Read data 
           CALL read_tslice(rec,badrec,fnm) 
@@ -1347,7 +1347,7 @@ c --- --- Read variable into buffer (average if necessary)
           IF (rec.EQ.0) EXIT
 cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
           tbnds(:,1)=tbnd
-          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+          tval=tbnds(2,1)
 c
 c --- --- Read data 
           CALL read_tslice(rec,badrec,fnm)
@@ -1499,7 +1499,7 @@ c --- --- Read variable into buffer (average if necessary)
           IF (rec.EQ.0) EXIT
 cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
           tbnds(:,1)=tbnd
-          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+          tval=tbnds(2,1)
 c
 c --- --- Read data 
           CALL read_tslice(rec,badrec,fnm)
@@ -1644,7 +1644,7 @@ c --- --- Read variable into buffer (average if necessary)
           IF (rec.EQ.0) EXIT
 cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
           tbnds(:,1)=tbnd
-          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+          tval=tbnds(2,1)
 c
 c --- --- Read data 
           CALL read_tslice(rec,badrec,fnm)
@@ -1716,7 +1716,7 @@ c --- --- Read variable into buffer (average if necessary)
           IF (rec.EQ.0) EXIT
 cdiag     write(*,*) 'DEBUG: ',trim(fnm),rec,tbnd,mbnd,year,month
           tbnds(:,1)=tbnd
-          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+          tval=tbnds(2,1)
 c
 c --- --- Read data 
           CALL read_tslice(rec,badrec,fnm)

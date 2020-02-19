@@ -919,7 +919,6 @@ vCFday         =
  r6hrlev       = 1000000,
  v6hrlev       =
 ! not available
-!                'bs550aer    ','BS550AER/DAYFOC','DAYFOC   ',
 !                'pfull       ','PS             ','ps2pfull ',
 !                'phalf       ','PS             ','ps2phalf ',
 /
@@ -935,6 +934,7 @@ vCFday         =
                  'ua          ','U             ','          ',
                  'va          ','V             ','          ',
 ! not available in output, thus not tested
+!                'bs550aer    ','BS550AER/DAYFOC','DAYFOC   ',
 !                'ec550aer    ','EC550AER/DAYFOC','DAYFOC   ',
 /
 
