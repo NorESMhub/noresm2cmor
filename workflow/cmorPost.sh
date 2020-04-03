@@ -44,14 +44,14 @@ if [ -z $verbose ]; then
     verbose=false
 fi
 
-#if [ $(hostname -f |grep 'ipcc') ]
-#then
-    #echo "                       "
-    #echo "On IPCC node!!!        "
-    #echo "SKIP cmorPOST.sh...    "
-    #echo "~~~~~~~~~~~~~~~~~~~~~~~"
-    #exit 1
-#fi
+if [ $(hostname -f |grep 'ipcc') ]
+then
+    echo "                       "
+    echo "On IPCC node!!!        "
+    echo "SKIP cmorPOST.sh...    "
+    echo "~~~~~~~~~~~~~~~~~~~~~~~"
+    exit 1
+fi
 
 # PrePARE QC check
 source ${CMOR_ROOT}/workflow/cmorQC.sh
