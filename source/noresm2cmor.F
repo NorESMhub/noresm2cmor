@@ -39,7 +39,8 @@ c --- Create file list if it does not exist
      .          //trim(membertag))
         else
             CALL SYSTEM('find '//trim(ibasedir)//'/'//trim(casename)
-     .          //' -path "*/hist/*" -name "*.nc"'
+     .          //' -path "*/hist/*" -or -path "*/hist_true/*"'
+     .          //' -name "*.nc"'
      .          //' | sort > '//TRIM('filelist_'//casename))
         end if
       ELSE

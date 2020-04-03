@@ -15,7 +15,8 @@ login0=true
 #login3=true
 
 # initialize
-version=v20191108
+#version=v20191108
+version=v20200218
 
 expid=ssp126
 model=NorESM2-LM
@@ -66,7 +67,7 @@ real=1
 years1=(2015 $(seq 2021 10 2091))
 years2=(2020 $(seq 2030 10 2100))
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -p=NS9560KFRAM -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 
 #---
 fi

@@ -10,12 +10,13 @@ login3=false
 
 # set active
 login0=true
-#login1=true
+login1=true
 #login2=true
 #login3=true
 
 # initialize
-version=v20191108
+#version=v20191108
+version=v20200218
 
 expid=ssp245
 model=NorESM2-LM

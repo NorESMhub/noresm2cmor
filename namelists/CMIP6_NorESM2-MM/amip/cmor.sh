@@ -15,7 +15,8 @@ login0=true
 #login3=true
 
 # initialize
-version=v20191108
+#version=v20191108
+version=v20200218
 
 expid=amip
 model=NorESM2-MM
@@ -67,7 +68,7 @@ then
 years1=($(seq 1980 10 2000) 2010)
 years2=($(seq 1989 10 2009) 2012)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---
