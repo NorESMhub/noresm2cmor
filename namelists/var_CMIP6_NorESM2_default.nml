@@ -463,7 +463,7 @@
                  'ccn          ','CCN_B/FCTL_B              ','Dfield2   ',
                  'cdnc         ','AWNC/FREQL                ','Dfield2   ',
                  'chepsoa      ','GS_SOA_LV+GS_SOA_SV       ','          ',
-                 'co2          ','CO2                       ','          ',
+                 'co2          ','CO2                       ','co2units  ',
                  'cod          ','TAUTMODIS/CLTMODIS        ','unitless;Dfield2 ',
                  'dms          ','DMS                       ','          ',
                  'drybc        ','BC_ACDDF+BC_AC_OCWDDF+BC_ADDF+BC_AIDDF+BC_AI_OCWDDF+BC_AXDDF+BC_A_OCWDDF+BC_NDDF+BC_NIDDF+BC_NI_OCWDDF+BC_N_OCWDDF','     ',

@@ -459,8 +459,6 @@ c --- --- Post processing
           ELSE
             ofld=ifld
           ENDIF
-c          ofld(1,:,1:33)=ifld(1,:,1:33)
-c          ofld(1,:,34:39)=ifld(1,:,28:33)
           CALL special_post
 c
 c --- --- Write time slice to output file 
