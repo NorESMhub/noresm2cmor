@@ -2,13 +2,13 @@
 # link to DKRZ folder structure and calculate sha256sum
 
 # quit if in IPCC node
-if [ $(hostname -f |grep 'ipcc') ]; then
-    echo "                       "
-    echo "On IPCC node!!!        "
-    echo "LINKS NOT DONE, EXIT..."
-    echo "~~~~~~~~~~~~~~~~~~~~~~~"
-    exit 1
-fi
+#if [ $(hostname -f |grep 'ipcc') ]; then
+    #echo "                       "
+    #echo "On IPCC node!!!        "
+    #echo "LINKS NOT DONE, EXIT..."
+    #echo "~~~~~~~~~~~~~~~~~~~~~~~"
+    #exit 1
+#fi
 
 if [ $# -eq 0 ] || [ $1 == "--help" ] 
 then

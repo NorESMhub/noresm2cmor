@@ -38,14 +38,14 @@ fi
 export PATH=/opt/anaconda3/bin:${PATH}
 export CMIP6_CMOR_TABLES=/projects/NS9560K/cmor/noresm2cmor/tables
 
-if [ $(hostname -f |grep 'ipcc') ]
-then
-    cmoroutroot=/scratch/NS9034K/CMIP6
-    source activate /scratch/NS9034K/cmorlib/PrePARE
-else
+##if [ $(hostname -f |grep 'ipcc') ]
+#then
+    #cmoroutroot=/scratch/NS9034K/CMIP6
+    #source activate /scratch/NS9034K/cmorlib/PrePARE
+#else
     cmoroutroot=/projects/NS9034K/CMIP6
     source activate /projects/NS9560K/cmor/PrePARE
-fi
+#fi
 
 echo "~~~~~~~~~~~~~~~~~~~~"
 echo "PrePARE QC CHECK... "

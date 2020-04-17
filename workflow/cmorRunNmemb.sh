@@ -11,7 +11,7 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
      printf "Usage:\n"
      printf 'runcmor -c=[CaseName] -m=[model] -e=[expid] -v=[version] -yrs1=["${years1[*]}"] -yrs2=["${years2[*]}"] \\ \n'
      printf '        -mon1=month1 -mon2=month2 \\ \n' 
-     printf '        -r=["${reals[*]}"] -m=["${membs[*]}"] \\ \n'
+     printf '        -r=["${reals[*]}"] -membs=["${membs[*]}"] \\ \n'
      printf '        -p=[project] -mpi=[DMPI] \n'
      return
  else
@@ -53,7 +53,7 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
                  month2=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
-             -m=*)
+             -membs=*)
                  membs=($(echo $1|sed -e 's/^[^=]*=//g'))
                  shift
                  ;;
@@ -77,6 +77,7 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
 
 echo -e "CaseName: $CaseName"
 echo -e "expid   : $expid"
+echo -e "model   : $model"
 echo -e "version : $version"
 if [ ! -z $project ]
 then
@@ -88,12 +89,11 @@ fi
 ulimit -c 0
 ulimit -s unlimited
 source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux
-if [ $(hostname -f |grep 'ipcc') ]
-then
-    project=${project}ipcc
-    export PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/local/sbin
-else
-fi
+#if [ $(hostname -f |grep 'ipcc') ]
+#then
+    #project=${project}ipcc
+    #export PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/local/sbin
+#fi
 cwd=$(pwd)
 
 cd ${CMOR_ROOT}/bin
@@ -122,16 +122,6 @@ fi
 # copy template namelist and submit
 for (( i = 0; i < ${#years1[*]}; i++ )); do
 
-    # keep maximumn 8 jobs
-    flag=true
-    while $flag ; do
-        np=$(ps x |grep -c 'noresm2cmor3')
-        if [ $np -lt 8 ]; then
-            flag=false
-        fi
-        sleep 30s
-    done
-
     year1=${years1[i]}
     year2=${years2[i]}
     yyyy1=$(printf "%04i\n" $year1)
@@ -140,9 +130,20 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
     mm2=$(printf "%02i\n" $month2)
     echo year month : ${yyyy1}${mm1}-${yyyy2}${mm2}
 
-    for (( i = 0; i < ${#reals[*]}; i++ )); do
-        real=${reals[i]}
-        memb=${membs[i]}
+    for (( j = 0; j < ${#reals[*]}; j++ )); do
+        # keep maximumn 8 jobs
+        flag=true
+        while $flag ; do
+            #sleep 30s
+            sleep 3s
+            np=$(ps x |grep -c 'noresm2cmor3')
+            if [ $np -lt 8 ]; then
+                flag=false
+            fi
+        done
+
+        real=${reals[j]}
+        memb=${membs[j]}
         echo real member: ${real} ${memb}
         cd ../namelists
         cp CMIP6_NorESM2-LM/${expid}/template/exp${CaseName}.nml \

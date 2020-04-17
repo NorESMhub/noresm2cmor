@@ -1,6 +1,7 @@
 #!/bin/bash
 
-version=v20191108b
+#version=v20191108b
+version=v20200218
 expid=pdSST-pdSIC
 model=NorESM2-LM
 
