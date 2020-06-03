@@ -1,3 +1,0 @@
-dreqPy version 01.00.30beta1 [Version 01.00.30beta1]
-Installed in /nird/home/u1/ingo/CMIP6/CMIP6dreq/01.00.30beta1/dreqPy
-Running in python sys.version_info(major=2, minor=7, micro=5, releaselevel='final', serial=0)
