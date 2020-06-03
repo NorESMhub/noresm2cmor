@@ -1,3 +1,0 @@
-## Manifest for data request
-docs/dreq.xml docs/dreq2Defn.xml
-docs/dreqSupp.xml docs/dreqSuppDefn.xml
