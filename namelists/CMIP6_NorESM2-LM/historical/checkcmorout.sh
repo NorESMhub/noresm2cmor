@@ -1,7 +1,10 @@
 #!/bin/bash
 
+version=v20190810
+version=v20190813
+version=v20190814
 #version=v20191108b
-version=v20200218
+#version=v20200218
 expid=historical
 model=NorESM2-LM
 

@@ -10,14 +10,18 @@ login3=false
 
 # set active
 login0=true
-login1=true
-login2=true
+#login1=true
+#login2=true
 #login3=true
 
 # initialize
+#version=v20190815
+version=v20190815b
 #version=v20190920
+#version=v20190920b
+#version=v20191108
 #version=v20191108b
-version=v20200218
+#version=v20200218
 
 expid=historical
 model=NorESM2-LM
@@ -78,8 +82,10 @@ real=1
 #login1
 years1=($(seq 1950 10 2000) 2010)
 years2=($(seq 1959 10 2009) 2014)
+#years1=(1990)
+#years2=(1999)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+#runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---
