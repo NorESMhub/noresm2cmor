@@ -30,7 +30,7 @@ NHIST_f19_tn14_20190625, 1850-1948
 NHIST_f19_tn14_20190710, 1950-2014
 
 ### Optional information
-(additional information, if the experiment is branched/hybrid restart from previous parent experiment; you may find more information relevant to the experiment_id here: https://github.com/NorwegianClimateCentre/noresm2cmor/blob/master/tables/CMIP6_CV.json)
+(additional information, if the experiment is branched/hybrid restart from previous parent experiment; you may find more information relevant to the experiment_id here: https://github.com/NorESMhub/noresm2cmor/blob/master/tables/CMIP6_CV.json)
 
 **parent_experiment_id**
 e.g., 
