@@ -9,14 +9,15 @@ login2=false
 login3=false
 
 # set active
-login0=true
-login1=true
+#login0=true
+#login1=true
 login2=true
-login3=true
+#login3=true
 
 # initialize
 #version=v20190920
-version=v20191108b
+#version=v20191108b
+version=v20200218
 
 expid=piClim-histall
 model=NorESM2-LM
@@ -80,6 +81,23 @@ then
 #----------------
 CaseName=NFHISTnorpibc_02_f19_20190909
 real=2
+years1=(1849 $(seq 1860 10 1940))
+years2=(1859 $(seq 1869 10 1949))
+years1+=($(seq 1950 10 2000) 2010)
+years2+=($(seq 1959 10 2009) 2014)
+
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+#---
+fi
+#---
+
+if $login2
+then
+#----------------
+# piClim-histall, esemble 3
+#----------------
+CaseName=NFHISTnorpibc_03_f19_20190923
+real=3
 years1=(1849 $(seq 1860 10 1940))
 years2=(1859 $(seq 1869 10 1949))
 years1+=($(seq 1950 10 2000) 2010)
