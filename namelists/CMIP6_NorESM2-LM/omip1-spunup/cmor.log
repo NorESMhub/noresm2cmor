@@ -1,0 +1,99 @@
+--------------------
+EXPID: omip1-spunup       
+--------------------
+                    
+START CMOR...       
+Sat Jun  6 23:42:17 CEST 2020             
+                    
+CaseName: 
+expid   : omip1-spunup
+version : v20200218
+real    : 
+1700 1709
+1710 1719
+1720 1729
+1730 1739
+1740 1749
+1750 1759
+1760 1769
+1770 1779
+1780 1789
+1790 1799
+1800 1809
+1810 1819
+1820 1829
+1830 1839
+1840 1849
+1850 1859
+1860 1869
+1870 1879
+1880 1889
+1890 1899
+1900 1909
+1910 1919
+1920 1929
+1930 1939
+1940 1949
+1950 1959
+1960 1969
+1970 1979
+1980 1989
+--------------------
+EXPID: omip1-spunup       
+--------------------
+                    
+START CMOR...       
+Wed Jun 10 12:04:47 CEST 2020             
+                    
+CaseName: 
+expid   : omip1-spunup
+version : v20200218
+real    : 
+1960 1969
+1970 1979
+--------------------
+EXPID: omip1-spunup       
+--------------------
+                    
+START CMOR...       
+Thu Jun 11 08:56:45 CEST 2020             
+                    
+CaseName: 
+expid   : omip1-spunup
+version : v20200218
+real    : 
+1980 1989
+1990 1999
+2000 2009
+         
+CMOR DONE
+Thu Jun 11 12:49:19 CEST 2020  
+~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+PrePARE QC CHECK... 
+9492 files           
+                    
+         
+QC DONE  
+~~~~~~~~~
+         
+~~~~~~~~~~~~~~~~
+LINKING FILES...
+                
+.cmorout/NorESM2-LM/omip1-spunup/v20200218
+Total 9492 files
+
+                       
+LINKS DONE             
+~~~~~~~~~~~~~~~~~~~~~~~
+                       
+~~~~~~~~~~~~~~~~~~~~~~~
+UPDATING SHA256SUM...  
+                       
+.cmorout/NorESM2-LM/omip1-spunup/v20200218
+Total 9492 files
+/projects/NS9560K/cmor/noresm2cmor/workflow/cmorSha256sum.sh: line 110: cannot redirect standard input from /dev/null: Operation not permitted
+
+                       
+SHA256SUM DONE         
+~~~~~~~~~~~~~~~~~~~~~~~
