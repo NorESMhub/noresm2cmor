@@ -9,14 +9,15 @@ login2=false
 login3=false
 
 # set active
-login0=true
+#login0=true
 login1=true
-login2=true
-login3=true
+#login2=true
+#login3=true
 
 # initialize
 #version=v20190920
-version=v20191108b
+#version=v20191108b
+version=v20200218
 
 expid=piClim-2xdust
 model=NorESM2-LM
@@ -60,10 +61,23 @@ echo "                    "
 if $login0
 then
 #----------------
-# piClim-2xdust
+# piClim-2xdust, r1i1p1f1
 #----------------
 #CaseName=
-#login0
+years1=(0  11 21)
+years2=(10 20 30)
+
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+#---
+fi
+#---
+
+if $login1
+then
+#----------------
+# piClim-2xdust, r1i1p1f1
+#----------------
+CaseName=NF1850norbc2dust_f19_20200219
 years1=(0  11 21)
 years2=(10 20 30)
 

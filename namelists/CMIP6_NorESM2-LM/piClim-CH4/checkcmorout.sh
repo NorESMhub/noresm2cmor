@@ -1,6 +1,7 @@
 #!/bin/bash
 
-version=v20191108b
+#version=v20191108b
+version=v20200218
 expid=piClim-CH4
 model=NorESM2-LM
 years1=(0  1  11 21)
