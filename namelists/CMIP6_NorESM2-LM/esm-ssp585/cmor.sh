@@ -15,11 +15,9 @@ login0=true
 #login3=true
 
 # initialize
-#version=v20190920
-#version=v20191108b
 version=v20200218
 
-expid=esm-hist
+expid=esm-ssp585
 model=NorESM2-LM
 
 # --- Use input arguments if exits
@@ -61,12 +59,12 @@ echo "                    "
 if $login0
 then
 #----------------
-# esm-hist
+# esm-ssp585
 #----------------
-CaseName=NHIST_f19_tn14_20191104esm
+#CaseName=NSSP585_f19_tn14_20191223esm
 #login1
-years1=($(seq 1850 10 2000) 2010)
-years2=($(seq 1859 10 2009) 2014)
+years1=(2015 $(seq 2021 10 2091))
+years2=(2020 $(seq 2030 10 2100))
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
