@@ -642,23 +642,22 @@ c
 c         heyc: this part of code is to skip the first two coordinates
 c               with exceptions of global mean/sum field
 c               are there better way to get time coordinates?
-          IF (TRIM(VNM).NE.'mfo'.AND.TRIM(VNM).NE.'thetaoga'
-     .      .AND.TRIM(VNM).NE.'soga'.AND.TRIM(VNM).NE.'zosga'
-     .      .AND.TRIM(VNM).NE.'zossga'.AND.TRIM(VNM).NE.'zostoga'
-     .      .AND.TRIM(VNM).NE.'masso'.AND.TRIM(VNM).NE.'volo'
-     .      .AND.TRIM(VNM).NE.'transifs'
-     .      .AND.TRIM(VNM).NE.'sosga'.AND.TRIM(VNM).NE.'tosga'
-     .      .AND.TRIM(VNM).NE.'sivoln'.AND.TRIM(VNM).NE.'sivols'
-     .      .AND.TRIM(VNM(1:6)).NE.'siarea'
-     .      .AND.TRIM(VNM(1:8)).NE.'siextent') THEN
+c         IF (TRIM(VNM).NE.'mfo'.AND.TRIM(VNM).NE.'thetaoga'
+c    .      .AND.TRIM(VNM).NE.'soga'.AND.TRIM(VNM).NE.'zosga'
+c    .      .AND.TRIM(VNM).NE.'zossga'.AND.TRIM(VNM).NE.'zostoga'
+c    .      .AND.TRIM(VNM).NE.'masso'.AND.TRIM(VNM).NE.'volo'
+c    .      .AND.TRIM(VNM).NE.'transifs'
+c    .      .AND.TRIM(VNM).NE.'sosga'.AND.TRIM(VNM).NE.'tosga'
+c    .      .AND.TRIM(VNM).NE.'sivoln'.AND.TRIM(VNM).NE.'sivols'
+c    .      .AND.TRIM(VNM(1:6)).NE.'siarea'
+c    .      .AND.TRIM(VNM(1:8)).NE.'siextent') THEN
+c           c80=c80((INDEX(c80,' ')+1):)
+c           c80=c80((INDEX(c80,' ')+1):)
+c         ENDIF
+          DO WHILE (LEN_TRIM(c80).NE.0.AND.c80(1:4).NE.'time')
             c80=c80((INDEX(c80,' ')+1):)
-            c80=c80((INDEX(c80,' ')+1):)
-          ENDIF
-          IF (c80(1:4).NE.'time') THEN
-            cnm=c80((INDEX(c80,' ')+1):)
-          ELSE
-            cnm=TRIM(c80(1:5))
-          END IF
+          END DO
+          cnm=TRIM(c80(1:5))
 #ifndef CMOR3
           EXIT
         END DO
