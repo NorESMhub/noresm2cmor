@@ -29,7 +29,7 @@ c --- Model namelist
       CHARACTER(LEN=slenmax), SAVE :: tagoyr,tagoyrbgc,tagomon,
      .  tagomonbgc,tagoday,tagodaybgc,tagimon,tagiday,tagamon,tagaday,
      .  taga6hr,taga6hri,taga3hr,taga3hri,taglmon,taglday,tagl3hr,
-     .  tagl3hri
+     .  tagl3hri,taglyr
       CHARACTER(LEN=slenmax), SAVE :: 
      .  secindexfile,ocngridfile,ocninitfile,ocnmertfile,rhotablesuff,
      .  atmgridfile,ocnregnfile
@@ -70,6 +70,7 @@ c --- Model namelist
      .  taga6hri,
      .  taga3hr,
      .  taga3hri,
+     .  taglyr,
      .  taglmon,
      .  taglday,
      .  tagl3hr,
@@ -192,6 +193,7 @@ c --- Experiment namelist
      .  do_Eday, ! hidden
      .  do_EdayZ, ! hidden
      .  do_Efx, ! hidden
+     .  do_Eyr, ! hidden
      .  do_Emon, ! hidden
      .  do_EmonZ, ! hidden
      .  do_Esubhr, ! hidden
@@ -257,32 +259,32 @@ c --- Tables
       LOGICAL, SAVE :: 
      .  dofx,d6hrPlevPt,dAERday,dAERhr,dAERmonZ,dCF3hr,dCFday,dCFmon,
      .  dCFsubhr,dE1hrClimMon,dE1hr,dE3hr,dE3hrPt,dE6hrZ,dEday,dEdayZ,
-     .  dEfx,dEmon,dEmonZ,dEsubhr,dEyr,dOclim,dOday,dOdaybgc,dOdec,
+     .  dEfx,dEyr,dEmon,dEmonZ,dEsubhr,dOclim,dOday,dOdaybgc,dOdec,
      .  dCOfx,dSIday
       CHARACTER(len=lenmax),DIMENSION(colmax,rowmax), SAVE :: 
      .  vofx,v6hrPlevPt,vAERday,vAERhr,vAERmonZ,vCF3hr,vCFday,vCFmon,
      .  vCFsubhr,vE1hrClimMon,vE1hr,vE3hr,vE3hrPt,vE6hrZ,vEday,vEdayZ,
-     .  vEfx,vEmon,vEmonZ,vEsubhr,vEyr,vOclim,vOday,vOdaybgc,vOdec,
+     .  vEfx,vEyr,vEmon,vEmonZ,vEsubhr,vOclim,vOday,vOdaybgc,vOdec,
      .  vCOfx,vSIday
       CHARACTER(len=slenmax), SAVE ::
      .  pofx,p6hrPlevPt,pAERday,pAERhr,pAERmonZ,pCF3hr,pCFday,pCFmon,
      .  pCFsubhr,pE1hrClimMon,pE1hr,pE3hr,pE3hrPt,pE6hrZ,pEday,pEdayZ,
-     .  pEfx,pEmon,pEmonZ,pEsubhr,pEyr,pOclim,pOday,pOdaybgc,pOdec,
+     .  pEfx,pEyr,pEmon,pEmonZ,pEsubhr,pOclim,pOday,pOdaybgc,pOdec,
      .  pCOfx,pSIday
       CHARACTER(len=slenmax), SAVE ::
      .  tofx,t6hrPlevPt,tAERday,tAERhr,tAERmonZ,tCF3hr,tCFday,tCFmon,
      .  tCFsubhr,tE1hrClimMon,tE1hr,tE3hr,tE3hrPt,tE6hrZ,tEday,tEdayZ,
-     .  tEfx,tEmon,tEmonZ,tEsubhr,tEyr,tOclim,tOday,tOdaybgc,tOdec,
+     .  tEfx,tEyr,tEmon,tEmonZ,tEsubhr,tOclim,tOday,tOdaybgc,tOdec,
      .  tCOfx,tSIday
       INTEGER, SAVE ::
      .  nofx,n6hrPlevPt,nAERday,nAERhr,nAERmonZ,nCF3hr,nCFday,nCFmon,
      .  nCFsubhr,nE1hrClimMon,nE1hr,nE3hr,nE3hrPt,nE6hrZ,nEday,nEdayZ,
-     .  nEfx,nEmon,nEmonZ,nEsubhr,nEyr,nOclim,nOday,nOdaybgc,nOdec,
+     .  nEfx,nEyr,nEmon,nEmonZ,nEsubhr,nOclim,nOday,nOdaybgc,nOdec,
      .  nCOfx,nSIday
       INTEGER, SAVE ::
      .  rofx,r6hrPlevPt,rAERday,rAERhr,rAERmonZ,rCF3hr,rCFday,rCFmon,
      .  rCFsubhr,rE1hrClimMon,rE1hr,rE3hr,rE3hrPt,rE6hrZ,rEday,rEdayZ,
-     .  rEfx,rEmon,rEmonZ,rEsubhr,rEyr,rOclim,rOday,rOdaybgc,rOdec,
+     .  rEfx,rEyr,rEmon,rEmonZ,rEsubhr,rOclim,rOday,rOdaybgc,rOdec,
      .  rCOfx,rSIday
       NAMELIST /table_ofx/       dofx,pofx,tofx,vofx,rofx
       NAMELIST /table_6hrPlevPt/ d6hrPlevPt,p6hrPlevPt,t6hrPlevPt,
@@ -368,6 +370,7 @@ c --- Initialise namelist variables
       taga6hri      = ' ' 
       taga3hr       = ' ' 
       taga3hri      = ' ' 
+      taglyr        = ' '
       taglmon       = ' '
       taglday       = ' ' 
       tagl3hr       = ' ' 
@@ -805,7 +808,7 @@ c
         STOP
       ENDIF  
 c
-      CALL SYSTEM('cat '//TRIM(nmlfpvar))
+c     CALL SYSTEM('cat '//TRIM(nmlfpvar))
       OPEN(funit,FILE=TRIM(nmlfpvar),STATUS='old',ACTION='read',
      .  RECL=200)
       READ(funit,nml=table_grids,IOSTAT=istatus)
@@ -1297,6 +1300,7 @@ c
       WRITE(*,*) ' tag 6hourly insa = ',TRIM(taga6hri) 
       WRITE(*,*) ' tag 3hourly atm  = ',TRIM(taga3hr) 
       WRITE(*,*) ' tag 3hourly insa = ',TRIM(taga3hri) 
+      WRITE(*,*) ' tag yearly lnd   = ',TRIM(taglyr)
       WRITE(*,*) ' tag monthly lnd  = ',TRIM(taglmon)
       WRITE(*,*) ' tag daily lnd    = ',TRIM(taglday)
       WRITE(*,*) ' tag 3hourly lnd  = ',TRIM(tagl3hr) 

@@ -11,11 +11,12 @@ c --- Netcdf variables
       INTEGER :: ncid,rhid,dimid,status
 c
 c --- Grid dimensions and variables 
-      INTEGER, SAVE :: ii,jj,idm,jdm,kdm,idmrof,jdmrof
+      INTEGER, SAVE :: ii,jj,idm,jdm,kdm,idmrof,jdmrof,ldm
       REAL(KIND=8), ALLOCATABLE, SAVE, DIMENSION(:) :: lon,lat,lev,
      .  lonrof,latrof
       REAL(KIND=8), ALLOCATABLE, SAVE, DIMENSION(:,:) :: 
      .  lon_bnds,lat_bnds,lev_bnds,lonrof_bnds,latrof_bnds
+      CHARACTER(LEN=slenmax), ALLOCATABLE, SAVE, DIMENSION(:) :: ltype
       CHARACTER(LEN=slenmax), SAVE :: zcoord,tcoord   
 c 
 c --- Dataset related variables 
@@ -110,6 +111,85 @@ c
       ENDDO          
 c
 c 
+#ifdef CMOR3
+c --- Process table Eyr
+      WRITE(*,*) 'Process table Eyr'
+      fnm=pEyr
+      table=tEyr
+      linstant=.FALSE.
+      DO n=1,nEyr
+        IF (skip_variable(n,nEyr,dEyr)) CYCLE
+c
+c --- - Map namelist variables 
+        ovnm=vEyr(ovnmpos,n)
+        ivnm=vEyr(ivnmpos,n)
+        special=vEyr(3,n)
+        vunits=' '
+        vpositive=' '
+c
+c --- - Skip variable?
+        CALL get_vertcoord(TRIM(tabledir)//TRIM(table),ovnm,zcoord)
+c 
+c --- - Choose history file 
+         itag=taglyr
+c
+c --- - Check if input variable is present  
+        IF (LEN_TRIM(pEyr).eq.0) CALL scan_files(reset=.TRUE.)
+        IF (.NOT.var_in_file(fnm,ivnm)) CYCLE
+c
+c --- - Prepare output file 
+        CALL special_pre
+c
+c --- - Loop over input files 
+        m=0
+        DO
+          m=m+1
+c
+c --- --- Open output file
+          IF (MOD(m-1,rEyr).EQ.0) CALL open_ofile
+c
+c --- --- Read variable into buffer (average if necessary)
+          rec=0
+          nrec=0
+          fldacc=0.
+          LAST=.FALSE.
+          DO
+            IF (LEN_TRIM(pEyr).eq.0) CALL scan_files(reset=.FALSE.)
+            IF (rec.EQ.0) then
+              last=.TRUE.
+              EXIT
+            ENDIF
+            nrec=nrec+1
+cdiag       write(*,*) 'DEBUG: ',trim(fnm),rec,nrec,tbnd,mbnd,year,month
+            CALL read_tslice(rec,badrec,fnm)
+            fldacc=fldacc+fld
+            WRITE(*,*) "WARNING: NO TIME_BOUNDS CHECK FOR Eyr VARIABLE!"
+            EXIT
+c            IF (tbnd(2).EQ.mbnd(2)) EXIT
+          ENDDO
+          IF (last) EXIT
+          fld=fldacc/FLOAT(nrec)
+          tbnds(:,1)=mbnd
+          tval=0.5*(tbnds(1,1)+tbnds(2,1))
+c 
+c --- --- Post processing 
+          CALL special_post
+c
+c --- --- Write time slice to output file 
+          CALL write_tslice
+c
+c --- --- Close output file if max rec has been reached 
+          IF (MOD(m,rEyr).EQ.0) CALL close_ofile
+c
+c --- - End loop over files and records
+        ENDDO
+c
+c --- - Close output file if still open 
+        IF (MOD(m,rEyr).GT.0) CALL close_ofile
+c
+      ENDDO
+#endif
+c
 c --- Process table lmon
       WRITE(*,*) 'Process table lmon'
       fnm=plmon
@@ -957,15 +1037,41 @@ c
 c
 c --- Read soil depths  
       status=nf90_inq_dimid(ncid,'levgrnd',dimid)
-      CALL handle_ncerror(status)
-      status=nf90_inquire_dimension(ncid,dimid,len=kdm)
-      CALL handle_ncerror(status)
-      ALLOCATE(lev(kdm),lev_bnds(2,kdm),STAT=status)
-      IF (status.NE.0) STOP 'cannot allocate enough memory'
-      status=nf90_inq_varid(ncid,'levgrnd',rhid) 
-      CALL handle_ncerror(status)
-      status=nf90_get_var(ncid,rhid,lev)
-      CALL handle_ncerror(status)
+      IF (status.EQ.0) THEN
+          status=nf90_inquire_dimension(ncid,dimid,len=kdm)
+          CALL handle_ncerror(status)
+          ALLOCATE(lev(kdm),lev_bnds(2,kdm),STAT=status)
+          IF (status.NE.0) STOP 'cannot allocate enough memory'
+          status=nf90_inq_varid(ncid,'levgrnd',rhid) 
+          CALL handle_ncerror(status)
+          status=nf90_get_var(ncid,rhid,lev)
+          CALL handle_ncerror(status)
+      ELSE
+          WRITE(*,*) "WARNING: dimension 'levgrnd' is not defined"
+      ENDIF
+
+c --- Read landuse types
+      status=nf90_inq_dimid(ncid,'landUse',dimid)
+      IF (status.EQ.0) THEN
+          status=nf90_inquire_dimension(ncid,dimid,len=ldm)
+          CALL handle_ncerror(status)
+          ALLOCATE(ltype(ldm),STAT=status)
+          IF (status.NE.0) STOP 'cannot allocate enough memory'
+c          status=nf90_inq_varid(ncid,'landUse',rhid) 
+c          CALL handle_ncerror(status)
+c          status=nf90_get_var(ncid,rhid,ltype)
+c          CALL handle_ncerror(status)
+          IF (ldm.EQ.4) THEN
+              ltype(1)="primary_and_secondary_land"
+              ltype(2)="pastures"
+              ltype(3)="crops"
+              ltype(4)="urban"
+          ELSE
+              WRITE(*,*) "The landUse type is hard-coded with four
+     .          elements. Need update the defined variable ltype"
+              STOP
+          ENDIF
+      ENDIF
 c
 c --- Compute level bounds from soil thickness      
       IF (ALLOCATED(fld)) DEALLOCATE(fld)
@@ -995,16 +1101,18 @@ c --- Compute level bounds from soil thickness
           ENDDO
         ENDDO
       ELSE
-        WRITE(*,*) 'WARNING: cannot find varible DZSOI. will try to '
-     .    //'guess soil depth bounds.'
-        lev_bnds(1,1)=0. 
-        lev_bnds(2,1)=0.5*(lev(1)+lev(2)) 
-        DO k=2,kdm-1
-          lev_bnds(1,k)=lev_bnds(2,k-1)
-          lev_bnds(2,k)=0.5*(lev(k)+lev(k+1)) 
-        ENDDO 
-        lev_bnds(1,kdm)=lev_bnds(2,kdm-1)
-        lev_bnds(2,kdm)=lev_bnds(1,kdm)+lev(kdm)-lev(kdm-1)
+        IF (ALLOCATED(lev)) THEN
+          WRITE(*,*) 'WARNING: cannot find varible DZSOI. will try to '
+     .      //'guess soil depth bounds.'
+          lev_bnds(1,1)=0. 
+          lev_bnds(2,1)=0.5*(lev(1)+lev(2)) 
+          DO k=2,kdm-1
+            lev_bnds(1,k)=lev_bnds(2,k-1)
+            lev_bnds(2,k)=0.5*(lev(k)+lev(k+1)) 
+          ENDDO 
+          lev_bnds(1,kdm)=lev_bnds(2,kdm-1)
+          lev_bnds(2,kdm)=lev_bnds(1,kdm)+lev(kdm)-lev(kdm-1)
+        ENDIF
       ENDIF  
       DEALLOCATE(fld)
 c
@@ -1225,6 +1333,14 @@ c --- Define vertical axis
      .    coord_vals      = lev,
      .    cell_bounds     = lev_bnds)
       ENDIF
+      IF (TRIM(zcoord).EQ.'landUse') THEN
+        kaxid=cmor_axis(
+     .    table           = TRIM(tabledir)//TRIM(table),
+     .    table_entry     = TRIM(zcoord),
+     .    units           = 'non',
+     .    length          = ldm,
+     .    coord_vals      = ltype)
+      ENDIF
 c
 c --- Define output variable
       IF (fxflag) THEN
@@ -1235,7 +1351,8 @@ c --- Define output variable
      .    missing_value   = 1e20,
      .    original_name   = TRIM(ivnm))
       ELSE
-        IF (TRIM(zcoord).EQ.'sdepth'.OR.TRIM(zcoord).EQ.'vegtype') THEN
+        IF (TRIM(zcoord).EQ.'sdepth'.OR.TRIM(zcoord).EQ.'vegtype'
+     .      .OR.TRIM(zcoord).EQ.'landUse') THEN
           varid=cmor_variable(
      .      table         = TRIM(tabledir)//TRIM(table),
      .      table_entry   = TRIM(ovnm),
