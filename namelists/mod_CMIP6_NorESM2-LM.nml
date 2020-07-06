@@ -32,6 +32,7 @@
  taga6hri      = 'cam.h3',
  taga3hr       = 'cam.h4',
  taga3hri      = 'cam.h5',
+ taglyr        = 'clm2.h4',
  taglmon       = 'clm2.h0',
  taglday       = 'clm2.h1',
  tagl3hr       = 'clm2.h2',

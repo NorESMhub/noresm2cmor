@@ -1,6 +1,8 @@
 #!/bin/bash
 
-version=v20191108b
+#version=v20190815
+version=v20190815b
+#version=v20191108b
 expid=1pctCO2
 model=NorESM2-LM
 years1=(0  $(seq 11 10 111))

@@ -10,13 +10,14 @@ login3=false
 
 # set active
 login0=true
-login1=true
-login2=true
-login3=true
+#login1=true
+#login2=true
+#login3=true
 
 # initialize
 #version=v20190920
-version=v20191108b
+#version=v20191108b
+version=v20200218
 
 expid=esm-hist
 model=NorESM2-LM
@@ -62,12 +63,12 @@ then
 #----------------
 # esm-hist
 #----------------
-#CaseName=NHIST_f19_tn14_20190909esm
+CaseName=NHIST_f19_tn14_20191104esm
 #login1
 years1=($(seq 1850 10 2000) 2010)
 years2=($(seq 1859 10 2009) 2014)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---

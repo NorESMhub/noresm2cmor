@@ -16,9 +16,10 @@ login0=true
 
 # initialize
 #version=v20190815
-version=v20190815b
+#version=v20190815b
+#version=v20190917
+version=v20190917b
 #version=v20190920
-#version=v20190920b
 #version=v20191108
 #version=v20191108b
 #version=v20200218

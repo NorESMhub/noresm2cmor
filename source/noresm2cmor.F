@@ -20,13 +20,13 @@ c --- Initialise mpi
 c
 c --- Read namelists 
       CALL read_namelists
-      IF (verbose) CALL print_namelists
 c
 c --- Create file list if it does not exist
 #ifdef MPI
       CALL MPI_COMM_RANK(MPI_COMM_WORLD, mpirank, mpierror)
       IF (mpirank.EQ.0) THEN 
 #endif 
+      IF (verbose) CALL print_namelists
       INQUIRE(FILE='filelist_'//TRIM(casename)//TRIM(membertag),
      .       EXIST=fileexists)
       IF (.NOT.fileexists.OR.forcefilescan) THEN
@@ -39,7 +39,9 @@ c --- Create file list if it does not exist
      .          //trim(membertag))
         else
             CALL SYSTEM('find '//trim(ibasedir)//'/'//trim(casename)
-     .          //' -path "*/hist/*" -or -path "*/hist_true/*"'
+     .          //'/{atm,ice,lnd,ocn,rof}'
+     .          //' \( -path "*/hist/*" -or '
+     .          //'    -path "*/hist_true/*" \)' 
      .          //' -name "*.nc"'
      .          //' | sort > '//TRIM('filelist_'//casename))
         end if
