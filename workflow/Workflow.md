@@ -213,7 +213,7 @@ Once the ESGF publish is finished, the Issue will be closed again.
 ### 4.1 - resumit job
 ```bash
 cd ${CMOR_ROOT}/namelists/CMIP6_${model}/${expid}/
-# make a temperary cmo.sh file
+# make a temperary cmor.sh file
 cp cmor.sh cmor_tmp.sh
 ```
 

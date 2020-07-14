@@ -7,7 +7,7 @@ local nmlroot logroot
 if [ $# -eq 0 ] || [ $1 == "--help" ] 
  then
      printf "Usage:\n"
-     printf 'runcmor -c=[CaseName] -m=[model] -e=[expid] -v=[version] -r=[realisation] \
+     printf 'runcmor -c=[CaseName] -m=[model] -e=[expid] -v=[version] -r=[realisation] -phy=[physics] \
                      -yrs1=[(${years1[*]})] -yrs2=[(${years2[*]})] -p=[project] \
                      -mpi=[DMPI] \n'
      return
@@ -32,6 +32,10 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
                  ;;
              -r=*)
                  real=$(echo $1|sed -e 's/^[^=]*=//g')
+                 shift
+                 ;;
+             -phy=*)
+                 physics=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
              -yrs1=*)
@@ -64,6 +68,7 @@ echo -e "CaseName: $CaseName"
 echo -e "expid   : $expid"
 echo -e "version : $version"
 echo -e "real    : $real"
+echo -e "physics : $physics"
 if [ ! -z $project ]
 then
     echo -e "project : $project"
@@ -108,6 +113,10 @@ if [ ! -z $real ]
 then
     real="r${real}"
 fi
+if [ ! -z $physics ]
+then
+    physics="p${physics}"
+fi
 
 # copy template namelist and submit
 for (( i = 0; i < ${#years1[*]}; i++ )); do
@@ -135,7 +144,7 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
         CMIP6_${model}/${expid}/${version}/exp.nml
     sed -i "s/yearn         =.*/yearn         = ${year2},/g" \
         CMIP6_${model}/${expid}/${version}/exp.nml
-    mv CMIP6_${model}/${expid}/${version}/exp.nml CMIP6_${model}/${expid}/${version}/exp_${year1}-${year2}${real}.nml
+    mv CMIP6_${model}/${expid}/${version}/exp.nml CMIP6_${model}/${expid}/${version}/exp_${year1}-${year2}${real}${physics}.nml
 
     cd ../bin
 
@@ -144,18 +153,18 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
         nohup mpirun -n 8 ./noresm2cmor3_mpi \
             ${nmlroot}/sys${project}.nml \
             ${nmlroot}/mod.nml \
-            ${nmlroot}/exp_${year1}-${year2}${real}.nml \
+            ${nmlroot}/exp_${year1}-${year2}${real}${physics}.nml \
             ${nmlroot}/var.nml \
-            1>${logroot}/${year1}-${year2}${real}.log \
-            2>${logroot}/${year1}-${year2}${real}.err &
+            1>${logroot}/${year1}-${year2}${real}${physics}.log \
+            2>${logroot}/${year1}-${year2}${real}${physics}.err &
     else
         nohup ./noresm2cmor3 \
                 ${nmlroot}/sys${project}.nml \
                 ${nmlroot}/mod.nml \
-                ${nmlroot}/exp_${year1}-${year2}${real}.nml \
+                ${nmlroot}/exp_${year1}-${year2}${real}${physics}.nml \
                 ${nmlroot}/var.nml \
-                1>${logroot}/${year1}-${year2}${real}.log \
-                2>${logroot}/${year1}-${year2}${real}.err &
+                1>${logroot}/${year1}-${year2}${real}${physics}.log \
+                2>${logroot}/${year1}-${year2}${real}${physics}.err &
     fi
 done
 

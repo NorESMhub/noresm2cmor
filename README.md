@@ -16,9 +16,12 @@ which noresm2cmor reads during its execution.
 
 Download noresm2cmor with
 ```bash
- git clone https://github.com/NorwegianClimateCentre/noresm2cmor
+ git clone https://github.com/NorESMhub/noresm2cmor
 ```
-
+Set the `CMOR_ROOT` enviroment variable in your `.bashrc`. For example, if you clone the code to your home directory, then set
+```bash
+export CMOR_ROOT=~/noresm2cmor
+```
 ### 2.2 Build 
 ```bash
 # Change directory 
@@ -53,101 +56,49 @@ If install_griddata.sh not used, set path to grid data
  ./setpath_griddata.sh <absolute path to folder where grid data is stored>
 
 If install_sampledata.sh not used, set path to sample data 
- ./setpath_griddata.sh <absolute path to folder where sample input is stored>
+ ./setpath_sampledata.sh <absolute path to folder where sample input is stored>
 
 Set path to output folder
  ./install_cmorout.sh <absolute path to folder where CMOR output should be stored>
 
+## 3 Run the noresm2cmor program
 
-## 3 Testing of CMORization on sample data
-
-Change directory to noresm2cmor/scripts
-
-Run CMORization test with 
- ./cmorize_sampledata.sh 
-
-
-## 4. General usage of noresm2cmor binary executable 
-
-NORSTORE:  
-
-Load modules 
+### 3.1 A quick setup from template
+Run the script `workflow/cmorSetup.sh` to setup namelist template:
 ```bash
- . /usr/share/Modules/init/sh
- module unload netcdf gcc hdf
- module load gcc/4.7.2
+$ ./cmorSetup.sh
+
+ Usage:
+ ./cmorSetup.sh \
+  -c=[casename]     # e.g., NHIST_f19_tn14_20190625 \
+  -m=[model]        # e.g., NorESM2-LM, NorESM2-MM, NorESM1-F,NorESM1-M \
+  -e=[expid]        # e.g., historical, piControl, ssp126, omip2, etc \
+  -v=[version]      # e.g., v20200702 \
+  -y1=[year1]       # e.g., 1850 \
+  -y2=[yearn]       # e.g., 2014 \
+  -r=[realization]  # e.g., 1,2,3 \
+  -p=[physics]      # e.g., 1,2,3 \
+  -i=[ibasedir]     # path to model output. e.g., /projects/NS9560K/noresm/cases \
+  -o=[obasedir]     # path to cmorized output. e.g., /projects/NSxxxxK/CMIP6/cmorout \%
 ```
-or
+For example,
 ```bash
- . /usr/share/Modules/init/sh
- module unload netcdf gcc hdf
- module load netcdf.intel/4.4.0 udunits/2.2.17 uuid/1.5.1
-depending on whether noresm2cmor was compiled with intel or gnu. 
-```
-
-NIRD:
-
-Make intel environment available and increase stack size  
-```bash
- source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux 
- ulimit -s unlimited 
+./cmorSetup.sh -c=NFHISTnorpibc_aeroxidonly_03_f19_20200118 \
+-m=NorESM2-LM \
+-e=piClim-histaer \
+-v=v20200702 \
+-y1=1850 -y2=2014 \
+-r=3 -p=2 \
+-i=/projects/NS9560K/noresm/cases \
+-o=/projects/NS9034K/CMIP6/.cmorout
 ```
 
+Then under `$CMOR_ROOT/namelists/CMIP6_${model}/${expid}`, the namelists are configured under: `${version}/`,
+and a script to submit the job is created `cmor_${casename}.sh`.
 
-Change directory to folder with executable
- cd noresm2cmor/bin
+Check the settings in the script and namelist. One can start the cmorization by exectuting the script `cmor_${casename}.sh`
 
-Start CMORization with 
- ./noresm2cmor <path to noresm2cmor's namelist file>
-or 
- ./noresm2cmor3 <path to noresm2cmor3's namelist file>
-
-E.g.   
- ./noresm2cmor ../namelists/noresm2cmor_CMIP5_NorESM1-M_historical_r1i1p1.nml 
- ./noresm2cmor3 ../namelists/noresm2cmor3_CMIP5_NorESM1-M_historical_r1i1p1.nml
-
-Call noresm2cmor or noresm2cmor3 without argument to prompt syntax.
-
-
-## 5. Easy CMORization with cmorize_generic.sh wrapper script
-
-Change directory to noresm2cmor/scripts
-
-Start CMORization with 
- ./cmorize_generic.sh <absolute path to NorESM case folder> <start year> <end year> 
-
-E.g. 
- ./cmorize_generic.sh `pwd`/../data/sampledata/N20TRAERCN_f19_g16_01 2000 2000
-
-
-## 6. Parallel CMORization
-
-NORSTORE (only CMOR2 parallel support):
-
-Load modules with 
- module load intel/2017.1 openmpi.intel/1.10.2
-
-Compile with
- cd build 
- make -f Makefile_cmor2mpi.norstore_intel 
-
-CMORize (e.g. using 8 tasks) with 
- cd ../bin 
- export I_MPI_WAIT_MODE=1
- mpirun -n 8 noresm2cmor_mpi <path to namelist> 
-
-NIRD: 
-
-Compile with
- cd build 
- make -f Makefile_cmor2mpi.nird_intel
- make -f Makefile_cmor3mpi.nird_intel
-
-CMORize (e.g. using 8 tasks) with 
- cd ../bin 
- export I_MPI_WAIT_MODE=1
- mpirun -n 8 ./noresm2cmor_mpi <path to namelist> 
- mpirun -n 8 ./noresm2cmor3_mpi <path to namelist> 
-
-
+### 3.2 A full workflow from scratch
+A more general workflow of cmorization if found at the wiki page:
+https://github.com/NorESMhub/noresm2cmor/wiki/Workflow-to-do-the-CMORIZATION
 
