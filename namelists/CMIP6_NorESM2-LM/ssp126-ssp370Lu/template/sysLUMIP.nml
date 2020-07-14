@@ -1,0 +1,9 @@
+&sys
+ ibasedir      = '/projects/NS9560K/noresm/cases/b.e21.NSSP126frc2.f19_tn14.CMIP6-SSP1-2.6-SSP3-7.0Lu.001/LUMIP',
+ obasedir      = '/projects/NS9034K/CMIP6/.cmorout',
+ griddata      = '/projects/NS9560K/cmor/griddata',
+ tabledir      = '../tables'
+ createsubdirs = .false.,
+ forcefilescan = .false.,  
+ verbose       = .true.,
+/

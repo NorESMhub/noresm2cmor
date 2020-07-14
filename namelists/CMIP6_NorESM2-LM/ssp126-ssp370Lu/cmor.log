@@ -1,0 +1,52 @@
+--------------------
+EXPID: ssp126-ssp370Lu       
+--------------------
+                    
+START CMOR...       
+Mon Jul 13 14:54:02 CEST 2020             
+                    
+CaseName: 
+expid   : ssp126-ssp370Lu
+version : v20200702
+real    : 
+project : LUMIP
+2015 2020
+2021 2030
+2031 2040
+2041 2050
+2051 2060
+2061 2070
+2071 2080
+2081 2090
+2091 2100
+         
+CMOR DONE
+Mon Jul 13 14:58:44 CEST 2020  
+~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+PrePARE QC CHECK... 
+4906 files           
+                    
+         
+QC DONE  
+~~~~~~~~~
+         
+~~~~~~~~~~~~~~~~
+LINKING FILES...
+                
+.cmorout/NorESM2-LM/ssp126-ssp370Lu/v20200702
+Total 4906 files
+
+                       
+LINKS DONE             
+~~~~~~~~~~~~~~~~~~~~~~~
+                       
+~~~~~~~~~~~~~~~~~~~~~~~
+UPDATING SHA256SUM...  
+                       
+.cmorout/NorESM2-LM/ssp126-ssp370Lu/v20200702
+Total 4906 files
+
+                       
+SHA256SUM DONE         
+~~~~~~~~~~~~~~~~~~~~~~~

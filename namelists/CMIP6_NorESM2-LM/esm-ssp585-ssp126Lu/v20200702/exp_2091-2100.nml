@@ -1,7 +1,7 @@
 &experiment
- casename      = 'NSSP585_f19_tn14_20191223esm',
- osubdir       = 'NorESM2-LM/esm-ssp585/vyyyymmdd' 
- experiment_id = 'esm-ssp585',
+ casename      = 'b.e21.NSSP585frc2.f19_tn14.CMIP6-SSP5-8.5-SSP1-2.6Lu.001',
+ osubdir       = 'NorESM2-LM/esm-ssp585-ssp126Lu/v20200702'
+ experiment_id = 'esm-ssp585-ssp126Lu',
  parent_experiment_id  = 'esm-hist',
  parent_experiment_rip = 'r1i1p1',
  parent_time_units = 'days since 1850-01-01',
@@ -14,12 +14,12 @@
  physics_version = 1,
  forcing_index = 1, 
  branch_time   = 0.,
- year1         = 2015,
+ year1         = 2091,
  yearn         = 2100,
  month1        = 1,
  monthn        = 12,
  exprefyear    = 1, 
- activity_id   = 'C4MIP', 
+ activity_id   = 'LUMIP', 
  parent_activity_id = 'CMIP', 
  parent_variant_label = 'r1i1p1f1',
  parent_mip_era = 'CMIP6',
