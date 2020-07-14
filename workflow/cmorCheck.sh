@@ -3,7 +3,7 @@
 if [ $# -eq 0 ] || [ $1 == "--help" ] 
  then
      printf "Usage:\n"
-     printf 'cmoroutcheck -e=[expid] -v=[version] -m=[model]\
+     printf 'cmorCheck -e=[expid] -v=[version] -m=[model]\
                           -yrs1=[(${years1[*]})] -yrs2=[(${years2[*]})] -p=[project]'
      exit
  else
