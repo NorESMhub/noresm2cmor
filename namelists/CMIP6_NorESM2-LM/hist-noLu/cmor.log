@@ -1,0 +1,60 @@
+--------------------
+EXPID: hist-noLu       
+--------------------
+                    
+START CMOR...       
+Mon Jul 13 15:03:41 CEST 2020             
+                    
+CaseName: 
+expid   : hist-noLu
+version : v20200702
+real    : 
+project : LUMIP
+1849 1859
+1860 1869
+1870 1879
+1880 1889
+1890 1899
+1900 1909
+1910 1919
+1920 1929
+1930 1939
+1940 1949
+1950 1959
+1960 1969
+1970 1979
+1980 1989
+1990 1999
+2000 2009
+2010 2014
+         
+CMOR DONE
+Mon Jul 13 15:16:45 CEST 2020  
+~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+PrePARE QC CHECK... 
+8646 files           
+                    
+         
+QC DONE  
+~~~~~~~~~
+         
+~~~~~~~~~~~~~~~~
+LINKING FILES...
+                
+.cmorout/NorESM2-LM/hist-noLu/v20200702
+Total 8646 files
+
+                       
+LINKS DONE             
+~~~~~~~~~~~~~~~~~~~~~~~
+                       
+~~~~~~~~~~~~~~~~~~~~~~~
+UPDATING SHA256SUM...  
+                       
+.cmorout/NorESM2-LM/hist-noLu/v20200702
+Total 8646 files
+
+                       
+SHA256SUM DONE         
+~~~~~~~~~~~~~~~~~~~~~~~
