@@ -4,7 +4,7 @@
  experiment_id = 'esm-ssp585',
  parent_experiment_id  = 'esm-hist',
  parent_experiment_rip = 'r1i1p1',
- parent_time_units = 'days since 0421-01-01',
+ parent_time_units = 'days since 1850-01-01',
  branch_method = 'Hybrid-restart from year 2015-01-01 of esm-hist',
  history       = ' ',
  comment       = ' ',
