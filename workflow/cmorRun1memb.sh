@@ -118,13 +118,20 @@ then
     physics="p${physics}"
 fi
 
+pid=$$
 # copy template namelist and submit
 for (( i = 0; i < ${#years1[*]}; i++ )); do
 
     # keep maximumn 8 jobs
     flag=true
     while $flag ; do
-        sleep 30s
+        ppid=$(ps -f |grep 'mpirun' |head -1 |sed -r 's/^ +//g; s/ +/ /g' |cut -d" " -f3)
+        if [ $pid -eq $ppid ]
+        then
+            sleep 30s
+        else
+            sleep 300s
+        fi
         np=$(ps x |grep -c 'noresm2cmor3')
         if [ $np -lt 8 ]; then
             flag=false
