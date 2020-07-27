@@ -117,7 +117,7 @@ do
     latest=$activity/$insitute/$model/$expid/$real/$table/$var/$grid/latest
     if [ ! -d "$subfolder" ]
     then
-        mkdir -p "$subfolder"
+        mkdir -p "$subfolder" && chmod g+w $activity/$insitute/$model/$expid
     fi
     ln -sf ../../../../../../../../../$fname "$subfolder/${bname}.nc"
     ln -sfT "$version"  "$latest"
