@@ -1,27 +1,31 @@
 #!/bin/bash
+set -e
+
+# Setup namelist and bash scripts for cmorization
 
 if [ $# -eq 0 ] || [ $1 == "--help" ] 
  then
      printf "\n"
      printf " Usage:\n"
      printf ' ./cmorSetup.sh \
-  -c=[casename]     # e.g., NHIST_f19_tn14_20190625 \
-  -m=[model]        # e.g., NorESM2-LM, NorESM2-MM, NorESM1-F,NorESM1-M \
-  -e=[expid]        # e.g., historical, piControl, ssp126, omip2, etc \
-  -v=[version]      # e.g., v20200702 \
-  -y1=[year1]       # e.g., 1850 \
-  -y2=[yearn]       # e.g., 2014 \
-  -r=[realization]  # e.g., 1,2,3 \
-  -p=[physics]      # e.g., 1,2,3 \
-  -i=[ibasedir]     # path to model output. e.g., /projects/NS9560K/noresm/cases \
-  -o=[obasedir]     # path to cmorized output. e.g., /projects/NSxxxxK/CMIP6/cmorout \'
+       -c=[casename]     # e.g., NHIST_f19_tn14_20190625 \
+       -m=[model]        # e.g., NorESM2-LM, NorESM2-MM, NorESM1-F,NorESM1-M \
+       -e=[expid]        # e.g., historical, piControl, ssp126, omip2, etc \
+       -v=[version]      # e.g., v20200702 \
+       -y1=[year1]       # e.g., 1850 \
+       -y2=[yearn]       # e.g., 2014 \
+       -r=[realization]  # e.g., 1,2,3 \
+       -p=[physics]      # e.g., 1,2,3 \
+       -i=[ibasedir]     # path to model output. e.g., /projects/NS9560K/noresm/cases \
+       -o=[obasedir]     # path to cmorized output. e.g., /projects/NSxxxxK/CMIP6/cmorout (by default, set to ~/cmorout) \'
      exit
  else
      # set default values
      realization=1
      physics=1
      ibasedir=/projects/NS9560K/noresm/cases
-     obasedir=/projects/NS9034K/CMIP6/.cmorout
+     #obasedir=/projects/NS9034K/CMIP6/.cmorout
+     obasedir=~/cmorout
      while test $# -gt 0; do
          case "$1" in
              -c=*)
@@ -73,7 +77,14 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
      done
 fi
 
-CMOR_ROOT=$(cd .. && pwd)
+#CMOR_ROOT=$(cd .. && pwd)
+if [ -z $CMOR_ROOT ]; then
+   echo "The environment variable CMOR_ROOT is NOT set. Set by:"
+   echo "export CMOR_ROOT=/path/to/noresm2cmor/root in bash shell"
+   echo "or"
+   echo "setenv CMOR_ROOT /path/to/noresm2cmor/root in csh shell"
+fi
+
 cd $CMOR_ROOT/namelists/CMIP6_${model}/${expid}/
 [ ! -d $version ] && mkdir $version
 

@@ -125,15 +125,15 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
     # keep maximumn 8 jobs
     flag=true
     while $flag ; do
-        ppid=$(ps -f |grep 'mpirun' |head -1 |sed -r 's/^ +//g; s/ +/ /g' |cut -d" " -f3)
-        if [ $pid -eq $ppid ]
-        then
-            sleep 30s
-        else
+        njobs=$(ps x |grep -v 'grep' |grep -c 'noresm2cmor3')
+        npidchild=$(pgrep -P $pid |wc -l)
+        # if there are running jobs, but they do not belongs to this shell
+        if [ $njobs -ge 1 ] && [ $npidchild -eq 1 ]; then
             sleep 300s
+        else
+            sleep 30s
         fi
-        np=$(ps x |grep -c 'noresm2cmor3')
-        if [ $np -lt 8 ]; then
+        if [ $njobs -lt 8 ]; then
             flag=false
         fi
     done
