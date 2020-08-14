@@ -2,6 +2,7 @@
 
 version=v20191108
 version=v20200218
+version=v20200702
 expid=historical
 model=NorESM2-MM
 years1=(1849 $(seq 1850 10 1940))
