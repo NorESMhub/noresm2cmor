@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #version=v20191108b
-version=v20200218
+#version=v20200218
+version=v20200702
 expid=piClim-histaer
 model=NorESM2-LM
 years1=(1849 $(seq 1850 10 1940))
