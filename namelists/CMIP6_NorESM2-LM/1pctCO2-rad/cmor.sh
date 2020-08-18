@@ -16,6 +16,7 @@ login0=true
 
 # initialize
 version=v20200206
+version=v20200702b
 
 expid=1pctCO2-rad
 model=NorESM2-LM
@@ -62,8 +63,8 @@ then
 # 1pctCO2-rad
 #----------------
 CaseName=N1PCTRADfrc2_f19_tn14_20191213
-years1=($(seq 1  10 131))
-years2=($(seq 10 10 140))
+years1=(0 $(seq 11  10 131))
+years2=(10 $(seq 20 10 140))
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---

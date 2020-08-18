@@ -1,6 +1,7 @@
 #!/bin/bash
 
 version=v20191108b
+version=v20200702b
 expid=1pctCO2-cdr
 model=NorESM2-LM
 

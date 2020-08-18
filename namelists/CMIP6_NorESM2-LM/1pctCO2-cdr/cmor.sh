@@ -12,13 +12,14 @@ login3=false
 login0=true
 login1=true
 login2=true
-login3=true
+#login3=true
 
 # initialize
 #version=v20190920
 #version=v20190920b #set fx,Ofx to false
 version=v20190920c  #set fx,Ofx to false
 version=v20191108b
+version=v20200702b
 
 expid=1pctCO2-cdr
 model=NorESM2-LM
@@ -65,7 +66,7 @@ then
 # 1pctCO2-cdr, part1
 #----------------
 CaseName=N1PCT_f19_tn14_CDR_20190926
-years1=(141 $(seq 150 10 270))
+years1=(140 $(seq 150 10 270))
 years2=(149 $(seq 159 10 279))
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI

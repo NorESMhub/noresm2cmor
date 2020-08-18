@@ -1,6 +1,7 @@
 #!/bin/bash
 
 version=v20200206
+version=v20200702b
 expid=1pctCO2-rad
 model=NorESM2-LM
 years1=($(seq 1  10 131))
