@@ -127,8 +127,11 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
     while $flag ; do
         njobs=$(ps x |grep -v 'grep' |grep -c 'noresm2cmor3')
         npidchild=$(pgrep -P $pid |wc -l)
-        # if there are running jobs, but they do not belongs to this shell
-        if [ $njobs -ge 1 ] && [ $npidchild -eq 1 ]; then
+        # if no running jobs
+        if [ $njobs -eq 0 ]; then
+            sleep 1s
+        # if running jobs, but do not belongs to this shell
+        elif [ $njobs -ge 1 ] && [ $npidchild -eq 1 ]; then
             sleep 300s
         else
             sleep 30s
@@ -173,6 +176,7 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
                 1>${logroot}/${year1}-${year2}${real}${physics}.log \
                 2>${logroot}/${year1}-${year2}${real}${physics}.err &
     fi
+    sleep 30s
 done
 
 cd $cwd

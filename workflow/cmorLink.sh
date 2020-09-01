@@ -113,14 +113,16 @@ do
     real=${fstr[4]}
     grid=${fstr[5]}
 
-    subfolder=$activity/$insitute/$model/$expid/$real/$table/$var/$grid/$version
+    parentfld=$activity/$insitute/$model/$expid/$real/$table/$var/$grid
+    subfld=$activity/$insitute/$model/$expid/$real/$table/$var/$grid/$version
     latest=$activity/$insitute/$model/$expid/$real/$table/$var/$grid/latest
-    if [ ! -d "$subfolder" ]
+    if [ ! -d "$subfld" ]
     then
-        mkdir -p "$subfolder" && chmod g+w $activity/$insitute/$model/$expid
+        mkdir -p "$subfld" && chmod g+w $activity/$insitute/$model/$expid
     fi
-    ln -sf ../../../../../../../../../$fname "$subfolder/${bname}.nc"
-    ln -sfT "$version"  "$latest"
+    ln -sf ../../../../../../../../../$fname "$subfld/${bname}.nc"
+    latestversion=$(ls $parentfld |grep -E 'v20[0-9]{6}' |sort |tail -1)
+    ln -sfT "$latestversion"  "$latest"
     echo "$real/$table/$var/$grid/$version/${bname}.nc" >> ${folder}.links
     if $verbose
     then
