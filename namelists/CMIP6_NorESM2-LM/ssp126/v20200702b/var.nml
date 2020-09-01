@@ -1,0 +1,27 @@
+! d* - do table true/false
+! t* - path to table file (guessed if omitted)
+! p* - alternative path to data file (path created if omitted)
+! r* - ?
+! v* - list of varibles: <NorESM name>,<cmor name>,<special operation>
+
+&table_grids
+ tgrids        = 'CMIP6_grids.json'
+/
+
+&table_aero
+ daero         = .true.
+ taero         = 'CMIP6_AERmon.json',
+ raero         = 1000000,
+ vaero         =
+                 'od550aer     ','DOD550                    ','unitless;dayfoc    ',
+/
+&table_limon
+ dlimon        = .true.
+ tlimon        = 'CMIP6_LImon.json'
+ rlimon        = 1000000,
+ vlimon        =
+                 'snc       ','FSNO              ','percent   ',
+                 'snd       ','SNOWDP            ','          ',
+                 'snw       ','SNOWICE+SNOWLIQ   ','          ',
+/
+

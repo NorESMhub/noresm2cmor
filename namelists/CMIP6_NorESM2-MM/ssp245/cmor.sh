@@ -9,14 +9,15 @@ login2=false
 login3=false
 
 # set active
-login0=true
-#login1=true
+#login0=true
+login1=true
 #login2=true
 #login3=true
 
 # initialize
 #version=v20191108
-version=v20200218
+#version=v20200218
+version=v20200702
 
 expid=ssp245
 model=NorESM2-MM
@@ -69,6 +70,22 @@ years2=(2020 $(seq 2030 10 2100))
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 
+#---
+fi
+#---
+
+if $login1
+then
+#----------------
+# ssp245, realisation 2
+#----------------
+CaseName=NSSP245frc2_02_f09_tn14_20200629
+real=2
+physics=1
+years1=(2014 $(seq 2021 10 2091))
+years2=(2020 $(seq 2030 10 2100))
+
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -phy=$physics -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---

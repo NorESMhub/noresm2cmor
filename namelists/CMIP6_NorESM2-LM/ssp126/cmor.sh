@@ -16,7 +16,8 @@ login0=true
 
 # initialize
 #version=v20191108
-version=v20200218
+#version=v20200218
+version=v20200702b
 
 expid=ssp126
 model=NorESM2-LM

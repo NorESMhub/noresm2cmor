@@ -1,6 +1,6 @@
 &experiment
  casename      = 'NSSP126frc2_f19_tn14_20191014',
- osubdir       = 'NorESM2-LM/ssp126/vyyyymmdd',
+ osubdir       = 'NorESM2-LM/ssp126/v20200702b'
  experiment_id = 'ssp126',
  parent_experiment_id  = 'historical',
  parent_experiment_rip = 'r1i1p1',
@@ -15,7 +15,7 @@
  forcing_index = 1, 
  branch_time   = 0.,
  year1         = 2015,
- yearn         = 2100,
+ yearn         = 2020,
  month1        = 1,
  monthn        = 12,
  exprefyear    = 1, 
