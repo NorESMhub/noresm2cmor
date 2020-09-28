@@ -4,7 +4,7 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
  then
      printf "Usage:\n"
      printf 'cmorCheck -e=[expid] -v=[version] -m=[model]\
-                          -yrs1=[(${years1[*]})] -yrs2=[(${years2[*]})] -p=[project]'
+                          -yrs1=[(${years1[*]})] -yrs2=[(${years2[*]})]'
      exit
  else
      while test $# -gt 0; do

@@ -115,7 +115,7 @@ Note: if you only need to cmorize only a subset of the supported variables, you 
 
 Create a bash script `cmor.sh` under: `${CMOR_ROOT}/namelists/CMIP6_${model}/${expid}`.
 
-This script sets the time periods of the model output to be cmorized, and also pass the `casename`,`expid`, `version` etc, and settings if run serial or parallel version of noresm2cmor3 tool. Some of the parameters in the scripts is optional, for example, `-mpi=DMPI` to run parallelly; `-p=NS9560KFRAM` to if `sysNS9560K.nml` instead of `sys.nml` is used.
+This script sets the time periods of the model output to be cmorized, and also pass the `casename`,`expid`, `version` etc, and settings if run serial or parallel version of noresm2cmor3 tool. Some of the parameters in the scripts is optional, for example, `-mpi=DMPI` to run parallelly; `-s=NS9560KFRAM` to use `sysNS9560K.nml` instead of `sys.nml` is used.
 
 This script basically does two tasks:
 1. submit the cmorization job, `runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]} ..."`

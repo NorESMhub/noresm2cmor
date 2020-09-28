@@ -1,9 +1,9 @@
-# submit comrisation for multiple realisation
+# submit comrisation for multiple realization
 function runcmor {
 #
 local CaseName expid version years1 years2 year1 year2
 local month1 month2 yyyy1 yyyy2 mm1 mm2 reals membs
-local project mpi
+local system mpi
 local nmlroot logroot
 #
 if [ $# -eq 0 ] || [ $1 == "--help" ] 
@@ -12,7 +12,7 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
      printf 'runcmor -c=[CaseName] -m=[model] -e=[expid] -v=[version] -yrs1=["${years1[*]}"] -yrs2=["${years2[*]}"] \\ \n'
      printf '        -mon1=month1 -mon2=month2 \\ \n' 
      printf '        -r=["${reals[*]}"] -membs=["${membs[*]}"] \\ \n'
-     printf '        -p=[project] -mpi=[DMPI] \n'
+     printf '        -s=[system] -mpi=[DMPI] \n'
      return
  else
      while test $# -gt 0; do
@@ -57,8 +57,8 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
                  membs=($(echo $1|sed -e 's/^[^=]*=//g'))
                  shift
                  ;;
-             -p=*)
-                 project=$(echo $1|sed -e 's/^[^=]*=//g')
+             -s=*)
+                 system=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
              -mpi=*)
@@ -79,9 +79,9 @@ echo -e "CaseName: $CaseName"
 echo -e "expid   : $expid"
 echo -e "model   : $model"
 echo -e "version : $version"
-if [ ! -z $project ]
+if [ ! -z $system ]
 then
-    echo -e "project : $project"
+    echo -e "system : $system"
 fi
 #echo -e "years1  : ${years1[*]}"
 #echo -e "years2  : ${years2[*]}"
@@ -89,11 +89,6 @@ fi
 ulimit -c 0
 ulimit -s unlimited
 source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux
-#if [ $(hostname -f |grep 'ipcc') ]
-#then
-    #project=${project}ipcc
-    #export PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/local/sbin
-#fi
 cwd=$(pwd)
 
 cd ${CMOR_ROOT}/bin
@@ -113,7 +108,7 @@ then
     exit
 fi
 
-# if CaseName and realisation are defined
+# if CaseName and realization are defined
 if [ ! -z $CaseName ]
 then
     CaseName="_${CaseName}"
@@ -181,7 +176,7 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
         if [ ! -z $mpi ] && [ $mpi == "DMPI" ]
         then
             nohup mpirun -n 8 ./noresm2cmor3_mpi \
-                ${nmlroot}/sys${project}.nml \
+                ${nmlroot}/sys${system}.nml \
                 ${nmlroot}/mod.nml \
                 ${nmlroot}/exp_${yyyy1}${mm1}-${yyyy2}${mm2}_r${real}.nml \
                 ${nmlroot}/var.nml \
@@ -189,7 +184,7 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
                 2>${logroot}/${yyyy1}${mm1}-${yyyy2}${mm2}_r${real}.err &
         else
             nohup ./noresm2cmor3 \
-                ${nmlroot}/sys${project}.nml \
+                ${nmlroot}/sys${system}.nml \
                 ${nmlroot}/mod.nml \
                 ${nmlroot}/exp_${yyyy1}${mm1}-${yyyy2}${mm2}_r${real}.nml \
                 ${nmlroot}/var.nml \

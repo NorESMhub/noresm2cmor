@@ -71,7 +71,7 @@ years2=( 2020 `seq 2030 10 2054` )
 years1=( 2051 )
 years2=( 2054 )
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -p=NS9034K -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -s=NS9034K -mpi=DMPI
 
 #---
 :

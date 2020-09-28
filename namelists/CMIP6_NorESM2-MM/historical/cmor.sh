@@ -71,7 +71,7 @@ CaseName=NHISTfrc2_f09_tn14_20191001
 years1=(1849 $(seq 1860 10 1940))
 years2=(1859 $(seq 1869 10 1949))
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -p=NS9560K -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -s=NS9560K -mpi=DMPI
 #---
 fi
 #---
@@ -85,7 +85,7 @@ CaseName=NHISTfrc2_f09_tn14_20191025
 years1=($(seq 1950 10 2000) 2010 )
 years2=($(seq 1959 10 2009) 2014 )
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -p=NS9560KFRAM -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -s=NS9560KFRAM -mpi=DMPI
 #---
 fi
 #---

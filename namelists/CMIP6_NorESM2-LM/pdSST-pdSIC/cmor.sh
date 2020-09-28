@@ -32,8 +32,8 @@ version=v20200218
 expid=pdSST-pdSIC
 model=NorESM2-LM
 
-#project=NS2345K
-project=NS2345K2
+#system=NS2345K
+system=NS2345K2
 
 # --- Use input arguments if exits
 if [ $# -ge 1 ] 
@@ -181,7 +181,7 @@ reals+=( 113  114  115  116  117  118  119  120  121  122  123  124  125)
 membs+=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" \
-    -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -membs="${membs[*]}" -p=${project}
+    -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -membs="${membs[*]}" -s=${system}
 #---
 fi
 #---
@@ -204,7 +204,7 @@ reals+=( 138  139  140  141  142  143  144  145  146  147  148  149  150)
 membs+=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" \
-    -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -membs="${membs[*]}" -p=${project}
+    -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -membs="${membs[*]}" -s=${system}
 #---
 fi
 #---
@@ -227,7 +227,7 @@ reals+=( 163  164  165  166  167  168  169  170  171  172  173  174  175)
 membs+=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" \
-    -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -membs="${membs[*]}" -p=${project}
+    -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -membs="${membs[*]}" -s=${system}
 #---
 fi
 #---
@@ -250,7 +250,7 @@ reals+=( 188  189  190  191  192  193  194  195  196  197  198  199  200)
 membs+=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" \
-    -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -membs="${membs[*]}" -p=${project}
+    -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -membs="${membs[*]}" -s=${system}
 #---
 fi
 #---

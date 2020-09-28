@@ -4,7 +4,7 @@ set -e
 if [ $# -eq 0 ] || [ $1 == "--help" ]
  then
      printf "Usage:\n"
-     printf 'cmorSelvar.sh -m=[model] -e=[expid] -v=[version] -r=[realisation] \
+     printf 'cmorSelvar.sh -m=[model] -e=[expid] -v=[version] -r=[realization] \
                      -yr1=[year1] -yr2=[year2] -ryr1=[refer year1]  -ryr2=[refer year2] \n'
      printf 'e.g.,:\n'
      printf 'cmorSelvar.sh -m=NorESM2-LM -e=ssp370 -v=v20191108 -r=3 -yr1=2031 -yr2=2040 -ryr1=2051 -ryr2=2054 \n'

@@ -77,7 +77,7 @@ real=1
 years1=(2015)
 years2=(2020)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -p=NS2345K
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS2345K
 #---
 fi
 #---
@@ -92,7 +92,7 @@ real=2
 years1=(1849 $(seq 1860 10 2000) 2010)
 years2=(1859 $(seq 1869 10 2009) 2014)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -p=NS2345K
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS2345K
 
 #----------------
 # hist-GHG emsemble 2, part 2
@@ -102,7 +102,7 @@ real=2
 years1=(2015)
 years2=(2020)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -p=NS2345K
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS2345K
 #---
 fi
 #---
@@ -117,7 +117,7 @@ real=3
 years1=(1849 $(seq 1860 10 2000) 2010)
 years2=(1859 $(seq 1869 10 2009) 2014)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -p=NS2345K
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS2345K
 
 #----------------
 # hist-GHG emsemble 3, part 2
@@ -127,7 +127,7 @@ real=3
 years1=(2015)
 years2=(2020)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -p=NS2345K
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS2345K
 #---
 fi
 #---

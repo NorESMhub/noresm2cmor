@@ -83,7 +83,7 @@ years1=(1849 $(seq 1860 10 2000) 2010)
 years2=(1859 $(seq 1869 10 2009) 2014)
 
 rm -f $CMOR_ROOT/bin/filelist_b.e21.NHISTfrc2.f19_tn14-hist-noLu.001
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -p=LUMIP
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=LUMIP
 #---
 fi
 #---

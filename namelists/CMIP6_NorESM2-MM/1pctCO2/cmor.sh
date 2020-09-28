@@ -65,7 +65,7 @@ CaseName=N1PCTfrc2_f09_tn14_20191008
 years1=($(seq 1 10 111))
 years2=($(seq 10 10 120))
 
-runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -p=NS9560KFRAM -mpi=DMPI
+runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -s=NS9560KFRAM -mpi=DMPI
 #---
 fi
 #---
@@ -79,7 +79,7 @@ CaseName=N1PCTfrc2_f09_tn14_20191028
 years1=($(seq 121 10 141))
 years2=($(seq 130 10 150))
 
-runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -p=NS9560KFRAM -mpi=DMPI
+runcmor -c=$CaseName -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -s=NS9560KFRAM -mpi=DMPI
 #---
 fi
 #---

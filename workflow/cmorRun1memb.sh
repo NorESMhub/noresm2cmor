@@ -1,14 +1,14 @@
-# submit comrisation for single realisation
+# submit comrisation for single realization
 function runcmor {
 #
-local CaseName expid version real years1 years2 project
+local CaseName expid version real years1 years2 system
 local nmlroot logroot
 #
 if [ $# -eq 0 ] || [ $1 == "--help" ] 
  then
      printf "Usage:\n"
-     printf 'runcmor -c=[CaseName] -m=[model] -e=[expid] -v=[version] -r=[realisation] -phy=[physics] \
-                     -yrs1=[(${years1[*]})] -yrs2=[(${years2[*]})] -p=[project] \
+     printf 'runcmor -c=[CaseName] -m=[model] -e=[expid] -v=[version] -r=[realization] -p=[physics] \
+                     -yrs1=[(${years1[*]})] -yrs2=[(${years2[*]})] -s=[system] \
                      -mpi=[DMPI] \n'
      return
  else
@@ -34,7 +34,7 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
                  real=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
-             -phy=*)
+             -p=*)
                  physics=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
@@ -46,8 +46,8 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
                  years2=($(echo $1|sed -e 's/^[^=]*=//g'))
                  shift
                  ;;
-             -p=*)
-                 project=$(echo $1|sed -e 's/^[^=]*=//g')
+             -s=*)
+                 system=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
              -mpi=*)
@@ -69,9 +69,9 @@ echo -e "expid   : $expid"
 echo -e "version : $version"
 echo -e "real    : $real"
 echo -e "physics : $physics"
-if [ ! -z $project ]
+if [ ! -z $system ]
 then
-    echo -e "project : $project"
+    echo -e "system : $system"
 fi
 #echo -e "years1  : ${years1[*]}"
 #echo -e "years2  : ${years2[*]}"
@@ -80,11 +80,6 @@ ulimit -c 0
 #ulimit -c unlimited
 ulimit -s unlimited
 source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux
-#if [ $(hostname -f |grep 'ipcc') ]
-#then
-    #project=${project}ipcc
-    #export PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/local/sbin
-#fi
 cwd=$(pwd)
 
 cd ${CMOR_ROOT}/bin
@@ -104,7 +99,7 @@ then
     exit
 fi
 
-# if CaseName and realisation are defined
+# if CaseName and realization are defined
 if [ ! -z $CaseName ]
 then
     CaseName="_${CaseName}"
@@ -161,7 +156,7 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
     if [ ! -z $mpi ] && [ $mpi == "DMPI" ]
     then
         nohup mpirun -n 8 ./noresm2cmor3_mpi \
-            ${nmlroot}/sys${project}.nml \
+            ${nmlroot}/sys${system}.nml \
             ${nmlroot}/mod.nml \
             ${nmlroot}/exp_${year1}-${year2}${real}${physics}.nml \
             ${nmlroot}/var.nml \
@@ -169,7 +164,7 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
             2>${logroot}/${year1}-${year2}${real}${physics}.err &
     else
         nohup ./noresm2cmor3 \
-                ${nmlroot}/sys${project}.nml \
+                ${nmlroot}/sys${system}.nml \
                 ${nmlroot}/mod.nml \
                 ${nmlroot}/exp_${year1}-${year2}${real}${physics}.nml \
                 ${nmlroot}/var.nml \
