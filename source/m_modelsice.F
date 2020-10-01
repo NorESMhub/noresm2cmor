@@ -1299,6 +1299,7 @@ c
 c
       REAL :: fac1,fac2
       INTEGER :: ind,rec,i,j,i1,j1
+      INTEGER :: nc
       INTEGER, SAVE :: fid
       CHARACTER(LEN=*), INTENT(IN), OPTIONAL :: fname
       CHARACTER(len=slenmax) :: ivnm1a,ivnm2a,ivnm1b,ivnm2b
@@ -1383,8 +1384,12 @@ c --- - Compute Fram Strait transport
           STOP
         ENDIF
         IF (TRIM(zcoord).EQ.'iceband') THEN
+            status=nf90_inq_dimid(fid,'nc',dimid)
+            CALL handle_ncerror(status)
+            status=nf90_inquire_dimension(fid,dimid,len=nc)
+            CALL handle_ncerror(status)
             status=nf90_get_var(fid,rhid,fld3d,(/1,1,1,rec/), 
-     .    (/idm,jdm,5,1/)) 
+     .    (/idm,jdm,nc,1/)) 
         ELSE
             status=nf90_get_var(fid,rhid,fld,(/1,1,rec/), 
      .    (/idm,jdm,1/)) 
