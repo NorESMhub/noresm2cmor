@@ -13,4 +13,11 @@
    v20191009 -> v20191018 [style=dashed,wegith="1",label="bug fix"];
    v20191009 -> v20191108 [style=dashed,wegith="1",label="merge"];
    v20191022 -> v20191108 [style=dashed,wegith="1",label="merge"];
+   v20191108 -> v20200206 [style=dashed,weigth="1"];
+   v20200206 -> v20200218 [style=dashed,weigth="1"];
+   v20191108 -> v20200218 [penwidth=2.0,weigth="2"];
+   v20191108 -> v20200217 [style=dashed,weigth="1"];
+   v20200217 -> v20200218 [style=dashed,weigth="1"];
+   v20200218 -> v20200702 [penwidth=2.0,weigth="2"];
+   v20200702 -> v20201001 [penwidth=2.0,weigth="2"];
  }
