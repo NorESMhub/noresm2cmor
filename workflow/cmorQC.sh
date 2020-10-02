@@ -75,6 +75,7 @@ do
             printf %n >>${version}.QCreport
         fi
     done
+    echo ""
 done
 
 wait

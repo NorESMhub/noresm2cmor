@@ -2803,8 +2803,6 @@ c
 c
 c --- Open input file 
 c     WRITE(*,*) 'read_tslice, fname: '//trim(fname)
-c     WRITE(*,*) 'read_tslice, ivnm1,ivnm2: '\
-c                   //trim(ivnm1)//','//trim(ivnm2)
       IF (PRESENT(fname)) THEN 
         status=nf90_open(fname,nf90_nowrite,fid)
         CALL handle_ncerror(status)
@@ -2852,6 +2850,8 @@ c --- Read data
      .  fac1,fac2,fac3,fac4,fac5,fac6,
      .  ivnm7,ivnm8,ivnm9,ivnm10,ivnm11,ivnm12,
      .  fac7,fac8,fac9,fac10,fac11,fac12)
+c     WRITE(*,*) 'read_tslice, ivnm1,ivnm2: '\
+c                   //trim(ivnm1)//','//trim(ivnm2)
       IF (INDEX(special,'catplev').LT.1) THEN 
         status=nf90_inq_varid(fid,TRIM(ivnm1),rhid)
       ENDIF

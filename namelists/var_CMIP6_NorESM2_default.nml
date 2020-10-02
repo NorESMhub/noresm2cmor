@@ -1125,6 +1125,8 @@ vCFday         =
 !                'hfls      ','LHFLX                ','positiveup   ',
 !                'hfss      ','SHFLX                ','positiveup   ',
 !                'hurs      ','RHREFHT              ','percent;hurcomment',
+!                'pfull     ','PS                   ','ps2pfull     ',
+!                'phalf     ','PS                   ','ps2phalf     ',
 !                'pr        ','PRECT                ','kg m-2 s-1   ',
 !                'prc       ','PRECC                ','kg m-2 s-1   ',
 !                'prsn      ','PRECSC+PRECSL        ','kg m-2 s-1   ',
@@ -1147,7 +1149,4 @@ vCFday         =
 !                'ta        ','T                    ','             ',
 !                'tauu      ','TAUX                 ','positiveup   ',
 !                'tauv      ','TAUY                 ','positiveup   ',
-! not implemented
-!                'pfull     ',',PS derived          ','             ',
-!                'phalf     ',',PS derived          ','             ',
 /

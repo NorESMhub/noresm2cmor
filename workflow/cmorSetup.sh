@@ -8,72 +8,78 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
      printf "\n"
      printf " Usage:\n"
      printf ' ./cmorSetup.sh \
-       -c=[casename]         # e.g., NHIST_f19_tn14_20190625 \
-       -m=[model]            # e.g., NorESM2-LM, NorESM2-MM, NorESM1-F \
-       -e=[expid]            # e.g., hist_all, etc (your own experiment id; here historical run with improved model version) \
-       -eref=[expid_ref]     # e.g., historical, etc (an equivalent/similar CMIP6 experiment id as an reference)
-       -v=[version]          # e.g., v20200702 (or other vyyyymmdd) \
-       -y1=[year1]           # e.g., 1850 (first model year to be cmorized) \
-       -y2=[yearn]           # e.g., 2014 (last model year to be cmorized) \
-       -r=[realization]      # e.g., 1,2,3 \
-       -p=[physics]          # e.g., 1,2,3 \
-       -i=[ibasedir]         # path to model output. e.g., /projects/NS9560K/noresm/cases \
-       -o=[obasedir]         # path to cmorized output. e.g., /projects/NSxxxxK/CMIP6/cmorout (by default, set to /scratch/$USER/cmorout) \'
+       --casename=[casename]    # e.g., NHIST_f19_tn14_20190625 \
+       --model=[model]          # e.g., NorESM2-LM, NorESM2-MM, NorESM1-F \
+       --expid=[expid]          # e.g., hist_all, etc (your own experiment id; here historical run with improved model version) \
+       --expidref=[expidref]    # e.g., historical, etc (an equivalent/similar CMIP6 experiment id as an reference)
+       --version=[version]      # e.g., v20200702 (or other vyyyymmdd) \
+       --year1=[year1]          # e.g., 1850 (first model year to be cmorized) \
+       --yearn=[yearn]          # e.g., 2014 (last model year to be cmorized) \
+       --realization=[realization]  # e.g., (optional) 1 (default),2,3\
+       --physics=[physics]          # e.g., (optional) 1 (default),2,3\
+       --mpi=[DMPI|UMPI]        # e.g., (optional) DMPI, UMPI \
+       --ibasedir=[ibasedir]    # path to model output (optional), default /projects/NS9560K/noresm/cases \
+       --obasedir=[obasedir]    # path to cmorized output. e.g., /projects/NSxxxxK/CMIP6/cmorout (by default, set to /scratch/$USER/cmorout) \'
      exit
  else
      # set default values
      realization=1
      physics=1
+     parallel=DMPI
      ibasedir=/projects/NS9560K/noresm/cases
      obasedir=/scratch/$USER/cmorout
      while test $# -gt 0; do
          case "$1" in
-             -c=*)
+             --casename=*)
                  casename=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
-             -m=*)
+             --model=*)
                  model=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
-             -e=*)
+             --expid=*)
                  expid=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
-             -eref=*)
-                 expid_ref=$(echo $1|sed -e 's/^[^=]*=//g')
+             --expidref=*)
+                 expidref=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
-             -v=*)
+             --version=*)
                  version=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
-             -y1=*)
+             --year1=*)
                  year1=($(echo $1|sed -e 's/^[^=]*=//g'))
                  shift
                  ;;
-             -y2=*)
+             --yearn=*)
                  yearn=($(echo $1|sed -e 's/^[^=]*=//g'))
                  shift
                  ;;
-             -r=*)
+             --realization=*)
                  realization=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
-             -p=*)
+             --physics=*)
                  physics=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
-             -i=*)
+             --mpi=*)
+                 mpi=$(echo $1|sed -e 's/^[^=]*=//g')
+                 shift
+                 ;;
+             --ibasedir=*)
                  ibasedir=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
-             -o=*)
+             --obasedir=*)
                  obasedir=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
              * )
-                 echo "ERROR: option $1 not allowed."
+                 echo "ERROR: option $1 not recognised."
                  echo "*** EXITING THE SCRIPT"
                  exit 1
                  ;;
@@ -94,8 +100,8 @@ for param in casename model expid version year1 yearn realization physics ibased
     [ -z ${!param} ] && echo "** ERROR: \$$param is not specificed **" && exit 1
 done
 
-if [ -z $expid_ref ]; then
-    expid_ref=$expid
+if [ -z $expidref ]; then
+    expidref=$expid
 fi
 
 if [ ! -d $CMOR_ROOT/namelists/CMIP6_${model}/${expid} ];then
@@ -106,7 +112,10 @@ cd $CMOR_ROOT/namelists/CMIP6_${model}/${expid}/
 [ ! -d $version ] && mkdir $version
 [ ! -d template ] && mkdir template
 
-expnmltemp=$(ls $CMOR_ROOT/namelists/CMIP6_${model}/${expid_ref}/template/exp*.nml |head -1)
+expnmltemp=$(ls $CMOR_ROOT/namelists/CMIP6_${model}/${expidref}/template/exp.nml | tail -1 2>/dev/null |cat)
+if [ -z $expnmltemp ]; then
+    expnmltemp=$(ls $CMOR_ROOT/namelists/CMIP6_${model}/${expidref}/template/exp*.nml |head -1)
+fi
 cp $expnmltemp template/exp_${casename}.nml
 sed -i "s/casename * = '.*',/casename      = '${casename}',/g" template/exp_${casename}.nml
 sed -i "s~osubdir * = '.*',~osubdir       = '${model}/${expid}/vyyyymmdd',~g" template/exp_${casename}.nml
@@ -127,29 +136,39 @@ sed -i "s/forcefilescan * = .*.,/forcefilescan = .false.,/g" ${version}/sys.nml
 # update cmor_casename.sh
 cp $CMOR_ROOT/workflow/cmor.template cmor_${casename}.sh
 sed -i "s/^version=.*/version=${version}/" cmor_${casename}.sh
-sed -i "s/^expid=.*[[:alnum:]_]$/expid=${expid_ref}/" cmor_${casename}.sh
+sed -i "s/^expid=.*[[:alnum:]_]$/expid=${expidref}/" cmor_${casename}.sh
 sed -i "s/^model=.*/model=${model}/" cmor_${casename}.sh
 sed -i "s/^CaseName=.*/CaseName=${casename}/" cmor_${casename}.sh
 sed -i "s/^real=.*/real=${realization}/" cmor_${casename}.sh
 sed -i "s/^physics=.*/physics=${physics}/" cmor_${casename}.sh
+sed -i "s/^parallel=.*/parallel=${parallel}/" cmor_${casename}.sh
 
-year11=$(( $year1-1          ))
+#year11=$(( $year1-1          ))
+year11=$(( $year1            ))
 year12=$(( ($year1/10+1)*10  ))
 year13=$(( $yearn/10*10-10   ))
 year14=$(( $yearn/10*10      ))
-year21=$(( $year1/10*10+9    ))
-year22=$(( ($year1/10+1)*10+9))
-year23=$(( $yearn/10*10-1    ))
-year24=$yearn
+yearn1=$(( $year1/10*10+9    ))
+yearn2=$(( ($year1/10+1)*10+9))
+yearn3=$(( $yearn/10*10-1    ))
+yearn4=$yearn
 
-sed -i "s/year11/$year11/" cmor_${casename}.sh
-sed -i "s/year12/$year12/" cmor_${casename}.sh
-sed -i "s/year13/$year13/" cmor_${casename}.sh
-sed -i "s/year14/$year14/" cmor_${casename}.sh
-sed -i "s/year21/$year21/" cmor_${casename}.sh
-sed -i "s/year22/$year22/" cmor_${casename}.sh
-sed -i "s/year23/$year23/" cmor_${casename}.sh
-sed -i "s/year24/$year24/" cmor_${casename}.sh
+((dyr=$yearn-$year1))
+if [ $dyr -le 10 ]
+then
+    sed -i "s/years1=(year11 \$(seq year12 10 year13) year14)/years1=($year11)/" cmor_${casename}.sh 
+    sed -i "s/years2=(yearn1 \$(seq yearn2 10 yearn3) yearn4)/years2=($yearn4)/" cmor_${casename}.sh 
+else
+
+    sed -i "s/year11/$year11/" cmor_${casename}.sh
+    sed -i "s/year12/$year12/" cmor_${casename}.sh
+    sed -i "s/year13/$year13/" cmor_${casename}.sh
+    sed -i "s/year14/$year14/" cmor_${casename}.sh
+    sed -i "s/yearn1/$yearn1/" cmor_${casename}.sh
+    sed -i "s/yearn2/$yearn2/" cmor_${casename}.sh
+    sed -i "s/yearn3/$yearn3/" cmor_${casename}.sh
+    sed -i "s/yearn4/$yearn4/" cmor_${casename}.sh
+fi
 
 echo -e "       "
 echo -e "-----------------------------------------------------------------"
