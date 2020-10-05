@@ -675,17 +675,30 @@ c
       IMPLICIT NONE
 c
       LOGICAL, INTENT(IN), OPTIONAL :: reset
+      LOGICAL   :: isloop,isflag
 c
 c     write(*,*) ibasedir,casename,itag
-      IF (PRESENT(reset)) THEN
-        CALL get_file_info(ibasedir,casename,itag,fnm,
-     .    year1,month1,yearn,monthn,exprefyear,reset,rec,tval(1),tbnd,
-     .    mbnd,year,month)
-      ELSE
-        CALL get_file_info(ibasedir,casename,itag,fnm,
-     .    year1,month1,yearn,monthn,exprefyear,.false.,rec,tval(1),tbnd,
-     .    mbnd,year,month)
-      ENDIF
+      isloop=.true.
+      isflag=.true.
+      DO WHILE (isloop)
+        IF (PRESENT(reset)) THEN
+          CALL get_file_info(ibasedir,casename,itag,fnm,year1,month1,
+     .      yearn,monthn,exprefyear,reset,rec,tval(1),tbnd,
+     .      mbnd,year,month)
+        ELSE
+          CALL get_file_info(ibasedir,casename,itag,fnm,year1,month1,
+     .      yearn,monthn,exprefyear,.false.,rec,tval(1),tbnd,
+     .      mbnd,year,month)
+        ENDIF
+
+        IF(LEN_TRIM(fnm).eq.0.and.INDEX(itag,'micom.').gt.0
+     .    .and.isflag) THEN
+          itag="blom."//itag(7:)
+          isflag=.false.
+        ELSE
+          isloop=.false.
+        ENDIF
+      END DO
       IF(LEN_TRIM(fnm).eq.0) THEN 
         IF (verbose) WRITE(*,*) 'WARNING: no file found for ' 
      .//'case dir|tag|year1|month1|yearn|monthn: ',
