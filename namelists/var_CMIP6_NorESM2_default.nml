@@ -854,7 +854,7 @@ vAERday        =
                  'va10      ','V010         ','         ',
                  'zg10      ','Z010         ','         ',
                  'zg100     ','Z100         ','         ',
-                 'zg1000    ','Z1000        ','         ,
+                 'zg1000    ','Z1000        ','         ',
                  'zg500     ','Z500         ','         ',
 ! not available in output, thus not tested
 !                'ua10      ','U010         ','         ',

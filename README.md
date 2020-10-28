@@ -100,5 +100,5 @@ Check the settings in the script and namelist. One can start the cmorization by 
 
 ### 3.2 A full workflow from scratch
 A more general workflow of cmorization if found at the wiki page:
-https://github.com/NorESMhub/noresm2cmor/wiki/Workflow-to-do-the-CMORIZATION
+https://github.com/NorESMhub/noresm2cmor/wiki/Workflow
 
