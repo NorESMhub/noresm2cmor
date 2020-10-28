@@ -5,5 +5,6 @@ devel
 logs
 test
 obselete
-*_tmp.sh
+*_tmp?.sh
 tmp
+*.log*
