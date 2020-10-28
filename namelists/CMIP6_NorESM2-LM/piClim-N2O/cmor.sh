@@ -17,7 +17,7 @@ login1=true
 # initialize
 #version=v20190920
 #version=v20191108b
-version=v20202018
+version=v20200218
 
 expid=piClim-N2O
 model=NorESM2-LM

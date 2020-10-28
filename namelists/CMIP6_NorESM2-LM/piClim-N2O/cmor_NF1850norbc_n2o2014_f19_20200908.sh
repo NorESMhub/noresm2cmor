@@ -4,16 +4,13 @@ source ${CMOR_ROOT}/workflow/cmorRun1memb.sh
 
 # initialize
 login0=false
-#login1=false
 
 # set active
 login0=true
-#login1=true
 
 # initialize
-version=v20200702
 version=v20201001
-expid=1pctCO2-bgc
+expid=piClim-N2O
 model=NorESM2-LM
 
 # --- Use input arguments if exits
@@ -57,11 +54,11 @@ then
 #----------------
 # part 1
 #----------------
-CaseName=N1PCTBGC_f19_tn14_20190629
+CaseName=NF1850norbc_n2o2014_f19_20200908
 real=1
-physics=1
-years1=($(seq 0 10 131))
-years2=($(seq 10 10 140))
+physics=2
+years1=(1  11 21)
+years2=(10 20 30)
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---

@@ -1,6 +1,6 @@
 &experiment
  casename      = 'N1PCTBGC_f19_tn14_20190629',
- osubdir       = 'NorESM2-LM/1pctCO2-bgc/vyyyymmdd'
+ osubdir       = 'NorESM2-LM/1pctCO2-bgc/v20201001'
  experiment_id = '1pctCO2-bgc',
  parent_experiment_id  = 'piControl',
  parent_experiment_rip = 'r1i1p1',
@@ -14,8 +14,8 @@
  physics_version = 1,
  forcing_index = 1, 
  branch_time   = 0.,
- year1         = 1,
- yearn         = 140,
+ year1         = 51,
+ yearn         = 60,
  month1        = 1,
  monthn        = 12,
  exprefyear    = 1, 
