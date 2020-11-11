@@ -2550,8 +2550,8 @@ c --- Define vertical axis
 #endif 
      .    units         = '1',
      .    length        = ldm+1,
-     .    coord_vals    = tmp1d, !ilev*1d-3,
-     .    cell_bounds   = tmp1d_2)! (iilev*1d-3)
+     .    coord_vals    = tmp1d) !ilev*1d-3,
+c     .    cell_bounds   = tmp1d_2)! (iilev*1d-3)
         DEALLOCATE (tmp1d,tmp1d_2)
         error_flag=cmor_zfactor(
      .    zaxis_id      = kaxid,
@@ -2566,8 +2566,8 @@ c --- Define vertical axis
      .    zfactor_name  = 'b',
 #endif 
      .    axis_ids      = (/kaxid/),
-     .    zfactor_values= hybi,
-     .    zfactor_bounds= hybii )
+     .    zfactor_values= hybi)
+c     .    zfactor_bounds= hybii )
         error_flag=cmor_zfactor(
      .    zaxis_id      = kaxid,
 #ifdef CMOR3
@@ -2576,8 +2576,8 @@ c --- Define vertical axis
      .    zfactor_name  = 'a',
 #endif 
      .    axis_ids      = (/kaxid/),
-     .    zfactor_values= hyai,
-     .    zfactor_bounds= hyaii )
+     .    zfactor_values= hyai)
+c     .    zfactor_bounds= hyaii )
         zfacid=cmor_zfactor(
      .    zaxis_id      = kaxid,
      .    zfactor_name  = TRIM(str),
