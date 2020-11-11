@@ -57,10 +57,12 @@ then
 CaseName=NHIST_f19_tn14_20190625
 real=1
 physics=1
+forcing=1
+init=1
 years1=(year11 $(seq year12 10 year13) year14)
 years2=(yearn1 $(seq yearn2 10 yearn3) yearn4)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -f=$forcing -i=$init -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---

@@ -15,8 +15,10 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
        --version=[version]      # e.g., v20200702 (or other vyyyymmdd) \
        --year1=[year1]          # e.g., 1850 (first model year to be cmorized) \
        --yearn=[yearn]          # e.g., 2014 (last model year to be cmorized) \
-       --realization=[realization]  # e.g., (optional) 1 (default),2,3\
-       --physics=[physics]          # e.g., (optional) 1 (default),2,3\
+       --realization=[realization]  # e.g., (optional) 1 (default),2,3,etc\
+       --physics=[physics]          # e.g., (optional) 1 (default),2,3,etc\
+       --forcing=[forcing]          # e.g., (optional) 1 (default),2,3,etc\
+       --init=[initialization]  # e.g., (optional) 1 (default),2,3,etc\
        --mpi=[DMPI|UMPI]        # e.g., (optional) DMPI, UMPI \
        --ibasedir=[ibasedir]    # path to model output (optional), default /projects/NS9560K/noresm/cases \
        --obasedir=[obasedir]    # path to cmorized output. e.g., /projects/NSxxxxK/CMIP6/cmorout (by default, set to /scratch/$USER/cmorout) \'
@@ -25,6 +27,8 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
      # set default values
      realization=1
      physics=1
+     forcing=1
+     init=1
      parallel=DMPI
      ibasedir=/projects/NS9560K/noresm/cases
      obasedir=/scratch/$USER/cmorout
@@ -64,6 +68,14 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
                  ;;
              --physics=*)
                  physics=$(echo $1|sed -e 's/^[^=]*=//g')
+                 shift
+                 ;;
+             --forcing=*)
+                 forcing=$(echo $1|sed -e 's/^[^=]*=//g')
+                 shift
+                 ;;
+             --init=*)
+                 init=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
              --mpi=*)
@@ -112,15 +124,17 @@ cd $CMOR_ROOT/namelists/CMIP6_${model}/${expid}/
 [ ! -d $version ] && mkdir $version
 [ ! -d template ] && mkdir template
 
-expnmltemp=$(ls $CMOR_ROOT/namelists/CMIP6_${model}/${expidref}/template/exp.nml | tail -1 2>/dev/null |cat)
+expnmltemp=$(ls $CMOR_ROOT/namelists/CMIP6_${model}/${expidref}/template/exp.nml 2>/dev/null | tail -1 |cat)
 if [ -z $expnmltemp ]; then
     expnmltemp=$(ls $CMOR_ROOT/namelists/CMIP6_${model}/${expidref}/template/exp*.nml |head -1)
 fi
-cp $expnmltemp template/exp_${casename}.nml
+cp $expnmltemp template/exp_${casename}.nml |cat
 sed -i "s/casename * = '.*',/casename      = '${casename}',/g" template/exp_${casename}.nml
 sed -i "s~osubdir * = '.*',~osubdir       = '${model}/${expid}/vyyyymmdd',~g" template/exp_${casename}.nml
 sed -i "s/realization * = .*,/realization   = ${realization},/g" template/exp_${casename}.nml
 sed -i "s/physics_version * = .*,/physics_version = ${physics},/g" template/exp_${casename}.nml
+sed -i "s/forcing_index * = .*,/forcing_index = ${forcing},/g" template/exp_${casename}.nml
+sed -i "s/initialization_method * = .*,/initialization_method = ${init},/g" template/exp_${casename}.nml
 sed -i "s/year1 * = .*,/year1         = ${year1},/g" template/exp_${casename}.nml
 sed -i "s/yearn * = .*,/yearn         = ${yearn},/g" template/exp_${casename}.nml
 
@@ -141,6 +155,8 @@ sed -i "s/^model=.*/model=${model}/" cmor_${casename}.sh
 sed -i "s/^CaseName=.*/CaseName=${casename}/" cmor_${casename}.sh
 sed -i "s/^real=.*/real=${realization}/" cmor_${casename}.sh
 sed -i "s/^physics=.*/physics=${physics}/" cmor_${casename}.sh
+sed -i "s/^forcing=.*/forcing=${forcing}/" cmor_${casename}.sh
+sed -i "s/^init=.*/init=${init}/" cmor_${casename}.sh
 sed -i "s/^parallel=.*/parallel=${parallel}/" cmor_${casename}.sh
 
 #year11=$(( $year1-1          ))
