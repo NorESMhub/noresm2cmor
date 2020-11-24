@@ -1,15 +1,15 @@
 &experiment
- casename      = 'NHIST_f19_tn14_pamip2p2_01007',
+ casename      = 'NHIST_f19_tn14_pamip2p2_02002',
  osubdir       = 'NorESM2-LM/pa-futArcSIC/v20201001'
  experiment_id = 'pa-futArcSIC',
  parent_experiment_id  = 'historical',
- parent_experiment_rip = 'r1i1p1',
+ parent_experiment_rip = 'r2i1p1',
  parent_time_units = 'days since 1850-01-01 00:00:00',
  branch_method = 'Hybrid-restart from year 2000-04-01',
  history       = ' ',
  comment       = ' ',
  forcing       = 'N/A',
- realization   = 8,
+ realization   = 38,
  initialization_method = 1, 
  physics_version = 1,
  forcing_index = 1, 
