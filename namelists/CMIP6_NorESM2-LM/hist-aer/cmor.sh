@@ -10,9 +10,9 @@ login3=false
 
 # set active
 login0=true
-login1=true
-login2=true
-login3=true
+#login1=true
+#login2=true
+#login3=true
 
 # initialize
 #version=v20190920
@@ -68,7 +68,7 @@ real=1
 years1=(1849 $(seq 1860 10 1940))
 years2=(1859 $(seq 1869 10 1949))
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #----------------
 # hist-aer, ensemble 1, part2
 #----------------
@@ -78,7 +78,7 @@ real=1
 years1=($(seq 1950 10 2000) 2010)
 years2=($(seq 1959 10 2009) 2014)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #----------------
 # hist-aer, ensemble 1, part3
 #----------------
@@ -88,7 +88,7 @@ real=1
 years1=(2015)
 years2=(2020)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 
 #---
 fi
@@ -107,7 +107,7 @@ years2=(1859 $(seq 1869 10 1949))
 #
 years1+=($(seq 1950 10 2000) 2010)
 years2+=($(seq 1959 10 2009) 2014)
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -s=NS2345K
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -s=NS2345K -mpi=DMPI
 #----------------
 # hist-aer, ensemble 2, part2
 #----------------
@@ -117,7 +117,7 @@ real=2
 years1=(2015)
 years2=(2020)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 
 #---
 fi
@@ -136,7 +136,9 @@ years2=(1859 $(seq 1869 10 1949))
 #
 years1+=($(seq 1950 10 2000) 2010)
 years2+=($(seq 1959 10 2009) 2014)
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -s=NS2345K
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -s=NS2345K -mpi=DMPI
+#cfc12global_Amon_CESM2_historical_r11i1p1f1_gn_200001-201412.nc
+#cfc12global_Amon_CESM2_historical_r11i1p1f1_gn_200001-201412.nc
 #----------------
 # hist-aer, ensemble 3, part2
 #----------------
@@ -146,7 +148,8 @@ real=3
 years1=(2015)
 years2=(2020)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+#cfc12global_Amon_CESM2_historical_r11i1p1f1_gn_200001-201412.nc
 
 #---
 fi
