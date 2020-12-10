@@ -1,0 +1,9 @@
+&sys
+ ibasedir      = '../data/cmorin',
+ obasedir      = '../data/cmorout',
+ griddata      = '../data/griddata',
+ tabledir      = '../tables'
+ createsubdirs = .false.,
+ forcefilescan = .false.,  
+ verbose       = .true.,
+/
