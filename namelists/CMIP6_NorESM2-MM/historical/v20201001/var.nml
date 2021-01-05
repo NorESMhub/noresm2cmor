@@ -1,0 +1,93 @@
+! d* - do table true/false
+! t* - path to table file (guessed if omitted)
+! p* - alternative path to data file (path created if omitted)
+! r* - ?
+! v* - list of varibles: <NorESM name>,<cmor name>,<special operation>
+
+&table_grids
+ tgrids        = 'CMIP6_grids.json'
+/
+
+
+&table_aero
+ daero         = .true.
+ taero         = 'CMIP6_AERmon.json',
+ raero         = 1000000,
+ vaero         =
+                 'abs550aer    ','ABS550AL                  ','unitless;dayfoc    ',
+                 'airmass      ','AIRMASSL                  ','          ',
+!                'bldep        ','PBLH                      ','          ',
+!                'ccn          ','CCN_B/FCTL_B              ','Dfield2   ',
+!                'cdnc         ','AWNC/FREQL                ','Dfield2   ',
+                 'chepsoa      ','GS_SOA_LV+GS_SOA_SV       ','          ',
+!                'co2          ','CO2                       ','co2units  ',
+                 'cod          ','TAUTMODIS/CLTMODIS        ','unitless;Dfield2 ',
+!                'dms          ','DMS                       ','          ',
+                 'drybc        ','BC_ACDDF+BC_AC_OCWDDF+BC_ADDF+BC_AIDDF+BC_AI_OCWDDF+BC_AXDDF+BC_A_OCWDDF+BC_NDDF+BC_NIDDF+BC_NI_OCWDDF+BC_N_OCWDDF','     ',
+                 'drybc        ','DRY_BC                    ','          ',
+                 'drydust      ','DRY_DUST                  ','          ',
+                 'dryoa        ','OM_ACDDF+OM_AIDDF+OM_NIDDF','          ',
+!                'dryso2       ','DF_SO2                    ','          ',
+                 'dryso4       ','DRY_SO4*3                 ','          ',
+                 'dryso4       ','SO4_A1DDF+SO4_A2DDF+SO4_ACDDF+SO4_NADDF+SO4_PRDDF+SO4_A1_OCWDDF+SO4_A2_OCWDDF+SO4_AC_OCWDDF+SO4_NA_OCWDDF+SO4_PR_OCWDDF','    ',
+                 'dryss        ','SS_A1DDF+SS_A2DDF+SS_A3DDF','          ',
+!                'emibc        ','EMI_BC                    ','          ',
+!                'emibc        ','SFBC_A+SFBC_AC+SFBC_AI+SFBC_AX+SFBC_N+SFBC_NI+BC_AX_CMXF+BC_NI_CMXF+BC_N_CMXF','  ',
+!                'emibvoc      ','SFisoprene+SFmonoterp     ','          ',
+!                'emidms       ','SFDMS                     ','          ',
+!                'emidust      ','SFDST_A2+SFDST_A3         ','          ',
+!                'emidust      ','SFDST_A2+SF_DST_A3        ','          ',
+!                'emiisop      ','SFisoprene                ','          ',
+!                'emioa        ','SFOM_AC+SFOM_AI+SFOM_NI+OM_NI_CMXF','  ',
+!                'emiso2       ','SFSO2+SO2_CMXF            ','          ',
+!                'emiso4       ','SFSO4_PR+SO4_PR_CMXF      ','          ',
+!                'emiss        ','SFSS_A1+SFSS_A2+SFSS_A3   ','          ',
+!                'emivoc       ','SFisoprene+SFmonoterp     ','          ',
+!                'isop         ','isoprene                  ','          ',
+!                'lwp          ','TGCLDLWP                  ','          ',
+                 'mmraerh2o    ','MMR_AH2O                  ','          ',
+!                'mmrbc        ','mmr_BC                    ','          ',
+!                'mmrdust      ','mmr_DUST                  ','          ',
+!                'mmroa        ','mmr_OM                    ','          ',
+                 'mmrpm1       ','MMRPM1                    ','          ',
+                 'mmrpm2p5     ','MMRPM2P5                  ','          ',
+!                'mmrso4       ','mmr_SULFATE               ','          ',
+!                'mmrsoa       ','SOA_NA+SOA_A1             ','          ',
+!                'mmrss        ','mmr_SALT                  ','          ',
+!                'o3           ','ozone                     ','                   ',
+                 'od440aer     ','DOD440                    ','unitless;dayfoc    ',
+                 'od550aer     ','DOD550                    ','unitless;dayfoc    ',
+                 'od550aerh2o  ','DOD550-OD550DRY           ','unitless;dayfoc    ',
+                 'od550bc      ','D550_BC                   ','unitless;dayfoc    ',
+                 'od550csaer   ','CDOD550                   ','unitless;dayfoc;cldfree    ',
+                 'od550dust    ','D550_DU                   ','unitless;dayfoc    ',
+                 'od550lt1aer  ','DLT_SS+DLT_DUST+DLT_SO4+DLT_BC+DLT_POM ','unitless;dayfoc',
+                 'od550oa      ','D550_POM                  ','unitless;dayfoc    ',
+                 'od550so4     ','D550_SO4                  ','unitless;dayfoc    ',
+                 'od550ss      ','D550_SS                   ','unitless;dayfoc    ',
+                 'od870aer     ','DOD870                    ','unitless;dayfoc    ',
+!                'oh           ','OH_aft                    ','mol mol-1 ',
+!                'pfull        ','PS                        ','ps2pfull  ',
+!                'phalf        ','PS                        ','ps2phalf  ',
+!                'ps           ','PS                        ','          ',
+                 'reffclwtop   ','REFFCLWMODIS/CLWMODIS     ','Dfield2   ',
+!                'rlutaf       ','FLNT_DRF                  ','positiveup',
+!                'rlutcsaf     ','FLNTCDRF                  ','positiveup',
+!                'rsutaf       ','FSNT_DRF                  ','positiveup',
+!                'rsutcsaf     ','FSNTCDRF                  ','positiveup',
+!                'so2          ','SO2                       ','          ',
+!                'ua           ','U                         ','          ',
+!                'va           ','V                         ','          ',
+                 'wetbc        ','BC_ACSFWET+BC_AISFWET+BC_ASFWET+BC_AXSFWET+BC_NISFWET+BC_NSFWET+BC_AC_OCWSFWET+BC_AI_OCWSFWET+BC_A_OCWSFWET+BC_NI_OCWSFWET+BC_N_OCWSFWET','   ',
+                 'wetoa        ','OM_ACSFWET+OM_AISFWET+OM_NISFWET+OM_AC_OCWSFWET+OM_AI_OCWSFWET+OM_NI_OCWSFWET','',
+                 'wetoa        ','WET_POM                   ','          ',
+!                'wetso2       ','WD_A_SO2                  ','          ',
+                 'wetso4       ','SO4_A1SFWET+SO4_A2SFWET+SO4_ACSFWET+SO4_NASFWET+SO4_PRSFWET+SO4_A1_OCWSFWET+SO4_A2_OCWSFWET+SO4_AC_OCWSFWET+SO4_NA_OCWSFWET+SO4_PR_OCWSFWET','    ',
+                 'wetss        ','SS_A1SFWET+SS_A2SFWET+SS_A3SFWET+SS_A1_OCWSFWET+SS_A2_OCWSFWET+SS_A3_OCWSFWET','   ',
+!                'zg           ','Z3                        ','          ',
+!                'ztp          ','TROP_Z                    ','          ',
+! not available in output, thus not tested
+!                'ch4          ','CH4                       ','          ',
+!                'toz          ','cb_ozone_c                ','          ',
+/
+
