@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ${CMOR_ROOT}/workflow/cmorRun1memb.sh
+source ${CMOR_ROOT}/workflow/cmorRunNmemb.sh
 
 # initialize
 login0=false
@@ -77,7 +77,7 @@ reals+=(  14   15   16   17   18   19   20   21   22   23   24   25)
 membs+=(0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" \
-    -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -m="${membs[*]}"
+    -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -membs="${membs[*]}"
 #---
 fi
 #---
@@ -100,7 +100,7 @@ reals+=(  38   39   40   41   42   43   44   45   46   47   48   49   50)
 membs+=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" \
-    -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -m="${membs[*]}"
+    -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -membs="${membs[*]}"
 #---
 fi
 #---
@@ -123,7 +123,7 @@ reals+=(  63   64   65   66   67   68   69   70   71   72   73   74   75)
 membs+=(0013 0014 0015 0016 0017 0018 0019 0020 0021 0022 0023 0024 0025)
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" \
-    -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -m="${membs[*]}"
+    -mon1=$month1 -mon2=$month2 -r="${reals[*]}" -membs="${membs[*]}"
 #---
 fi
 #---
