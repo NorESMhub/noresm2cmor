@@ -57,7 +57,7 @@ then
 CaseName=NSSP245frc2covstrgre_03b_f19_tn14_20200922
 real=9
 physics=1
-forcing=1
+forcing=2
 init=1
 years1=(2015 $(seq 2021 10 2041))
 years2=(2020 $(seq 2030 10 2050))
