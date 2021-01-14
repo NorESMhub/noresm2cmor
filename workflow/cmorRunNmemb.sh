@@ -130,7 +130,7 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
         # keep maximumn 8 jobs
         flag=true
         while $flag ; do
-            njobs=$(ps x |grep -v 'grep' |grep -c 'noresm2cmor3')
+            njobs=$(ps ax |grep -v 'grep' |grep -c 'noresm2cmor3')
             npidchild=$(pgrep -P $pid |wc -l)
             # if there are running jobs, but they do not belongs to this shell
             if [ $njobs -ge 1 ] && [ $npidchild -eq 1 ]; then

@@ -130,7 +130,7 @@ if [ -z $expnmltemp ]; then
 fi
 cp $expnmltemp template/exp_${casename}.nml |cat
 sed -i "s/casename * = '.*',/casename      = '${casename}',/g" template/exp_${casename}.nml
-sed -i "s~osubdir * = '.*',~osubdir       = '${model}/${expid}/vyyyymmdd',~g" template/exp_${casename}.nml
+sed -i "s~osubdir * = '.*',*~osubdir       = '${model}/${expid}/vyyyymmdd',~g" template/exp_${casename}.nml
 sed -i "s/realization * = .*,/realization   = ${realization},/g" template/exp_${casename}.nml
 sed -i "s/physics_version * = .*,/physics_version = ${physics},/g" template/exp_${casename}.nml
 sed -i "s/forcing_index * = .*,/forcing_index = ${forcing},/g" template/exp_${casename}.nml
@@ -150,7 +150,7 @@ sed -i "s/forcefilescan * = .*.,/forcefilescan = .false.,/g" ${version}/sys.nml
 # update cmor_casename.sh
 cp $CMOR_ROOT/workflow/cmor.template cmor_${casename}.sh
 sed -i "s/^version=.*/version=${version}/" cmor_${casename}.sh
-sed -i "s/^expid=.*[[:alnum:]_]$/expid=${expidref}/" cmor_${casename}.sh
+sed -i "s/^expid=.*[[:alnum:]_]$/expid=${expid}/" cmor_${casename}.sh
 sed -i "s/^model=.*/model=${model}/" cmor_${casename}.sh
 sed -i "s/^CaseName=.*/CaseName=${casename}/" cmor_${casename}.sh
 sed -i "s/^real=.*/real=${realization}/" cmor_${casename}.sh
