@@ -1,9 +1,7 @@
 #!/bin/bash
 
-#version=v20191108b
-version=v20200218
-expid=pdSST-futArcSIC
-model=NorESM2-LM
+# parse input parameters
+source $CMOR_ROOT/workflow/cmorParse.sh
 
 years1+=(2000)
 years2+=(2001)

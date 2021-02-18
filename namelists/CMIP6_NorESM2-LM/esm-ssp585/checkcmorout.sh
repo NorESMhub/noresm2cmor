@@ -1,8 +1,8 @@
 #!/bin/bash
 
-version=v20200218
-expid=esm-ssp585
-model=NorESM2-LM
+# parse input parameters
+source $CMOR_ROOT/workflow/cmorParse.sh
+
 years1=(2015 $(seq 2021 10 2091))
 years2=(2020 $(seq 2030 10 2100))
 

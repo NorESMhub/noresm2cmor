@@ -1,8 +1,7 @@
 #!/bin/bash
 
-version=v20191108b
-expid=midPliocene-eoi400
-model=NorESM1-F
+# parse input parameters
+source $CMOR_ROOT/workflow/cmorParse.sh
 
 years1=($(seq 2301 10 2391))
 years2=($(seq 2310 10 2400))

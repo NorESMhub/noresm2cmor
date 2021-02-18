@@ -1,8 +1,8 @@
 #!/bin/bash
 
-version=v20200702
-expid=deforest-globe
-model=NorESM2-LM
+# parse input parameters
+source $CMOR_ROOT/workflow/cmorParse.sh
+
 years1=($(seq 1850 10 1920) 1930)
 years2=($(seq 1859 10 1929) 1930)
 

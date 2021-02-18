@@ -1,8 +1,8 @@
 #!/bin/bash
 
-version=v20191108b
-expid=hist-aer
-model=NorESM2-LM
+# parse input parameters
+source $CMOR_ROOT/workflow/cmorParse.sh
+
 years1=(1849 $(seq 1850 10 2000) 2010)
 years2=(1859 $(seq 1859 10 2009) 2014)
 years1+=(2015)

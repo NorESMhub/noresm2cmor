@@ -1,9 +1,12 @@
 #!/bin/bash
 
-version=v20191108b
-version=v20200218
-expid=piClim-4xCO2
-model=NorESM2-LM
+# parse input parameters
+source $CMOR_ROOT/workflow/cmorParse.sh
+
+opts=(model expid version)
+for opt in ${opts[@]};do
+    [ -z "${!opt}" ] && echo "$opt is not defined, EXIT" && exit
+done
 years1=(0  1  11 21)
 years2=(10 10 20 30)
 

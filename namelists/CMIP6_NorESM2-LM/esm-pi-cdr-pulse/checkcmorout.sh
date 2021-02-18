@@ -1,8 +1,8 @@
 #!/bin/bash
 
-version=v20191108
-expid=esm-pi-cdr-pulse
-model=NorESM2-LM
+# parse input parameters
+source $CMOR_ROOT/workflow/cmorParse.sh
+
 years1=(1849 $(seq 1850 10 1940))
 years2=(1859 $(seq 1859 10 1949))
 

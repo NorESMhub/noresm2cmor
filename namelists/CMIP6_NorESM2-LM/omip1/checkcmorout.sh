@@ -1,8 +1,8 @@
 #!/bin/bash
 
-version=v20191108b
-expid=omip1
-model=NorESM2-LM
+# parse input parameters
+source $CMOR_ROOT/workflow/cmorParse.sh
+
 years1=($(seq 1700 10 1790))
 years2=($(seq 1709 10 1799))
 years1+=($(seq 1800 10 1890))

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-version=v20200206
-expid=piClim-4xCO2
-model=NorESM2-MM
+# parse input parameters
+source $CMOR_ROOT/workflow/cmorParse.sh
+
 years1=(1  11 21)
 years2=(10 20 30)
 

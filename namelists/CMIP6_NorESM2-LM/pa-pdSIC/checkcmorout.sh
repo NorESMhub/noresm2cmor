@@ -1,9 +1,7 @@
 #!/bin/bash
 
-#version=v20200702
-version=v20201001
-expid=pa-pdSIC
-model=NorESM2-LM
+# parse input parameters
+source $CMOR_ROOT/workflow/cmorParse.sh
 
 years1=(2000)
 years2=(2001)
