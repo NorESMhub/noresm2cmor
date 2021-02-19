@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 # link to DKRZ folder structure and calculate sha256sum
 
 # quit if in IPCC node
@@ -67,20 +68,30 @@ cd $ROOT
 echo "$folder"
 
 find $folder -name *.nc -print 1>/tmp/flist.txt.$pid
-sort --version-sort /tmp/flist.txt.$pid -o /tmp/flist.txt.$pid
+wl=$(cat /tmp/flist.txt.$pid |wc -l)
 
 # if no files found
-if [ $? -ne 0 ]
+if [ $wl -eq 0 ]
 then
-    continue
+    echo "** No files found, EXIT **"
+    exit 1
 fi
+sort --version-sort /tmp/flist.txt.$pid -o /tmp/flist.txt.$pid
 
 insitute=NCC
 
 nf=$(cat /tmp/flist.txt.$pid |wc -l)
 echo "Total $nf files"
 fname1=$(head -1 /tmp/flist.txt.$pid) 
-activity=$(cdo -s showattribute,activity_id $fname1 |grep 'activity_id' |cut -d'"' -f2)
+activity=$(cdo -s showattribute,activity_id $fname1)
+if [ $? -ne 0 ]
+then
+    echo "** ERROR get NetCDF file 'activity_id' attribute **"
+    echo "** EXIT **"
+    exit 1
+else
+    activity=$(echo $activity |grep 'activity_id' |cut -d'"' -f2)
+fi
 if [ "$activity" == "RFMIP AerChemMIP" ]
 then
     activity="RFMIP"

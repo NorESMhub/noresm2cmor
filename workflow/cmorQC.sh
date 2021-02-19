@@ -1,13 +1,12 @@
+#!/bin/env bash
 # PrePARE QC check
-function cmorQC {
 
-local expid version rls cmoroutroot table
-#
 if [ $# -eq 0 ] || [ $1 == "--help" ] 
  then
      printf "Usage:\n"
-     printf "cmorQC -m=[model] -e=[expid] -v=[version]"
-     return
+     printf "cmorQC -m=[model] -e=[expid] -v=[version]\n"
+     printf "       --errexit=[true|false]              :exit with error. default as true\n"
+     exit 0
  else
      while test $# -gt 0; do
          case "$1" in
@@ -23,6 +22,10 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
                  version=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
+             --errexit=*)
+                 errexit=$(echo $1|sed -e 's/^[^=]*=//g')
+                 shift
+                 ;;
              * )
                  echo "ERROR: option $1 not allowed."
 
@@ -33,6 +36,7 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
     done
 fi
 
+[ -z $errexit ] && errexit=true
 
 # ENV for PrePARE
 export PATH=/opt/anaconda3/bin:${PATH}
@@ -49,7 +53,7 @@ export CMIP6_CMOR_TABLES=/projects/NS9560K/cmor/noresm2cmor/tables
 
 echo "~~~~~~~~~~~~~~~~~~~~"
 echo "PrePARE QC CHECK... "
-cdw=$(pwd)
+#cdw=$(pwd)
 cd ${cmoroutroot}/.cmorout/${model}/${expid}
 rm -f ${version}.QCreport ${version}.QCreportlong
 files=($(find ./${version} -name '*.nc' -print))
@@ -93,16 +97,15 @@ done <${version}.QCreport
 
 if [ $nerr -gt 0 ]
 then
-    echo "ERROR in ${version}.QCreport, EXIT..."
-    exit 1
+    echo -e "\e[1;31;47m **ERROR** \e[0m in ${version}.QCreport"
+    if $errexit; then
+        echo "** EXIT **" && exit 1
+    else
+        echo "But continue with error..."
+    fi
 else
     echo "         "
     echo "QC DONE  "
     echo "~~~~~~~~~"
     echo "         "
 fi
-
-# change directory back
-cd $cdw
-
-}
