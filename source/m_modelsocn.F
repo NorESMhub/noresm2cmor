@@ -2851,8 +2851,8 @@ c
      .  fac1,fac2,fac3,fac4,fac5,fac6)
       IF (INDEX(special,'2rho').GT.0.OR.INDEX(special,'2zoss').GT.0.OR.
      . INDEX(special,'strmf').GT.0.OR.INDEX(special,'Xfield2').GT.0.OR.
-     . INDEX(special,'Dfield2').GT.0.OR.INDEX(special,'dpint').OR.
-     . INDEX(special,'dpavg')) THEN
+     . INDEX(special,'Dfield2').GT.0.OR.INDEX(special,'dpint').GT.0.OR.
+     . INDEX(special,'dpavg').GT.0) THEN
         fld=0.
         CALL add_tslice(ivnm2,fac2,rec1,fid)
         fld2=fld
