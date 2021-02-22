@@ -1,6 +1,6 @@
 &experiment
  casename      = 'NHIST_f19_tn14_pamip2p1_03000',
- osubdir       = 'NorESM2-LM/pa-pdSIC/vyyyymmdd'
+ osubdir       = 'NorESM2-LM/pa-pdSIC/vyyyymmdd',
  experiment_id = 'pa-pdSIC',
  parent_experiment_id  = 'historical',
  parent_experiment_rip = 'r3i1p1',

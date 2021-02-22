@@ -10,8 +10,8 @@ login3=false
 
 # set active
 login0=true
-#login1=true
-#login2=true
+login1=true
+login2=true
 #login3=true
 
 # initialize

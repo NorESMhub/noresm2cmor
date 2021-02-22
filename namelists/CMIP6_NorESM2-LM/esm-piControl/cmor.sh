@@ -67,7 +67,7 @@ then
 years1=($(seq 1851 10 2091))
 years2=($(seq 1860 10 2100))
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---

@@ -64,11 +64,8 @@ then
 #----------------
 CaseName=NSSP126frc2_f09_tn14_20191105
 real=1
-#years1=(2015 $(seq 2021 10 2091))
-#years2=(2020 $(seq 2030 10 2100))
-
-years1=($(seq 2021 10 2091))
-years2=($(seq 2030 10 2100))
+years1=(2015 $(seq 2021 10 2091))
+years2=(2020 $(seq 2030 10 2100))
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 

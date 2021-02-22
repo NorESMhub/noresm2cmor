@@ -31,5 +31,5 @@
  tracking_prefix   = 'hdl:21.14100',
  newcolumnorder = .true.,
  scanallfiles = .false.,
- source_type   = 'AOGCM AER BGC'
+ source_type   = 'AGCM AER BGC'
 /

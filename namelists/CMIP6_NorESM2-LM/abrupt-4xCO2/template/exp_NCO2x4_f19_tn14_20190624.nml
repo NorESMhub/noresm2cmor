@@ -1,6 +1,6 @@
 &experiment
  casename      = 'NCO2x4_f19_tn14_20190624',
- osubdir       = 'NorESM2-LM/abrupt-4xCO2/vyyyymmdd' 
+ osubdir       = 'NorESM2-LM/abrupt-4xCO2/vyyyymmdd', 
  experiment_id = 'abrupt-4xCO2',
  parent_experiment_id  = 'piControl',
  parent_experiment_rip = 'r1i1p1',
@@ -14,8 +14,8 @@
  physics_version = 1,
  forcing_index = 1, 
  branch_time   = 0.,
- year1         = 1,
- yearn         = 120,
+ year1         = 121,
+ yearn         = 150,
  month1        = 1,
  monthn        = 12,
  exprefyear    = 1, 

@@ -9,7 +9,7 @@ login2=false
 login3=false
 
 # set active
-#login0=true
+login0=true
 login1=true
 #login2=true
 #login3=true
@@ -67,7 +67,7 @@ then
 years1=(0  11 21)
 years2=(10 20 30)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -s=NS9560K -mpi=DMPI
 #---
 fi
 #---

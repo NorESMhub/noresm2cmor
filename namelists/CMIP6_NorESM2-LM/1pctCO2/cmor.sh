@@ -10,7 +10,7 @@ login3=false
 
 # set active
 login0=true
-#login1=true
+login1=true
 #login2=true
 #login3=true
 
@@ -64,12 +64,10 @@ then
 # 1pctCO2 part1
 #----------------
 CaseName=N1PCT_f19_tn14_20190626
-#years1=(0  $(seq 11 10 111))
-#years2=(10 $(seq 20 10 120))
-years1=($(seq 91 10 111))
-years2=($(seq 100 10 120))
+years1=(0  $(seq 11 10 111))
+years2=(10 $(seq 20 10 120))
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---
@@ -83,7 +81,7 @@ CaseName=N1PCT_f19_tn14_20190712
 years1=($(seq 121 10 141))
 years2=($(seq 130 10 150))
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---

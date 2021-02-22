@@ -585,7 +585,7 @@
                  'fNleach            ','SMIN_NO3_LEACHED+SMIN_NO3_RUNOFF            ','kg m-2 s-1',
                  'fNloss             ','DENIT+F_N2O_NIT+SMIN_NO3_LEACHED+SMIN_NO3_RUNOFF','kg m-2 s-1',
                  'fNnetmin           ','NET_NMIN                                    ','kg m-2 s-1',
-                 'fNup               ','SMINN_TO_PLANT                              ','kg m-2 s-1',
+                 'fNup               ','NUPTAKE                                     ','kg m-2 s-1',
                  'fVegLitterMortality','M_LEAFC_TO_LITTER+M_FROOTC_TO_LITTER+M_LIVESTEMC_TO_LITTER+M_DEADSTEMC_TO_LITTER+M_LIVECROOTC_TO_LITTER+M_DEADCROOTC_TO_LITTER','kg m-2 s-1',
                  'fVegLitterSenescence','LITFALL                                    ','kg m-2 s-1',
                  'fahLut             ','fahLut                                      ','positiveup',
@@ -715,6 +715,7 @@
  dlmon        = .true.
  tlmon        = 'CMIP6_Lmon.json'
  vlmon        =
+                 'burntFractionAll   ','FAREA_BURNED       ','percent',
                  'cCwd         ','CWDC                  ','kg m-2    ',
                  'cLeaf        ','LEAFC                 ','kg m-2    ',
                  'cLitter      ','TOTLITC               ','kg m-2    ',
@@ -727,7 +728,7 @@
                  'evspsblveg   ','QVEGE                 ','          ',
                  'fFire        ','COL_FIRE_CLOSS        ','kg m-2 s-1;positiveup',
                  'fHarvest     ','WOOD_HARVESTC         ','kg m-2 s-1;positiveup',
-                 'fLitterSoil  ','LITR1C_TO_SOIL1C+LITR2C_TO_SOIL2C+LITR3C_TO_SOIL3C','kg m-2 s-1',
+                 'fLitterSoil  ','LITR1C_TO_SOIL1C+LITR2C_TO_SOIL1C+LITR3C_TO_SOIL2C','kg m-2 s-1',
                  'fVegLitter   ','LITFALL               ','kg m-2 s-1',
                  'gpp          ','GPP                   ','kg m-2 s-1',
                  'lai          ','TLAI                  ','fraction  ',
