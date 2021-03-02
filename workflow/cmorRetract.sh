@@ -65,7 +65,7 @@ do
     echo "$version"
     find ${datapath}/${version} -name "*.nc" -type f -exec mv -t ${datapath}/${newversion}/ {} +
     rmdir ${datapath}/${version}
-    mv ${linkpath}/{.*.map,.*.map_$version,.*.sha256sum,.*.sha256sum_$version} ${linkpath}/RETRACTED/
+    mv ${linkpath}/{.*.map_$version,.*.sha256sum_$version} ${linkpath}/RETRACTED/
     mv $datapath/{${version}.links,${version}.QCreport*} ${datapath}/RETRACTED/
 done
 
