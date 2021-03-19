@@ -312,7 +312,7 @@
                  'sfdsi            ','siflsaltbot   ','positivedo     ',
                  'siage            ','siage         ','               ',
                  'siarean          ','aice          ','masksh;Xcellarea;glbsum;1e6 km2',
-                 'siareas          ','aice          ','masksn;Xcellarea;glbsum;1e6 km2',
+                 'siareas          ','aice          ','masknh;Xcellarea;glbsum;1e6 km2',
                  'sicompstren      ','sicompstren   ','               ',
                  'siconc           ','aice          ','               ',
                  'sidconcdyn       ','sidconcdyn    ','               ',
