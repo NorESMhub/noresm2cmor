@@ -34,19 +34,21 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
      done
 fi
 
-opts=(model expid newversion)
+opts=(model expid oldversions newversion)
 for opt in ${opts[@]};do
-    [ -z "${!opt}" ] && echo "$opt is not defined, EXIT" && exit
+    [ -z "${!opt}" ] && echo "'$opt' is not defined, EXIT" && exit
 done
 
 datapath=/projects/NS9034K/CMIP6/.cmorout/${model}/${expid}
 activity=$(dirname /projects/NS9034K/CMIP6/*/NCC/${model}/${expid}|cut -d"/" -f5)
 linkpath=/projects/NS9034K/CMIP6/${activity}/NCC/${model}/${expid}
-# make folders and move old files to RETRACTED FOLDER
-mkdir ${datapath}/{$newversion,RETRACTED}
-mkdir ${linkpath}/RETRACTED
 
-if [ -z ${oldversions} ];then
+# make folders and move old files to RETRACTED FOLDER
+[ ! -d ${datapath}/$newversion ] && mkdir ${datapath}/$newversion
+[ ! -d ${datapath}/RETRACTED ] && mkdir ${datapath}/RETRACTED
+[ ! -d ${linkpath}/RETRACTED ] && mkdir ${linkpath}/RETRACTED
+
+if [ ${oldversions}=="all" ];then
     # if not specified, find all data versions
     oldversions=$(find ${datapath} -maxdepth 1 -name 'v20*' -type d -print |awk -F/ '{print $NF}'|sed "/${newversion}/d" |sort)
 fi
@@ -63,16 +65,14 @@ echo "Moving:"
 for version in ${oldversions[@]}
 do
     echo "$version"
+    mv ${linkpath}/.*.sha256sum_$version ${linkpath}/RETRACTED/
+    rename ".r" "r" ${linkpath}/RETRACTED/.*.sha256sum_$version
+    mv $datapath/{${version}.links,${version}.QCreport*} ${datapath}/RETRACTED/
     find ${datapath}/${version} -name "*.nc" -type f -exec mv -t ${datapath}/${newversion}/ {} +
     rmdir ${datapath}/${version}
-    mv ${linkpath}/{.*.map_$version,.*.sha256sum_$version} ${linkpath}/RETRACTED/
-    mv $datapath/{${version}.links,${version}.QCreport*} ${datapath}/RETRACTED/
 done
 
-rename ".r" "r" ${linkpath}/RETRACTED/.*.*
-
 # remove old links
-#rm -rf /projects/NS9034K/CMIP6/${activity}/NCC/${model}/${expid}/r?i?p?f?/
 find /projects/NS9034K/CMIP6/${activity}/NCC/${model}/${expid}/r?i?p?f? -xtype l -delete
 find /projects/NS9034K/CMIP6/${activity}/NCC/${model}/${expid}/r?i?p?f? -empty -delete
 

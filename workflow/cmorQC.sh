@@ -60,6 +60,7 @@ files=($(find ./${version} -name '*.nc' -print))
 nf=${#files[*]}
 echo "$nf files           "
 echo "                    "
+[ $nf -eq 0 ] && exit 1
 rls=$(echo ${files[*]} |tr ' ' '\n' |cut -d"_" -f5 |sort -u --version-sort)
 for rls in $(echo ${rls[*]})
 do

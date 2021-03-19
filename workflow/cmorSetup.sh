@@ -128,7 +128,7 @@ expnmltemp=$(ls $CMOR_ROOT/namelists/CMIP6_${model}/${expidref}/template/exp.nml
 if [ -z $expnmltemp ]; then
     expnmltemp=$(ls $CMOR_ROOT/namelists/CMIP6_${model}/${expidref}/template/exp*.nml |head -1)
 fi
-cp $expnmltemp template/exp_${casename}.nml |cat
+[ ! -f template/exp_${casename}.nml ] && cp $expnmltemp template/exp_${casename}.nml |cat
 sed -i "s/casename * = '.*',/casename      = '${casename}',/g" template/exp_${casename}.nml
 sed -i "s~osubdir * = '.*',*~osubdir       = '${model}/${expid}/vyyyymmdd',~g" template/exp_${casename}.nml
 sed -i "s/realization * = .*,/realization   = ${realization},/g" template/exp_${casename}.nml
