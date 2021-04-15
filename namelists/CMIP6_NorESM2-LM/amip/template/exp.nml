@@ -1,6 +1,6 @@
 &experiment
  casename      = 'NFHISTnorpddmsbc_f19_mg17_20190807',
- osubdir       = 'NorESM2-LM/amip/vyyyymmdd' 
+ osubdir       = 'NorESM2-LM/amip/vyyyymmdd', 
  experiment_id = 'amip',
  parent_experiment_id  = 'no parent',
  parent_experiment_rip = 'no parent',

@@ -20,4 +20,12 @@
    v20200217 -> v20200218 [style=dashed,weigth="1"];
    v20200218 -> v20200702 [penwidth=2.0,weigth="2"];
    v20200702 -> v20201001 [penwidth=2.0,weigth="2"];
+   v20201001 -> v20210118 [penwidth=1.0,style=dashed,weigth="1",label="republish"];
+   v20210118 -> v20210218 [penwidth=1.0,arrowhead=none,style=dashed,weigth="1"];
+   v20201001 -> v20210218 [style=solid,penwidth=2.0,weigth="2",label="trunk"];
+   v20201001 -> v20210203 [penwidth=1.0,style=dashed,weigth="1",label="iLAMB and zg500"];
+   v20210203 -> v20210218 [style=dashed,penwidth=1.0,weigth="1",label="merge"];
+   v20210218 -> v20210319 [style=solid,penwidth=2.0,weigth="1",label="fix #269 #270 #271 #272 #273"];
+   "next release" [shape=octagon;color=gray;label="next release"];
+   v20210319 -> "next release" [style=dashed;penwidth=2.0;label="trunk"];
  }

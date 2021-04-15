@@ -1,0 +1,41 @@
+! d* - do table true/false
+! t* - path to table file (guessed if omitted)
+! p* - alternative path to data file (path created if omitted)
+! r* - ?
+! v* - list of varibles: <NorESM name>,<cmor name>,<special operation>
+
+&table_grids
+ tgrids        = 'CMIP6_grids.json'
+/
+
+&table_omonbgc
+ domonbgc      = .true.,
+ romonbgc      = 100000,
+ tomonbgc      = 'CMIP6_Omon.json',
+ vomonbgc      =
+                 'chlos         ','srfphyc          ','kg m-3;mol P m-3 -> kg Chl m-3',
+/
+
+&table_oimon
+ doimon        = .true.,
+ roimon        = 100000,
+ toimon        = 'CMIP6_SImon.json',
+ voimon        =
+                 'siareas          ','aice          ','masknh;Xcellarea;glbsum;1e6 km2',
+/
+
+&table_aero
+ daero         = .true.
+ taero         = 'CMIP6_AERmon.json',
+ raero         = 1000000,
+ vaero         =
+                 'drydust      ','DST_A2DDF+DST_A3DDF+DST_A2_OCWDDF+DST_A3_OCWDDF                  ','          ',
+                 'dryoa        ','OM_ACDDF+OM_AIDDF+OM_NIDDF+OM_AC_OCWDDF+OM_AI_OCWDDF+OM_NI_OCWDDF+SOA_A1DDF+SOA_NADDF+SOA_A1_OCWDDF+SOA_NA_OCWDDF','          ',
+                 'dryss        ','SS_A1DDF+SS_A2DDF+SS_A3DDF+SS_A1_OCWDDF+SS_A2_OCWDDF+SS_A3_OCWDDF','          ',
+                 'wetbc        ','BC_ACSFWET+BC_AISFWET+BC_ASFWET+BC_AXSFWET+BC_NISFWET+BC_NSFWET+BC_AC_OCWSFWET+BC_AI_OCWSFWET+BC_A_OCWSFWET+BC_NI_OCWSFWET+BC_N_OCWSFWET  ','Xminus   ',
+                 'wetdust      ','DST_A2SFWET+DST_A3SFWET+DST_A2_OCWSFWET+DST_A3_OCWSFWET                      ','Xminus    ',
+                 'wetoa        ','OM_ACSFWET+OM_AISFWET+OM_NISFWET+OM_AC_OCWSFWET+OM_AI_OCWSFWET+OM_NI_OCWSFWET+SOA_A1SFWET+SOA_NASFWET+SOA_A1_OCWSFWET+SOA_NA_OCWSFWET     ','Xminus   ',
+                 'wetso4       ','SO4_A1SFWET+SO4_A2SFWET+SO4_ACSFWET+SO4_NASFWET+SO4_PRSFWET+SO4_A1_OCWSFWET+SO4_A2_OCWSFWET+SO4_AC_OCWSFWET+SO4_NA_OCWSFWET+SO4_PR_OCWSFWET','Xminus  ',
+                 'wetss        ','SS_A1SFWET+SS_A2SFWET+SS_A3SFWET+SS_A1_OCWSFWET+SS_A2_OCWSFWET+SS_A3_OCWSFWET','Xminus    ',
+/
+

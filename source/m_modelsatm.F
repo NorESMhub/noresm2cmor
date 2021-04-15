@@ -1955,6 +1955,11 @@ c --- - Set as missing if abs(ofld) is larger then 1.0e+20
               ENDDO
             ENDDO
           ENDDO
+
+c --- - Reverse sign 
+        CASE ('Xminus')
+          ofld=-ofld
+
         END SELECT
         IF (str1.EQ.str2) exit
       END DO

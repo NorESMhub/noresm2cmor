@@ -1,8 +1,8 @@
 # Targets 
-TARGET=noresm2cmor
+TARGET=noresm2cmor3_gnu
 
 # Objects
-OBJ=m_namelists.o m_utilities.o m_modelsatm.o m_modelsice.o m_modelslnd.o m_modelsocn.o noresm2cmor.o
+OBJ=json_kinds.o json_parameters.o json_string_utilities.o json_value_module.o json_file_module.o json_module.o m_namelists.o m_utilities.o m_modelsice.o m_modelslnd.o m_modelsatm.o m_modelsocn.o noresm2cmor.o
 
 # Paths 
 SRCDIR=../source

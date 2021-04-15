@@ -10,9 +10,6 @@ login3=false
 
 # set active
 login0=true
-login1=true
-login2=true
-login3=true
 
 # initialize
 #version=v20191108
@@ -61,7 +58,7 @@ echo "                    "
 if $login0
 then
 #----------------
-# ssp126
+# ssp585
 #----------------
 CaseName=NSSP585frc2_f19_tn14_20191014
 real=1

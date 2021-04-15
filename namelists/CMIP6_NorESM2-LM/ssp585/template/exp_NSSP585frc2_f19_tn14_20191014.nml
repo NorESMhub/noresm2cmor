@@ -1,6 +1,6 @@
 &experiment
  casename      = 'NSSP585frc2_f19_tn14_20191014',
- osubdir       = 'NorESM2-LM/ssp585/vyyyymmdd'
+ osubdir       = 'NorESM2-LM/ssp585/vyyyymmdd',
  experiment_id = 'ssp585',
  parent_experiment_id  = 'historical',
  parent_experiment_rip = 'r1i1p1',
