@@ -141,6 +141,7 @@ do
     fi
     let k+=1
 done </tmp/flist.txt.$pid
+rm -f /tmp/flist.txt.$pid
 
 echo -e "\r"
 echo "                       "
