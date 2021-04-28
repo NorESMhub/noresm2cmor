@@ -6,13 +6,11 @@ source ${CMOR_ROOT}/workflow/cmorRun1memb.sh
 login0=false
 login1=false
 login2=false
-login3=false
 
 # set active
 login0=true
 login1=true
 login2=true
-#login3=true
 
 # initialize
 #version=v20191108
@@ -78,7 +76,7 @@ fi
 if $login1
 then
 #----------------
-# ssp370, r2
+# ssp370-lowNTCF, r2
 #----------------
 #CaseName=NSSP370LOWNTCFfrc2_02_f19_tn14_20191118
 CaseName=NSSP370REFGHGLOWNTCFfrc2_02_f19_tn14_20191220
@@ -96,7 +94,7 @@ fi
 if $login2
 then
 #----------------
-# ssp370, r3
+# ssp370-lowNTCF, r3
 #----------------
 #CaseName=NSSP370LOWNTCFfrc2_03_f19_tn14_20191118
 CaseName=NSSP370REFGHGLOWNTCFfrc2_03_f19_tn14_20191220

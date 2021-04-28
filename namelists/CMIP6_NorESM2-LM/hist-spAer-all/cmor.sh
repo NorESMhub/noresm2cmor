@@ -4,15 +4,9 @@ source ${CMOR_ROOT}/workflow/cmorRun1memb.sh
 
 # initialize
 login0=false
-login1=false
-login2=false
-login3=false
 
 # set active
 login0=true
-login1=true
-login2=true
-login3=true
 
 # initialize
 #version=v20190920
@@ -64,14 +58,12 @@ then
 #----------------
 #CaseName=NHIST_spAer_f19_tn14_20190925
 real=1
-#login0
 years1=(1849 $(seq 1860 10 1940))
 years2=(1859 $(seq 1869 10 1949))
-#login1
 years1+=($(seq 1950 10 2000) 2010)
 years2+=($(seq 1959 10 2009) 2014)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---

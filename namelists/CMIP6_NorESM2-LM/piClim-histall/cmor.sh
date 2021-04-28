@@ -11,9 +11,9 @@ login4=false
 login5=false
 
 # set active
-#login0=true
-#login1=true
-#login2=true
+login0=true
+login1=true
+login2=true
 login3=true
 login4=true
 login5=true
@@ -75,7 +75,7 @@ years2=(1859 $(seq 1869 10 1949))
 years1+=($(seq 1950 10 2000) 2010)
 years2+=($(seq 1959 10 2009) 2014)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS9560K
 #---
 fi
 #---
@@ -91,7 +91,7 @@ years2=(1859 $(seq 1869 10 1949))
 years1+=($(seq 1950 10 2000) 2010)
 years2+=($(seq 1959 10 2009) 2014)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS9560K
 #---
 fi
 #---
@@ -108,7 +108,7 @@ years2=(1859 $(seq 1869 10 1949))
 years1+=($(seq 1950 10 2000) 2010)
 years2+=($(seq 1959 10 2009) 2014)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS9560K
 #---
 fi
 #---
@@ -124,7 +124,15 @@ physics=2
 years1=(1849 $(seq 1860 10 2000) 2010)
 years2=(1859 $(seq 1869 10 2009) 2014)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS9560K
+
+CaseName=NFSSP245frc2norpibc_f19_20200520
+real=1
+physics=2
+years1=(2015 $(seq 2021 10 2091))
+years2=(2020 $(seq 2030 10 2100))
+
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS2345K
 #---
 fi
 #---
@@ -140,7 +148,15 @@ physics=2
 years1=(1849 $(seq 1860 10 2000) 2010)
 years2=(1859 $(seq 1869 10 2009) 2014)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS9560K
+
+CaseName=NFSSP245frc2norpibc_02_f19_20200703
+real=2
+physics=2
+years1=(2015 $(seq 2021 10 2091))
+years2=(2020 $(seq 2030 10 2100))
+
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS9560K
 #---
 fi
 #---
@@ -156,7 +172,15 @@ physics=2
 years1=(1849 $(seq 1860 10 2000) 2010)
 years2=(1859 $(seq 1869 10 2009) 2014)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS9560K
+
+CaseName=NFSSP245frc2norpibc_03_f19_20200703
+real=3
+physics=2
+years1=(2015 $(seq 2021 10 2091))
+years2=(2020 $(seq 2030 10 2100))
+
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS9560K
 #---
 fi
 #---

@@ -5,14 +5,10 @@ source ${CMOR_ROOT}/workflow/cmorRun1memb.sh
 # initialize
 login0=false
 login1=false
-login2=false
-login3=false
 
 # set active
-#login0=true
+login0=true
 login1=true
-#login2=true
-#login3=true
 
 # initialize
 #version=v20190920
@@ -64,10 +60,11 @@ then
 # piClim-4xCO2, physics1
 #----------------
 #CaseName=NF1850norbc_4xCO2_f19_20190727
+real=1
 years1=(0  11 21)
 years2=(10 20 30)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS9560K
 #---
 fi
 #---
@@ -78,10 +75,12 @@ then
 # piClim-4xCO2, physics2
 #----------------
 CaseName=NF1850norbc_4xco2_f19_20191025
+real=1
+physics=2
 years1=(0  11 21)
 years2=(10 20 30)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---

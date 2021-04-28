@@ -5,14 +5,10 @@ source ${CMOR_ROOT}/workflow/cmorRun1memb.sh
 # initialize
 login0=false
 login1=false
-login2=false
-login3=false
 
 # set active
-#login0=true
+login0=true
 login1=true
-#login2=true
-#login3=true
 
 # initialize
 #version=v20190920
@@ -67,7 +63,7 @@ then
 years1=(1  11 21)
 years2=(10 20 30)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS9560K
 #---
 fi
 #---
@@ -81,7 +77,7 @@ CaseName=NF1850norbc_lu2014_f19_20191025
 years1=(1  11 21)
 years2=(10 20 30)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -p=$physics -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS2345K
 #---
 fi
 #---
