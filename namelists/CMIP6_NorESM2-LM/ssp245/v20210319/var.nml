@@ -9,7 +9,7 @@
 /
 
 &table_omonbgc
- domonbgc      = .false.,
+ domonbgc      = .true.,
  romonbgc      = 100000,
  tomonbgc      = 'CMIP6_Omon.json',
  vomonbgc      =
@@ -17,7 +17,7 @@
 /
 
 &table_oimon
- doimon        = .false.,
+ doimon        = .true.,
  roimon        = 100000,
  toimon        = 'CMIP6_SImon.json',
  voimon        =
@@ -25,7 +25,7 @@
 /
 
 &table_aero
- daero         = .false.
+ daero         = .true.
  taero         = 'CMIP6_AERmon.json',
  raero         = 1000000,
  vaero         =

@@ -40,7 +40,7 @@
 /
 
 &table_6hrplev
- d6hrplev      = .false.
+ d6hrplev      = .true.
  t6hrplev      = 'CMIP6_6hrPlev.json',
  r6hrplev      = 1000000,
  v6hrplev      =
