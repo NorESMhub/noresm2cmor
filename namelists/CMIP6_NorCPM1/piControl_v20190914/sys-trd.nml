@@ -1,9 +1,0 @@
-&sys
- ibasedir      = '/projects/NS9039K/shared/norcpm/cases',
- obasedir      = '/scratch/NS9034K/test',
- griddata      = '/scratch/NS9034K/griddata',
- tabledir      = '../tables'
- createsubdirs = .false.,
- forcefilescan = .false.,  
- verbose       = .true.,
-/
