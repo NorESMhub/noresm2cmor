@@ -3,7 +3,7 @@
 if [ $# -eq 0 ] || [ $1 == "--help" ] 
  then
      printf "Usage:\n"
-     printf "cmorRetract -m=[model] -e=[expid] --oldversions=['version1 version2 (optional)'] --newversion=[newversion]"
+     printf "cmorRetract -m=[model] -e=[expid] --oldversions=['version1 version2 (optional)'] --newversion=[newversion] --postflag=[true(default)|false]"
      exit
  else
      while test $# -gt 0; do
@@ -24,6 +24,10 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
                  newversion=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
+             --postflag=*)
+                 postflag=$(echo $1|sed -e 's/^[^=]*=//g')
+                 shift
+                 ;;
              * )
                  echo "ERROR: option $1 not allowed."
 
@@ -38,6 +42,11 @@ opts=(model expid oldversions newversion)
 for opt in ${opts[@]};do
     [ -z "${!opt}" ] && echo "'$opt' is not defined, EXIT" && exit
 done
+[ -z $postflag ] && postflag=true
+if [ $postflag != true ] && [ $postflag != false ];
+then
+    echo "Wrong postflag: $postflag"
+fi
 
 datapath=/projects/NS9034K/CMIP6/.cmorout/${model}/${expid}
 activity=$(dirname /projects/NS9034K/CMIP6/*/NCC/${model}/${expid}|cut -d"/" -f5)
@@ -77,6 +86,8 @@ find /projects/NS9034K/CMIP6/${activity}/NCC/${model}/${expid}/r?i?p?f? -xtype l
 find /projects/NS9034K/CMIP6/${activity}/NCC/${model}/${expid}/r?i?p?f? -empty -delete
 
 # redo post-prepparation
-cmorPost.sh -m=$model -e=$expid -v=$newversion --verbose=false --errexit=false
+if $postflag;then
+    cmorPost.sh -m=$model -e=$expid -v=$newversion --verbose=false --errexit=false
+fi
 
 echo "cmorRetract for $model $expid done!"

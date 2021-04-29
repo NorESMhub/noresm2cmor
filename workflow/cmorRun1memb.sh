@@ -1,7 +1,7 @@
 # submit comrisation for single realization
 function runcmor {
 #
-local CaseName expid version real years1 years2 system
+local CaseName expid version real init physics forcing years1 years2 system
 local nmlroot logroot
 #
 if [ $# -eq 0 ] || [ $1 == "--help" ] 
@@ -73,13 +73,24 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
      done
  fi
 
+# if CaseName and realization are defined
+if [ ! -z $CaseName ]
+then
+    CaseName="_${CaseName}"
+fi
+for opt in real init physics forcing
+do
+    if [ -z ${!opt} ]
+    then
+       eval $opt=1 
+    fi
+done
+variant=r${real}i${init}p${physics}f${forcing}
+
 echo -e "CaseName: $CaseName"
 echo -e "expid   : $expid"
 echo -e "version : $version"
-echo -e "real    : $real"
-echo -e "physics : $physics"
-echo -e "forcing : $forcing"
-echo -e "init    : $init"
+echo -e "variant : $variant"
 if [ ! -z $system ]
 then
     echo -e "system : $system"
@@ -88,7 +99,6 @@ fi
 #echo -e "years2  : ${years2[*]}"
 # ==========================================================
 ulimit -c 0
-#ulimit -c unlimited
 ulimit -s unlimited
 source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux
 cwd=$(pwd)
@@ -108,28 +118,6 @@ then
     echo "ERROR: one or more ${nmlroot}/{mod*.nml,sys*.nml,var*.nml} does not exist"
     echo "EXIT..."
     exit
-fi
-
-# if CaseName and realization are defined
-if [ ! -z $CaseName ]
-then
-    CaseName="_${CaseName}"
-fi
-if [ ! -z $real ]
-then
-    real="r${real}"
-fi
-if [ ! -z $physics ]
-then
-    physics="p${physics}"
-fi
-if [ ! -z $forcing ]
-then
-    forcing="f${forcing}"
-fi
-if [ ! -z $init ]
-then
-    init="i${init}"
 fi
 
 pid=$$
@@ -168,7 +156,7 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
         CMIP6_${model}/${expid}/${version}/exp.nml
     sed -i "s/yearn         =.*/yearn         = ${year2},/g" \
         CMIP6_${model}/${expid}/${version}/exp.nml
-    mv CMIP6_${model}/${expid}/${version}/exp.nml CMIP6_${model}/${expid}/${version}/exp_${year1}-${year2}${real}${init}${physics}${forcing}.nml
+    mv CMIP6_${model}/${expid}/${version}/exp.nml CMIP6_${model}/${expid}/${version}/exp_${year1}-${year2}${variant}.nml
 
     cd ../bin
 
@@ -177,18 +165,18 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
         nohup mpirun -n 8 ./noresm2cmor3_mpi \
             ${nmlroot}/sys${system}.nml \
             ${nmlroot}/mod.nml \
-            ${nmlroot}/exp_${year1}-${year2}${real}${init}${physics}${forcing}.nml \
+            ${nmlroot}/exp_${year1}-${year2}${variant}.nml \
             ${nmlroot}/var.nml \
-            1>${logroot}/${year1}-${year2}${real}${init}${physics}${forcing}.log \
-            2>${logroot}/${year1}-${year2}${real}${init}${physics}${forcing}.err &
+            1>${logroot}/${year1}-${year2}${variant}.log \
+            2>${logroot}/${year1}-${year2}${variant}.err &
     else
         nohup ./noresm2cmor3 \
                 ${nmlroot}/sys${system}.nml \
                 ${nmlroot}/mod.nml \
-                ${nmlroot}/exp_${year1}-${year2}${real}${init}${physics}${forcing}.nml \
+                ${nmlroot}/exp_${year1}-${year2}${variant}.nml \
                 ${nmlroot}/var.nml \
-                1>${logroot}/${year1}-${year2}${real}${init}${physics}${forcing}.log \
-                2>${logroot}/${year1}-${year2}${real}${init}${physics}${forcing}.err &
+                1>${logroot}/${year1}-${year2}${variant}.log \
+                2>${logroot}/${year1}-${year2}${variant}.err &
     fi
     sleep 30s
 done
