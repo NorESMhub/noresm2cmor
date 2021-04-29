@@ -74,6 +74,9 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
  fi
 
 # if CaseName and realization are defined
+echo -e "CaseName: $CaseName"
+echo -e "expid   : $expid"
+echo -e "version : $version"
 if [ ! -z $CaseName ]
 then
     CaseName="_${CaseName}"
@@ -86,10 +89,6 @@ do
     fi
 done
 variant=r${real}i${init}p${physics}f${forcing}
-
-echo -e "CaseName: $CaseName"
-echo -e "expid   : $expid"
-echo -e "version : $version"
 echo -e "variant : $variant"
 if [ ! -z $system ]
 then
