@@ -39,8 +39,33 @@
                  'wetss        ','SS_A1SFWET+SS_A2SFWET+SS_A3SFWET+SS_A1_OCWSFWET+SS_A2_OCWSFWET+SS_A3_OCWSFWET','Xminus    ',
 /
 
+&table_6hrlev
+ d6hrlev       = .false.
+ t6hrlev       = 'CMIP6_6hrLev.json',
+ r6hrlev       = 1000000,
+ v6hrlev       =
+! not available
+!                'pfull       ','PS             ','ps2pfull ',
+!                'phalf       ','PS             ','ps2phalf ',
+/
+
+&table_6hrlevi
+ d6hrlevi      = .false.
+ t6hrlevi      = 'CMIP6_6hrLev.json',
+ r6hrlevi      = 1000000,
+ v6hrlevi      =
+!                'hus         ','Q             ','          ',
+                 'ps          ','PS            ','          ',
+!                'ta          ','T             ','          ',
+!                'ua          ','U             ','          ',
+!                'va          ','V             ','          ',
+! not available in output, thus not tested
+!                'bs550aer    ','BS550AER/DAYFOC','DAYFOC   ',
+!                'ec550aer    ','EC550AER/DAYFOC','DAYFOC   ',
+/
+
 &table_6hrplev
- d6hrplev      = .true.
+ d6hrplev      = .false.
  t6hrplev      = 'CMIP6_6hrPlev.json',
  r6hrplev      = 1000000,
  v6hrplev      =
@@ -58,3 +83,25 @@
 !                'vas         ','VAS           ','          ',
 /
 
+&table_6hrPlevPt
+ d6hrPlevPt    = .false.
+ t6hrPlevPt    = 'CMIP6_6hrPlevPt.json',
+ r6hrPlevPt    = 1000000,
+ v6hrPlevPt    =
+!                'hus27       ','Q             ','          ',
+                 'huss        ','QREFHT        ','          ',
+                 'psl         ','PSL           ','          ',
+                 'sfcWind     ','U10           ','          ',
+                 'ta          ','T             ','          ',
+                 'tas         ','TREFHT        ','          ',
+                 'ts          ','TS            ','          ',
+                 'ua          ','U             ','          ',
+!                'va          ','V             ','          ',
+!                'zg27        ','Z3            ','          ',
+                 'zg500       ','Z500          ','          ',
+! not available in output, thus not tested
+!                'mrsol       ','SOILLIQ+SOILICE','         ',
+!                'mrsos       ','SOILWATER_10CM','          ',
+!                'snw         ','SNOWICE+SNOWLIQ','         ',
+!                'tsl         ','TSL           ','          ',
+/

@@ -5,11 +5,9 @@ source ${CMOR_ROOT}/workflow/cmorRun1memb.sh
 # initialize
 login0=false
 login1=false
-login2=false
-login3=false
 
 # set active
-login0=true
+#login0=true
 login1=true
 
 # initialize

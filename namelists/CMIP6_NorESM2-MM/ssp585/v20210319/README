@@ -1,0 +1,15 @@
+# README
+
+1. The following variables are added/updated:
+* drydust  
+* dryoa    
+* wetbc    
+* wetdust  
+* wetoa    
+* wetso4   
+* wetss    
+
+2. The other fields are added if they are not presented in previous datasets.
+
+Refer to the Github issue for NorESM2-MM SSP585 for detailed information:
+https://github.com/NorESMhub/noresm2cmor/issues/151

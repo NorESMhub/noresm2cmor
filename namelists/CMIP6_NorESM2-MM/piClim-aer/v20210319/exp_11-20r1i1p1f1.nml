@@ -1,6 +1,6 @@
 &experiment
  casename      = 'NF1850frc2norbc_aer2014_f09_20200108',
- osubdir       = 'NorESM2-MM/piClim-aer/vyyyymmdd' 
+ osubdir       = 'NorESM2-MM/piClim-aer/v20210319' 
  experiment_id = 'piClim-aer',
  parent_experiment_id  = 'piControl',
  parent_experiment_rip = 'r1i1p1',
@@ -14,8 +14,8 @@
  physics_version = 1,
  forcing_index = 1, 
  branch_time   = 0.,
- year1         = 1,
- yearn         = 30,
+ year1         = 11,
+ yearn         = 20,
  month1        = 1,
  monthn        = 12,
  exprefyear    = 1, 

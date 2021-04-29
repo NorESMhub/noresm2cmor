@@ -39,22 +39,3 @@
                  'wetss        ','SS_A1SFWET+SS_A2SFWET+SS_A3SFWET+SS_A1_OCWSFWET+SS_A2_OCWSFWET+SS_A3_OCWSFWET','Xminus    ',
 /
 
-&table_6hrplev
- d6hrplev      = .true.
- t6hrplev      = 'CMIP6_6hrPlev.json',
- r6hrplev      = 1000000,
- v6hrplev      =
-!                'bldep       ','PBLH          ','          ',
-                 'hurs        ','RHREFHT       ','percent   ',
-                 'hus4        ','Q             ','          ',
-                 'pr          ','PRECT         ','kg m-2 s-1',
-                 'psl         ','PSL           ','          ',
-                 'sfcWind     ','U10           ','          ',
-                 'tas         ','TREFHT        ','          ',
-                 'wap4        ','OMEGA         ','          ',
-!                'zg1000      ','Z1000         ','          ',
-! not available in output, thus not tested
-!                'uas         ','UAS           ','          ',
-!                'vas         ','VAS           ','          ',
-/
-
