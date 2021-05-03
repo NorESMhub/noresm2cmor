@@ -2,7 +2,7 @@
  ibasedir      = '../data/cmorin',
  obasedir      = '../data/cmorout',
  griddata      = '../data/griddata',
- tabledir      = '../tables',
+ tabledir      = '../namelists/CMIP6_NorESM2-LM/NonCMIP-test/tables',
  createsubdirs = .false.,
  forcefilescan = .false.,  
  verbose       = .true.,
