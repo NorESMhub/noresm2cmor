@@ -5,14 +5,10 @@ source ${CMOR_ROOT}/workflow/cmorRun1memb.sh
 # initialize
 login0=false
 login1=false
-login2=false
-login3=false
 
 # set active
-login0=true
-#login1=true
-#login2=true
-#login3=true
+#login0=true
+login1=true
 
 # initialize
 #version=v20190920
@@ -63,11 +59,22 @@ echo "                    "
 if $login0
 then
 #CaseName=NFHISTnorpddmsbc_f19_mg17_20190807
-#login0
 years1=(1979 $(seq 1980 10 2000) 2010)
 years2=(1979 $(seq 1989 10 2009) 2014)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+#---
+fi
+#---
+
+if $login1
+then
+CaseName=NFHISTnorpddmsbc_f19_mg17_20191025
+physics=2
+years1=(1979 $(seq 1980 10 2000) 2010)
+years2=(1979 $(seq 1989 10 2009) 2014)
+
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -p=$physics -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---
