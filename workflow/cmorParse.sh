@@ -20,6 +20,10 @@ then
                  version=$(echo $1|sed -e 's/^[^=]*=//g')
                  shift
                  ;;
+             -o=*)
+                 cmoroutroot=$(echo $1|sed -e 's/^[^=]*=//g')
+                 shift
+                 ;;
              * )
                  echo "ERROR: option $1 not allowed."
                  echo "*** EXITING THE SCRIPT"

@@ -6,13 +6,11 @@ source ${CMOR_ROOT}/workflow/cmorRun1memb.sh
 login0=false
 login1=false
 login2=false
-login3=false
 
 # set active
 login0=true
 login1=true
 login2=true
-#login3=true
 
 # initialize
 #version=v20191108
@@ -64,7 +62,7 @@ then
 #----------------
 CaseName=NSSP370frc2_f19_tn14_20191014
 real=1
-years1=(2015 $(seq 2021 10 2091))
+years1=(2014 $(seq 2021 10 2091))
 years2=(2020 $(seq 2030 10 2100))
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
@@ -81,7 +79,7 @@ then
 #----------------
 CaseName=NSSP370frc2_02_f19_tn14_20191118
 real=2
-years1=(2015 2021 2031 2041 2051)
+years1=(2014 2021 2031 2041 2051)
 years2=(2020 2030 2040 2050 2054)
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
@@ -98,7 +96,7 @@ then
 #----------------
 CaseName=NSSP370frc2_03_f19_tn14_20191118
 real=3
-years1=(2015 2021 2031 2041 2051)
+years1=(2014 2021 2031 2041 2051)
 years2=(2020 2030 2040 2050 2054)
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
