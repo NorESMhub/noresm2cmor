@@ -1082,10 +1082,6 @@ c --- - Compute fixed cell volume of interpolated grid
         CASE ('volcello')
           vunits='m3'
 
-c --- - Compute fixed cell volume of interpolated grid
-        CASE ('volcellomon')
-          vunits='m3'
-
 c --- - Compute fixed cell thickness
         CASE ('thkcello')
           vunits='m'
@@ -1384,28 +1380,12 @@ c --- - Compute fixed cell volume of interpolated grid
             ENDDO
           ENDDO
 c
-c --- - Compute fixed cell volume of interpolated grid
-        CASE ('volcellomon')
-          DO j=1,jj
-            DO i=1,ii
-              DO k=ddm,1,-1
-                IF (fld(i,j,1).EQ.0.) THEN
-                  fld(i,j,k)=1e20
-                ELSE
-                  fld(i,j,k)=fld(i,j,k)*fld2(i,j,1)
-                ENDIF
-              ENDDO
-            ENDDO
-          ENDDO
-c
 c --- - Compute vertical velocity form vertical mass flux
         CASE ('wflx2wo')
           DO j=1,jj
             DO i=1,ii
               DO k=1,kk
-                IF (fld(i,j,1).EQ.0.) THEN
-                  fld(i,j,k)=1e20
-                ELSE
+                IF (fld(i,j,k).NE.1e20) THEN
                   fld(i,j,k)=fld(i,j,k)/(1035.*parea(i,j))
                 ENDIF
               ENDDO
