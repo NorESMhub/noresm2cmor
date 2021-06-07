@@ -1,18 +1,17 @@
 #!/bin/bash
 
+CMOR_ROOT=$(cd $(dirname $0) && cd ../../.. && pwd)
 source ${CMOR_ROOT}/workflow/cmorRun1memb.sh
 
 # initialize
 login0=false
 login1=false
 login2=false
-login3=false
 
 # set active
 login0=true
 login1=true
 login2=true
-#login3=true
 
 # initialize
 #version=v20190920
@@ -109,4 +108,4 @@ echo "$(date)  "
 echo "~~~~~~~~~"
 
 # PrePARE QC check, create links and update sha256sum
-${CMOR_ROOT}/workflow/cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false
+#${CMOR_ROOT}/workflow/cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false

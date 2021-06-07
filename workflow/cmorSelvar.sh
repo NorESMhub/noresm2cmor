@@ -54,6 +54,7 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
      done
  fi
 
+CMOR_ROOT=$(cd $(dirname $0) && cd .. && pwd)
 cmorout=/tos-project1/NS9034K/CMIP6/.cmorout
 pnml=${CMOR_ROOT}/namelists/CMIP6_${model}/${expid}/${version}
 plog=${CMOR_ROOT}/logs/CMIP6_${model}/${expid}/${version}

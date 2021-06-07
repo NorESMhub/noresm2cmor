@@ -99,14 +99,7 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
      done
 fi
 
-#CMOR_ROOT=$(cd .. && pwd)
-if [ -z $CMOR_ROOT ]; then
-   echo "The environment variable CMOR_ROOT is NOT set. Set by:"
-   echo "export CMOR_ROOT=/path/to/noresm2cmor/root in bash shell"
-   echo "or"
-   echo "setenv CMOR_ROOT /path/to/noresm2cmor/root in csh shell"
-fi
-
+CMOR_ROOT=$(cd $(dirname $0) && cd .. && pwd)
 for param in casename model expid version year1 yearn realization physics ibasedir obasedir
     do
     [ -z ${!param} ] && echo "** ERROR: \$$param is not specificed **" && exit 1
@@ -131,6 +124,7 @@ fi
 [ ! -f template/exp_${casename}.nml ] && cp $expnmltemp template/exp_${casename}.nml |cat
 sed -i "s/casename * = '.*',/casename      = '${casename}',/g" template/exp_${casename}.nml
 sed -i "s~osubdir * = '.*',*~osubdir       = '${model}/${expid}/vyyyymmdd',~g" template/exp_${casename}.nml
+sed -i "s~experiment_id * = '.*',*~experiment_id = '${expid}',~g" template/exp_${casename}.nml
 sed -i "s/realization * = .*,/realization   = ${realization},/g" template/exp_${casename}.nml
 sed -i "s/physics_version * = .*,/physics_version = ${physics},/g" template/exp_${casename}.nml
 sed -i "s/forcing_index * = .*,/forcing_index = ${forcing},/g" template/exp_${casename}.nml
