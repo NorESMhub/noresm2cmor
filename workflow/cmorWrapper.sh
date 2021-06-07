@@ -182,6 +182,7 @@ while $flag ; do
     fi
 done
 
+CMOR_ROOT=$(cd $(dirname $0) && cd .. && pwd)
 for (( i = 0; i < ${#expids[*]}; i++ )); do
     expid=${expids[i]}
     version=${versions[i]}

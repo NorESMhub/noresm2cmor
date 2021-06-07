@@ -60,6 +60,7 @@ fi
 #fi
 
 # PrePARE QC check
+CMOR_ROOT=$(cd $(dirname $0) && cd .. && pwd)
 ${CMOR_ROOT}/workflow/cmorQC.sh -m=$model -e=$expid -v=$version --errexit=$errexit
 [ $? -ne 0 ] && echo -e "\e[1;31;47m **ERROR** \e[0m occurs within cmorQC.sh. EXIT..." && exit 1
 

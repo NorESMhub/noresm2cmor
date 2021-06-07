@@ -1,5 +1,5 @@
 #!/bin/bash
-export CMOR_ROOT=$HOME/noresm2cmor
+CMOR_ROOT=$(cd $(dirname $0) && cd ../../.. && pwd)
 source ${CMOR_ROOT}/workflow/cmorRun1memb.sh
 
 # initialize

@@ -21,24 +21,7 @@ make -f Makefile_cmor3mpi.nird_intel
 
 Then the executables `noresm2cmor3` and `noresm2cmor3_mpi` are find under `noresm2cmor/bin`
 
-### 0.3 - Set up the enviroment varialbe
-Set the path where noresm2cmor is installed. Paste following statements to your `~/.bashrc`
-
-```bash
-export CMOR_ROOT=/projects/NS9560K/cmor/noresm2cmor
-```
-
-or set the following if your installed your own copy at your home folder
-
-```bash
-export CMOR_ROOT=~/noresm2cmor
-```
-
-Then apply the setting by executing:
-
-```bash
-source ~/.bashrc
-```
+In the following, we assume `noresm2cmor` is under `/projects/NS9560K/cmor/noresm2cmor`. We use `$CMOR_ROOT` to denote the path root where `noresm2cmor` is installed.
 
 ## 1 - Create and submit cmorization job
 Assume you are processing experiment **piClim-histall** of **NorESM2-LM** with cmor data version **v20191108b**. Therefore, I use here three SHELL variables to represent for these parameters:
