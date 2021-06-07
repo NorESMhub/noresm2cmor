@@ -1,0 +1,489 @@
+{
+    "CV":{
+        "required_global_attributes":[
+            "Conventions",
+            "activity_id",
+            "creation_date",
+            "data_specs_version",
+            "experiment",
+            "experiment_id",
+            "forcing_index",
+            "frequency",
+            "further_info_url",
+            "grid",
+            "grid_label",
+            "initialization_index",
+            "institution",
+            "institution_id",
+            "license",
+            "mip_era",
+            "nominal_resolution",
+            "physics_index",
+            "product",
+            "realization_index",
+            "realm",
+            "source",
+            "source_id",
+            "source_type",
+            "sub_experiment",
+            "sub_experiment_id",
+            "table_id",
+            "tracking_id",
+            "variable_id",
+            "variant_label"
+        ],
+        "version_metadata":{
+            "CV_collection_modified":"Wed Oct 28 17:40:37 2020 -0700",
+            "CV_collection_version":"6.2.54.2",
+            "author":"Paul J. Durack <durack1@llnl.gov>",
+            "experiment_id_CV_modified":"Fri Oct 23 15:16:35 2020 -0700",
+            "experiment_id_CV_note":"Register experiment_ids for CovidMIP (#973)",
+            "institution_id":"PCMDI",
+            "previous_commit":"e8152ae174f7f210963cd18c33acfa2c091e7296",
+            "specs_doc":"v6.2.7 (10th September 2018; https://goo.gl/v1drZl)"
+        },
+        "activity_id":{
+            "AerChemMIP":"Aerosols and Chemistry Model Intercomparison Project",
+            "C4MIP":"Coupled Climate Carbon Cycle Model Intercomparison Project",
+            "CDRMIP":"Carbon Dioxide Removal Model Intercomparison Project",
+            "CFMIP":"Cloud Feedback Model Intercomparison Project",
+            "CMIP":"CMIP DECK: 1pctCO2, abrupt4xCO2, amip, esm-piControl, esm-historical, historical, and piControl experiments",
+            "CORDEX":"Coordinated Regional Climate Downscaling Experiment",
+            "DAMIP":"Detection and Attribution Model Intercomparison Project",
+            "DCPP":"Decadal Climate Prediction Project",
+            "DynVarMIP":"Dynamics and Variability Model Intercomparison Project",
+            "FAFMIP":"Flux-Anomaly-Forced Model Intercomparison Project",
+            "GMMIP":"Global Monsoons Model Intercomparison Project",
+            "GeoMIP":"Geoengineering Model Intercomparison Project",
+            "HighResMIP":"High-Resolution Model Intercomparison Project",
+            "ISMIP6":"Ice Sheet Model Intercomparison Project for CMIP6",
+            "LS3MIP":"Land Surface, Snow and Soil Moisture",
+            "LUMIP":"Land-Use Model Intercomparison Project",
+            "OMIP":"Ocean Model Intercomparison Project",
+            "PAMIP":"Polar Amplification Model Intercomparison Project",
+            "PMIP":"Palaeoclimate Modelling Intercomparison Project",
+            "RFMIP":"Radiative Forcing Model Intercomparison Project",
+            "SIMIP":"Sea Ice Model Intercomparison Project",
+            "ScenarioMIP":"Scenario Model Intercomparison Project",
+            "VIACSAB":"Vulnerability, Impacts, Adaptation and Climate Services Advisory Board",
+            "VolMIP":"Volcanic Forcings Model Intercomparison Project",
+            "KeyCLIM":"NFR KeyCLIM experiments",
+            "NonCMIP":"User-defined Non-CMIP experiments"
+        },
+        "institution_id":{
+            "NCC":"NorESM Climate modeling Consortium consisting of CICERO (Center for International Climate and Environmental Research, Oslo 0349), MET-Norway (Norwegian Meteorological Institute, Oslo 0313), NERSC (Nansen Environmental and Remote Sensing Center, Bergen 5006), NILU (Norwegian Institute for Air Research, Kjeller 2027), UiB (University of Bergen, Bergen 5007), UiO (University of Oslo, Oslo 0313) and UNI (Uni Research, Bergen 5008), Norway. Mailing address: NCC, c/o MET-Norway, Henrik Mohns plass 1, Oslo 0313, Norway"
+        },
+        "source_id":{
+            "NorESM1-F":{
+                "activity_participation":[
+                    "CMIP",
+                    "PMIP"
+                ],
+                "cohort":[
+                    "Registered"
+                ],
+                "institution_id":[
+                    "NCC"
+                ],
+                "source_id":"NorESM1-F",
+                "source":"NorESM1-F (2018): \naerosol: none\natmos: CAM4 (2 degree resolution; 144 x 96; 32 levels; top level 3 mb)\natmosChem: none\nland: CLM4\nlandIce: CISM\nocean: MICOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC5.1\nseaIce: CICE4"
+            },
+            "NorESM2-HH":{
+                "activity_participation":[
+                    "CMIP",
+                    "HighResMIP"
+                ],
+                "cohort":[
+                    "Registered"
+                ],
+                "institution_id":[
+                    "NCC"
+                ],
+                "source_id":"NorESM2-HH",
+                "source":"NorESM2-HH (2018): \naerosol: OsloAero\natmos: CAM-OSLO (0.25 degree resolution; 1152 x 768; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: MICOM (0.25 degree resolution; 1440 x 1152; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+            },
+            "NorESM2-LM":{
+                "activity_participation":[
+                    "AerChemMIP",
+                    "C4MIP",
+                    "CDRMIP",
+                    "CFMIP",
+                    "CMIP",
+                    "DAMIP",
+                    "DCPP",
+                    "LUMIP",
+                    "OMIP",
+                    "PAMIP",
+                    "PMIP",
+                    "RFMIP",
+                    "ScenarioMIP",
+                    "VolMIP"
+                ],
+                "cohort":[
+                    "Registered"
+                ],
+                "institution_id":[
+                    "NCC"
+                ],
+                "source_id":"NorESM2-LM",
+                "source":"NorESM2-LM (2017): \naerosol: OsloAero\natmos: CAM-OSLO (2 degree resolution; 144 x 96; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: MICOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+            },
+            "NorESM2-LME":{
+                "activity_participation":[
+                    "C4MIP",
+                    "CMIP",
+                    "GeoMIP",
+                    "LUMIP",
+                    "OMIP"
+                ],
+                "cohort":[
+                    "Registered"
+                ],
+                "institution_id":[
+                    "NCC"
+                ],
+                "source_id":"NorESM2-LME",
+                "source":"NorESM2-LME (2017): \naerosol: OsloAero\natmos: CAM-OSLO (2 degree resolution; 144 x 96; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: MICOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+            },
+            "NorESM2-LMEC":{
+                "activity_participation":[
+                    "AerChemMIP",
+                    "CMIP"
+                ],
+                "cohort":[
+                    "Registered"
+                ],
+                "institution_id":[
+                    "NCC"
+                ],
+                "source_id":"NorESM2-LMEC",
+                "source":"NorESM2-LMEC (2017): \naerosol: OsloAero\natmos: CAM-OSLO (2 degree resolution; 144 x 96; 32 levels; top level 3 mb)\natmosChem: OsloChemComp\nland: CLM\nlandIce: CISM\nocean: MICOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+            },
+            "NorESM2-MH":{
+                "activity_participation":[
+                    "AerChemMIP",
+                    "CFMIP",
+                    "CMIP",
+                    "DAMIP",
+                    "OMIP",
+                    "RFMIP",
+                    "ScenarioMIP"
+                ],
+                "cohort":[
+                    "Registered"
+                ],
+                "institution_id":[
+                    "NCC"
+                ],
+                "source_id":"NorESM2-MH",
+                "source":"NorESM2-MH (2017): \naerosol: OsloAero\natmos: CAM-OSLO (1 degree resolution; 288 x 192; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: MICOM (0.25 degree resolution; 1440 x 1152; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+            },
+            "NorESM2-MM":{
+                "activity_participation":[
+                    "AerChemMIP",
+                    "CFMIP",
+                    "CMIP",
+                    "DAMIP",
+                    "OMIP",
+                    "RFMIP",
+                    "ScenarioMIP"
+                ],
+                "cohort":[
+                    "Registered"
+                ],
+                "institution_id":[
+                    "NCC"
+                ],
+                "source_id":"NorESM2-MM",
+                "source":"NorESM2-MM (2017): \naerosol: OsloAero\natmos: CAM-OSLO (1 degree resolution; 288 x 192; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: MICOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+            }
+        },
+        "source_type":{
+            "AER":"aerosol treatment in an atmospheric model where concentrations are calculated based on emissions, transformation, and removal processes (rather than being prescribed or omitted entirely)",
+            "AGCM":"atmospheric general circulation model run with prescribed ocean surface conditions and usually a model of the land surface",
+            "AOGCM":"coupled atmosphere-ocean global climate model, additionally including explicit representation of at least the land and sea ice",
+            "BGC":"biogeochemistry model component that at the very least accounts for carbon reservoirs and fluxes in the atmosphere, terrestrial biosphere, and ocean",
+            "CHEM":"chemistry treatment in an atmospheric model that calculates atmospheric oxidant concentrations (including at least ozone), rather than prescribing them",
+            "ISM":"ice-sheet model that includes ice-flow",
+            "LAND":"land model run uncoupled from the atmosphere",
+            "OGCM":"ocean general circulation model run uncoupled from an AGCM but, usually including a sea-ice model",
+            "RAD":"radiation component of an atmospheric model run 'offline'",
+            "SLAB":"slab-ocean used with an AGCM in representing the atmosphere-ocean coupled system"
+        },
+        "frequency":{
+            "1hr":"sampled hourly",
+            "1hrCM":"monthly-mean diurnal cycle resolving each day into 1-hour means",
+            "1hrPt":"sampled hourly, at specified time point within an hour",
+            "3hr":"sampled every 3 hours",
+            "3hrPt":"sampled 3 hourly, at specified time point within the time period",
+            "6hr":"sampled every 6 hours",
+            "6hrPt":"sampled 6 hourly, at specified time point within the time period",
+            "day":"daily mean samples",
+            "dec":"decadal mean samples",
+            "fx":"fixed (time invariant) field",
+            "mon":"monthly mean samples",
+            "monC":"monthly climatology computed from monthly mean samples",
+            "monPt":"sampled monthly, at specified time point within the time period",
+            "subhrPt":"sampled sub-hourly, at specified time point within an hour",
+            "yr":"annual mean samples",
+            "yrPt":"sampled yearly, at specified time point within the time period"
+        },
+        "grid_label":{
+            "gm":"global mean data",
+            "gn":"data reported on a model's native grid",
+            "gna":"data reported on a native grid in the region of Antarctica",
+            "gng":"data reported on a native grid in the region of Greenland",
+            "gnz":"zonal mean data reported on a model's native latitude grid",
+            "gr":"regridded data reported on the data provider's preferred target grid",
+            "gr1":"regridded data reported on a grid other than the native grid and other than the preferred target grid",
+            "gr1a":"regridded data reported in the region of Antarctica on a grid other than the native grid and other than the preferred target grid",
+            "gr1g":"regridded data reported in the region of Greenland on a grid other than the native grid and other than the preferred target grid",
+            "gr1z":"regridded zonal mean data reported on a grid other than the native latitude grid and other than the preferred latitude target grid",
+            "gr2":"regridded data reported on a grid other than the native grid and other than the preferred target grid",
+            "gr2a":"regridded data reported in the region of Antarctica on a grid other than the native grid and other than the preferred target grid",
+            "gr2g":"regridded data reported in the region of Greenland on a grid other than the native grid and other than the preferred target grid",
+            "gr2z":"regridded zonal mean data reported on a grid other than the native latitude grid and other than the preferred latitude target grid",
+            "gr3":"regridded data reported on a grid other than the native grid and other than the preferred target grid",
+            "gr3a":"regridded data reported in the region of Antarctica on a grid other than the native grid and other than the preferred target grid",
+            "gr3g":"regridded data reported in the region of Greenland on a grid other than the native grid and other than the preferred target grid",
+            "gr3z":"regridded zonal mean data reported on a grid other than the native latitude grid and other than the preferred latitude target grid",
+            "gr4":"regridded data reported on a grid other than the native grid and other than the preferred target grid",
+            "gr4a":"regridded data reported in the region of Antarctica on a grid other than the native grid and other than the preferred target grid",
+            "gr4g":"regridded data reported in the region of Greenland on a grid other than the native grid and other than the preferred target grid",
+            "gr4z":"regridded zonal mean data reported on a grid other than the native latitude grid and other than the preferred latitude target grid",
+            "gr5":"regridded data reported on a grid other than the native grid and other than the preferred target grid",
+            "gr5a":"regridded data reported in the region of Antarctica on a grid other than the native grid and other than the preferred target grid",
+            "gr5g":"regridded data reported in the region of Greenland on a grid other than the native grid and other than the preferred target grid",
+            "gr5z":"regridded zonal mean data reported on a grid other than the native latitude grid and other than the preferred latitude target grid",
+            "gr6":"regridded data reported on a grid other than the native grid and other than the preferred target grid",
+            "gr6a":"regridded data reported in the region of Antarctica on a grid other than the native grid and other than the preferred target grid",
+            "gr6g":"regridded data reported in the region of Greenland on a grid other than the native grid and other than the preferred target grid",
+            "gr6z":"regridded zonal mean data reported on a grid other than the native latitude grid and other than the preferred latitude target grid",
+            "gr7":"regridded data reported on a grid other than the native grid and other than the preferred target grid",
+            "gr7a":"regridded data reported in the region of Antarctica on a grid other than the native grid and other than the preferred target grid",
+            "gr7g":"regridded data reported in the region of Greenland on a grid other than the native grid and other than the preferred target grid",
+            "gr7z":"regridded zonal mean data reported on a grid other than the native latitude grid and other than the preferred latitude target grid",
+            "gr8":"regridded data reported on a grid other than the native grid and other than the preferred target grid",
+            "gr8a":"regridded data reported in the region of Antarctica on a grid other than the native grid and other than the preferred target grid",
+            "gr8g":"regridded data reported in the region of Greenland on a grid other than the native grid and other than the preferred target grid",
+            "gr8z":"regridded zonal mean data reported on a grid other than the native latitude grid and other than the preferred latitude target grid",
+            "gr9":"regridded data reported on a grid other than the native grid and other than the preferred target grid",
+            "gr9a":"regridded data reported in the region of Antarctica on a grid other than the native grid and other than the preferred target grid",
+            "gr9g":"regridded data reported in the region of Greenland on a grid other than the native grid and other than the preferred target grid",
+            "gr9z":"regridded zonal mean data reported on a grid other than the native latitude grid and other than the preferred latitude target grid",
+            "gra":"regridded data in the region of Antarctica reported on the data provider's preferred target grid",
+            "grg":"regridded data in the region of Greenland reported on the data provider's preferred target grid",
+            "grz":"regridded zonal mean data reported on the data provider's preferred latitude target grid"
+        },
+        "nominal_resolution":[
+            "0.5 km",
+            "1 km",
+            "10 km",
+            "100 km",
+            "1000 km",
+            "10000 km",
+            "1x1 degree",
+            "2.5 km",
+            "25 km",
+            "250 km",
+            "2500 km",
+            "5 km",
+            "50 km",
+            "500 km",
+            "5000 km"
+        ],
+        "realm":{
+            "aerosol":"Aerosol",
+            "atmos":"Atmosphere",
+            "atmosChem":"Atmospheric Chemistry",
+            "land":"Land Surface",
+            "landIce":"Land Ice",
+            "ocean":"Ocean",
+            "ocnBgchem":"Ocean Biogeochemistry",
+            "seaIce":"Sea Ice"
+        },
+        "table_id":[
+            "3hr",
+            "6hrLev",
+            "6hrPlev",
+            "6hrPlevPt",
+            "AERday",
+            "AERhr",
+            "AERmon",
+            "AERmonZ",
+            "Amon",
+            "CF3hr",
+            "CFday",
+            "CFmon",
+            "CFsubhr",
+            "E1hr",
+            "E1hrClimMon",
+            "E3hr",
+            "E3hrPt",
+            "E6hrZ",
+            "Eday",
+            "EdayZ",
+            "Efx",
+            "Emon",
+            "EmonZ",
+            "Esubhr",
+            "Eyr",
+            "IfxAnt",
+            "IfxGre",
+            "ImonAnt",
+            "ImonGre",
+            "IyrAnt",
+            "IyrGre",
+            "LImon",
+            "Lmon",
+            "Oclim",
+            "Oday",
+            "Odec",
+            "Ofx",
+            "Omon",
+            "Oyr",
+            "SIday",
+            "SImon",
+            "day",
+            "fx"
+        ],
+        "license":[
+            "^CMIP6 model data produced by .* is licensed under a Creative Commons Attribution.*ShareAlike 4.0 International License .https://creativecommons.org/licenses.* *Consult https://pcmdi.llnl.gov/CMIP6/TermsOfUse for terms of use governing CMIP6 output, including citation requirements and proper acknowledgment\\. *Further information about this data, including some limitations, can be found via the further_info_url (recorded as a global attribute in this file).*\\. *The data producers and data providers make no warranty, either express or implied, including, but not limited to, warranties of merchantability and fitness for a particular purpose\\. *All liabilities arising from the supply of the information (including any liability arising in negligence) are excluded to the fullest extent permitted by law\\.$"
+        ],
+        "mip_era":[
+            "CMIP6"
+        ],
+        "sub_experiment_id":{
+            "none":"none",
+            "s1910":"initialized near end of year 1910",
+            "s1920":"initialized near end of year 1920",
+            "s1950":"initialized near end of year 1950",
+            "s1960":"initialized near end of year 1960",
+            "s1961":"initialized near end of year 1961",
+            "s1962":"initialized near end of year 1962",
+            "s1963":"initialized near end of year 1963",
+            "s1964":"initialized near end of year 1964",
+            "s1965":"initialized near end of year 1965",
+            "s1966":"initialized near end of year 1966",
+            "s1967":"initialized near end of year 1967",
+            "s1968":"initialized near end of year 1968",
+            "s1969":"initialized near end of year 1969",
+            "s1970":"initialized near end of year 1970",
+            "s1971":"initialized near end of year 1971",
+            "s1972":"initialized near end of year 1972",
+            "s1973":"initialized near end of year 1973",
+            "s1974":"initialized near end of year 1974",
+            "s1975":"initialized near end of year 1975",
+            "s1976":"initialized near end of year 1976",
+            "s1977":"initialized near end of year 1977",
+            "s1978":"initialized near end of year 1978",
+            "s1979":"initialized near end of year 1979",
+            "s1980":"initialized near end of year 1980",
+            "s1981":"initialized near end of year 1981",
+            "s1982":"initialized near end of year 1982",
+            "s1983":"initialized near end of year 1983",
+            "s1984":"initialized near end of year 1984",
+            "s1985":"initialized near end of year 1985",
+            "s1986":"initialized near end of year 1986",
+            "s1987":"initialized near end of year 1987",
+            "s1988":"initialized near end of year 1988",
+            "s1989":"initialized near end of year 1989",
+            "s1990":"initialized near end of year 1990",
+            "s1991":"initialized near end of year 1991",
+            "s1992":"initialized near end of year 1992",
+            "s1993":"initialized near end of year 1993",
+            "s1994":"initialized near end of year 1994",
+            "s1995":"initialized near end of year 1995",
+            "s1996":"initialized near end of year 1996",
+            "s1997":"initialized near end of year 1997",
+            "s1998":"initialized near end of year 1998",
+            "s1999":"initialized near end of year 1999",
+            "s2000":"initialized near end of year 2000",
+            "s2001":"initialized near end of year 2001",
+            "s2002":"initialized near end of year 2002",
+            "s2003":"initialized near end of year 2003",
+            "s2004":"initialized near end of year 2004",
+            "s2005":"initialized near end of year 2005",
+            "s2006":"initialized near end of year 2006",
+            "s2007":"initialized near end of year 2007",
+            "s2008":"initialized near end of year 2008",
+            "s2009":"initialized near end of year 2009",
+            "s2010":"initialized near end of year 2010",
+            "s2011":"initialized near end of year 2011",
+            "s2012":"initialized near end of year 2012",
+            "s2013":"initialized near end of year 2013",
+            "s2014":"initialized near end of year 2014",
+            "s2015":"initialized near end of year 2015",
+            "s2016":"initialized near end of year 2016",
+            "s2017":"initialized near end of year 2017",
+            "s2018":"initialized near end of year 2018",
+            "s2019":"initialized near end of year 2019",
+            "s2020":"initialized near end of year 2020",
+            "s2021":"initialized near end of year 2021",
+            "s2022":"initialized near end of year 2022",
+            "s2023":"initialized near end of year 2023",
+            "s2024":"initialized near end of year 2024",
+            "s2025":"initialized near end of year 2025",
+            "s2026":"initialized near end of year 2026",
+            "s2027":"initialized near end of year 2027",
+            "s2028":"initialized near end of year 2028",
+            "s2029":"initialized near end of year 2029"
+        },
+        "experiment_id":{
+            "hist-piAerOxid":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"historical, with piAerOxid",
+                "experiment_id":"hist-piAerOxid",
+                "parent_activity_id":[
+                    "CMIP"
+                ],
+                "parent_experiment_id":[
+                    "piControl"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            }
+        },
+        "product":[
+            "model-output"
+        ],
+        "tracking_id":[
+            "hdl:21.14100/.*"
+        ],
+        "further_info_url":[
+            "https://furtherinfo.es-doc.org/.*"
+        ],
+        "realization_index":[
+            "^\\[\\{0,\\}[[:digit:]]\\{1,\\}\\]\\{0,\\}$"
+        ],
+        "variant_label":[
+            "r[[:digit:]]\\{1,\\}i[[:digit:]]\\{1,\\}p[[:digit:]]\\{1,\\}f[[:digit:]]\\{1,\\}$"
+        ],
+        "data_specs_version":[
+            "^[[:digit:]]\\{2,2\\}\\.[[:digit:]]\\{2,2\\}\\.[[:digit:]]\\{2,2\\}$"
+        ],
+        "Conventions":[
+            "^CF-1.7 CMIP-6.[0-2]\\( UGRID-1.0\\)\\{0,\\}$"
+        ],
+        "forcing_index":[
+            "^\\[\\{0,\\}[[:digit:]]\\{1,\\}\\]\\{0,\\}$"
+        ],
+        "initialization_index":[
+            "^\\[\\{0,\\}[[:digit:]]\\{1,\\}\\]\\{0,\\}$"
+        ],
+        "physics_index":[
+            "^\\[\\{0,\\}[[:digit:]]\\{1,\\}\\]\\{0,\\}$"
+        ]
+    }
+}
