@@ -108,4 +108,4 @@ echo "$(date)  "
 echo "~~~~~~~~~"
 
 # PrePARE QC check, create links and update sha256sum
-#${CMOR_ROOT}/workflow/cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false
+${CMOR_ROOT}/workflow/cmorPost.sh -m=${model} -e=${expid} -v=${version} --verbose=false

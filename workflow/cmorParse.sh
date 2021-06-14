@@ -34,7 +34,8 @@ then
 else
     echo "** NOT enough input, EXIT **"
     echo "Usage:"
-    echo "  ./cmorParse.sh -m=[model] -e=[expid] -v=[version]"
+    echo "  ./cmorParse.sh -m=[model] -e=[expid] -v=[version] -o=[cmoroutroot (optional)]"
+    echo "  e.g., ./checkcmorout.sh -e=piControl -m=NorESM2-LM -v=v20210319 -o=/projects/NS9034K/CMIP6/.cmorout"
     exit
 fi
 

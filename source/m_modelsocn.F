@@ -1496,7 +1496,7 @@ c --- - Integratal with respect to depth
             ENDDO
           ENDDO
 c
-c --- - Integratal with respect to depth
+c --- - Average with respect to pressure
         CASE ('dpavg')
           DO j=1,jj
             DO i=1,ii
