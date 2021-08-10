@@ -381,7 +381,7 @@
                  'sivols           ','hi            ','masknh;Xcellarea;glbsum;1e3 km3',
                  'sndmassmelt      ','melts         ','cmSNOW day-1 -> kg m-2 s-1',
                  'sndmasssi        ','sndmasssi     ','               ',
-                 'sndmasssnf       ','sndmasssnf    ','               ',
+                 'sndmasssnf       ','sndmasssnf/330','               ',
                  'sndmasswindrif   ','sndmasswindrif','               ',
 ! not available in output, thus not tested
 !                'sndmasssubl      ','sndmasssubl   ','               ',
