@@ -1810,14 +1810,14 @@ c
         CALL handle_ncerror(status)
         status=nf90_get_var(ncid,rhid,slat)
         CALL handle_ncerror(status)
-        slat_bnds(1,1)=slat(1)-0.5*(slat(2)-slat(1)) 
+        slat_bnds(1,1)=max(-90.,slat(1)-0.5*(slat(2)-slat(1)))
         slat_bnds(2,1)=0.5*(slat(2)+slat(1)) 
         DO j=2,ldm-1 
           slat_bnds(1,j)=0.5*(slat(j)+slat(j-1)) 
           slat_bnds(2,j)=0.5*(slat(j)+slat(j+1)) 
         ENDDO 
         slat_bnds(1,ldm)=0.5*(slat(ldm)+slat(ldm-1))
-        slat_bnds(2,ldm)=slat(ldm)+0.5*(slat(ldm)-slat(ldm-1)) 
+        slat_bnds(2,ldm)=min(90.,slat(ldm)+0.5*(slat(ldm)-slat(ldm-1)))
       ENDIF
 c
       WRITE(*,*) 'read region'
@@ -2212,6 +2212,7 @@ c
       ELSEIF (dimlens(1).EQ.ldm.AND.dimlens(2).EQ.kdm) THEN
         vtype='merk'
         ii=ldm
+        jj=kdm
         kk=rdm
       ELSEIF (dimlens(1).EQ.ldm.AND.dimlens(2).EQ.ddm) THEN
         vtype='merd'
