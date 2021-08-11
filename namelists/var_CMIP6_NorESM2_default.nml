@@ -717,11 +717,12 @@
  dlmon        = .true.
  tlmon        = 'CMIP6_Lmon.json'
  vlmon        =
-                 'burntFractionAll   ','FAREA_BURNED       ','percent',
+                 'burntFractionAll','FAREA_BURNED       ','percent   ',
                  'cCwd         ','CWDC                  ','kg m-2    ',
                  'cLeaf        ','LEAFC                 ','kg m-2    ',
                  'cLitter      ','TOTLITC               ','kg m-2    ',
                  'cRoot        ','LIVECROOTC+DEADCROOTC ','kg m-2    ',
+                 'cropFrac     ','PCT_LANDUNIT          ','missingval',
                  'cSoilFast    ','SOIL1C                ','kg m-2    ',
                  'cSoilMedium  ','SOIL2C                ','kg m-2    ',
                  'cSoilSlow    ','SOIL3C                ','kg m-2    ',
