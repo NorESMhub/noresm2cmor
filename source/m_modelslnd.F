@@ -1729,12 +1729,21 @@ c
 c --- Store variable
       IF (LEN_TRIM(zcoord).GT.0.OR.kdm.EQ.1) THEN
         IF (TRIM(tcoord).NE.'time1') THEN  
-          error_flag=cmor_write(
-     .      var_id         = varid,
-     .      data           = fld,
-     .      ntimes_passed  = 1,
-     .      time_vals      = tval,
-     .      time_bnds      = tbnds)
+          IF (TRIM(zcoord).EQ.'typecrop') THEN  
+            error_flag=cmor_write(
+     .        var_id         = varid,
+     .        data           = fld(1:idm,1:jdm,2),
+     .        ntimes_passed  = 1,
+     .        time_vals      = tval,
+     .        time_bnds      = tbnds)
+          ELSE
+            error_flag=cmor_write(
+     .        var_id         = varid,
+     .        data           = fld,
+     .        ntimes_passed  = 1,
+     .        time_vals      = tval,
+     .        time_bnds      = tbnds)
+          ENDIF
         ELSE
           error_flag=cmor_write(
      .      var_id         = varid,
