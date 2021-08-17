@@ -1,104 +1,48 @@
 # noresm2cmor
 
+The is a feature branch for cmorizing Non-CMIP experiments.
 
-## 1. General
+## A quick example for setting up a non-cmip experiment:
+(For detailed information for this tool, please refer to the [main branch](://github.com/NorESMhub/noresm2cmor/blob/9b4b7db16bb110095bb13d4f628ea744a062220c/README.md))
 
-noresm2cmor is a FORTRAN based command line tool for post-processing NorESM 
-output using the Climate Model Output Rewriter (cmor) libraries.
+### Prerequisite
+* The following steps are tested under the [NIRD IPCC container node](ipcc.nird.sigma2.no)
+*
 
-System, model, experiment and variable information are set in namelist files 
-which noresm2cmor reads during its execution. 
+### Installation
 
-
-## 2. Installation
-
-### 2.1 Download
-
-Download noresm2cmor with
+Setup environment
 ```bash
- git clone https://github.com/NorESMhub/noresm2cmor
+ source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux
 ```
-Set the `CMOR_ROOT` enviroment variable in your `.bashrc`. For example, if you clone the code to your home directory, then set
+
+Download `noresm2cmor`
 ```bash
-export CMOR_ROOT=~/noresm2cmor
+cd ~/
+git clone -b noncmip https://github.com/NorESMhub/noresm2cmor
 ```
-### 2.2 Build 
+
+Build 
 ```bash
-# Change directory 
 cd noresm2cmor/build/  
+make -f Makefile_cmor3mpi.nird_intel
 ```
 
-Make a copy of Makefile.nird_intel - e.g., Makefile.xxx - and customize 
-your make file. IMPORTANT: The build of noresm2cmor requires the fortran version 
-of the cmor-library (see https://pcmdi.github.io/cmor-site/download.htm for 
-download instructions).  
+### Setup receipe with `cmorSetup.sh`
 
-Build with
-```
- make –f Makefile.xxx 
-```
-
-### 2.3 Installation of grid data and sample input (use only if data not available)
-
-Change directory to noresm2cmor/scripts
-
-Run installation script for grid data 
- ./install_griddata.sh <absolute path to folder where grid data should be stored> 
-
-Run installation script for input data sample 
- ./install_sampledata.sh <absolute path to folder where sample input should be stored> 
-
-### 2.4 Set paths to grid data, sample data and output folder  
-
-Change directory to noresm2cmor/scripts
-
-If install_griddata.sh not used, set path to grid data 
- ./setpath_griddata.sh <absolute path to folder where grid data is stored>
-
-If install_sampledata.sh not used, set path to sample data 
- ./setpath_sampledata.sh <absolute path to folder where sample input is stored>
-
-Set path to output folder
- ./install_cmorout.sh <absolute path to folder where CMOR output should be stored>
-
-## 3 Run the noresm2cmor program
-
-### 3.1 A quick setup from template
-Run the script `workflow/cmorSetup.sh` to setup namelist template:
 ```bash
-$ ./cmorSetup.sh
+cd ~/noresm2cmor/workflow
+./cmorSetup.sh --casename=NHIST_02_f19_tn14_20190801 --model=NorESM2-LM --expid=exp4test --expidref=historical --version=v20210811 --year1=2015 --yearn=2050 --realization=1 --physics=1 --forcing=1 --mpi=DMPI --ibasedir=/projects/NS2345K/noresm/cases --obasedir=/projects/NS9034K/CMIP6/.cmorout
 
- Usage:
- ./cmorSetup.sh \
-  -c=[casename]     # e.g., NHIST_f19_tn14_20190625 \
-  -m=[model]        # e.g., NorESM2-LM, NorESM2-MM, NorESM1-F,NorESM1-M \
-  -e=[expid]        # e.g., historical, piControl, ssp126, omip2, etc \
-  -v=[version]      # e.g., v20200702 \
-  -y1=[year1]       # e.g., 1850 \
-  -y2=[yearn]       # e.g., 2014 \
-  -r=[realization]  # e.g., 1,2,3 \
-  -p=[physics]      # e.g., 1,2,3 \
-  -i=[ibasedir]     # path to model output. e.g., /projects/NS9560K/noresm/cases \
-  -o=[obasedir]     # path to cmorized output. e.g., /projects/NSxxxxK/CMIP6/cmorout \%
+cd ~/noresm2cmor/namelists/CMIP6_NorESM2-LM/exp4test
 ```
-For example,
-```bash
-./cmorSetup.sh -c=NFHISTnorpibc_aeroxidonly_03_f19_20200118 \
--m=NorESM2-LM \
--e=piClim-histaer \
--v=v20200702 \
--y1=1850 -y2=2014 \
--r=3 -p=2 \
--i=/projects/NS9560K/noresm/cases \
--o=/projects/NS9034K/CMIP6/.cmorout
-```
-
-Then under `$CMOR_ROOT/namelists/CMIP6_${model}/${expid}`, the namelists are configured under: `${version}/`,
+the namelists are configured under: `$version/`
 and a script to submit the job is created `cmor_${casename}.sh`.
 
-Check the settings in the script and namelist. One can start the cmorization by exectuting the script `cmor_${casename}.sh`
+Check the settings in the script and namelist.
 
-### 3.2 A full workflow from scratch
-A more general workflow of cmorization if found at the wiki page:
-https://github.com/NorESMhub/noresm2cmor/wiki/Workflow
+Then submit the cmorization job:
+```bash
+./cmor_NHIST_02_f19_tn14_20190801.sh
+```
 
