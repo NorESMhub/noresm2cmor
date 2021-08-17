@@ -163,6 +163,7 @@ cp $CMOR_ROOT/namelists/var_CMIP6_NorESM2_default.nml $version/var.nml
 sed -i "s~ibasedir * = '.*',~ibasedir      = '${ibasedir}',~g" ${version}/sys.nml
 sed -i "s~obasedir * = '.*',~obasedir      = '${obasedir}',~g" ${version}/sys.nml
 sed -i "s~griddata * = '.*',~griddata      = '/projects/NS9560K/cmor/griddata',~g" ${version}/sys.nml
+sed -i "s~tabledir * = '.*',~tabledir      = '../namelists/CMIP6_${model}/${expid}/tables',~g" ${version}/sys.nml
 sed -i "s/forcefilescan * = .*.,/forcefilescan = .false.,/g" ${version}/sys.nml
 
 # split years

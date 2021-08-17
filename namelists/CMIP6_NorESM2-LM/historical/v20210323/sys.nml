@@ -1,7 +1,7 @@
 &sys
- ibasedir      = '../data/cmorin',
- obasedir      = '../data/cmorout',
- griddata      = '../data/griddata',
+ ibasedir      = '/projects/NS9560K/noresm/cases',
+ obasedir      = '/projects/NS9252K/cmorout',
+ griddata      = '/projects/NS9560K/cmor/griddata',
  tabledir      = '../namelists/CMIP6_NorESM2-LM/historical/tables',
  createsubdirs = .false.,
  forcefilescan = .false.,  
