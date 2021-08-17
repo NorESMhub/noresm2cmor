@@ -1,6 +1,6 @@
 # noresm2cmor
 
-The is a feature branch for cmorizing Non-CMIP experiments.
+The is a feature branch for cmorizing KeyCLIM experiments.
 
 ## A quick example for setting up a non-cmip experiment:
 (For detailed information for this tool, please refer to the [main branch](://github.com/NorESMhub/noresm2cmor/blob/9b4b7db16bb110095bb13d4f628ea744a062220c/README.md))
