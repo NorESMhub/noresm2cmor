@@ -34,12 +34,14 @@ make -f Makefile_cmor3mpi.nird_intel
 cd ~/noresm2cmor/workflow
 ./cmorSetup.sh --casename=NHIST_02_f19_tn14_20190801 --model=NorESM2-LM --expid=exp4test --expidref=historical --version=v20210811 --year1=2015 --yearn=2050 --realization=1 --physics=1 --forcing=1 --mpi=DMPI --ibasedir=/projects/NS2345K/noresm/cases --obasedir=/projects/NS9034K/CMIP6/.cmorout --noncmip=true
 
-cd ~/noresm2cmor/namelists/CMIP6_NorESM2-LM/exp4test
 ```
-the namelists are configured under: `$version/`
+the namelists are configured under:
+```
+~/noresm2cmor/namelists/CMIP6_NorESM2-LM/exp4test
+```
 and a script to submit the job is created `cmor_${casename}.sh`.
 
-Check the settings in the script and namelist.
+Check the settings in the script and namelist. If one wants to modify the 'Control Vocabulary', replace the symbolic links under tables/ with the changed corresponding *.json files.
 
 Then submit the cmorization job:
 ```bash
