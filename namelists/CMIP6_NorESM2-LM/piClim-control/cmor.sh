@@ -8,7 +8,7 @@ login0=false
 login1=false
 
 # set active
-login0=true
+#login0=true
 login1=true
 
 # initialize
@@ -75,11 +75,12 @@ then
 # piClim-control, r1i1p2f1
 #----------------
 CaseName=NF1850norbc_f19_20191025
+real=1
 physics=2
-years1=(0  11 21)
-years2=(10 20 30)
+years1=(0  $(seq 11 10 81))
+years2=(10 $(seq 20 10 90))
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -p=$physics -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -f=$forcing -i=$init -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---

@@ -1,7 +1,7 @@
 &experiment
- casename      = 'NF1850norbc_f19_20191025',
- osubdir       = 'NorESM2-LM/piClim-control/vyyyymmdd', 
- experiment_id = 'piClim-control',
+ casename      = 'NF1850norbc_spAer_aer2014_f19_20210523',
+ osubdir       = 'NorESM2-LM/piClim-spAer-aer/v20210811', 
+ experiment_id = 'piClim-spAer-aer',
  parent_experiment_id  = 'piControl',
  parent_experiment_rip = 'r1i1p1',
  parent_time_units = 'days since 0421-01-01',
@@ -14,12 +14,12 @@
  physics_version = 2,
  forcing_index = 1, 
  branch_time   = 0.,
- year1         = 1,
- yearn         = 90,
+ year1         = 61,
+ yearn         = 70,
  month1        = 1,
  monthn        = 12,
  exprefyear    = 1, 
- activity_id   = 'RFMIP AerChemMIP', 
+ activity_id   = 'RFMIP', 
  parent_activity_id = 'CMIP', 
  parent_variant_label = 'r1i1p1f1',
  parent_mip_era = 'CMIP6',
@@ -31,5 +31,5 @@
  tracking_prefix   = 'hdl:21.14100',
  newcolumnorder = .true.,
  scanallfiles = .false.,
- source_type   = 'AGCM AER'
+ source_type   = 'AGCM'
 /

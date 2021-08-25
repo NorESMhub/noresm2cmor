@@ -5,9 +5,11 @@ source ${CMOR_ROOT}/workflow/cmorRun1memb.sh
 
 # initialize
 login0=false
+login1=false
 
 # set active
-login0=true
+#login0=true
+login1=true
 
 # initialize
 #version=v20190920
@@ -69,6 +71,25 @@ runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]
 fi
 #---
 
+if $login1
+then
+#----------------
+# hist-spAer-all, ensemble 2
+#----------------
+CaseName=NHIST_spAer_f19_tn14_20210523
+real=2
+physics=1
+forcing=1
+init=1
+#years1=(1849 $(seq 1860 10 2000) 2010)
+#years2=(1859 $(seq 1869 10 2009) 2014)
+years1=(1860 1890 1900 1910 1930)
+years2=(1869 1899 1909 1919 1939)
+
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -f=$forcing -i=$init -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+#---
+fi
+#---
 
 wait
 echo "         "

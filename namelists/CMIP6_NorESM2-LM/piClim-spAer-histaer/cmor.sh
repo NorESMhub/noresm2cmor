@@ -5,17 +5,13 @@ source ${CMOR_ROOT}/workflow/cmorRun1memb.sh
 
 # initialize
 login0=false
-login1=false
 
 # set active
-#login0=true
-login1=true
+login0=true
 
 # initialize
-version=v20190920
-version=v20191108b
-
-expid=piClim-spAer-aer
+version=v20210811
+expid=piClim-spAer-histaer
 model=NorESM2-LM
 
 # --- Use input arguments if exits
@@ -57,30 +53,15 @@ echo "                    "
 if $login0
 then
 #----------------
-# piClim-spAer-aer, ensemble 1
+# piClim-spAer-histaer
 #----------------
-#CaseName=piClim-SpAer2014
-#login0
-years1=($(seq 1 10 21))
-years2=($(seq 10 10 30))
-
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
-#---
-fi
-#---
-
-if $login1
-then
-#----------------
-# piClim-spAer-aer, physics 2
-#----------------
-CaseName=NF1850norbc_spAer_aer2014_f19_20210523
+CaseName=NFHISTnorpibc_spAer_aeronly_f19_20210523
 real=1
 physics=2
 forcing=1
 init=1
-years1=($(seq 1  10 81))
-years2=($(seq 10 10 90))
+years1=(1849 $(seq 1860 10 2000) 2010)
+years2=(1859 $(seq 1869 10 2009) 2014)
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -f=$forcing -i=$init -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
