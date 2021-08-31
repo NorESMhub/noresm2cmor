@@ -717,7 +717,7 @@
  dlmon        = .true.
  tlmon        = 'CMIP6_Lmon.json'
  vlmon        =
-                 'burntFractionAll','FAREA_BURNED       ','percent   ',
+                 'burntFractionAll','FAREA_BURNED       ','sec2mon;percent',
                  'cCwd         ','CWDC                  ','kg m-2    ',
                  'cLeaf        ','LEAFC                 ','kg m-2    ',
                  'cLitter      ','TOTLITC               ','kg m-2    ',
