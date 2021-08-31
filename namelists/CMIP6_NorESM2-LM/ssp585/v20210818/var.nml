@@ -1,0 +1,13 @@
+! d* - do table true/false
+! t* - path to table file (guessed if omitted)
+! p* - alternative path to data file (path created if omitted)
+! r* - ?
+! v* - list of varibles: <NorESM name>,<cmor name>,<special operation>
+
+&table_lmon
+ dlmon        = .true.
+ tlmon        = 'CMIP6_Lmon.json'
+ vlmon        =
+                 'burntFractionAll','FAREA_BURNED','sec2mon;percent',
+/
+

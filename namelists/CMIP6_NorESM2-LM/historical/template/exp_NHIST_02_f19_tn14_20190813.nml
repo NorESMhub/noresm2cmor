@@ -1,6 +1,6 @@
 &experiment
  casename      = 'NHIST_02_f19_tn14_20190813',
- osubdir       = 'NorESM2-LM/historical/vyyyymmdd' 
+ osubdir       = 'NorESM2-LM/historical/vyyyymmdd',
  experiment_id = 'historical',
  parent_experiment_id  = 'piControl',
  parent_experiment_rip = 'r1i1p1',

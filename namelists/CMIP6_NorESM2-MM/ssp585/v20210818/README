@@ -1,0 +1,41 @@
+# README
+
+1. The following variables are added/updated:
+* drydust  
+* dryoa    
+* wetbc    
+* wetdust  
+* wetoa    
+* wetso4   
+* wetss    
+
+2. The other fields are added if they are not presented in previous datasets.
+
+abs550aer
+airmass
+chepsoa
+drybc
+dryso4
+dryss
+mmraerh2o
+mmrpm1
+mmrpm2p5
+od440aer
+od550aer
+od550aerh2o
+od550bc
+od550csaer
+od550dust
+od550lt1aer
+od550oa
+od550so4
+od550ss
+od870aer
+
+These additional fields are from experiment NSSP585frc2_f09_tn14_20200919
+Note, the additional AEROmon fields were cmorized with a template dataset version, and is merged to v20210319.
+v20210319 mainly fixed some issues for the previous case NSSP585frc2_f09_tn14_20191105
+
+
+Refer to the Github issue for NorESM2-MM SSP585 for detailed information:
+https://github.com/NorESMhub/noresm2cmor/issues/151

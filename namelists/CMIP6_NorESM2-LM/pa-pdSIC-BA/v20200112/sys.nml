@@ -1,0 +1,9 @@
+&sys
+ ibasedir      = '/projects/NS9015K/oddho/BlueAction/ProductionRuns/pdSIC/archive',
+ obasedir      = '/projects/NS9015K/oddho/BlueAction/cmorout',
+ griddata      = '/projects/NS9560K/cmor/griddata',
+ tabledir      = '../tables'
+ createsubdirs = .false.,
+ forcefilescan = .false.,  
+ verbose       = .true.,
+/
