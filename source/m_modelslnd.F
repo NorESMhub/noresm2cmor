@@ -190,8 +190,8 @@ c
       ENDDO
 #endif
 c
-c --- Process table lmon
-      WRITE(*,*) 'Process table lmon'
+c --- Process table Lmon
+      WRITE(*,*) 'Process table Lmon'
       fnm=plmon
       table=tlmon 
       linstant=.FALSE.
@@ -868,6 +868,9 @@ c
       IMPLICIT NONE
 c
       INTEGER :: i,j,k
+      INTEGER,DIMENSION(12) :: ndays
+      
+      DATA ndays /31,28,31,30,31,30,31,31,30,31,30,31/
 c
       str2=special
       DO
@@ -933,6 +936,10 @@ c
 c --- - Compute vertical sum 
         CASE ('vertsum')
           fld(:,:,1)=sum(fld,3)
+c
+c --- - Unit transformation: s-1 -> month-1
+        CASE ('sec2mon')
+          fld=fld*ndays(month)*24*3600
 c 
         END SELECT
         IF (str1.EQ.str2) exit
