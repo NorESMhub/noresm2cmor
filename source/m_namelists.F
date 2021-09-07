@@ -1722,15 +1722,16 @@ c --- new for cmor3
       CALL json%add(p,'output_file_template','<variable_id><table>'
      .  //'<source_id><experiment_id><_member_id><grid_label>')
       CALL json%add(p,'license',
-     . "CMIP6 model data produced by NCC is licensed under a Creative "
+     . "KeyCLIM model data produced by NCC is licensed under "
+     .//"a Creative "
      .//"Commons Attribution ShareAlike 4.0 International License "
      .//"(https://creativecommons.org/licenses). Consult "
-     .//"https://pcmdi.llnl.gov/CMIP6/TermsOfUse for terms of use " 
-     .//"governing CMIP6 output, including citation requirements and " 
+     .//"noresm-ncc@met.no for terms of use, " 
+     .//"including citation requirements and " 
      .//"proper acknowledgment. Further information about this " 
      .//"data, including some limitations, can be found via the "
-     .//"further_info_url (recorded as a global attribute in this " 
-     .//"file) and at https:///pcmdi.llnl.gov/. "
+     .//"further_info_url "
+     .//"(recorded as a global attribute in this file). "
      .//"The data producers and data providers make no "
      .//"warranty, either express or implied, including, but not " 
      .//"limited to, warranties of merchantability and fitness for a "
@@ -1738,6 +1739,9 @@ c --- new for cmor3
      .//"supply of the information (including any liability arising " 
      .//"in negligence) are excluded to the fullest extent permitted " 
      .//"by law.") 
+      CALL json%add(p,'further_info_url',
+     . "https://noresm-docs.readthedocs.io/"
+     .//"en/latest/data/keyclim_data.html") 
 c 
       WRITE(yyyymm1,'(I4.4,I2.2)') year1,month1
       WRITE(yyyymm2,'(I4.4,I2.2)') yearn,monthn

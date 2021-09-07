@@ -29,12 +29,24 @@ make -f Makefile_cmor3mpi.nird_intel
 ```
 
 ### Setup receipe with `cmorSetup.sh`
+An example:
 
 ```bash
 cd ~/noresm2cmor/workflow
-./cmorSetup.sh --casename=NHIST_02_f19_tn14_20190801 --model=NorESM2-LM --expid=exp4test --expidref=historical --version=v20210811 --year1=2015 --yearn=2050 --realization=1 --physics=1 --forcing=1 --mpi=DMPI --ibasedir=/projects/NS2345K/noresm/cases --obasedir=/projects/NS9034K/CMIP6/.cmorout
+./cmorSetup.sh \
+    --casename=NHIST_f19_tn14_20190625 \
+    --model=NorESM2-LM \
+    --expid=hist-all \
+    --expidref=historical \
+    --version=v20210811 \
+    --year1=1850 --yearn=1949 \
+    --realization=1 --physics=1 --forcing=1 \
+    --mpi=DMPI \
+    --ibasedir=/projects/NS2345K/noresm/cases \
+    --obasedir=/scratch/$USER/cmorout \
+    --noncmip=true
 
-cd ~/noresm2cmor/namelists/CMIP6_NorESM2-LM/exp4test
+cd ~/noresm2cmor/namelists/CMIP6_NorESM2-LM/hist-all
 ```
 the namelists are configured under: `$version/`
 and a script to submit the job is created `cmor_${casename}.sh`.
@@ -43,6 +55,6 @@ Check the settings in the script and namelist.
 
 Then submit the cmorization job:
 ```bash
-./cmor_NHIST_02_f19_tn14_20190801.sh
+./cmor_NHIST_f19_tn14_20190625.sh
 ```
 

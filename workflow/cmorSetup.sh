@@ -15,7 +15,7 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
        --casename=[casename]        # e.g., NHIST_f19_tn14_20190625 \
        --model=[model]              # e.g., NorESM2-LM, NorESM2-MM, NorESM1-F \
        --expid=[expid]              # e.g., experiment id (either CMIP exp_id or your own defined experiment id)\
-       --expidref=[expidref]        # e.g., an equivalent/similar CMIP6 experiment id to be used as template
+       --expidref=[expidref]        # e.g., an equivalent/similar KeyCLIM experiment id to be used as template
        --version=[version]          # e.g., v20200702 (or other vyyyymmdd) \
        --year1=[year1]              # e.g., 1850 (first model year to be cmorized) \
        --yearn=[yearn]              # e.g., 2014 (last model year to be cmorized) \
@@ -26,7 +26,7 @@ if [ $# -eq 0 ] || [ $1 == "--help" ]
        --mpi=[DMPI|UMPI]            # e.g., (optional) DMPI, UMPI \
        --ibasedir=[ibasedir]        # path to model output (optional), default /projects/NS9560K/noresm/cases \
        --obasedir=[obasedir]        # path to cmorized output.\
-                                      e.g., /projects/NSxxxxK/CMIP6/cmorout \
+                                      e.g., /projects/NSxxxxK/KeyCLIM/cmorout \
                                       by default, set to /scratch/$USER/cmorout \
        --noncmip=[ifnoncmip]        # flag if cmip expperiment or non-cmip experiment
         \n'
@@ -124,24 +124,17 @@ if [ -z $expidref ]; then
     expidref=$expid
 fi
 
-if [ ! -d $CMOR_ROOT/namelists/CMIP6_${model}/${expid} ];then
-    mkdir -p $CMOR_ROOT/namelists/CMIP6_${model}/${expid}
+if [ ! -d $CMOR_ROOT/namelists/KeyCLIM_${model}/${expid} ];then
+    mkdir -p $CMOR_ROOT/namelists/KeyCLIM_${model}/${expid}
 fi
-cd $CMOR_ROOT/namelists/CMIP6_${model}/${expid}/
+cd $CMOR_ROOT/namelists/KeyCLIM_${model}/${expid}/
 
 [ ! -d $version ] && mkdir $version
 [ ! -d template ] && mkdir template
-if $noncmip; then
-    [ ! -d tables ]   && mkdir tables
-    for fname in $(ls ../../../tables/CMIP6_*.json)
-    do
-        [ ! -f tables/$fname ] && ln -s ../$fname tables/
-    done
-fi
 
-expnmltemp=$(ls $CMOR_ROOT/namelists/CMIP6_${model}/${expidref}/template/exp.nml 2>/dev/null | tail -1 |cat)
+expnmltemp=$(ls $CMOR_ROOT/namelists/KeyCLIM_${model}/${expidref}/template/exp.nml 2>/dev/null | tail -1 |cat)
 if [ -z $expnmltemp ]; then
-    expnmltemp=$(ls $CMOR_ROOT/namelists/CMIP6_${model}/${expidref}/template/exp*.nml |head -1)
+    expnmltemp=$(ls $CMOR_ROOT/namelists/KeyCLIM_${model}/${expidref}/template/exp*.nml |head -1)
 fi
 #[ ! -f template/exp_${casename}.nml ] && \
 cp $expnmltemp template/exp_${casename}.nml |cat
@@ -156,14 +149,13 @@ sed -i "s/initialization_method * = .*,/initialization_method = ${init},/g" temp
 sed -i "s/year1 * = .*,/year1         = ${year1},/g" template/exp_${casename}.nml
 sed -i "s/yearn * = .*,/yearn         = ${yearn},/g" template/exp_${casename}.nml
 
-cp $CMOR_ROOT/namelists/sys_CMIP6_default.nml $version/sys.nml
-cp $CMOR_ROOT/namelists/mod_CMIP6_${model}.nml $version/mod.nml
-cp $CMOR_ROOT/namelists/var_CMIP6_NorESM2_default.nml $version/var.nml
+cp $CMOR_ROOT/namelists/sys_KeyCLIM_default.nml $version/sys.nml
+cp $CMOR_ROOT/namelists/mod_KeyCLIM_${model}.nml $version/mod.nml
+cp $CMOR_ROOT/namelists/var_KeyCLIM_NorESM2_default.nml $version/var.nml
 
 sed -i "s~ibasedir * = '.*',~ibasedir      = '${ibasedir}',~g" ${version}/sys.nml
 sed -i "s~obasedir * = '.*',~obasedir      = '${obasedir}',~g" ${version}/sys.nml
 sed -i "s~griddata * = '.*',~griddata      = '/projects/NS9560K/cmor/griddata',~g" ${version}/sys.nml
-sed -i "s~tabledir * = '.*',~tabledir      = '../namelists/CMIP6_${model}/${expid}/tables',~g" ${version}/sys.nml
 sed -i "s/forcefilescan * = .*.,/forcefilescan = .false.,/g" ${version}/sys.nml
 
 # split years
@@ -190,6 +182,11 @@ sed -i "s/^physics=.*/physics=${physics}/" cmor_${casename}.sh
 sed -i "s/^forcing=.*/forcing=${forcing}/" cmor_${casename}.sh
 sed -i "s/^init=.*/init=${init}/" cmor_${casename}.sh
 sed -i "s/^parallel=.*/parallel=${parallel}/" cmor_${casename}.sh
+
+if $noncmip; then
+    sed -i "/# PrePARE QC check, create links and update sha256sum/d" cmor_${casename}.sh
+    sed -i "/#\${CMOR_ROOT}\/workflow\/cmorPost.sh/d" cmor_${casename}.sh
+fi
 
 if [ $dyr -le 10 ]
 then
@@ -220,10 +217,10 @@ echo -e " *** Templates for CMOR submission are succussfully created! *** "
 echo -e "-----------------------------------------------------------------"
 echo -e "       "
 echo -e " \e[1;mNamelist files are created under:\e[0m"
-echo -e "  $CMOR_ROOT/namelists/CMIP6_${model}/${expid}/$version"
+echo -e "  $CMOR_ROOT/namelists/KeyCLIM_${model}/${expid}/$version"
 echo -e "       "
 echo -e " \e[1;mSubmission script is created:\e[0m "
-echo -e "  $CMOR_ROOT/namelists/CMIP6_${model}/${expid}/cmor_${casename}.sh"
+echo -e "  $CMOR_ROOT/namelists/KeyCLIM_${model}/${expid}/cmor_${casename}.sh"
 echo -e "       "
 echo -e " \e[1;mGo to the above path and review and submit the script with parameters as:\e[0m"
 echo -e "  ./cmor_${casename}.sh -m=${model} -e=${expid} -v=${version} &>cmor.log &"
@@ -235,7 +232,7 @@ echo -e " \e[1;mThen keep track on the overview log at:\e[0m"
 echo -e "  ./cmor.log"
 echo -e "       "
 echo -e " \e[1;mAnd the detailed log under:\e[0m"
-echo -e "  $CMOR_ROOT/logs/CMIP6_${model}/${expid}/$version"
+echo -e "  $CMOR_ROOT/logs/KeyCLIM_${model}/${expid}/$version"
 echo -e "       "
 
 
