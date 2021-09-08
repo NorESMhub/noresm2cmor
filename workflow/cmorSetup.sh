@@ -135,7 +135,7 @@ if $noncmip; then
     [ ! -d tables ]   && mkdir tables
     for fname in $(ls ../../../tables/CMIP6_*.json)
     do
-        [ ! -f tables/$fname ] && ln -s ../$fname tables/
+        [ ! -f tables/$fname ] && ln -sf ../$fname tables/
     done
 fi
 
@@ -190,6 +190,11 @@ sed -i "s/^physics=.*/physics=${physics}/" cmor_${casename}.sh
 sed -i "s/^forcing=.*/forcing=${forcing}/" cmor_${casename}.sh
 sed -i "s/^init=.*/init=${init}/" cmor_${casename}.sh
 sed -i "s/^parallel=.*/parallel=${parallel}/" cmor_${casename}.sh
+
+if $noncmip; then
+    sed -i "/# PrePARE QC check, create links and update sha256sum/d" cmor_${casename}.sh
+    sed -i "/#\${CMOR_ROOT}\/workflow\/cmorPost.sh/d" cmor_${casename}.sh
+fi
 
 if [ $dyr -le 10 ]
 then

@@ -66,7 +66,8 @@
             "SIMIP":"Sea Ice Model Intercomparison Project",
             "ScenarioMIP":"Scenario Model Intercomparison Project",
             "VIACSAB":"Vulnerability, Impacts, Adaptation and Climate Services Advisory Board",
-            "VolMIP":"Volcanic Forcings Model Intercomparison Project"
+            "VolMIP":"Volcanic Forcings Model Intercomparison Project",
+            "NonCMIP":"User-defined Non-CMIP experiments"
         },
         "institution_id":{
             "AER":"Research and Climate Group, Atmospheric and Environmental Research, 131 Hartwell Avenue, Lexington, MA 02421, USA",
@@ -2171,7 +2172,8 @@
                     "PMIP",
                     "RFMIP",
                     "ScenarioMIP",
-                    "VolMIP"
+                    "VolMIP",
+                    "NonCMIP" 
                 ],
                 "cohort":[
                     "Registered"
@@ -2221,7 +2223,8 @@
                     "DAMIP",
                     "OMIP",
                     "RFMIP",
-                    "ScenarioMIP"
+                    "ScenarioMIP",
+                    "NonCMIP"
                 ],
                 "cohort":[
                     "Registered"
@@ -2240,7 +2243,8 @@
                     "DAMIP",
                     "OMIP",
                     "RFMIP",
-                    "ScenarioMIP"
+                    "ScenarioMIP",
+                    "NonCMIP"
                 ],
                 "cohort":[
                     "Registered"
@@ -10497,6 +10501,30 @@
                 "required_model_components":[
                     "AOGCM",
                     "BGC"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "generic":{
+                "activity_id":[
+                    "NonCMIP"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"A simulation of generic setting",
+                "experiment_id":"generic",
+                "parent_activity_id":[
+                    "CMIP"
+                ],
+                "parent_experiment_id":[
+                    "piControl"
+                ],
+                "required_model_components":[
+                    "AOGCM"
                 ],
                 "sub_experiment_id":[
                     "none"
