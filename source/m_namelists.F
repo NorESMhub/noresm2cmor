@@ -1742,6 +1742,8 @@ c --- new for cmor3
       CALL json%add(p,'further_info_url',
      . "https://noresm-docs.readthedocs.io/"
      .//"en/latest/data/keyclim_data.html") 
+      CALL json%add(p,'title',
+     . "NorESM2-MM output prepared for KeyCLIM")
 c 
       WRITE(yyyymm1,'(I4.4,I2.2)') year1,month1
       WRITE(yyyymm2,'(I4.4,I2.2)') yearn,monthn

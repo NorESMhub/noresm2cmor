@@ -48,7 +48,7 @@
             "NonCMIP":"User-defined Non-CMIP experiments"
         },
         "institution_id":{
-            "NCC":"NorESM Climate modeling Consortium consisting of CICERO (Center for International Climate and Environmental Research, Oslo 0349), MET-Norway (Norwegian Meteorological Institute, Oslo 0313), NERSC (Nansen Environmental and Remote Sensing Center, Bergen 5006), NILU (Norwegian Institute for Air Research, Kjeller 2027), UiB (University of Bergen, Bergen 5007), UiO (University of Oslo, Oslo 0313) and UNI (Uni Research, Bergen 5008), Norway. Mailing address: NCC, c/o MET-Norway, Henrik Mohns plass 1, Oslo 0313, Norway"
+            "NCC":"NorESM Climate modeling Consortium consisting of CICERO (Center for International Climate and Environmental Research, Oslo 0349), MET-Norway (Norwegian Meteorological Institute, Oslo 0313), NERSC (Nansen Environmental and Remote Sensing Center, Bergen 5007), NILU (Norwegian Institute for Air Research, Kjeller 2027), UiB (University of Bergen, Bergen 5007), UiO (University of Oslo, Oslo 0313) and NORCE (Norwegian Research Center, Bergen 5007), Norway. Mailing address: NCC, c/o MET-Norway, Henrik Mohns plass 1, Oslo 0313, Norway"
         },
         "source_id":{
             "NorESM2-LM":{
@@ -64,7 +64,7 @@
                     "NCC"
                 ],
                 "source_id":"NorESM2-LM",
-                "source":"NorESM2-LM (2017): \naerosol: OsloAero\natmos: CAM-OSLO (2 degree resolution; 144 x 96; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: MICOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+                "source":"NorESM2-LM (2021): \naerosol: OsloAero\natmos: CAM-OSLO (2 degree resolution; 144 x 96; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: BLOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
             },
             "NorESM2-MH":{
                 "activity_participation":[
@@ -79,7 +79,7 @@
                     "NCC"
                 ],
                 "source_id":"NorESM2-MH",
-                "source":"NorESM2-MH (2017): \naerosol: OsloAero\natmos: CAM-OSLO (1 degree resolution; 288 x 192; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: MICOM (0.25 degree resolution; 1440 x 1152; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+                "source":"NorESM2-MH (2021): \naerosol: OsloAero\natmos: CAM-OSLO (1 degree resolution; 288 x 192; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: BLOM (0.25 degree resolution; 1440 x 1152; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
             },
             "NorESM2-MM":{
                 "activity_participation":[
@@ -94,7 +94,7 @@
                     "NCC"
                 ],
                 "source_id":"NorESM2-MM",
-                "source":"NorESM2-MM (2017): \naerosol: OsloAero\natmos: CAM-OSLO (1 degree resolution; 288 x 192; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: MICOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+                "source":"NorESM2-MM (2021): \naerosol: OsloAero\natmos: CAM-OSLO (1 degree resolution; 288 x 192; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: BLOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
             }
         },
         "source_type":{
@@ -488,7 +488,7 @@
                     "KeyCLIM"
                 ],
                 "parent_experiment_id":[
-                    "piSpinUp_piAerOxid"
+                    "piSpinUp-piAerOxid"
                 ],
                 "required_model_components":[
                     "AOGCM"
@@ -554,13 +554,13 @@
                     "CHEM",
                     "BGC"
                 ],
-                "experiment":"piControl simulation but without with improved ozone + VSLS",
+                "experiment":"piControl simulation but with improved ozone + VSLS",
                 "experiment_id":"piControl-ozone",
                 "parent_activity_id":[
                     "KeyCLIM"
                 ],
                 "parent_experiment_id":[
-                    "piSpinUp_ozone"
+                    "piSpinUp-ozone"
                 ],
                 "required_model_components":[
                     "AOGCM"
@@ -632,7 +632,7 @@
                     "KeyCLIM"
                 ],
                 "parent_experiment_id":[
-                    "piSpinUp_pblAtm"
+                    "piSpinUp-pblAtm"
                 ],
                 "required_model_components":[
                     "AOGCM"
@@ -650,7 +650,7 @@
                     "CHEM",
                     "BGC"
                 ],
-                "experiment":"historical simulation but with atm. BPL perturbation",
+                "experiment":"historical simulation but with atm. PBL perturbation",
                 "experiment_id":"hist-pblAtm",
                 "parent_activity_id":[
                     "KeyCLIM"
@@ -674,7 +674,7 @@
                     "CHEM",
                     "BGC"
                 ],
-                "experiment":"ssp585 simulation but with atm. BPL perturbation",
+                "experiment":"ssp585 simulation but with atm. PBL perturbation",
                 "experiment_id":"ssp585-pblAtm",
                 "parent_activity_id":[
                     "KeyCLIM"
@@ -704,7 +704,7 @@
                     "KeyCLIM"
                 ],
                 "parent_experiment_id":[
-                    "piSpinUp_pblOcn"
+                    "piSpinUp-pblOcn"
                 ],
                 "required_model_components":[
                     "AOGCM"
@@ -722,7 +722,7 @@
                     "CHEM",
                     "BGC"
                 ],
-                "experiment":"historical simulation but with ocn. BPL perturbation",
+                "experiment":"historical simulation but with ocn. PBL perturbation",
                 "experiment_id":"hist-pblOcn",
                 "parent_activity_id":[
                     "KeyCLIM"
@@ -746,7 +746,7 @@
                     "CHEM",
                     "BGC"
                 ],
-                "experiment":"ssp585 simulation but with ocn. BPL perturbation",
+                "experiment":"ssp585 simulation but with ocn. PBL perturbation",
                 "experiment_id":"ssp585-pblOcn",
                 "parent_activity_id":[
                     "KeyCLIM"
@@ -770,13 +770,13 @@
                     "CHEM",
                     "BGC"
                 ],
-                "experiment":"piControl simulation but with improved processes",
+                "experiment":"piControl simulation but with improved eddy processes",
                 "experiment_id":"piControl-eddy",
                 "parent_activity_id":[
                     "KeyCLIM"
                 ],
                 "parent_experiment_id":[
-                    "piSpinUp_eddy"
+                    "piSpinUp-eddy"
                 ],
                 "required_model_components":[
                     "AOGCM"
@@ -848,7 +848,7 @@
                     "KeyCLIM"
                 ],
                 "parent_experiment_id":[
-                    "piSpinUp_iceSheet"
+                    "piSpinUp-iceSheet"
                 ],
                 "required_model_components":[
                     "AOGCM"
@@ -920,7 +920,7 @@
                     "KeyCLIM"
                 ],
                 "parent_experiment_id":[
-                    "piSpinUp_cloud"
+                    "piSpinUp-cloud"
                 ],
                 "required_model_components":[
                     "AOGCM"
@@ -992,7 +992,7 @@
                     "KeyCLIM"
                 ],
                 "parent_experiment_id":[
-                    "piSpinUp_snow"
+                    "piSpinUp-snow"
                 ],
                 "required_model_components":[
                     "AOGCM"
@@ -1058,7 +1058,7 @@
                     "CHEM",
                     "BGC"
                 ],
-                "experiment":"piControl simulation with all improvements from other SP experiments",
+                "experiment":"piControl simulation with all modifications from other SP experiments",
                 "experiment_id":"piControl-all",
                 "parent_activity_id":[
                     "KeyCLIM"
@@ -1082,7 +1082,7 @@
                     "CHEM",
                     "BGC"
                 ],
-                "experiment":"historical simulation with all improvements from other SP experiments",
+                "experiment":"historical simulation with all modifications from other SP experiments",
                 "experiment_id":"hist-all",
                 "parent_activity_id":[
                     "KeyCLIM"
@@ -1106,7 +1106,7 @@
                     "CHEM",
                     "BGC"
                 ],
-                "experiment":"ssp126 simulation with all improvements from other SP experiments",
+                "experiment":"ssp126 simulation with all modifications from other SP experiments",
                 "experiment_id":"ssp126-all",
                 "parent_activity_id":[
                     "KeyCLIM"
@@ -1130,7 +1130,7 @@
                     "CHEM",
                     "BGC"
                 ],
-                "experiment":"ssp585 simulation with all improvements from other SP experiments",
+                "experiment":"ssp585 simulation with all modifications from other SP experiments",
                 "experiment_id":"ssp585-all",
                 "parent_activity_id":[
                     "KeyCLIM"

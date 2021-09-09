@@ -42,8 +42,8 @@ cd ~/noresm2cmor/workflow
     --year1=1850 --yearn=1949 \
     --realization=1 --physics=1 --forcing=1 \
     --mpi=DMPI \
-    --ibasedir=/projects/NS2345K/noresm/cases \
-    --obasedir=/scratch/$USER/cmorout \
+    --ibasedir=/projects/NS9252K/noresm/cases \
+    --obasedir=/projects/NS9252K/cmorout \
     --noncmip=true
 
 cd ~/noresm2cmor/namelists/CMIP6_NorESM2-LM/hist-all
