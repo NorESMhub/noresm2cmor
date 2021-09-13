@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage:
-#       cmorParse.sh -m=[model] -e=[expid] -v=[version]
+#       cmorParse.sh -m=[model] -e=[expid] -v=[version] -o=[cmoroutroot]
 
 # --- Use input arguments if exits
 if [ $# -ge 3 ]
