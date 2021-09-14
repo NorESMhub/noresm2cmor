@@ -129,7 +129,9 @@ do
     latest=$activity/$insitute/$model/$expid/$real/$table/$var/$grid/latest
     if [ ! -d "$subfld" ]
     then
-        mkdir -p "$subfld" && chmod g+w $activity/$insitute/$model/$expid
+        umask 002
+        mkdir -p "$subfld"
+        umask 022
     fi
     ln -sf ../../../../../../../../../$fname "$subfld/${bname}.nc"
     latestversion=$(ls $parentfld |grep -E 'v20[0-9]{6}' |sort |tail -1)
