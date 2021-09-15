@@ -92,8 +92,8 @@ source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel6
 cwd=$(pwd)
 
 cd ${CMOR_ROOT}/bin
-nmlroot=${CMOR_ROOT}/namelists/CMIP6_${model}/${expid}/${version}
-logroot=${CMOR_ROOT}/logs/CMIP6_${model}/${expid}/${version}
+nmlroot=${CMOR_ROOT}/namelists/KeyCLIM_${model}/${expid}/${version}
+logroot=${CMOR_ROOT}/logs/KeyCLIM_${model}/${expid}/${version}
 
 if [ ! -d $logroot ]
 then
@@ -147,29 +147,29 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
         memb=${membs[j]}
         echo real member: ${real} ${memb}
         cd ../namelists
-        cp CMIP6_NorESM2-LM/${expid}/template/exp${CaseName}.nml \
-           CMIP6_NorESM2-LM/${expid}/${version}/exp.nml
+        cp KeyCLIM_NorESM2-LM/${expid}/template/exp${CaseName}.nml \
+           KeyCLIM_NorESM2-LM/${expid}/${version}/exp.nml
         if [ $? -ne 0 ]
         then
             echo "ERROR: copy template exp_*.nml"
             exit
         fi
         sed -i "s/vyyyymmdd/${version}/" \
-           CMIP6_NorESM2-LM/${expid}/${version}/exp.nml
+           KeyCLIM_NorESM2-LM/${expid}/${version}/exp.nml
         sed -i "s/year1         =.*/year1         = ${year1},/g" \
-           CMIP6_NorESM2-LM/${expid}/${version}/exp.nml
+           KeyCLIM_NorESM2-LM/${expid}/${version}/exp.nml
         sed -i "s/yearn         =.*/yearn         = ${year2},/g" \
-           CMIP6_NorESM2-LM/${expid}/${version}/exp.nml
+           KeyCLIM_NorESM2-LM/${expid}/${version}/exp.nml
         sed -i "s/month1        =.*/month1        = ${month1},/g" \
-           CMIP6_NorESM2-LM/${expid}/${version}/exp.nml
+           KeyCLIM_NorESM2-LM/${expid}/${version}/exp.nml
         sed -i "s/monthn        =.*/monthn        = ${month2},/g" \
-           CMIP6_NorESM2-LM/${expid}/${version}/exp.nml
+           KeyCLIM_NorESM2-LM/${expid}/${version}/exp.nml
         sed -i "s/realization   =.*/realization   = ${real},/g" \
-           CMIP6_NorESM2-LM/${expid}/${version}/exp.nml
+           KeyCLIM_NorESM2-LM/${expid}/${version}/exp.nml
         sed -i "s/membertag     =.*/membertag     = ${memb}/g" \
-           CMIP6_NorESM2-LM/${expid}/${version}/exp.nml
-        mv CMIP6_NorESM2-LM/${expid}/${version}/exp.nml \
-           CMIP6_NorESM2-LM/${expid}/${version}/exp_${yyyy1}${mm1}-${yyyy2}${mm2}_r${real}.nml
+           KeyCLIM_NorESM2-LM/${expid}/${version}/exp.nml
+        mv KeyCLIM_NorESM2-LM/${expid}/${version}/exp.nml \
+           KeyCLIM_NorESM2-LM/${expid}/${version}/exp_${yyyy1}${mm1}-${yyyy2}${mm2}_r${real}.nml
 
         cd ../bin
 

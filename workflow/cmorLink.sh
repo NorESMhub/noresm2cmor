@@ -62,7 +62,7 @@ echo "                "
 
 pid=$$
 folder=cmorout/${model}/${expid}/${tag}
-ROOT=/projects/NS9252K/
+ROOT=/projects/NS9252K
 cd $ROOT
 
 echo "$folder"
@@ -108,7 +108,7 @@ bname=$(basename $fname .nc)
 fstr=($(echo $bname |tr "_" " "))
 model=${fstr[2]}
 expid=${fstr[3]}
-echo ${activity}_CMOR/$insitute/$model/$expid  >${folder}.links
+echo $activity/$insitute/$model/$expid  >${folder}.links
 
 k=1
 while read -r fname
@@ -124,12 +124,14 @@ do
     real=${fstr[4]}
     grid=${fstr[5]}
 
-    parentfld=${activity}_CMOR/$insitute/$model/$expid/$real/$table/$var/$grid
-    subfld=${activity}_CMOR/$insitute/$model/$expid/$real/$table/$var/$grid/$version
-    latest=${activity}_CMOR/$insitute/$model/$expid/$real/$table/$var/$grid/latest
+    parentfld=$activity/$insitute/$model/$expid/$real/$table/$var/$grid
+    subfld=$activity/$insitute/$model/$expid/$real/$table/$var/$grid/$version
+    latest=$activity/$insitute/$model/$expid/$real/$table/$var/$grid/latest
     if [ ! -d "$subfld" ]
     then
-        mkdir -p "$subfld" && chmod g+w $activity/$insitute/$model/$expid
+        umask 002
+        mkdir -p "$subfld"
+        umask 022
     fi
     ln -sf ../../../../../../../../../$fname "$subfld/${bname}.nc"
     latestversion=$(ls $parentfld |grep -E 'v20[0-9]{6}' |sort |tail -1)
