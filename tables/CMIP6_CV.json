@@ -44,29 +44,18 @@
         },
         "activity_id":{
             "CMIP":"CMIP DECK: 1pctCO2, abrupt4xCO2, amip, esm-piControl, esm-historical, historical, and piControl experiments",
-            "KeyCLIM":"NFR KeyCLIM experiments",
+            "KeyCLIM":"RCN project KeyCLIM",
             "NonCMIP":"User-defined Non-CMIP experiments"
         },
         "institution_id":{
-            "NCC":"NorESM Climate modeling Consortium consisting of CICERO (Center for International Climate and Environmental Research, Oslo 0349), MET-Norway (Norwegian Meteorological Institute, Oslo 0313), NERSC (Nansen Environmental and Remote Sensing Center, Bergen 5006), NILU (Norwegian Institute for Air Research, Kjeller 2027), UiB (University of Bergen, Bergen 5007), UiO (University of Oslo, Oslo 0313) and UNI (Uni Research, Bergen 5008), Norway. Mailing address: NCC, c/o MET-Norway, Henrik Mohns plass 1, Oslo 0313, Norway"
+            "NCC":"NorESM Climate modeling Consortium consisting of CICERO (Center for International Climate and Environmental Research, Oslo 0349), MET-Norway (Norwegian Meteorological Institute, Oslo 0313), NERSC (Nansen Environmental and Remote Sensing Center, Bergen 5007), NILU (Norwegian Institute for Air Research, Kjeller 2027), UiB (University of Bergen, Bergen 5007), UiO (University of Oslo, Oslo 0313) and NORCE (Norwegian Research Center, Bergen 5007), Norway. Mailing address: NCC, c/o MET-Norway, Henrik Mohns plass 1, Oslo 0313, Norway"
         },
         "source_id":{
             "NorESM2-LM":{
                 "activity_participation":[
-                    "AerChemMIP",
-                    "C4MIP",
-                    "CDRMIP",
-                    "CFMIP",
                     "CMIP",
-                    "DAMIP",
-                    "DCPP",
-                    "LUMIP",
-                    "OMIP",
-                    "PAMIP",
-                    "PMIP",
-                    "RFMIP",
-                    "ScenarioMIP",
-                    "VolMIP"
+                    "KeyCLIM",
+                    "NonCMIP",
                 ],
                 "cohort":[
                     "Registered"
@@ -75,17 +64,13 @@
                     "NCC"
                 ],
                 "source_id":"NorESM2-LM",
-                "source":"NorESM2-LM (2017): \naerosol: OsloAero\natmos: CAM-OSLO (2 degree resolution; 144 x 96; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: MICOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+                "source":"NorESM2-LM (2021): \naerosol: OsloAero\natmos: CAM-OSLO (2 degree resolution; 144 x 96; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: BLOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
             },
             "NorESM2-MH":{
                 "activity_participation":[
-                    "AerChemMIP",
-                    "CFMIP",
                     "CMIP",
-                    "DAMIP",
-                    "OMIP",
-                    "RFMIP",
-                    "ScenarioMIP"
+                    "KeyCLIM",
+                    "NonCMIP",
                 ],
                 "cohort":[
                     "Registered"
@@ -94,17 +79,13 @@
                     "NCC"
                 ],
                 "source_id":"NorESM2-MH",
-                "source":"NorESM2-MH (2017): \naerosol: OsloAero\natmos: CAM-OSLO (1 degree resolution; 288 x 192; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: MICOM (0.25 degree resolution; 1440 x 1152; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+                "source":"NorESM2-MH (2021): \naerosol: OsloAero\natmos: CAM-OSLO (1 degree resolution; 288 x 192; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: BLOM (0.25 degree resolution; 1440 x 1152; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
             },
             "NorESM2-MM":{
                 "activity_participation":[
-                    "AerChemMIP",
-                    "CFMIP",
                     "CMIP",
-                    "DAMIP",
-                    "OMIP",
-                    "RFMIP",
-                    "ScenarioMIP"
+                    "KeyCLIM",
+                    "NonCMIP",
                 ],
                 "cohort":[
                     "Registered"
@@ -113,7 +94,7 @@
                     "NCC"
                 ],
                 "source_id":"NorESM2-MM",
-                "source":"NorESM2-MM (2017): \naerosol: OsloAero\natmos: CAM-OSLO (1 degree resolution; 288 x 192; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: MICOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+                "source":"NorESM2-MM (2021): \naerosol: OsloAero\natmos: CAM-OSLO (1 degree resolution; 288 x 192; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: BLOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
             }
         },
         "source_type":{
@@ -266,7 +247,7 @@
             "fx"
         ],
         "license":[
-            "^CMIP6 model data produced by .* is licensed under a Creative Commons Attribution.*ShareAlike 4.0 International License .https://creativecommons.org/licenses.* *Consult https://pcmdi.llnl.gov/CMIP6/TermsOfUse for terms of use governing CMIP6 output, including citation requirements and proper acknowledgment\\. *Further information about this data, including some limitations, can be found via the further_info_url (recorded as a global attribute in this file).*\\. *The data producers and data providers make no warranty, either express or implied, including, but not limited to, warranties of merchantability and fitness for a particular purpose\\. *All liabilities arising from the supply of the information (including any liability arising in negligence) are excluded to the fullest extent permitted by law\\.$"
+            "^KeyCLIM model data produced by .* is licensed under a Creative Commons Attribution *ShareAlike 4.0 International License (https://creativecommons.org/licenses). Consult noresm-ncc@met.no for terms of use, including citation requirements and proper acknowledgment\\. *Further information about this data, including some limitations, can be found via the further_info_url (recorded as a global attribute in this file).*\\. *The data producers and data providers make no warranty, either express or implied, including, but not limited to, warranties of merchantability and fitness for a particular purpose\\. *All liabilities arising from the supply of the information (including any liability arising in negligence) are excluded to the fullest extent permitted by law\\.$"
         ],
         "mip_era":[
             "CMIP6"
@@ -360,7 +341,7 @@
                 "experiment":"pre-industrial control",
                 "experiment_id":"piControl",
                 "parent_activity_id":[
-                    "CMIP"
+                    "KeyCLIM"
                 ],
                 "parent_experiment_id":[
                     "piControl-spinup"
@@ -384,7 +365,7 @@
                 "experiment":"all-forcing simulation of the recent past",
                 "experiment_id":"historical",
                 "parent_activity_id":[
-                    "CMIP"
+                    "KeyCLIM"
                 ],
                 "parent_experiment_id":[
                     "piControl"
@@ -396,7 +377,7 @@
                     "none"
                 ]
             },
-            "hist-all":{
+            "ssp126":{
                 "activity_id":[
                     "KeyCLIM"
                 ],
@@ -405,13 +386,109 @@
                     "CHEM",
                     "BGC"
                 ],
-                "experiment":"all-forcing simulation of the recent past",
-                "experiment_id":"hist-all",
+                "experiment":"update of RCP2.6 based on SSP1",
+                "experiment_id":"ssp126",
                 "parent_activity_id":[
-                    "CMIP"
+                    "KeyCLIM"
                 ],
                 "parent_experiment_id":[
-                    "piControl"
+                    "historical"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "ssp370":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"gap-filling scenario reaching 7.0 based on SSP3",
+                "experiment_id":"ssp370",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "historical"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "ssp585":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"update of RCP8.5 based on SSP5",
+                "experiment_id":"ssp585",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "historical"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "ssp585-FixSIC":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"ssp585 simulation but with fixed Arctic Sea-ice",
+                "experiment_id":"ssp585-FixSIC",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "historical"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "piControl-piAerOxid":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"piControl simulation but without anthropogenic aerosols",
+                "experiment_id":"piControl-piAerOxid",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piSpinUp-piAerOxid"
                 ],
                 "required_model_components":[
                     "AOGCM"
@@ -429,13 +506,13 @@
                     "CHEM",
                     "BGC"
                 ],
-                "experiment":"historical, with piAerOxid",
+                "experiment":"historical simulation but without anthropogenic aerosols",
                 "experiment_id":"hist-piAerOxid",
                 "parent_activity_id":[
-                    "CMIP"
+                    "KeyCLIM"
                 ],
                 "parent_experiment_id":[
-                    "piControl"
+                    "piControl-piAerOxid"
                 ],
                 "required_model_components":[
                     "AOGCM"
@@ -453,10 +530,10 @@
                     "CHEM",
                     "BGC"
                 ],
-                "experiment":"ssp370, with piAerOxid",
+                "experiment":"ssp370 simulation but without anthropogenic aerosols",
                 "experiment_id":"ssp370-piAerOxid",
                 "parent_activity_id":[
-                    "CMIP"
+                    "KeyCLIM"
                 ],
                 "parent_experiment_id":[
                     "hist-piAerOxid"
@@ -468,22 +545,22 @@
                     "none"
                 ]
             },
-            "NonCMIP-test":{
+            "piControl-ozone":{
                 "activity_id":[
-                    "NonCMIP"
+                    "KeyCLIM"
                 ],
                 "additional_allowed_model_components":[
                     "AER",
                     "CHEM",
                     "BGC"
                 ],
-                "experiment":"all-forcing simulation of the recent past",
-                "experiment_id":"NonCMIP-test",
+                "experiment":"piControl simulation but with improved ozone + VSLS",
+                "experiment_id":"piControl-ozone",
                 "parent_activity_id":[
-                    "CMIP"
+                    "KeyCLIM"
                 ],
                 "parent_experiment_id":[
-                    "piControl"
+                    "piSpinUp-ozone"
                 ],
                 "required_model_components":[
                     "AOGCM"
@@ -492,7 +569,583 @@
                     "none"
                 ]
             },
-            "exp4test":{
+            "hist-ozone":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"historical simulation but with improved ozone + VSLS",
+                "experiment_id":"hist-ozone",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piControl-ozone"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "ssp585-ozone":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"ssp585 simulation but with improved ozone + VSLS",
+                "experiment_id":"ssp585-ozone",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "hist-ozone"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "piControl-pblAtm":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"piControl simulation but with atm. PBL perturbation",
+                "experiment_id":"piControl-pblAtm",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piSpinUp-pblAtm"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "hist-pblAtm":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"historical simulation but with atm. PBL perturbation",
+                "experiment_id":"hist-pblAtm",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piControl-pblAtm"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "ssp585-pblAtm":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"ssp585 simulation but with atm. PBL perturbation",
+                "experiment_id":"ssp585-pblAtm",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "hist-pblAtm"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "piControl-pblOcn":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"piControl simulation but with ocn. PBL perturbation",
+                "experiment_id":"piControl-pblOcn",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piSpinUp-pblOcn"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "hist-pblOcn":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"historical simulation but with ocn. PBL perturbation",
+                "experiment_id":"hist-pblOcn",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piControl-pblOcn"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "ssp585-pblOcn":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"ssp585 simulation but with ocn. PBL perturbation",
+                "experiment_id":"ssp585-pblOcn",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "hist-pblOcn"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "piControl-eddy":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"piControl simulation but with improved eddy processes",
+                "experiment_id":"piControl-eddy",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piSpinUp-eddy"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "hist-eddy":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"historical simulation but with improved eddy processes",
+                "experiment_id":"hist-eddy",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piControl-eddy"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "ssp585-eddy":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"ssp585 simulation but with improved eddy processes",
+                "experiment_id":"ssp585-eddy",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "hist-eddy"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "piControl-iceSheet":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"piControl simulation but with land ice component active",
+                "experiment_id":"piControl-iceSheet",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piSpinUp-iceSheet"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "hist-iceSheet":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"historical simulation but with land ice component active",
+                "experiment_id":"hist-iceSheet",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piControl-iceSheet"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "ssp585-iceSheet":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"ssp585 simulation but with land ice component active",
+                "experiment_id":"ssp585-iceSheet",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "hist-iceSheet"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "piControl-cloud":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"piControl simulation but with improved cloud processes",
+                "experiment_id":"piControl-cloud",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piSpinUp-cloud"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "hist-cloud":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"historical simulation but with improved cloud processes",
+                "experiment_id":"hist-cloud",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piControl-cloud"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "ssp585-cloud":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"ssp585 simulation but with improved cloud processes",
+                "experiment_id":"ssp585-cloud",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "hist-cloud"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "piControl-snow":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"piControl simulation but with improved snow processes",
+                "experiment_id":"piControl-snow",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piSpinUp-snow"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "hist-snow":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"historical simulation but with improved snow processes",
+                "experiment_id":"hist-snow",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piControl-snow"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "ssp585-snow":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"ssp585 simulation but with improved snow processes",
+                "experiment_id":"ssp585-snow",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "hist-snow"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "piControl-all":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"piControl simulation with all modifications from other SP experiments",
+                "experiment_id":"piControl-all",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piControl-spinup"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "hist-all":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"historical simulation with all modifications from other SP experiments",
+                "experiment_id":"hist-all",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piControl-all"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "ssp126-all":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"ssp126 simulation with all modifications from other SP experiments",
+                "experiment_id":"ssp126-all",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "hist-all"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "sspt585-all":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"ssp585 simulation with all modifications from other SP experiments",
+                "experiment_id":"ssp585-all",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "hist-all"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "generic":{
                 "activity_id":[
                     "NonCMIP"
                 ],
@@ -501,8 +1154,8 @@
                     "CHEM",
                     "BGC"
                 ],
-                "experiment":"all-forcing simulation of the recent past",
-                "experiment_id":"NonCMIP-test",
+                "experiment":"A simulation of generic setting",
+                "experiment_id":"generic",
                 "parent_activity_id":[
                     "CMIP"
                 ],
@@ -524,7 +1177,7 @@
             "hdl:21.14100/.*"
         ],
         "further_info_url":[
-            "https://furtherinfo.es-doc.org/.*"
+            "https://noresm-docs.readthedocs.io/.*"
         ],
         "realization_index":[
             "^\\[\\{0,\\}[[:digit:]]\\{1,\\}\\]\\{0,\\}$"

@@ -103,8 +103,8 @@ source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel6
 cwd=$(pwd)
 
 cd ${CMOR_ROOT}/bin
-nmlroot=${CMOR_ROOT}/namelists/CMIP6_${model}/${expid}/${version}
-logroot=${CMOR_ROOT}/logs/CMIP6_${model}/${expid}/${version}
+nmlroot=${CMOR_ROOT}/namelists/KeyCLIM_${model}/${expid}/${version}
+logroot=${CMOR_ROOT}/logs/KeyCLIM_${model}/${expid}/${version}
 
 if [ ! -d $logroot ]
 then
@@ -147,15 +147,15 @@ for (( i = 0; i < ${#years1[*]}; i++ )); do
     echo ${year1} ${year2}
     cd ../namelists
 
-    cp CMIP6_${model}/${expid}/template/exp${CaseName}.nml \
-       CMIP6_${model}/${expid}/${version}/exp.nml
+    cp KeyCLIM_${model}/${expid}/template/exp${CaseName}.nml \
+       KeyCLIM_${model}/${expid}/${version}/exp.nml
     sed -i "s/vyyyymmdd/${version}/" \
-        CMIP6_${model}/${expid}/${version}/exp.nml
+        KeyCLIM_${model}/${expid}/${version}/exp.nml
     sed -i "s/year1         =.*/year1         = ${year1},/g" \
-        CMIP6_${model}/${expid}/${version}/exp.nml
+        KeyCLIM_${model}/${expid}/${version}/exp.nml
     sed -i "s/yearn         =.*/yearn         = ${year2},/g" \
-        CMIP6_${model}/${expid}/${version}/exp.nml
-    mv CMIP6_${model}/${expid}/${version}/exp.nml CMIP6_${model}/${expid}/${version}/exp_${year1}-${year2}${variant}.nml
+        KeyCLIM_${model}/${expid}/${version}/exp.nml
+    mv KeyCLIM_${model}/${expid}/${version}/exp.nml KeyCLIM_${model}/${expid}/${version}/exp_${year1}-${year2}${variant}.nml
 
     cd ../bin
 
