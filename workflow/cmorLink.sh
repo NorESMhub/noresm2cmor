@@ -103,12 +103,27 @@ then
     activity="ScenarioMIP"
 fi
 
+if [[ "$activity" == "KeyCLIM" ]] && [[ "$expid" == "hist"* ]]
+then
+    activity="CMIP"
+elif [[ "$activity" == "KeyCLIM" ]] && [[ "$expid" == "piControl"* ]]
+then
+    activity="CMIP"
+elif [[ "$activity" == "KeyCLIM" ]] && [[ "$expid" == "ssp"* ]]
+then
+    activity="ScenarioMIP"
+    echo $activity
+fi
+
+
+
+
 fname=$(head -1 /tmp/flist.txt.$pid)
 bname=$(basename $fname .nc)
 fstr=($(echo $bname |tr "_" " "))
 model=${fstr[2]}
 expid=${fstr[3]}
-echo $activity/$insitute/$model/$expid  >${folder}.links
+echo KeyCLIM_CMOR/$activity/$insitute/$model/$expid  >${folder}.links
 
 k=1
 while read -r fname
@@ -124,16 +139,15 @@ do
     real=${fstr[4]}
     grid=${fstr[5]}
 
-    parentfld=$activity/$insitute/$model/$expid/$real/$table/$var/$grid
-    subfld=$activity/$insitute/$model/$expid/$real/$table/$var/$grid/$version
-    latest=$activity/$insitute/$model/$expid/$real/$table/$var/$grid/latest
+    parentfld=KeyCLIM_CMOR/$activity/$insitute/$model/$expid/$real/$table/$var/$grid
+    subfld=KeyCLIM_CMOR/$activity/$insitute/$model/$expid/$real/$table/$var/$grid/$version
+    latest=KeyCLIM_CMOR/$activity/$insitute/$model/$expid/$real/$table/$var/$grid/latest
+    
     if [ ! -d "$subfld" ]
     then
-        umask 002
-        mkdir -p "$subfld"
-        umask 022
+        mkdir -p "$subfld" && chmod g+w KeyCLIM_CMOR/$activity/$insitute/$model/$expid
     fi
-    ln -sf ../../../../../../../../../$fname "$subfld/${bname}.nc"
+    ln -sf ../../../../../../../../../../$fname "$subfld/${bname}.nc"
     latestversion=$(ls $parentfld |grep -E 'v20[0-9]{6}' |sort |tail -1)
     ln -sfT "$latestversion"  "$latest"
     echo "$real/$table/$var/$grid/$version/${bname}.nc" >> ${folder}.links
