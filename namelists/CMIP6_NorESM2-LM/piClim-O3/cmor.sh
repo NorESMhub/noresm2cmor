@@ -57,7 +57,7 @@ then
 #----------------
 CaseName=NF1850norbc_ozone2014_f19_20191025
 real=1
-physics=1
+physics=2
 forcing=1
 init=1
 years1=($(seq 1  10 21))

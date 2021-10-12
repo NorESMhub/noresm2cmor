@@ -1,5 +1,6 @@
 #!/bin/bash
 
+CMOR_ROOT=$(cd $(dirname $0) && cd ../../.. && pwd)
 source ${CMOR_ROOT}/workflow/cmorRun1memb.sh
 
 # initialize
@@ -59,8 +60,11 @@ real=5
 physics=1
 forcing=2
 init=1
-years1=(2015 $(seq 2021 10 2041))
+years1=(2014 $(seq 2021 10 2041))
 years2=(2020 $(seq 2030 10 2050))
+
+years1=(2014)
+years2=(2020)
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -f=$forcing -i=$init -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI -s=NS9560K
 #---

@@ -1,6 +1,6 @@
 &experiment
  casename      = 'NF1850norbc_ozone2014_f19_20191025',
- osubdir       = 'NorESM2-LM/piClim-O3/vyyyymmdd', 
+ osubdir       = 'NorESM2-LM/piClim-O3/v20210908', 
  experiment_id = 'piClim-O3',
  parent_experiment_id  = 'piControl',
  parent_experiment_rip = 'r1i1p1',
@@ -15,7 +15,7 @@
  forcing_index = 1, 
  branch_time   = 0.,
  year1         = 1,
- yearn         = 30,
+ yearn         = 10,
  month1        = 1,
  monthn        = 12,
  exprefyear    = 1, 
