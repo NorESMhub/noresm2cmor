@@ -1,0 +1,9 @@
+&sys
+ ibasedir      = '/projects/NS9252K/noresm/cases/WP4_shofer',
+ obasedir      = '/projects/NS9252K/cmorout',
+ griddata      = '/projects/NS9560K/cmor/griddata',
+ tabledir      = '../tables'
+ createsubdirs = .false.,
+ forcefilescan = .false.,  
+ verbose       = .true.,
+/
