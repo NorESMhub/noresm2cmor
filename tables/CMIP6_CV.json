@@ -881,6 +881,30 @@
                     "none"
                 ]
             },
+            "hist-iceSheet2":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"historical simulation but with land ice component active",
+                "experiment_id":"hist-iceSheet2",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piControl-iceSheet"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
             "ssp585-iceSheet":{
                 "activity_id":[
                     "KeyCLIM"
