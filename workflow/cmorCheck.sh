@@ -63,7 +63,19 @@ for (( r = 0; r < ${#variants[*]}; r++ )); do
         printf "${yyyy1}\t${yyyy2}\t$nf\n"
         let nfs+=$nf
     done
-    printf "Total:\t\t$nfs\n"
+    printf "\e[1;33mTotal:\t\t$nfs\e[0m\n"
+    sha256root=$(find ${cmoroutroot}/../*/NCC/${model}/${expid} -maxdepth 0 -type d 2>/dev/null)
+    if [ -d $sha256root ]; then
+        wl=$(cat ${sha256root}/.${variant}.sha256sum_${version} |wc -l)
+    fi
+    if [ -n $wl ];then
+        if [ $wl -ne $nfs ];then
+            printf "\e[1;31;47mShasum lines:\t$wl \e[0m \n"
+        else
+            printf "Shasum lines:\t$wl\n"
+        fi
+    fi
+    wl=''
 
     find ${cmoroutroot}/${model}/${expid}/${version} -name "*_${variant}_*.nc" -print | \
         grep -e '_g[nmr][a-zA-Z0-9][^_]' >/tmp/wrongfiles.txt.$$
