@@ -18,17 +18,16 @@ LD=$(FC)
 CMORLIB=/projects/NS9560K/cmor/cmorlib/nird_intel
 CMOR=$(CMORLIB)/cmor-3.6.0
 UUID=$(CMORLIB)/libuuid-1.0.3
-HDF5=/opt/hdf5-1.10.2-intel
-NETCDF=/opt/netcdf-4.6.1-intel
-NETCDFF=/opt/netcdf-4.6.1-intel
-UDUNITS=$(CMORLIB)/udunits-2.2.26
-JSON=$(CMORLIB)/json-c-json-c-0.13.1-20180305
+HDF5==$(CMORLIB)/hdf5-1.12.1
+NETCDF=$(CMORLIB)/netcdf-c-4.8.1
+NETCDFF=$(CMORLIB)/netcdf-fortran-4.6.0
+UDUNITS=$(CMORLIB)/udunits-2.2.28
+JSON=$(CMORLIB)/json-c-0.16-20220414
 
 # Directory list to search for library files
-LIBS=-L$(CMOR)/lib -Wl,-rpath=$(CMOR)/lib -L$(UUID)/lib -Wl,-rpath=$(UUID)/lib -L$(NETCDF)/lib -Wl,-rpath=$(NETCDF)/lib -L$(NETCDFF)/lib -Wl,-rpath=$(NETCDFF)/lib -L$(HDF5)/lib -Wl,-rpath=$(HDF5)/lib -L$(UDUNITS)/lib -Wl,-rpath=$(UDUNITS)/lib -L$(JSON)/lib -Wl,-rpath=$(JSON)/lib  -lcmor -lnetcdff -lnetcdf -luuid -ludunits2 -ljson-c -l:libexpat.so.1
+LIBS=-L$(CMOR)/lib -Wl,-rpath=$(CMOR)/lib -L$(UUID)/lib -Wl,-rpath=$(UUID)/lib -L$(NETCDF)/lib -Wl,-rpath=$(NETCDF)/lib -L$(NETCDFF)/lib -Wl,-rpath=$(NETCDFF)/lib -L$(HDF5)/lib -Wl,-rpath=$(HDF5)/lib -L$(UDUNITS)/lib -Wl,-rpath=$(UDUNITS)/lib -L$(JSON)/lib64 -Wl,-rpath=$(JSON)/lib64  -lcmor -lnetcdff -lnetcdf -luuid -ludunits2 -ljson-c -l:libexpat.so.1
 
 # Compiler flags
-#FFLAGS=-g -O0 -traceback -r8 -I$(SRCDIR) -I$(CMOR)/include -I$(NETCDF)/include -I$(NETCDFF)/include -DCMOR3 -DDEFLATE -DMPI
 FFLAGS=-O2 -r8 -I$(SRCDIR) -I$(CMOR)/include -I$(NETCDF)/include -I$(NETCDFF)/include -DCMOR3 -DDEFLATE -DMPI
 
 # Linker flags
