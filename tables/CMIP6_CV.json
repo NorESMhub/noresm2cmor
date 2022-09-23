@@ -2155,7 +2155,7 @@
                     "NCC"
                 ],
                 "source_id":"NorESM2-HH",
-                "source":"NorESM2-HH (2018): \naerosol: OsloAero\natmos: CAM-OSLO (0.25 degree resolution; 1152 x 768; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: MICOM (0.25 degree resolution; 1440 x 1152; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+                "source":"NorESM2-HH (2018): \naerosol: OsloAero\natmos: CAM-OSLO (0.25 degree resolution; 1152 x 768; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: BLOM (0.25 degree resolution; 1440 x 1152; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
             },
             "NorESM2-LM":{
                 "activity_participation":[
@@ -2182,7 +2182,7 @@
                     "NCC"
                 ],
                 "source_id":"NorESM2-LM",
-                "source":"NorESM2-LM (2017): \naerosol: OsloAero\natmos: CAM-OSLO (2 degree resolution; 144 x 96; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: MICOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+                "source":"NorESM2-LM (2017): \naerosol: OsloAero\natmos: CAM-OSLO (2 degree resolution; 144 x 96; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: BLOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
             },
             "NorESM2-LME":{
                 "activity_participation":[
@@ -2199,7 +2199,7 @@
                     "NCC"
                 ],
                 "source_id":"NorESM2-LME",
-                "source":"NorESM2-LME (2017): \naerosol: OsloAero\natmos: CAM-OSLO (2 degree resolution; 144 x 96; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: MICOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+                "source":"NorESM2-LME (2017): \naerosol: OsloAero\natmos: CAM-OSLO (2 degree resolution; 144 x 96; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: BLOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
             },
             "NorESM2-LMEC":{
                 "activity_participation":[
@@ -2213,7 +2213,7 @@
                     "NCC"
                 ],
                 "source_id":"NorESM2-LMEC",
-                "source":"NorESM2-LMEC (2017): \naerosol: OsloAero\natmos: CAM-OSLO (2 degree resolution; 144 x 96; 32 levels; top level 3 mb)\natmosChem: OsloChemComp\nland: CLM\nlandIce: CISM\nocean: MICOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+                "source":"NorESM2-LMEC (2017): \naerosol: OsloAero\natmos: CAM-OSLO (2 degree resolution; 144 x 96; 32 levels; top level 3 mb)\natmosChem: OsloChemComp\nland: CLM\nlandIce: CISM\nocean: BLOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
             },
             "NorESM2-MH":{
                 "activity_participation":[
@@ -2233,7 +2233,7 @@
                     "NCC"
                 ],
                 "source_id":"NorESM2-MH",
-                "source":"NorESM2-MH (2017): \naerosol: OsloAero\natmos: CAM-OSLO (1 degree resolution; 288 x 192; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: MICOM (0.25 degree resolution; 1440 x 1152; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+                "source":"NorESM2-MH (2017): \naerosol: OsloAero\natmos: CAM-OSLO (1 degree resolution; 288 x 192; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: BLOM (0.25 degree resolution; 1440 x 1152; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
             },
             "NorESM2-MM":{
                 "activity_participation":[
@@ -2253,7 +2253,7 @@
                     "NCC"
                 ],
                 "source_id":"NorESM2-MM",
-                "source":"NorESM2-MM (2017): \naerosol: OsloAero\natmos: CAM-OSLO (1 degree resolution; 288 x 192; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: MICOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
+                "source":"NorESM2-MM (2017): \naerosol: OsloAero\natmos: CAM-OSLO (1 degree resolution; 288 x 192; 32 levels; top level 3 mb)\natmosChem: OsloChemSimp\nland: CLM\nlandIce: CISM\nocean: BLOM (1 degree resolution; 360 x 384; 70 levels; top grid cell minimum 0-2.5 m [native model uses hybrid density and generic upper-layer coordinate interpolated to z-level for contributed data])\nocnBgchem: HAMOCC\nseaIce: CICE"
             },
             "PCMDI-test-1-0":{
                 "activity_participation":[

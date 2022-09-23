@@ -691,7 +691,7 @@ c     write(*,*) ibasedir,casename,itag
      .      mbnd,year,month)
         ENDIF
 
-        IF(LEN_TRIM(fnm).eq.0.and.INDEX(itag,'micom.').gt.0
+        IF(LEN_TRIM(fnm).eq.0.and.INDEX(itag,'blom.').gt.0
      .    .and.isflag) THEN
           itag="blom."//itag(7:)
           isflag=.false.

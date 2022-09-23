@@ -1102,7 +1102,7 @@ c --- - Convert units from [m3] to [1e3 km3]
         CASE ('1e3 km3')
           vunits='1e3 km3'
 c
-c --- - Convert units from [s-1] to [s-2], fix bug for the units of bfsq in micom
+c --- - Convert units from [s-1] to [s-2], fix bug for the units of bfsq in blom
         CASE ('s-2')
           vunits='s-2'
 c
@@ -2778,7 +2778,7 @@ c     IF (itag.EQ.tagoyr.OR.itag.EQ.tagoyrbgc) THEN
 c       tbnds(1,1)=tval(1)-365*0.5       
 c       tbnds(2,1)=tval(1)+365*0.5       
 c     ELSEIF (itag.EQ.tagomon.OR.itag.EQ.tagomonbgc) THEN 
-c       recompute micom's time stamp 
+c       recompute blom's time stamp
 c       tval=(year-refyear)*365+days(month)+lom(month)*0.5
 c       tbnds(1,1)=tval(1)-lom(month)*0.5       
 c       tbnds(2,1)=tval(1)+lom(month)*0.5
