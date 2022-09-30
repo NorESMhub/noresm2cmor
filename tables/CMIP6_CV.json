@@ -905,6 +905,30 @@
                     "none"
                 ]
             },
+            "hist-iceSheet3":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"historical simulation but with land ice component active",
+                "experiment_id":"hist-iceSheet3",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "piControl-iceSheet"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
             "ssp585-iceSheet":{
                 "activity_id":[
                     "KeyCLIM"
@@ -921,6 +945,30 @@
                 ],
                 "parent_experiment_id":[
                     "hist-iceSheet"
+                ],
+                "required_model_components":[
+                    "AOGCM"
+                ],
+                "sub_experiment_id":[
+                    "none"
+                ]
+            },
+            "ssp585-iceSheet3":{
+                "activity_id":[
+                    "KeyCLIM"
+                ],
+                "additional_allowed_model_components":[
+                    "AER",
+                    "CHEM",
+                    "BGC"
+                ],
+                "experiment":"ssp585 simulation but with land ice component active",
+                "experiment_id":"ssp585-iceSheet3",
+                "parent_activity_id":[
+                    "KeyCLIM"
+                ],
+                "parent_experiment_id":[
+                    "hist-iceSheet3"
                 ],
                 "required_model_components":[
                     "AOGCM"

@@ -2,7 +2,8 @@
 
 model=NorESM2-MM
 expid=hist-cloud
-version=v20211028a
+#version=v20211028a
+version=v20220114a
 cmorout=/projects/NS9252K/cmorout/
 
 CMOR_ROOT=$(cd $(dirname $0) && cd ../../.. && pwd)

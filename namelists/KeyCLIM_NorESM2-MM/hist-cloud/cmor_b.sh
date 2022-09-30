@@ -10,7 +10,8 @@ login0=false
 login0=true
 
 # initialize
-version=v20211028b
+#version=v20211028b
+version=v20220114b
 expid=hist-cloud
 model=NorESM2-MM
 

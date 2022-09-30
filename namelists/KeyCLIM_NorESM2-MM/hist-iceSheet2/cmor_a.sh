@@ -10,7 +10,8 @@ login0=false
 login0=true
 
 # initialize
-version=v20211028a
+#version=v20211028a
+version=v20220114a
 expid=hist-iceSheet2
 model=NorESM2-MM
 
