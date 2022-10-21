@@ -75,6 +75,7 @@ c
       LOGICAL :: badrec,last,first
       INTEGER :: k,m,n,nrec
 c
+      badrec=.FALSE.
 c --- Skip if monthly ocean table deactivated
 c     IF (.NOT.(domon.OR.dday)) RETURN
 c
@@ -1127,7 +1128,7 @@ c
       IMPLICIT NONE
 c
       INTEGER :: i,j,k
-      REAL :: r,rd,p,ptoptmp,pbottmp,sref=35.
+      REAL(KIND=8) :: r,rd,p,ptoptmp,pbottmp,sref=35.
 c
       str2=special
       DO
