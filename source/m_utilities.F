@@ -1116,7 +1116,7 @@ c
       IMPLICIT NONE
 c 
       INTEGER :: iind(*),jind(*),iflg(*),jflg(*),seclen
-      REAL, DIMENSION(:,:) :: fldx,fldy
+      REAL(KIND=8), DIMENSION(:,:) :: fldx,fldy
 c
       INTEGER :: n
 c
@@ -1196,7 +1196,7 @@ c
       IMPLICIT NONE
 c
       INTEGER :: idm,jdm
-      REAL, DIMENSION(idm,jdm) :: angle,u,v
+      REAL(KIND=8), DIMENSION(idm,jdm) :: angle,u,v
 c
       INTEGER :: i,j
       REAL :: urot
@@ -1221,7 +1221,8 @@ c --- Comment: units are in cgs
 c
       IMPLICIT NONE
 c
-      REAL :: p,th,s
+      REAL(KIND=8) :: p
+      REAL(KIND=8) :: th,s
 c
       REAL, PARAMETER ::
      . a11= 9.9985372432159340e-01,a12= 1.0380621928183473e-02
@@ -1248,7 +1249,7 @@ c --- Comment: units are in cgs
 c
       IMPLICIT NONE
 c
-      REAL :: p1,p2,th,s
+      REAL(KIND=8) :: p1,p2,th,s
 c
       REAL, PARAMETER ::
      . a11= 9.9985372432159340e-01,a12= 1.0380621928183473e-02
@@ -1297,9 +1298,9 @@ c --- interface
 c
       IMPLICIT NONE
 c
-      REAL :: temp,saln,phiu,phil,pu
+      REAL(KIND=8) :: temp,saln,phiu,phil
 c
-      REAL :: pl,q,dphi,alpu,alpl
+      REAL(KIND=8) :: pu,pl,q,dphi,alpu,alpl
 c
 c --- first guess on pressure interface
       pl=pu-rho(pu,temp,saln)*(phil-phiu)
@@ -1326,7 +1327,8 @@ c --- difference in geopotential between two pressure levels
 c
       IMPLICIT NONE
 c
-      REAL p1,p2,th,s,dphi,alp1,alp2
+      REAL(KIND=8) th,s
+      REAL(KIND=8) p1,p2,dphi,alp1,alp2
 c
       REAL, PARAMETER ::
      . a11= 9.9985372432159340e-01,a12= 1.0380621928183473e-02
@@ -1380,8 +1382,8 @@ c --- (theta_b, lambda_b) as (theta_a, lambda_a). (Mats Bentsen 2010)
 c
       IMPLICIT NONE
 c
-      REAL, INTENT(IN) :: theta_a, lambda_a, theta_b, lambda_b
-      REAL, INTENT(OUT) :: theta_c, lambda_c
+      REAL(KIND=8), INTENT(IN) :: theta_a, lambda_a, theta_b, lambda_b
+      REAL(KIND=8), INTENT(OUT) :: theta_c, lambda_c
 c
       REAL :: x_a, y_a, z_a, x_b, y_b, z_b, beta, x_c, y_c, z_c
 c
@@ -1421,8 +1423,8 @@ c
 c
       IMPLICIT NONE
 c
-      REAL, INTENT(IN) :: theta_a, lambda_a, theta_b, lambda_b
-      REAL, INTENT(OUT) :: theta_c, lambda_c
+      REAL(KIND=8), INTENT(IN) :: theta_a, lambda_a, theta_b, lambda_b
+      REAL(KIND=8), INTENT(OUT) :: theta_c, lambda_c
 c
       REAL :: x_a, y_a, z_a, x_b, y_b, z_b, beta, x_c, y_c, z_c
 c

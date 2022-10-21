@@ -64,6 +64,7 @@ c
       LOGICAL :: badrec,last,skipini
       INTEGER :: m,n,nrec
 c
+      badrec=.FALSE.
 c --- Print start information
       IF (verbose) THEN 
         WRITE(*,*) 
