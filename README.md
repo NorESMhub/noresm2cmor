@@ -25,7 +25,7 @@ git clone -b noncmip https://github.com/NorESMhub/noresm2cmor
 Build 
 ```bash
 cd noresm2cmor/build/  
-make -f Makefile_cmor3mpi.nird_intel
+make -f Makefile_cmor3mpi.nird_gnu
 ```
 
 ### Setup receipe with `cmorSetup.sh`

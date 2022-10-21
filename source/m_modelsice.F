@@ -67,6 +67,7 @@ c
       LOGICAL :: badrec,last
       INTEGER :: m,n,nrec
 c
+      badrec=.FALSE.
 c --- Skip if all ice tables deactivated
 c      IF (.NOT.doimon) RETURN
 c
@@ -674,7 +675,7 @@ c
 c
       LOGICAL :: check 
       INTEGER :: i,j,n
-      REAL :: missing,theta,lambda
+      REAL(KIND=8) :: missing,theta,lambda
 c
 c --- Open first input file 
       CALL scan_files(reset=.TRUE.)

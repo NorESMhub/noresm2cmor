@@ -50,6 +50,7 @@ c
       LOGICAL :: badrec,last
       INTEGER :: m,n,nrec
 c
+      badrec=.FALSE.
 c --- Print start information
       IF (verbose) THEN
         WRITE(*,*)
