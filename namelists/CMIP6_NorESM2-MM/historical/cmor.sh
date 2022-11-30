@@ -69,6 +69,7 @@ then
 # historical, part 1
 #----------------
 CaseName=NHISTfrc2_f09_tn14_20191001
+real=1
 years1=(1849 $(seq 1860 10 1940))
 years2=(1859 $(seq 1869 10 1949))
 
@@ -83,6 +84,7 @@ then
 # historical, part 2
 #----------------
 CaseName=NHISTfrc2_f09_tn14_20191025
+real=1
 years1=($(seq 1950 10 2000) 2010 )
 years2=($(seq 1959 10 2009) 2014 )
 
@@ -97,6 +99,7 @@ then
 # historical, r2i1p1f1, part 1
 #----------------
 CaseName=NHISTfrc2_02_f09_tn14_20200427
+real=2
 years1=(1849 $(seq 1860 10 1940))
 years2=(1859 $(seq 1869 10 1949))
 
@@ -111,8 +114,12 @@ then
 # historical, r2i1p1f1, part 2
 #----------------
 CaseName=NHISTfrc2_02_f09_tn14_20200519
+real=2
 years1=($(seq 1950 10 2000) 2010 )
 years2=($(seq 1959 10 2009) 2014 )
+#annual output for 6hr data to reduce the size of each single file
+#years1=($(seq 1950 2014 ))
+#years2=($(seq 1950 2014 ))
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
