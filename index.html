@@ -1,112 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {
-  box-sizing: border-box;
-}
-
-#myInput {
-  background-image: url('/css/searchicon.png');
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 16px;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-}
-
-#myTable {
-  border-collapse: collapse;
-  width: 100%;
-  border: 1px solid #ddd;
-  font-size: 18px;
-}
-
-#myTable th, #myTable td {
-  text-align: left;
-  padding: 12px;
-}
-
-#myTable tr {
-  border-bottom: 1px solid #ddd;
-}
-
-#myTable tr.header, #myTable tr:hover {
-  background-color: #f1f1f1;
-}
-</style>
+<meta http-equiv="refresh" content="0.1; url=issues.html">
 </head>
 <body>
 
-<h2>Identified datasets with errors</h2>
-
-(this is a test page)
-
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for variable names.." title="Type in a name">
-
-<table id="myTable">
-  <tr class="header">
-    <th style="width:20%;">Variable</th>
-    <th style="width:20%;">Table ID</th>
-    <th style="width:20%;">Issue</th>
-    <th style="width:20%;">Experiment</th>
-    <th style="width:20%;">Model</th>
-  </tr>
-  <tr>
-    <td>fLuc</td>
-    <td>Lmon</td>
-    <td><a href="https://github.com/NorESMhub/noresm2cmor/issues/319">#319</a></td>
-    <td>historical</td>
-    <td>NorESM2-LM</td>
-  </tr>
-  <tr>
-    <td>fHarvest</td>
-    <td>Lmon</td>
-    <td><a href="https://github.com/NorESMhub/noresm2cmor/issues/319">#319</a></td>
-    <td>historical</td>
-    <td>NorESM2-LM</td>
-  </tr>
-  <tr>
-    <td>wap</td>
-    <td>6hrPlev</td>
-    <td><a href="https://github.com/NorESMhub/noresm2cmor/issues/316">#316</a></td>
-    <td>ssp585, *</td>
-    <td>NorESM2-LM</td>
-  </tr>
-  <tr>
-    <td>co2</td>
-    <td>AERmon</td>
-    <td><a href="https://github.com/NorESMhub/noresm2cmor/issues/315">#315</a></td>
-    <td>piControl, *</td>
-    <td>NorESM2-LM</td>
-  </tr>
-</table>
-
-<script>
-function myFunction() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}
-</script>
+    <p> This is a index page, and will be redirected to issue page in 1 second.</p>
+    
+    <p> If not redicted automatically, click <a href="issues.html">here</a> </p>
 
 </body>
 </html>
-
-

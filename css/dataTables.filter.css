@@ -1,0 +1,10 @@
+.dataTables_wrapper thead th {
+	text-align: left;
+}
+.issue-green {
+  color: green;
+}
+
+.issue-purple {
+  color: purple;
+		}

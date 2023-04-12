@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Identified datasets with errors</title>
+	<!-- Include jQuery library -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- Include DataTables library -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+	<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/dataTables.filter.css">
+<body>
+	<h1>Identified datasets with errors</h1>
+	<table id="issues" class="display" style="width:100%">
+		<thead>
+			<tr>
+				<th>Variable</th>
+				<th>TableID</th>
+				<th>Experiment</th>
+				<th>Model</th>
+				<th>Issue</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+	        <!-- ADD NEW ENTRY RIGHT BELOW HERE-->
+	        <!-- USE PREVIOUS ONES AS TEMPLATE-->
+			<tr>
+				<td>fLuc</td>
+				<td>Lmon</td>
+				<td>historical</td>
+				<td>NorESM2-LM</td>
+				<td>#319</td>
+			  	<td>open</td>
+			</tr>
+			<tr>
+			  	<td>fHarvest</td>
+			  	<td>Lmon</td>
+			  	<td>historical</td>
+			  	<td>NorESM2-LM</td>
+			  	<td>#319</td>
+			  	<td>open</td>
+			</tr>
+			<tr>
+			  	<td>wap</td>
+			  	<td>6hrPlev</td>
+			  	<td>ssp585, *</td>
+			  	<td>NorESM2-LM</td>
+			  	<td><a href="https://github.com/NorESMhub/noresm2cmor/issues/316">#316</a></td>
+			  	<td>closed</td>
+			</tr>
+			<tr>
+			  	<td>co2</td>
+			  	<td>AERmon</td>
+			  	<td>piControl, *</td>
+			  	<td>NorESM2-LM</td>
+			  	<td>#315</td>
+			  	<td>open</td>
+			</tr>
+		</tbody>
+	</table>
+
+<script type="text/javascript" src="js/dataTables.filter.js"></script>
+<script type="text/javascript" src="js/dataTables.convert.js"></script>
+
+</body>
+</html>
