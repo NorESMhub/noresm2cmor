@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery DataTables Example with Individual Column Filters</title>
+	<!-- Include jQuery library -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- Include DataTables library -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+	<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+	<!-- Include ColumnFilter plugin -->
+	<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.11.3/features/searchHighlight/dataTables.searchHighlight.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/plug-ins/1.11.3/features/searchHighlight/dataTables.searchHighlight.css">
+	<style>
+		.dataTables_filter {
+			display: none;
+		}
+		.column-filter {
+			width: 100%;
+			box-sizing: border-box;
+			padding: 2px;
+			margin: 0;
+			font-size: 1em;
+		}
+		@media only screen and (max-width: 640px) {
+			.column-filter {
+				margin-top: 10px;
+			}
+		}
+		.filter-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100%;
+			width: 100%;
+		}
+		.filter-container select {
+			width: 100%;
+			box-sizing: border-box;
+			padding: 2px;
+			margin: 0;
+			font-size: 1em;
+		}
+		@media only screen and (max-width: 640px) {
+			.filter-container {
+				flex-direction: row;
+				align-items: center;
+				justify-content: center;
+				height: auto;
+			}
+			.filter-container select {
+				margin-left: 10px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<h1>jQuery DataTables Example with Individual Column Filters</h1>
+	<table id="example" class="display" style="width:100%">
+		<thead>
+			<tr>
+				<th>Name<br><select class="column-filter"></select></th>
+				<th>Age<br><select class="column-filter"></select></th>
+				<th>City<br><select class="column-filter"></select></th>
+				<th>Country<br><select class="column-filter"></select></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>John Smith</td>
+				<td>35</td>
+				<td>New York</td>
+				<td>USA</td>
+			</tr>
+			<tr>
+				<td>Jane Doe</td>
+				<td>28</td>
+				<td>London</td>
+				<td>UK</td>
+			</tr>
+			<tr>
+				<td>Bob Johnson</td>
+				<td>42</td>
+				<td>Sydney</td>
+				<td>Australia</td>
+			</tr>
+			<tr>
+				<td>Sara Lee</td>
+				<td>19</td>
+				<td>Toronto</td>
+				<td>Canada</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th>Name</th>
+				<th>Age</th>
+				<th>City</th>
+				<th>Country</th>
+			</tr>
+		</tfoot>
+	</table>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#example thead .column-filter').each(function() {
+				var title = $(this).closest('th').text();
+				$(this).empty().append('<option value="">  </option>');
+                <!--$(this).empty().append('<option value="">Filter ' + title + '</option>');-->
+			});
+
+			$('#example').DataTable({
+				searchHighlight: true,
+				initComplete: function() {
+					this.api().columns().every(function() {
+						var column = this;
+						var select = $(column.header()).find('.column-filter')
+							.on('change', function() {
+								var val = $.fn.dataTable.util.escapeRegex($(this).val());
+								column.search(val ? '^' + val + '$' : '', true, false).draw();
+							});
+
+						column.data().unique().sort().each(function(d, j) {
+							select.append('<option value="' + d + '">' + d + '</option>');
+						});
+					});
+				}
+			});
+		});
+	</script>
