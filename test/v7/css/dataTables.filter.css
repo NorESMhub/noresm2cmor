@@ -1,0 +1,41 @@
+.dataTables_filter {
+	display: none;
+}
+.column-filter {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 2px;
+	margin: 0;
+	font-size: 1em;
+}
+@media only screen and (max-width: 640px) {
+	.column-filter {
+		margin-top: 10px;
+	}
+}
+.filter-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+}
+.filter-container select {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 2px;
+	margin: 0;
+	font-size: 1em;
+}
+@media only screen and (max-width: 640px) {
+	.filter-container {
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		height: auto;
+	}
+	.filter-container select {
+		margin-left: 10px;
+	}
+}

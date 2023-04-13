@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Identified datasets with errors</title>
+	<!-- Include jQuery library -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- Include DataTables library -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+	<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+	<!-- Include ColumnFilter plugin -->
+	<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.11.3/features/searchHighlight/dataTables.searchHighlight.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/plug-ins/1.11.3/features/searchHighlight/dataTables.searchHighlight.css">
+	<link rel="stylesheet" type="text/css" href="css/dataTables.filter.css">
+</head>
+
+<body>
+	<h1>Identified datasets with errors</h1>
+	<table id="issues" class="display" style="width:100%">
+		<thead>
+			<tr>
+				<th>Variable<br><select class="column-filter"></select></th>
+				<th>TableID<br><select class="column-filter"></select></th>
+				<th>Experiment<br><select class="column-filter"></select></th>
+				<th>Model version<br><select class="column-filter"></select></th>
+				<th>Issue Link<br><select class="column-filter"></select></th>
+				<th>Status<br><select class="column-filter"></select></th>
+				<th>null<br><select class="column-filter"></select></th>
+			</tr>
+		</thead>
+		<tbody>
+	        <!-- ADD NEW ENTRY RIGHT BELOW HERE-->
+	        <!-- USE PREVIOUS ONES AS TEMPLATE-->
+			<tr>
+				<td>fLuc</td>
+				<td>Lmon</td>
+				<td>historical</td>
+				<td>NorESM2-LM</td>
+				<td><a href="https://github.com/NorESMhub/noresm2cmor/issues/319">#319</a></td>
+			  	<td>open</td>
+			  	<td></td>
+			</tr>
+			<tr>
+			  	<td>fHarvest</td>
+			  	<td>Lmon</td>
+			  	<td>historical</td>
+			  	<td>NorESM2-LM</td>
+			  	<td><a href="https://github.com/NorESMhub/noresm2cmor/issues/319">#319</a></td>
+			  	<td>open</td>
+			  	<td></td>
+			</tr>
+			<tr>
+			  	<td>wap</td>
+			  	<td>6hrPlev</td>
+			  	<td>ssp585, *</td>
+			  	<td>NorESM2-LM</td>
+			  	<td><a href="https://github.com/NorESMhub/noresm2cmor/issues/316">#316</a></td>
+			  	<td>closed</td>
+			  	<td></td>
+			</tr>
+			<tr>
+			  	<td>co2</td>
+			  	<td>AERmon</td>
+			  	<td>piControl, *</td>
+			  	<td>NorESM2-LM</td>
+			  	<td><a href="https://github.com/NorESMhub/noresm2cmor/issues/315">#315</a></td>
+			  	<td>open</td>
+			  	<td></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th>Variable</th>
+				<th>TableID</th>
+				<th>Experiment</th>
+				<th>Model version</th>
+				<th>Issue Link</th>
+				<th>Status</th>
+				<th>null</th>
+			</tr>
+		</tfoot>
+	</table>
+
+<script type="text/javascript" src="js/dataTables.filter.js"></script>
+
+</body>
+</html>
