@@ -854,7 +854,7 @@ tAERday        = 'CMIP6_AERday.json',
 rAERday        = 1000000,
 vAERday        =
                  'cod       ','TAUTMODIS/CLTMODIS','Dfield2',
-                 'od550aer  ','DOD550/DAYFOC','unitless;dayfoc',
+                 'od550aer  ','DOD550       ','unitless;dayfoc',
                  'ua10      ','U010         ','         ',
                  'va10      ','V010         ','         ',
                  'zg10      ','Z010         ','         ',
