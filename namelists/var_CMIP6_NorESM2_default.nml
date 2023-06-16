@@ -516,8 +516,8 @@
                  'reffclwtop   ','REFFCLWMODIS/CLWMODIS     ','Dfield2   ',
                  'rlutaf       ','FLNT_DRF                  ','positiveup',
                  'rlutcsaf     ','FLNTCDRF                  ','positiveup',
-                 'rsutaf       ','FSNT_DRF                  ','positiveup',
-                 'rsutcsaf     ','FSNTCDRF                  ','positiveup',
+                 'rsutaf       ','FSNT_DRF-FSNT             ','positiveup',
+                 'rsutcsaf     ','FSNTCDRF-FSNTC            ','positiveup',
                  'so2          ','SO2                       ','          ',
                  'ua           ','U                         ','          ',
                  'va           ','V                         ','          ',
@@ -575,7 +575,7 @@
                  'fFireNat           ','COL_FIRE_CLOSS                              ','kg m-2 s-1',
                  'fHarvestToProduct  ','WOOD_HARVESTC                               ','kg m-2 s-1',
                  'fLitterFire        ','LITFIRE                                     ','kg m-2 s-1',
-                 'fLuc               ','LAND_USE_FLUX                               ','kg m-2 s-1;positiveup',
+                 'fLuc               ','DWT_CONV_CFLUX+TOT_WOODPRODC_LOSS           ','kg m-2 s-1;positiveup',
                  'fN2O               ','F_N2O_DENIT+F_N2O_NIT                       ','kg m-2 s-1;positiveup',
                  'fNOx               ','SMIN_NO3_LEACHED+SMIN_NO3_RUNOFF            ','kg m-2 s-1;positiveup',
                  'fNProduct          ','DWT_WOODPRODN_GAIN+DWT_CROPPROD1N_GAIN      ','kg m-2 s-1',
@@ -731,7 +731,7 @@
                  'evspsblsoi   ','QSOIL                 ','          ',
                  'evspsblveg   ','QVEGE                 ','          ',
                  'fFire        ','COL_FIRE_CLOSS        ','kg m-2 s-1;positiveup',
-                 'fHarvest     ','WOOD_HARVESTC         ','kg m-2 s-1;positiveup',
+                 'fHarvest     ','CROPPROD1C_LOSS       ','kg m-2 s-1;positiveup',
                  'fLitterSoil  ','LITR1C_TO_SOIL1C+LITR2C_TO_SOIL1C+LITR3C_TO_SOIL2C','kg m-2 s-1',
                  'fVegLitter   ','LITFALL               ','kg m-2 s-1',
                  'gpp          ','GPP                   ','kg m-2 s-1',
@@ -982,8 +982,8 @@ vCFday         =
                  'ua          ','U             ','          ',
                  'va          ','V             ','          ',
 ! not available in output, thus not tested
-!                'bs550aer    ','BS550AER/DAYFOC','DAYFOC   ',
-!                'ec550aer    ','EC550AER/DAYFOC','DAYFOC   ',
+!                'bs550aer    ','BS550AER      ','DAYFOC   ',
+!                'ec550aer    ','EC550AER      ','DAYFOC   ',
 /
 
 &table_6hrplev
@@ -1098,7 +1098,7 @@ vCFday         =
 !                'rsdscsaf      ','FSDS_DRF        ','positivedo   ',
 !                'rsucsaf       ','FUSCDRF         ','positiveup   ',
 !                'rsuscsaf      ','FSDSCDRF-FSNSCDRF','positiveup  ',
-!                'rsutcsaf      ','FSNTCDRF        ','positiveup   ',
+!                'rsutcsaf      ','FSNTCDRF-FSNTC  ','positiveup   ',
 !                'cfadDbze94    ','CFAD_DBZE94_CS  ','             ',
 !                'cfadLidarsr532','CFAD_SR532_CAL  ','             ',
 !                'clcalipso     ','CLD_CAL         ','             ',
