@@ -10,6 +10,10 @@
     #exit 1
 #fi
 
+## load CDO
+module purge
+module load CDO/1.9.8-intel-2019b
+
 if [ $# -eq 0 ] || [ $1 == "--help" ] 
 then
     printf "Usage:\n"
