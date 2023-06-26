@@ -7,16 +7,19 @@ source ${CMOR_ROOT}/workflow/cmorRun1memb.sh
 login0=false
 login1=false
 login2=false
+login3=false
 
 # set active
-login0=true
-login1=true
-login2=true
+#login0=true
+#login1=true
+#login2=true
+login3=true
 
 # initialize
 #version=v20190920
 #version=v20191108b
 version=v20200217
+version=v20230616
 
 expid=piControl
 model=NorESM2-LM
@@ -97,6 +100,32 @@ years1+=($(seq 2001 10 2091))
 years2+=($(seq 2010 10 2100))
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+#---
+fi
+#---
+
+if $login3
+then
+#----------------
+# piControl, physics 4
+#----------------
+CaseName=N1850_f19_tn14_Forces_230512
+real=1
+physics=4
+forcing=1
+init=1
+#years1=(1601 $(seq 1610 10 1890) 1900)
+#years2=(1609 $(seq 1619 10 1899) 1901)
+#years1=($(seq 1690 10 1700))
+#years2=($(seq 1699 10 1709))
+#years1+=($(seq 1750 10 1820))
+#years2+=($(seq 1759 10 1829))
+years1+=($(seq 1840 10 1890))
+years2+=($(seq 1849 10 1899))
+years1+=(1900)
+years2+=(1901)
+
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -f=$forcing -i=$init -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---

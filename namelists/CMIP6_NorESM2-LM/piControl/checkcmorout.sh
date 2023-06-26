@@ -15,5 +15,8 @@ years2+=($(seq 1910 10 2000))
 years1+=($(seq 2001 10 2091))
 years2+=($(seq 2010 10 2100))
 
-${CMOR_ROOT}/workflow/cmorCheck.sh -v=$version -e=$expid -m=$model -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+years1=(1601 $(seq 1610 10 1890) 1900)
+years2=(1609 $(seq 1619 10 1899) 1900)
+
+${CMOR_ROOT}/workflow/cmorCheck.sh -v=$version -e=$expid -m=$model -o=$cmorout -yrs1="${years1[*]}" -yrs2="${years2[*]}"
 
