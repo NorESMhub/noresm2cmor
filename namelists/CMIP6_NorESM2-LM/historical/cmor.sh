@@ -8,12 +8,14 @@ login0=false
 login1=false
 login2=false
 login3=false
+login4=false
 
 # set active
-login0=true
+#login0=true
 #login1=true
 #login2=true
 #login3=true
+login4=true
 
 # initialize
 #version=v20190815
@@ -25,6 +27,7 @@ login0=true
 #version=v20191108b
 #version=v20200218
 version=v20210119
+version=v20230616
 
 expid=historical
 model=NorESM2-LM
@@ -138,7 +141,27 @@ real=3
 years1=($(seq 1950 10 2000) 2010)
 years2=($(seq 1959 10 2009) 2014)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -f=$forcing -i=$init -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+#---
+fi
+#---
+
+if $login4
+then
+#----------------
+# historical, physics 4
+#----------------
+CaseName=NHIST_f19_tn14_Forces_230515
+real=1
+physics=4
+forcing=1
+init=1
+years1=(1850 $(seq 1860 10 2000) 2010)
+years2=(1859 $(seq 1869 10 2009) 2014)
+years1=($(seq 1910 10 2000) 2010)
+years2=($(seq 1919 10 2009) 2014)
+
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -f=$forcing -i=$init -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---
