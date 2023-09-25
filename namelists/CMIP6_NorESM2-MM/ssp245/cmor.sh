@@ -9,12 +9,13 @@ login1=false
 
 # set active
 login0=true
-login1=true
+#login1=true
 
 # initialize
 #version=v20191108
 #version=v20200218
 version=v20200702
+version=v20230616
 
 expid=ssp245
 model=NorESM2-MM
@@ -62,6 +63,9 @@ then
 #----------------
 CaseName=NSSP245frc2_f09_tn14_20191105
 real=1
+physics=1
+forcing=1
+init=1
 years1=(2015 $(seq 2021 10 2091))
 years2=(2020 $(seq 2030 10 2100))
 
@@ -79,6 +83,8 @@ then
 CaseName=NSSP245frc2_02_f09_tn14_20200629
 real=2
 physics=1
+forcing=1
+init=1
 years1=(2014 $(seq 2021 10 2091))
 years2=(2020 $(seq 2030 10 2100))
 
