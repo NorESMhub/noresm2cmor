@@ -23,6 +23,7 @@ login5=true
 #version=v20191108
 #version=v20200218
 version=v20200702
+version=v20230616
 
 expid=historical
 model=NorESM2-MM

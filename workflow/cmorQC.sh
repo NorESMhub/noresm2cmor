@@ -39,6 +39,8 @@ fi
 [ -z $errexit ] && errexit=true
 
 # ENV for PrePARE
+eval "$(conda shell.bash hook)"
+conda activate /projects/NS9560K/cmor/PrePARE
 export PATH=${PATH}:/projects/NS9560K/cmor/PrePARE/bin
 export CMIP6_CMOR_TABLES=/projects/NS9560K/cmor/noresm2cmor/tables
 

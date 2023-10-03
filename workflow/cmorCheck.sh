@@ -64,16 +64,26 @@ for (( r = 0; r < ${#variants[*]}; r++ )); do
         let nfs+=$nf
     done
     printf "\e[1;33mTotal:\t\t$nfs\e[0m\n"
+    nfs=''
+
+    nfs=$(ls ${cmoroutroot}/${model}/${expid}/${version}/*_${variant}_*.nc 2>/dev/null |wc -l)
+    printf "\e[1;33mTotal ${variant}:\t$nfs\e[0m\n"
+
     sha256root=$(find ${cmoroutroot}/../*/NCC/${model}/${expid} -maxdepth 0 -type d 2>/dev/null)
     if [ -d $sha256root ]; then
-        wl=$(cat ${sha256root}/.${variant}.sha256sum_${version} |wc -l)
+        wl=$(cat ${sha256root}/.${variant}.sha256sum_${version} 2>/dev/null |wc -l)
     fi
+
     if [ -n $wl ];then
         if [ $wl -ne $nfs ];then
             printf "\e[1;31;47mShasum lines:\t$wl \e[0m \n"
+            if [ ! -e ${sha256root}/.${variant}.sha256sum_${version} ]; then
+              printf "\e[1;31;47m(.${variant}.sha256sum_${version} NOT found)\e[0m\n"
+            fi
         else
             printf "Shasum lines:\t$wl\n"
         fi
+        printf "\n"
     fi
     wl=''
 

@@ -10,8 +10,8 @@ login2=false
 login3=false
 
 # set active
-login0=true
-#login1=true
+#login0=true
+login1=true
 #login2=true
 #login3=true
 
@@ -19,6 +19,7 @@ login0=true
 #version=v20190920
 #version=v20191108b
 version=v20200218
+version=v20230616
 
 expid=esm-hist
 model=NorESM2-LM
@@ -70,6 +71,26 @@ years1=($(seq 1850 10 2000) 2010)
 years2=($(seq 1859 10 2009) 2014)
 
 runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+#---
+fi
+#---
+
+if $login1
+then
+#----------------
+# part 1
+#----------------
+CaseName=NHIST_1901_f19_tn14_20230201esm
+real=2
+physics=1
+forcing=1
+init=1
+years1=(1850 $(seq 1860 10 2000) 2010)
+years2=(1859 $(seq 1869 10 2009) 2014)
+years1=($(seq 1940 10 2000) 2010)
+years2=($(seq 1949 10 2009) 2014)
+
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -f=$forcing -i=$init -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
 #---
 fi
 #---

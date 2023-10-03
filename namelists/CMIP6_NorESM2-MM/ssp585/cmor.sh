@@ -11,10 +11,12 @@ login3=false
 
 # set active
 login0=true
+login1=true
 
 # initialize
 #version=v20191108
 version=v20200218
+version=v20230616
 
 expid=ssp585
 model=NorESM2-MM
@@ -60,7 +62,26 @@ then
 #----------------
 # ssp585
 #----------------
-#CaseName=NSSP585frc2_f09_tn14_20191105
+CaseName=NSSP585frc2_f09_tn14_20191105
+real=1
+years1=(2015 $(seq 2021 10 2091))
+years2=(2020 $(seq 2030 10 2100))
+
+years1=(2031 $(seq 2051 10 2091))
+years2=(2040 $(seq 2060 10 2100))
+
+
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+
+#---
+fi
+#---
+
+if $login1
+then
+#----------------
+# ssp585, more high frequency outptu for FLEXPART
+#----------------
 CaseName=NSSP585frc2_f09_tn14_20200919
 real=1
 years1=(2015 $(seq 2021 10 2091))
