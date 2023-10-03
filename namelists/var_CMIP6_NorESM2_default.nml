@@ -516,8 +516,8 @@
                  'reffclwtop   ','REFFCLWMODIS/CLWMODIS     ','Dfield2   ',
                  'rlutaf       ','FLNT_DRF                  ','positiveup',
                  'rlutcsaf     ','FLNTCDRF                  ','positiveup',
-                 'rsutaf       ','FSNT_DRF                  ','positiveup',
-                 'rsutcsaf     ','FSNTCDRF                  ','positiveup',
+                 'rsutaf       ','FSNT_DRF-FSNT             ','positiveup',
+                 'rsutcsaf     ','FSNTCDRF-FSNTC            ','positiveup',
                  'so2          ','SO2                       ','          ',
                  'ua           ','U                         ','          ',
                  'va           ','V                         ','          ',
@@ -982,8 +982,8 @@ vCFday         =
                  'ua          ','U             ','          ',
                  'va          ','V             ','          ',
 ! not available in output, thus not tested
-!                'bs550aer    ','BS550AER/DAYFOC','DAYFOC   ',
-!                'ec550aer    ','EC550AER/DAYFOC','DAYFOC   ',
+!                'bs550aer    ','BS550AER      ','DAYFOC   ',
+!                'ec550aer    ','EC550AER      ','DAYFOC   ',
 /
 
 &table_6hrplev
@@ -1098,7 +1098,7 @@ vCFday         =
 !                'rsdscsaf      ','FSDS_DRF        ','positivedo   ',
 !                'rsucsaf       ','FUSCDRF         ','positiveup   ',
 !                'rsuscsaf      ','FSDSCDRF-FSNSCDRF','positiveup  ',
-!                'rsutcsaf      ','FSNTCDRF        ','positiveup   ',
+!                'rsutcsaf      ','FSNTCDRF-FSNTC  ','positiveup   ',
 !                'cfadDbze94    ','CFAD_DBZE94_CS  ','             ',
 !                'cfadLidarsr532','CFAD_SR532_CAL  ','             ',
 !                'clcalipso     ','CLD_CAL         ','             ',
