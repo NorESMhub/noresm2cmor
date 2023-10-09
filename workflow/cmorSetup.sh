@@ -135,7 +135,8 @@ if $noncmip; then
     [ ! -d tables ]   && mkdir tables
     for fname in $(ls ../../../tables/CMIP6_*.json)
     do
-        [ ! -f tables/$fname ] && ln -sf ../$fname tables/
+        bname=$(basename $fname);
+        [ ! -f tables/$bname ] && ln -s ../$fname tables/
     done
 fi
 
