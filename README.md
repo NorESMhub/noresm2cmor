@@ -29,14 +29,19 @@ cd noresm2cmor/build/
 ```
 
 Make a copy of Makefile.nird_intel - e.g., Makefile.xxx - and customize 
-your make file. IMPORTANT: The build of noresm2cmor requires the fortran version 
-of the cmor-library (see https://pcmdi.github.io/cmor-site/download.htm for 
-download instructions).  
+your make file.
 
-Build with
+**IMPORTANT**:
+
+The build of noresm2cmor requires the fortran version of the cmor-library. The CMOR-related libraries are currently installed on NIRD under: `/projects/NS9560K/cmor/cmorlib`. The `Makefile.xxx` has by default linked to this installed library. For example, `Makefile_cmor3mpi.nird_intel` has linked to the installed CMOR libbries compiled with the `Intel` compiler, at `/projects/NS9560K/cmor/cmorlib/nird_intel`.
+
+If you are going to build the CMOR dependent libraries by yourself, instead of using the installed one on NIRD, please refer to CMOR documentation for installation, here](https://cmor.llnl.gov/mydoc_cmor3_github) for more instructions.
+
+Build the `noresm2cmor` with Makefile, for example,
 ```
- make –f Makefile.xxx 
+ make -f Makefile_cmor3mpi.nird_intel
 ```
+, using Intel compiler and with MPI enabled.
 
 ### 2.3 Installation of grid data and sample input (use only if data not available)
 
