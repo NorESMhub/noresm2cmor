@@ -19,10 +19,17 @@ git clone -b noncmip https://github.com/NorESMhub/noresm2cmor
 Build 
 ```bash
 cd noresm2cmor/build/  
-# use Intel compiler
+
+## use Intel compiler
+# you may need to load the Intel compiler first,
+# e.g.,
+# module load intel/2022a
+
 make -f Makefile_cmor3mpi.nird_intel
 
 # or GNU compiler
+# (the gfortran compiler should be alreay in your search path)
+
 # make -f Makefile_cmor3mpi.nird_gnu
 ```
 

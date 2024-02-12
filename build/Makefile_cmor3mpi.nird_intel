@@ -9,6 +9,7 @@ SRCDIR=../source
 BINDIR=../bin
 
 # Fortran compiler
+# module load intel/2022a
 FC=mpiifort
 # old intel mpi compiler does not work; may need to rebuild the libraries with old intel compilder
 #FC=/opt/intel-2017/compilers_and_libraries_2017.4.196/linux/mpi/intel64/bin/mpiifort
