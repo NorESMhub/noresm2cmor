@@ -2614,7 +2614,7 @@ c --- Define output variable
      .                     //'separately in "zfull" '
      .                     //'and "zhalf" while approximate layer '
      .                     //'density values are stored together '
-     .                     //'with "msftmrhoz". '//TRIM(vcomment))
+     .                     //'with "msftmrho". '//TRIM(vcomment))
         ELSEIF (vtype(1:4).EQ.'merd'.OR.vtype(1:4).EQ.'merk') THEN
           varid=cmor_variable(
      .      table          = TRIM(tablepath),
