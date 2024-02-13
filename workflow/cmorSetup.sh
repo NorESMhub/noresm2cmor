@@ -141,8 +141,16 @@ if $noncmip; then
 fi
 
 expnmltemp=$(ls $CMOR_ROOT/namelists/CMIP6_${model}/${expidref}/template/exp.nml 2>/dev/null | tail -1 |cat)
+echo $expnmltemp
 if [ -z $expnmltemp ]; then
+    expnmltemp=$(ls /projects/NS9560K/cmor/noresm2cmor/namelists/CMIP6_${model}/${expidref}/template/exp*.nml |head -1)
+else
     expnmltemp=$(ls $CMOR_ROOT/namelists/CMIP6_${model}/${expidref}/template/exp*.nml |head -1)
+fi
+if [ -z $expnmltemp ]; then
+  echo "** NOT find the reference experiment $expidref **"
+  echo "**               EXIT                          **"
+  exit 1
 fi
 #[ ! -f template/exp_${casename}.nml ] && \
 cp $expnmltemp template/exp_${casename}.nml |cat
