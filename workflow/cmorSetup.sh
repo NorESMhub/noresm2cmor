@@ -135,13 +135,22 @@ if $noncmip; then
     [ ! -d tables ]   && mkdir tables
     for fname in $(ls ../../../tables/CMIP6_*.json)
     do
-        [ ! -f tables/$fname ] && ln -s ../$fname tables/
+        bname=$(basename $fname);
+        [ ! -f tables/$bname ] && ln -s ../$fname tables/
     done
 fi
 
 expnmltemp=$(ls $CMOR_ROOT/namelists/CMIP6_${model}/${expidref}/template/exp.nml 2>/dev/null | tail -1 |cat)
+echo $expnmltemp
 if [ -z $expnmltemp ]; then
+    expnmltemp=$(ls /projects/NS9560K/cmor/noresm2cmor/namelists/CMIP6_${model}/${expidref}/template/exp*.nml |head -1)
+else
     expnmltemp=$(ls $CMOR_ROOT/namelists/CMIP6_${model}/${expidref}/template/exp*.nml |head -1)
+fi
+if [ -z $expnmltemp ]; then
+  echo "** NOT find the reference experiment $expidref **"
+  echo "**               EXIT                          **"
+  exit 1
 fi
 #[ ! -f template/exp_${casename}.nml ] && \
 cp $expnmltemp template/exp_${casename}.nml |cat
@@ -163,6 +172,7 @@ cp $CMOR_ROOT/namelists/var_CMIP6_NorESM2_default.nml $version/var.nml
 sed -i "s~ibasedir * = '.*',~ibasedir      = '${ibasedir}',~g" ${version}/sys.nml
 sed -i "s~obasedir * = '.*',~obasedir      = '${obasedir}',~g" ${version}/sys.nml
 sed -i "s~griddata * = '.*',~griddata      = '/projects/NS9560K/cmor/griddata',~g" ${version}/sys.nml
+sed -i "s~tabledir * = '.*',~tabledir      = '../namelists/CMIP6_${model}/${expid}/tables',~g" ${version}/sys.nml
 sed -i "s/forcefilescan * = .*.,/forcefilescan = .false.,/g" ${version}/sys.nml
 
 # split years
@@ -189,6 +199,11 @@ sed -i "s/^physics=.*/physics=${physics}/" cmor_${casename}.sh
 sed -i "s/^forcing=.*/forcing=${forcing}/" cmor_${casename}.sh
 sed -i "s/^init=.*/init=${init}/" cmor_${casename}.sh
 sed -i "s/^parallel=.*/parallel=${parallel}/" cmor_${casename}.sh
+
+if $noncmip; then
+    sed -i "/# PrePARE QC check, create links and update sha256sum/d" cmor_${casename}.sh
+    sed -i "/#\${CMOR_ROOT}\/workflow\/cmorPost.sh/d" cmor_${casename}.sh
+fi
 
 if [ $dyr -le 10 ]
 then

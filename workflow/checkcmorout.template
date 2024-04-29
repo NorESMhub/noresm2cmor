@@ -7,5 +7,5 @@ source $CMOR_ROOT/workflow/cmorParse.sh
 years1=(year11 $(seq year12 10 year13) year14)
 years2=(yearn1 $(seq yearn2 10 yearn3) yearn4)
 
-${CMOR_ROOT}/workflow/cmorCheck.sh -v=$version -e=$expid -m=$model -o=$cmorout -yrs1="${years1[*]}" -yrs2="${years2[*]}"
+${CMOR_ROOT}/workflow/cmorCheck.sh -v=$version -e=$expid -m=$model -o=$cmoroutroot -yrs1="${years1[*]}" -yrs2="${years2[*]}"
 
