@@ -32,5 +32,7 @@
    v20210811 -> "v20210818" [style=dashed;penwidth=2.0;label="fix #286"];
    v20210818 -> "v20210908" [style=dashed;penwidth=2.0;label="add snowmxrat for Emon and 6hrPlevPt"];
    v20210908 -> "v20221027" [style=dashed;penwidth=2.0;label="fixed missing values for historical r2i1p1f1 6hrLev"];
-   v20221027 -> "next release" [style=dashed;penwidth=2.0;label="trunk"];
+   v20221027 -> "v20221130" [style=dashed;penwidth=2.0;label="#109"];
+   v20221130 -> "20230616" [style=dashed;penwidth=2.0;label="3-hourly data; other fix;#340, #41, #324, #319, #312"];
+   v20230616 -> "next release" [style=dashed;penwidth=2.0;label="trunk"];
  }
