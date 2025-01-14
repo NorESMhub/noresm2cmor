@@ -28,13 +28,14 @@ login7=true
 #version=v20191009
 #version=v20191018
 #version=v20191108b
-version=v20200218
+#version=v20200218
+version=v20230616
 
 expid=pdSST-pdSIC
 model=NorESM2-LM
 
-#system=NS2345K
-system=NS2345K2
+system=NS2345K
+#system=NS2345K2
 
 # --- Use input arguments if exits
 if [ $# -ge 1 ] 

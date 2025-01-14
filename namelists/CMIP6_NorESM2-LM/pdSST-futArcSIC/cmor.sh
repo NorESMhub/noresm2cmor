@@ -28,7 +28,8 @@ login7=true
 #version=v20191009
 #version=v20191018
 #version=v20191108b
-version=v20200218
+#version=v20200218
+version=v20230616
 
 expid=pdSST-futArcSIC
 model=NorESM2-LM

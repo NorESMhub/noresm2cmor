@@ -175,8 +175,6 @@
                  'zos           ','sealv            ','           ',
                  'zossq         ','slvsq            ','           ',
                  'zostoga       ','temp             ','t2zostoga  ',
-! not available in output, thus not tested
-!                'sfdsi         ','fsalt_ai         ','           ',
 /
 
 &table_omonbgc
