@@ -413,7 +413,7 @@
                  'mc               ','CMFMC+CMFMCDZM       ','positiveup',
                  'n2oglobal        ','n2ovmr               ','unitless  ',
                  'o3               ','ozone                ','          ',
-!                'pr               ','PRECC+PRECL          ','kg m-2 s-1',
+                 'pr               ','PRECC+PRECL          ','kg m-2 s-1',
                  'pr               ','PRECT                ','kg m-2 s-1',
                  'prc              ','PRECC                ','kg m-2 s-1',
                  'prsn             ','PRECSC+PRECSL        ','kg m-2 s-1',
