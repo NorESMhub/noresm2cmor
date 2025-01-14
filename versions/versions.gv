@@ -27,11 +27,12 @@
    v20201001 -> v20210203 [penwidth=1.0,style=dashed,weigth="1",label="iLAMB and zg500 (#262,#263, #251)"];
    v20210203 -> v20210218 [style=dashed,penwidth=1.0,weigth="1",label="merge"];
    v20210218 -> v20210319 [style=solid,penwidth=2.0,weigth="1",label="fix #269 #270 #271 #272 #273"];
-   v20210319 -> "v20210521" [style=dashed;penwidth=2.0;label="fix #280"];
-   v20210521 -> "v20210811" [style=dashed;penwidth=2.0;label="fix #281,#282,#299"];
-   v20210811 -> "v20210818" [style=dashed;penwidth=2.0;label="fix #286"];
-   v20210818 -> "v20210908" [style=dashed;penwidth=2.0;label="add snowmxrat for Emon and 6hrPlevPt"];
-   v20210908 -> "v20221027" [style=dashed;penwidth=2.0;label="fixed missing values for historical r2i1p1f1 6hrLev"];
-   v20221027 -> "v20230616" [style=dashed;penwidth=2.0;label="add 3hr precip.data"];
-   v20230616 -> "next release" [style=dashed;penwidth=2.0;label="trunk"];
+   v20210319 -> "v20210521" [style=solid;penwidth=2.0;label="fix #280"];
+   v20210521 -> "v20210811" [style=solid;penwidth=2.0;label="fix #281,#282,#299"];
+   v20210811 -> "v20210818" [style=solid;penwidth=2.0;label="fix #286"];
+   v20210818 -> "v20210908" [style=solid;penwidth=2.0;label="add snowmxrat for Emon and 6hrPlevPt"];
+   v20210908 -> "v20221027" [style=solid;penwidth=2.0;label="fixed missing values for historical r2i1p1f1 6hrLev"];
+   v20221027 -> "v20230616" [style=solid;penwidth=2.0;label="add 3hr precip.data"];
+   v20230616 -> "v20250113" [style=dashed;penwidth=1.0;label="cmor MM amip Amon"];
+   v20230616 -> "next release" [style=solid;penwidth=2.0;label="trunk"];
  }
