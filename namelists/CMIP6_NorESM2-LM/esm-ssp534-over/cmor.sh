@@ -9,7 +9,7 @@ login1=false
 
 # set active
 #login0=true
-#login1=true
+login1=true
 
 # initialize
 version=v20230616
@@ -65,7 +65,7 @@ init=1
 years1=(2015 $(seq 2020 10 2090) 2100)
 years2=(2019 $(seq 2029 10 2099) 2100)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -f=$forcing -i=$init -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -f=$forcing -i=$init -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=UMPI
 #---
 fi
 #---
@@ -82,10 +82,8 @@ forcing=1
 init=1
 years1=(2101 $(seq 2110 10 2280) 2290)
 years2=(2109 $(seq 2119 10 2289) 2299)
-years1=(2270 2280 2290)
-years2=(2279 2289 2299)
 
-runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -f=$forcing -i=$init -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=DMPI
+runcmor -c=$CaseName -m=$model -e=$expid -v=$version -r=$real -p=$physics -f=$forcing -i=$init -yrs1="${years1[*]}" -yrs2="${years2[*]}" -mpi=UMPI
 #---
 fi
 #---
