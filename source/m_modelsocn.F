@@ -1530,7 +1530,7 @@ c --- - Average over upper 300 m
                   fldtmp(i,j,k)= (min(300.,pdepth(i,j),depth_bnds(2,k))
      .                           -min(300.,pdepth(i,j),depth_bnds(1,k)))
      .                           *pbot(i,j)/pdepth(i,j)
-                  fld(i,j,k)=fld(i,j,k-1)+fld(i,j,k)*fldtmp(i,j,k)
+                  fld(i,j,1)=fld(i,j,1)+fld(i,j,k)*fldtmp(i,j,k)
                   fldtmp(i,j,1)=fldtmp(i,j,1)+fldtmp(i,j,k)
                 ENDIF
               ENDDO
@@ -1555,7 +1555,7 @@ c --- - Average over upper 700 m
                   fldtmp(i,j,k)= (min(700.,pdepth(i,j),depth_bnds(2,k))
      .                           -min(700.,pdepth(i,j),depth_bnds(1,k)))
      .                           *pbot(i,j)/pdepth(i,j)
-                  fld(i,j,k)=fld(i,j,k-1)+fld(i,j,k)*fldtmp(i,j,k)
+                  fld(i,j,1)=fld(i,j,1)+fld(i,j,k)*fldtmp(i,j,k)
                   fldtmp(i,j,1)=fldtmp(i,j,1)+fldtmp(i,j,k)
                 ENDIF
               ENDDO
@@ -1580,7 +1580,7 @@ c --- - Average over upper 2000 m
                   fldtmp(i,j,k)= (min(2000.,pdepth(i,j),depth_bnds(2,k))
      .                          -min(2000.,pdepth(i,j),depth_bnds(1,k)))
      .                           *pbot(i,j)/pdepth(i,j)
-                  fld(i,j,k)=fld(i,j,k-1)+fld(i,j,k)*fldtmp(i,j,k)
+                  fld(i,j,1)=fld(i,j,1)+fld(i,j,k)*fldtmp(i,j,k)
                   fldtmp(i,j,1)=fldtmp(i,j,1)+fldtmp(i,j,k)
                 ENDIF
               ENDDO
