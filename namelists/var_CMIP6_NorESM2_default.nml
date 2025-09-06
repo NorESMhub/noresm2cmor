@@ -634,7 +634,7 @@
                  'reffclws           ','REFFL                                       ','cldfoc;micrometer',
                  'rhLut              ','rhLut                                       ','          ',
                  'rlusLut            ','rlusLut                                     ','positiveup',
-                 'rsdsdiff           ','SWCF                                        ','positivedo',
+                 'rsdsdiff           ','SOLLD+SOLSD                                 ','positivedo',
                  'rsusLut            ','rsusLut                                     ','positiveup',
                  'sconcdust          ','DUST                                        ','          ',
                  'sconcso4           ','SO4                                         ','          ',
