@@ -1,9 +1,0 @@
-&sys
- ibasedir      = '/projects/NS9600K/evelievd/noresm/cases',
- obasedir      = '/scratch/mdeb/cmorout',
- griddata      = '/projects/NS9560K/cmor/griddata',
- tabledir      = '../tables',
- createsubdirs = .false.,
- forcefilescan = .false.,  
- verbose       = .true.,
-/
