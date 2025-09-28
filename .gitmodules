@@ -1,0 +1,3 @@
+[submodule "CMIP7-CVs"]
+	path = CMIP7-CVs
+	url = git@github.com:WCRP-CMIP/CMIP7-CVs.git

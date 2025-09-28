@@ -2,7 +2,7 @@
 
 **************************************************************************************************
 
-** This verion is now under development for CMIP7, and the following documentation is out-dated **
+**This version is now under development for CMIP7, and the following documentation is out-dated**
 
 **************************************************************************************************
 
