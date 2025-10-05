@@ -15,13 +15,13 @@ FC=ifx
 LD=$(FC)
 
 # Libraries
-CMORLIB=/nird/datalake/NS16000B/CMOR/cmorlib3.12.0-intel
+CMORLIB=/diagnostics/CMOR/cmorlib3.12.0-intel
 
 # Directory list to search for library files
-LIBS=-L$(CMORLIB)/lib  -lcmor -lnetcdff -lnetcdf -luuid -ludunits2 -ljson-c -l:libexpat.so
+LIBS=-L$(CMORLIB)/lib -lcmor -lnetcdff -lnetcdf -luuid -ludunits2 -ljson-c -l:libexpat.so
 
 # Compiler flags
-FFLAGS=-O2 -r8 -I$(SRCDIR) -I$(CMORLIB)/include -DCMOR3 -DDEFLATE
+FFLAGS=-O2 -I$(SRCDIR) -I$(CMORLIB)/include -DCMOR3 -DDEFLATE -r8 
 
 # Linker flags
 LDFLAGS=$(LIBS) -g 
