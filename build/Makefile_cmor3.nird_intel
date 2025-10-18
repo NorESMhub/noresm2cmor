@@ -9,7 +9,7 @@ SRCDIR=../source
 BINDIR=../bin
 
 # Fortran compiler
-FC=ifort
+FC=ifx
 
 # Linker
 LD=$(FC)
