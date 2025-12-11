@@ -100,7 +100,7 @@ fi
 ulimit -c 0
 ulimit -s unlimited
 module purge
-module load intel/2019b
+module load intel/2022a
 export PATH=/usr/lib64/openmpi/bin:$PATH
 cwd=$(pwd)
 

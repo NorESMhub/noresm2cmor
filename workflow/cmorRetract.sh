@@ -87,7 +87,7 @@ find /projects/NS9034K/CMIP6/${activity}/NCC/${model}/${expid}/r?i?p?f? -empty -
 
 # redo post-prepparation
 if $postflag;then
-    cmorPost.sh -m=$model -e=$expid -v=$newversion --verbose=false --errexit=false
+    ./cmorPost.sh -m=$model -e=$expid -v=$newversion --verbose=false --errexit=false
 fi
 
 echo "cmorRetract for $model $expid done!"

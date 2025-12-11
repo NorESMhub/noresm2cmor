@@ -88,7 +88,9 @@ fi
 # ==========================================================
 ulimit -c 0
 ulimit -s unlimited
-source /opt/intel/compilers_and_libraries/linux/bin/compilervars.sh -arch intel64 -platform linux
+module purge
+module load intel/2022a
+export PATH=/usr/lib64/openmpi/bin:$PATH
 cwd=$(pwd)
 
 cd ${CMOR_ROOT}/bin

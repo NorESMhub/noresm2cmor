@@ -175,8 +175,6 @@
                  'zos           ','sealv            ','           ',
                  'zossq         ','slvsq            ','           ',
                  'zostoga       ','temp             ','t2zostoga  ',
-! not available in output, thus not tested
-!                'sfdsi         ','fsalt_ai         ','           ',
 /
 
 &table_omonbgc
@@ -415,7 +413,7 @@
                  'mc               ','CMFMC+CMFMCDZM       ','positiveup',
                  'n2oglobal        ','n2ovmr               ','unitless  ',
                  'o3               ','ozone                ','          ',
-!                'pr               ','PRECC+PRECL          ','kg m-2 s-1',
+                 'pr               ','PRECC+PRECL          ','kg m-2 s-1',
                  'pr               ','PRECT                ','kg m-2 s-1',
                  'prc              ','PRECC                ','kg m-2 s-1',
                  'prsn             ','PRECSC+PRECSL        ','kg m-2 s-1',
@@ -636,7 +634,7 @@
                  'reffclws           ','REFFL                                       ','cldfoc;micrometer',
                  'rhLut              ','rhLut                                       ','          ',
                  'rlusLut            ','rlusLut                                     ','positiveup',
-                 'rsdsdiff           ','SWCF                                        ','positivedo',
+                 'rsdsdiff           ','SOLLD+SOLSD                                 ','positivedo',
                  'rsusLut            ','rsusLut                                     ','positiveup',
                  'sconcdust          ','DUST                                        ','          ',
                  'sconcso4           ','SO4                                         ','          ',
